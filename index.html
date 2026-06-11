@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>科技供應鏈知識庫 · Tech Supply Chain KB</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">供應鏈<span class="mk">·</span>知識庫</a>
+    <nav class="top">
+      <a href="#cycles">週期</a>
+      <a href="#companies">公司</a>
+      <a href="#parts">零件</a>
+      <a href="reference/glossary.html">術語表</a>
+      <a href="reference/frameworks.html">分析框架</a>
+      <a href="reference/updates.html">更新日誌</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="kicker">Tech Supply Chain Research</div>
+    <h1>科技供應鏈知識庫</h1>
+    <p class="lede">以「週期 / 公司 / 零件」三種卡片互相串聯的個人研究筆記。全球科技供應鏈約八成是同一批名字，只是每個週期裡負責不同的零件或模組——這份知識庫就是用來把這些角色關係串起來、並持續長大。</p>
+    <div class="search-wrap">
+      <input id="search" placeholder="🔍 搜尋公司、零件、週期⋯ 例如：HBM、台積電、CoWoS">
+    </div>
+  </section>
+
+  <div class="stats" id="stats"></div>
+
+  <!-- 週期 -->
+  <div class="section-head" id="cycles">
+    <span class="idx">01 · Cycles</span>
+    <h2>週期 / 主題</h2>
+  </div>
+  <p class="section-sub">每個科技週期由不同的終端需求驅動。點進去看這個週期裡「哪些公司負責哪些零件」。</p>
+  <div class="cards" id="list-cycles"></div>
+
+  <!-- 公司 -->
+  <div class="section-head" id="companies">
+    <span class="idx">02 · Companies</span>
+    <h2>公司</h2>
+  </div>
+  <p class="section-sub">依在供應鏈中的角色分類。同一家公司可能橫跨多個週期——左側色條代表已有筆記，灰底為骨架待補。</p>
+  <div id="list-companies"></div>
+
+  <!-- 零件 -->
+  <div class="section-head" id="parts">
+    <span class="idx">03 · Parts & Modules</span>
+    <h2>零件 / 模組</h2>
+  </div>
+  <p class="section-sub">供應鏈裡流動的關鍵零件與技術。每個零件連到「誰做它、用在哪個週期」。</p>
+  <div class="cards" id="list-parts"></div>
+
+  <div class="no-match" id="nomatch">沒有符合的節點</div>
+
+  <!-- 擴充教學 -->
+  <div class="section-head">
+    <span class="idx">＋ How to grow</span>
+    <h2>如何擴充這份知識庫</h2>
+  </div>
+  <div class="note">
+    <p><b>新增一個節點分兩步：</b></p>
+    <p><b>① 在首頁清單登記。</b> 用編輯器打開 <code>assets/data.js</code>，在 <code>cycles</code> / <code>companies</code> / <code>parts</code> 三個陣列中對應的那個，照樣複製一筆。<code>status</code> 填 <code>"stub"</code>（骨架占位）或 <code>"done"</code>（已寫內容）。</p>
+    <p><b>② 寫內容頁。</b> 若是 <code>done</code>，到對應資料夾（<code>cycles/</code>、<code>companies/</code>、<code>parts/</code>）複製任一現成頁面當範本，改檔名為節點 id（例如 <code>amd.html</code>），填入內容與關聯連結即可。</p>
+    <p>關聯（串聯）就是在內容頁的「關聯節點」區塊放上其他節點的連結——一張卡可同時連公司、零件、週期三種。改完存檔、上傳 GitHub，全裝置就看得到。詳細範本說明寫在每個資料夾的 <code>_TEMPLATE.html</code> 註解裡。</p>
+  </div>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    科技供應鏈知識庫 · 個人研究用 · 資料節點集中於 <code>assets/data.js</code> · 三色系統：<span style="color:var(--company)">公司</span> / <span style="color:var(--part)">零件</span> / <span style="color:var(--cycle)">週期</span>
+  </div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script>
+const ICON={done:'<span class="badge done">已研究</span>',stub:'<span class="badge stub">待補</span>'};
+function path(kind,id){return ({cycles:"cycles/",companies:"companies/",parts:"parts/"})[kind]+id+".html";}
+
+function itemHTML(kind,o,type){
+  const href=path(kind,o.id);
+  const tag=`data-t="${type}"`;
+  const cls="item"+(o.status==="stub"?" stub":"");
+  const code=o.code?`<span class="code">${o.code}</span>`:(o.en?`<span class="code">${o.en}</span>`:"");
+  const inner=`<div class="nm">${o.name} ${code} ${o.status==="done"?ICON.done:ICON.stub}</div>
+               <div class="desc">${o.desc}</div>`;
+  // stub 也可點（會看到占位頁），但若你還沒建檔，連結會 404 —— 故 stub 預設不連結
+  if(o.status==="done") return `<a class="${cls}" ${tag} href="${href}">${inner}</a>`;
+  return `<div class="${cls}" ${tag} title="骨架待補，尚未建立內容頁">${inner}</div>`;
+}
+
+// 週期
+document.getElementById("list-cycles").innerHTML =
+  KB.cycles.map(o=>itemHTML("cycles",o,"cycle")).join("");
+
+// 公司（依 group 分組）
+const compWrap=document.getElementById("list-companies");
+let chtml="";
+Object.entries(KB.groups).forEach(([gid,g])=>{
+  const items=KB.companies.filter(c=>c.group===gid);
+  if(!items.length)return;
+  const done=items.filter(c=>c.status==="done").length;
+  chtml+=`<div class="group"><div class="group-bar">
+    <h3>${g.name}</h3><span class="en">${g.en}</span>
+    <span class="prog">已研究 <b>${done}</b> / ${items.length}</span></div>
+    <div class="cards">${items.map(o=>itemHTML("companies",o,"company")).join("")}</div></div>`;
+});
+compWrap.innerHTML=chtml;
+
+// 零件
+document.getElementById("list-parts").innerHTML =
+  KB.parts.map(o=>itemHTML("parts",o,"part")).join("");
+
+// 統計
+const allComp=KB.companies.length, doneComp=KB.companies.filter(c=>c.status==="done").length;
+const allPart=KB.parts.length, donePart=KB.parts.filter(p=>p.status==="done").length;
+const allCyc=KB.cycles.length, doneCyc=KB.cycles.filter(c=>c.status==="done").length;
+document.getElementById("stats").innerHTML=`
+  <div class="stat"><div class="n">${doneCyc} / ${allCyc}</div><div class="l">週期 Cycles</div></div>
+  <div class="stat"><div class="n">${doneComp} / ${allComp}</div><div class="l">公司 Companies</div></div>
+  <div class="stat"><div class="n">${donePart} / ${allPart}</div><div class="l">零件 Parts</div></div>
+  <div class="stat"><div class="n">${doneComp+donePart+doneCyc}</div><div class="l">已建內容頁</div></div>`;
+
+// 搜尋
+const search=document.getElementById("search"),nomatch=document.getElementById("nomatch");
+search.addEventListener("input",()=>{
+  const q=search.value.trim().toLowerCase();let vis=0;
+  document.querySelectorAll(".item").forEach(el=>{
+    const t=el.textContent.toLowerCase();
+    const show=!q||t.includes(q);el.style.display=show?"":"none";if(show)vis++;
+  });
+  document.querySelectorAll(".group").forEach(g=>{
+    const any=[...g.querySelectorAll(".item")].some(i=>i.style.display!=="none");
+    g.style.display=any?"":"none";
+  });
+  nomatch.style.display=vis?"none":"block";
+});
+</script>
+</body>
+</html>

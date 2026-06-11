@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>被動元件 (MLCC) · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+    <span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#parts">零件</a> / 被動元件</span>
+    <nav class="top">
+      <a href="../index.html#cycles">週期</a>
+      <a href="../index.html#companies">公司</a>
+      <a href="../index.html#parts">零件</a>
+      <a href="../reference/glossary.html">術語表</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="layout">
+    <aside class="toc">
+      <div class="tl">本頁目錄</div>
+      <a href="#what">這是什麼</a>
+      <a href="#principle">電容原理（白話）</a>
+      <a href="#types">四種電容的角色</a>
+      <a href="#ai">AI 伺服器的需求爆增</a>
+      <a href="#shortage">為何反覆缺貨</a>
+      <a href="#players">競爭格局與廠商</a>
+      <a href="#signal">追蹤訊號</a>
+      <a href="#timeline">更新時間軸</a>
+    </aside>
+    <article>
+      <span class="tag-type part">零件 / 模組</span>
+      <h1>被動元件 (MLCC)</h1>
+      <p class="lede">Passive Components · 電容、電阻、電感——單價低廉卻無處不在的「電子基礎建設」，少了就不能動。</p>
+
+      <h2 id="what">這是什麼</h2>
+      <p>被動元件不像晶片會運算，它們負責穩定電流、濾除雜訊、儲存與調節電能。其中最關鍵的是 <b>MLCC（多層陶瓷電容）</b>。它們單價極低，但每台電子產品都要用上成百上千顆——一支手機約 1,000 顆、一台筆電 500–800 顆、一台燃油車約 3,000–5,000 顆、一台電動車約 15,000 顆。</p>
+      <p>因此被動元件的需求不跟著單一產品走，而跟著<b>全球電子製造量的總和</b>走——這是它「任何電子需求復甦都受惠」的根本原因。</p>
+
+      <h2 id="principle">電容原理（白話）</h2>
+      <p>電容的結構是兩片金屬板夾一層絕緣體。電子穿不過絕緣層，卻能展現「通交流、隔直流」的特性：</p>
+      <table class="deftable">
+        <tr><td>隔直流</td><td>直流接上後電子堆在一側金屬板，充飽電流就停——像對著牆推水，水位平了就不流。</td></tr>
+        <tr><td>通交流</td><td>交流不斷換向，電容反覆充放電，迴路上始終有電流——像水管中間裝彈性橡皮膜，左右推拉另一邊的水也跟著動。頻率越高通得越順。</td></tr>
+      </table>
+      <p class="note" style="margin-top:8px">關鍵觀念：不需要電壓由正變負才算交流。GPU 每秒開關幾十億次，電流忽大忽小，這種圍繞穩定直流的「波動」本身就是交流成分。</p>
+
+      <h2 id="types">四種電容的角色</h2>
+      <table class="deftable">
+        <tr><td>去耦電容</td><td>放在 GPU 旁、接電源與地線之間。蓄水池：被直流充飽，GPU 瞬間要電流時立即放電補上；濾波：把高頻雜訊導引到地線，只留乾淨直流給 GPU。</td></tr>
+        <tr><td>隔離電容</td><td>讓兩個電壓不同的電路區塊安全互傳訊號——傳的是資訊不是能量，擋住兩邊直流互不干擾。</td></tr>
+        <tr><td>諧振電容</td><td>與電感配合創造「盪鞦韆」節奏，讓開關在電流歸零瞬間切換，幾乎零損耗，把轉換效率從約 85% 提升到 97% 以上。</td></tr>
+        <tr><td>矽電容</td><td>容值小、無法取代 MLCC，但能直接做進 PCB、緊貼 IC 底部減少 EMI，適用垂直供電小型電源模組。</td></tr>
+      </table>
+      <p>此外電源供應器（PSU）大量使用<b>電解電容</b>（牛角 Snap-in，450V/1000μF 以上），技術門檻極高、供不應求；48V 架構下則常用 <b>Hybrid 電解電容</b> 搭配 MLCC 大量並聯。</p>
+
+      <h2 id="ai">AI 伺服器的需求爆增</h2>
+      <p>這是被動元件接上 <a href="../cycles/ai-server.html">AI 伺服器週期</a> 的關鍵。一台 Nvidia GB200 伺服器需要約 30,000 顆 MLCC，整機櫃可達 44 萬顆，而傳統電源系統只需約 2,200 顆。村田社長指出，AI 伺服器用的 MLCC 數量是一般伺服器的約 8 倍且單價更高。MLCC 已成為 AI 伺服器 BOM 成本第三高的品項，僅次於 <a href="../companies/nvidia.html">GPU</a> 和 <a href="../parts/hbm.html">記憶體</a>。</p>
+      <p>且 AI 機櫃瓦數持續攻頂（100kW → 600kW → 1MW+），被動元件用量只增不減。</p>
+
+      <h2 id="shortage">為何反覆缺貨</h2>
+      <p>結構性弱點在於：被動元件是<b>最末端才被採購的零件</b>。品牌商先敲定 CPU、DRAM、面板等關鍵件，被動元件因便宜、規格通用、過去是現貨市場，往往最後才買。於是需求一升溫、大家同時搶才發現缺貨，而產能擴充要 2–3 年（建廠、設備、良率爬坡都慢）。</p>
+      <p>2016–2018 那次最嚴重，是三波需求同時來：手機每代旗艦 MLCC 用量增加、車用電子（ADAS）起飛把單車用量從 3,000 拉向 5,000+、加上日本廠（村田、TDK）主動退出低端標準品轉做高利潤車規/工業品，標準品產能無法直接轉用。</p>
+
+      <h2 id="players">競爭格局與廠商</h2>
+      <table class="deftable">
+        <tr><td>日本系（領先）</td><td>村田製作所（6981.T，MLCC 全球第一、絕對王者）、TDK、太陽誘電。技術與高階品供應領先。</td></tr>
+        <tr><td>台灣系</td><td>國巨 Yageo（2327，台灣龍頭、全球第三大 MLCC，利基型佔比已達約 82%）、華新科（2492，台灣第二，推銅電極 MLCC 切入 AI 伺服器）。</td></tr>
+        <tr><td>韓國系</td><td>三星電機（高階 MLCC 重要供應商，常與村田一起率先漲價）。</td></tr>
+        <tr><td>電解電容</td><td>Rubycon、Nichicon、TDK EPCOS、台灣金山。</td></tr>
+      </table>
+
+      <h2 id="signal">追蹤訊號</h2>
+      <ul>
+        <li><b>日韓廠是台廠先行指標</b>：村田、三星電機先漲代表高階緊缺；台廠跟漲通常滯後 1–2 個月，股價往往同步反應預期。</li>
+        <li><b>追實際機架出貨量比 CAPEX 準</b>：雲端廠公告資本支出不等於立即拉貨，從預算到零件採購常延遲 2–3 季。</li>
+        <li><b>車用 MLCC 是第二增長曲線</b>：電動車單車用量是燃油車 3–5 倍，但車規認證需 18–24 個月，認證通過者訂單能見度與毛利率較佳。</li>
+      </ul>
+
+      <div class="links-box">
+        <div class="lt">關聯節點 · Connections</div>
+        <div class="chip-row">
+          <a class="link-chip" href="../cycles/ai-server.html"><span class="dot cycle"></span>AI 伺服器</a>
+          <a class="link-chip" href="../cycles/ev.html"><span class="dot cycle"></span>電動車</a>
+          <a class="link-chip" href="../cycles/smartphone.html"><span class="dot cycle"></span>智慧手機</a>
+          <a class="link-chip" href="../parts/power-semi.html"><span class="dot part"></span>功率半導體</a>
+        </div>
+      </div>
+
+      <h2 id="timeline">更新時間軸</h2>
+      <div class="timeline">
+        <div class="ev"><div class="dt">2026.05</div>整合「被動元件說明」與「供應鏈學習路徑」兩次討論歸檔建立此頁；涵蓋電容原理、四種電容、AI 需求、缺貨結構、競爭格局與追蹤訊號。</div>
+      </div>
+
+      <div class="note" style="margin-top:30px">
+        <b>擴充這一頁：</b> 國巨（Yageo）內容已足夠獨立成一張公司節點——若要建，可在 data.js 的 companies 加入 <code>yageo</code>，並回來把本頁「國巨」改成連結。村田、華新科同理。
+      </div>
+    </article>
+  </div>
+</div>
+
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+</body>
+</html>

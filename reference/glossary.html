@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>術語速查表 · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css"></head><body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+<span class="crumb"><a href="../index.html">首頁</a> / 術語表</span>
+<nav class="top"><a href="../index.html#cycles">週期</a><a href="../index.html#companies">公司</a><a href="../index.html#parts">零件</a><a href="frameworks.html">分析框架</a></nav>
+</div></header>
+<div class="wrap"><section class="hero">
+<div class="kicker">Reference · Glossary</div><h1>術語速查表</h1>
+<p class="lede">供應鏈研究中常見的關鍵術語。學到新名詞就加進來。</p>
+<div class="search-wrap"><input id="search" placeholder="🔍 篩選術語"></div>
+</section>
+<div id="glist" style="padding:24px 0 80px">
+<table class="deftable">
+<tr><td>Fabless</td><td>無廠半導體公司，只做 IC 設計、不蓋廠，把製造外包給代工廠。例：輝達、高通。</td></tr>
+<tr><td>Foundry</td><td>晶圓代工廠，替別人製造晶片但不做自有品牌。例：台積電。</td></tr>
+<tr><td>IDM</td><td>整合元件製造商，設計與製造一手包。例：英特爾、三星。</td></tr>
+<tr><td>OSAT</td><td>委外封裝測試廠，負責晶片的封裝與測試。例：日月光。</td></tr>
+<tr><td>HBM</td><td>高頻寬記憶體，垂直堆疊 DRAM 提供高頻寬，AI 運算關鍵。</td></tr>
+<tr><td>CoWoS</td><td>台積電的先進封裝技術，把 GPU 與 HBM 整合在矽中介層上。</td></tr>
+<tr><td>EUV</td><td>極紫外光刻，做先進製程必備，設備全球僅 ASML 能造。</td></tr>
+<tr><td>SoC</td><td>系統單晶片，把 CPU/GPU/基頻等整合在一顆晶片，手機核心。</td></tr>
+<tr><td>製程節點 (Node)</td><td>如 3nm/5nm，數字越小通常代表電晶體越密、效能功耗越好。</td></tr>
+<tr><td>先進封裝</td><td>把多顆晶片整合在一起的技術總稱，CoWoS 是其中一種。</td></tr>
+</table></div>
+<div class="note">新增術語：直接在本檔表格加一列 <code>&lt;tr&gt;&lt;td&gt;名詞&lt;/td&gt;&lt;td&gt;解釋&lt;/td&gt;&lt;/tr&gt;</code>。</div>
+</div>
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+<script>
+const s=document.getElementById('search');
+s.addEventListener('input',()=>{const q=s.value.trim().toLowerCase();
+document.querySelectorAll('#glist tr').forEach(tr=>{tr.style.display=!q||tr.textContent.toLowerCase().includes(q)?'':'none';});});
+</script>
+</body></html>
