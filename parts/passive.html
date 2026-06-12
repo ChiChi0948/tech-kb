@@ -5,6 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>被動元件 (MLCC) · 科技供應鏈知識庫</title>
 <link rel="stylesheet" href="../assets/style.css">
+<style>
+.quad-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}
+.quad{padding:15px 17px;border-radius:10px;border:1px solid var(--line);background:var(--card)}
+.quad h4{font-size:.95rem;margin-bottom:5px;font-family:ui-sans-serif,system-ui,sans-serif}
+.quad p{font-size:.85rem;color:var(--ink-soft);margin:0}
+.quad.q1{border-left:3px solid var(--company)}
+.quad.q2{border-left:3px solid var(--cycle)}
+.quad.q3{border-left:3px solid var(--accent)}
+.quad.q4{border-left:3px solid var(--part)}
+.temp-path{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:14px 0;font-family:ui-sans-serif,system-ui,sans-serif}
+.temp-box{padding:7px 13px;border-radius:8px;text-align:center;font-size:.78rem;border:1px solid var(--line)}
+.temp-box.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.temp-box.off{background:var(--paper2);color:var(--ink-soft)}
+.temp-arrow{color:var(--faint)}
+.flow-step{display:flex;gap:12px;margin-bottom:9px;align-items:flex-start}
+.flow-step .num{width:24px;height:24px;border-radius:50%;background:var(--part);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0;font-family:ui-sans-serif,system-ui,sans-serif}
+.flow-step .c{font-size:.9rem;padding-top:1px}
+.badge-s{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:10px}
+.b-cons{background:rgba(192,57,43,.12);color:#c0392b}
+.b-aggr{background:rgba(63,157,90,.14);color:var(--done)}
+.b-wait{background:var(--line2);color:var(--ink-soft)}
+.cardgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:14px 0}
+.minicard{background:var(--paper2);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.minicard h4{font-size:.9rem;margin-bottom:5px;color:var(--ink);font-family:ui-sans-serif,system-ui,sans-serif}
+.minicard p{font-size:.84rem;color:var(--ink-soft);margin:0}
+@media(max-width:600px){.quad-grid,.cardgrid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <header class="site">
@@ -19,69 +46,125 @@
     </nav>
   </div>
 </header>
-
 <div class="wrap">
   <div class="layout">
     <aside class="toc">
       <div class="tl">本頁目錄</div>
       <a href="#what">這是什麼</a>
+      <a href="#quad">MLCC 四象限分類</a>
+      <a href="#temp">溫度係數升級路徑</a>
+      <a href="#players">廠商競爭版圖</a>
+      <a href="#ai">AI 主板三大應用</a>
+      <a href="#benefit">受惠公司分析</a>
+      <a href="#capacity">產能擴張與供需</a>
+      <a href="#outlook">未來展望</a>
       <a href="#principle">電容原理（白話）</a>
-      <a href="#types">四種電容的角色</a>
-      <a href="#ai">AI 伺服器的需求爆增</a>
+      <a href="#captypes">各類電容詳解</a>
       <a href="#shortage">為何反覆缺貨</a>
-      <a href="#players">競爭格局與廠商</a>
       <a href="#signal">追蹤訊號</a>
       <a href="#timeline">更新時間軸</a>
     </aside>
     <article>
       <span class="tag-type part">零件 / 模組</span>
       <h1>被動元件 (MLCC)</h1>
-      <p class="lede">Passive Components · 電容、電阻、電感——單價低廉卻無處不在的「電子基礎建設」，少了就不能動。</p>
-
+      <p class="lede">Passive Components · 從 MLCC 原理到 AI 伺服器的供需變局。單價低廉卻無處不在的「電子基礎建設」，少了就不能動。</p>
       <h2 id="what">這是什麼</h2>
       <p>被動元件不像晶片會運算，它們負責穩定電流、濾除雜訊、儲存與調節電能。其中最關鍵的是 <b>MLCC（多層陶瓷電容）</b>。它們單價極低，但每台電子產品都要用上成百上千顆——一支手機約 1,000 顆、一台筆電 500–800 顆、一台燃油車約 3,000–5,000 顆、一台電動車約 15,000 顆。</p>
-      <p>因此被動元件的需求不跟著單一產品走，而跟著<b>全球電子製造量的總和</b>走——這是它「任何電子需求復甦都受惠」的根本原因。</p>
-
+      <p>因此被動元件的需求不跟著單一產品走，而跟著<b>全球電子製造量的總和</b>走——這是它「任何電子需求復甦都受惠」的根本原因。它接上 <a href="../cycles/ai-server.html">AI 伺服器</a>、<a href="../cycles/ev.html">電動車</a>、<a href="../cycles/smartphone.html">智慧手機</a> 等多個週期。</p>
+      <h2 id="quad">MLCC 四象限分類與產品定位</h2>
+      <p>MLCC 用兩個維度切出四個象限：X 軸為容值（儲存電能大小），Y 軸為耐壓（能承受的最高電壓）。不同象限對應不同應用、技術門檻與競爭格局。</p>
+      <div class="quad-grid">
+        <div class="quad q2"><h4>第二象限 · 高壓低容（隔離電容）</h4><p>100V 以上、0.1μF 以下。傳統用於隔離電容，近期因 AI Server Power 諧振電容新應用而變熱門。</p></div>
+        <div class="quad q1"><h4>第一象限 · 高壓高容（48V 新興需求）</h4><p>100V 以上、1μF 以上。常用 1206/4.7μF/100V 或 1210/10μF/100V。48V 架構催生的全新市場。</p></div>
+        <div class="quad q3"><h4>第三象限 · 低壓低容（Commodity）</h4><p>50V 以下、0.1μF 以下。技術門檻低、單價低，但用量極大。一塊 AI 主板超過一半的 MLCC 屬此類。</p></div>
+        <div class="quad q4"><h4>第四象限 · 低壓高容（兵家必爭之地）</h4><p>50V 以下、1μF 以上。GPU/CPU 旁的去耦電容在此區。尺寸越小容值越高，技術壁壘越高。</p></div>
+      </div>
+      <div class="note"><b>MLCC 缺一不可：</b>高階買得到但低階缺貨，板子一樣不能完成。這是 Commodity 的戰略價值。</div>
+      <h2 id="temp">溫度係數升級路徑</h2>
+      <div class="temp-path">
+        <div class="temp-box on">X5R ≤85°C<br><small>過去主流</small></div><span class="temp-arrow">→</span>
+        <div class="temp-box on">X6S ≤105°C<br><small>Rubin 過渡</small></div><span class="temp-arrow">→</span>
+        <div class="temp-box off">X7R ≤125°C<br><small>NV 目標</small></div><span class="temp-arrow">→</span>
+        <div class="temp-box off">X8R ≤150°C<br><small>下階段方向</small></div>
+      </div>
+      <div class="note" style="border-left-color:var(--stub)"><b>關鍵影響：</b>從 X5R 升級到 X6S/X7R，單位時間產能下降 30–40%。這是導致整體供給緊張的核心技術因素。</div>
+      <h2 id="players">各廠商擅長領域與競爭版圖</h2>
+      <table class="deftable">
+        <tr><td><b>廠商</b></td><td><b>月產能(億顆) · 主力象限 · 核心優勢 · 當前策略</b></td></tr>
+        <tr><td>村田 🇯🇵</td><td>1,400｜第四、第一｜全球龍頭，小尺寸高容技術絕對領先，高階產線集中日本出雲｜不主動漲價、優先保大客戶，菲律賓擴廠主攻車用</td></tr>
+        <tr><td>三星電機 🇰🇷</td><td>1,000｜第四｜長期供貨母集團手機，0805 以下小尺寸技術成熟｜村田替代首選，5 月起 X5R 停止接單、全力做 X6S</td></tr>
+        <tr><td>國巨 🇹🇼</td><td>1,000｜第三｜含 KEMET，Commodity 主力、亞洲供應鏈首選｜產能移往高價值 X5R，Commodity 通路先行漲價</td></tr>
+        <tr><td>太陽誘電 🇯🇵</td><td>800｜第四(大尺寸)｜高疊層高容大尺寸(0805 以上)最強｜業界率先開出漲價第一槍</td></tr>
+        <tr><td>TDK 🇯🇵</td><td>400｜第一、車用｜2017 後轉向車用，100V 高容技術最好，EPCOS 牛角電容｜深耕車用市場</td></tr>
+        <tr><td>華新科 🇹🇼</td><td>400｜第三、第二｜與信昌同體系，Commodity 次選、高壓有基礎｜產能全滿，開出漲價第三槍</td></tr>
+        <tr><td>禾伸堂 🇹🇼</td><td>100｜第二｜高壓 niche player，諧振電容新應用受惠者｜業界下最多關鍵設備訂單、積極擴廠</td></tr>
+        <tr><td>陸系 🇨🇳</td><td>500｜第三｜中低階為主、高階能力有限，四大 CSP 不採用｜中國 AI「以量換質」使內需訂單全滿</td></tr>
+      </table>
+      <p><b>尺寸分水嶺 0805：</b>0805 以下小尺寸三星電機較強（長期供貨手機 0603/0402/0201）；0805 以上大尺寸太陽誘電較強（高疊層高容）。</p>
+      <p><b>替代優先順序（村田缺貨時）：</b>村田 → 三星 → 太陽誘電 → 國巨／華科（僅限部分規格）。</p>
+      <h2 id="ai">AI 伺服器主板三大關鍵應用</h2>
+      <p>一塊 AI 主板（如 Rubin）約使用 <b>25,000 顆 MLCC</b>，三個區塊各有不同供需邏輯。對照：一台 GB200 約 30,000 顆、整機櫃可達 44 萬顆，而傳統電源系統只需約 2,200 顆。MLCC 已是 AI 伺服器 BOM 成本第三高品項，僅次於 <a href="../companies/nvidia.html">GPU</a> 與 <a href="../parts/hbm.html">記憶體</a>。</p>
+      <table class="deftable">
+        <tr><td>① GPU/CPU 旁<br>最值錢規格</td><td>0201/10μF/2.5V、0402/47μF/2.5V、0603/100μF/2.5V。去耦電容，為 GPU 提供瞬間電流並濾高頻雜訊。Rubin 要求 X5R→X6S、目標 X7R，僅日韓系可供 X6S——這是供給緊張核心。</td></tr>
+        <tr><td>② 48V 輸入端<br>高壓高容</td><td>1206/4.7μF/100V、1210/10μF/100V（MLCC）+ Hybrid 電解電容。48V 架構電流極大，需大量電容儲能濾波。固態做不到高壓、純電解不耐高溫，用 Hybrid 過渡；諧振電容也在此區。</td></tr>
+        <tr><td>③ Commodity<br>用量之王</td><td>50V 以下、0.1μF/0.01μF、0402/0603 小尺寸。一塊板超過 12,500 顆屬此類，遍佈全板基礎去耦濾波。單價極低但量大，漲價 30–50% 對獲利貢獻極大；目前 0.1μF、1μF 已宣佈不報價。</td></tr>
+      </table>
+      <h2 id="benefit">受惠公司與原因分析</h2>
+      <p><b>日韓系（技術壁壘 → 結構性受惠）：</b>村田、三星獲利成長主要來自產品組合升級（更多高單價 X6S/X7R），而非單純漲價；太陽誘電大尺寸高容受惠並率先漲價；TDK 車用受惠中國車廠需求回升（寧德時代等已大量要貨）。</p>
+      <p><b>台系（漲價 → 獲利彈性）：</b>國巨、華新科承接日韓外溢 X5R 訂單＋Commodity 漲價 30–50%，獲利彈性最大；禾伸堂是高壓諧振電容新需求直接受惠者；金山電、立隆受惠電解電容（牛角）需求暴增。</p>
+      <p><b>陸系（內需驅動）：</b>三環、風華、宇陽受惠中國「以量換質」內需暴增，但四大 CSP 不採用紅色供應鏈，受惠限於中國內需。</p>
+      <h2 id="capacity">產能擴張排程與供需動態</h2>
+      <p><b>2017–18 教訓：</b>當年車用需求推動 MLCC 大漲，Commodity 一顆漲了 100 倍，所有廠商瘋狂擴產，結果產能過剩、價格崩跌「回到解放前」。這次教訓讓所有原廠極度謹慎。</p>
+      <table class="deftable">
+        <tr><td>村田</td><td>每年增產 10%，菲律賓新廠主攻車用非 AI 高階　<span class="badge-s b-cons">保守</span></td></tr>
+        <tr><td>三星</td><td>每年增產 15%　<span class="badge-s b-cons">保守</span></td></tr>
+        <tr><td>禾伸堂</td><td>大量下訂燒結爐、堆疊機（設備交期 12–18 月）　<span class="badge-s b-aggr">積極</span></td></tr>
+        <tr><td>其他廠商</td><td>有下訂單但量不大（設備交期 12–18 月）　<span class="badge-s b-wait">觀望</span></td></tr>
+      </table>
+      <div class="cardgrid">
+        <div class="minicard"><h4>🏭 原廠心態</h4><p>「慢慢擴，讓市場緊缺、價格漲上來反而賺更多。2017 用力擴廠結果價格跌下去，何必重蹈覆轍？」</p></div>
+        <div class="minicard"><h4>🏪 通路心態</h4><p>惜售不賣，告訴客戶「原廠不給貨」，實際口袋可能滿滿庫存，等價格漲上來再陸續放貨。</p></div>
+        <div class="minicard"><h4>🔍 驗證方式</h4><p>所有關鍵設備都在日本生產，從設備商反饋可知除禾伸堂外無人大量下訂。</p></div>
+        <div class="minicard"><h4>📦 可能的囤貨</h4><p>部分廠商讓工廠生產 Commodity 大宗規格但不出售，等市場漲上來後再獲利。</p></div>
+      </div>
+      <p style="margin-top:14px"><b>供需傳導鏈：</b></p>
+      <div class="flow-step"><div class="num">1</div><div class="c"><b>AI 高階需求爆發</b>（Rubin 要求 X6S/X7R）</div></div>
+      <div class="flow-step"><div class="num">2</div><div class="c"><b>日韓廠全力投入高階</b>，產能下降 30–40%</div></div>
+      <div class="flow-step"><div class="num">3</div><div class="c"><b>X5R 停止接單</b>，訂單外溢到台系</div></div>
+      <div class="flow-step"><div class="num">4</div><div class="c"><b>台系把產能移往 X5R</b>，Commodity 也緊張</div></div>
+      <div class="flow-step"><div class="num">5</div><div class="c"><b>通路惜售＋加價購</b>，Commodity 漲 30–50%</div></div>
+      <div class="flow-step"><div class="num">6</div><div class="c"><b>陸系內需全滿</b>，無餘力支援外部，全面緊缺</div></div>
+      <h2 id="outlook">未來展望</h2>
+      <table class="deftable">
+        <tr><td>短期(1–2 月)</td><td>終端庫存消耗完畢後觸發恐慌性採購，價格可能從 30–50% 跳升至一倍兩倍以上；部分客戶因 Rubin 交不了貨退而求其次下 GB300。</td></tr>
+        <tr><td>中期(2026–27)</td><td>供需失衡預估至少持續到 2027 年底；日韓也會漲價但「相對有武德」(15–30%)；可能出現「策略性漲價」——不為賺錢而為排擠訂單；Google 與 AWS 的 ASIC Server 量起來進一步加劇緊缺。</td></tr>
+        <tr><td>長期變數</td><td>若緊缺影響 NV 訂單，CSP 是否開放陸系？目前不確定、陸系自身也全滿；AI 機櫃瓦數攻頂(100kW→600kW→1MW+)需求只增不減；關鍵設備交期 12–18 月，現在下單也要 2027 底才投產。</td></tr>
+      </table>
       <h2 id="principle">電容原理（白話）</h2>
-      <p>電容的結構是兩片金屬板夾一層絕緣體。電子穿不過絕緣層，卻能展現「通交流、隔直流」的特性：</p>
+      <p>電容結構是兩片金屬板夾一層絕緣體。電子穿不過絕緣層，卻能展現「通交流、隔直流」：</p>
       <table class="deftable">
         <tr><td>隔直流</td><td>直流接上後電子堆在一側金屬板，充飽電流就停——像對著牆推水，水位平了就不流。</td></tr>
         <tr><td>通交流</td><td>交流不斷換向，電容反覆充放電，迴路上始終有電流——像水管中間裝彈性橡皮膜，左右推拉另一邊的水也跟著動。頻率越高通得越順。</td></tr>
       </table>
-      <p class="note" style="margin-top:8px">關鍵觀念：不需要電壓由正變負才算交流。GPU 每秒開關幾十億次，電流忽大忽小，這種圍繞穩定直流的「波動」本身就是交流成分。</p>
-
-      <h2 id="types">四種電容的角色</h2>
+      <p class="note" style="margin-top:8px"><b>為什麼直流電路上會有交流成分？</b> GPU 每秒開關幾十億次，電流忽大忽小。這種圍繞穩定直流上下跳動的波動，本身就是交流性質——不需要電壓由正變負才算。</p>
+      <h2 id="captypes">各類電容詳解</h2>
       <table class="deftable">
-        <tr><td>去耦電容</td><td>放在 GPU 旁、接電源與地線之間。蓄水池：被直流充飽，GPU 瞬間要電流時立即放電補上；濾波：把高頻雜訊導引到地線，只留乾淨直流給 GPU。</td></tr>
-        <tr><td>隔離電容</td><td>讓兩個電壓不同的電路區塊安全互傳訊號——傳的是資訊不是能量，擋住兩邊直流互不干擾。</td></tr>
-        <tr><td>諧振電容</td><td>與電感配合創造「盪鞦韆」節奏，讓開關在電流歸零瞬間切換，幾乎零損耗，把轉換效率從約 85% 提升到 97% 以上。</td></tr>
-        <tr><td>矽電容</td><td>容值小、無法取代 MLCC，但能直接做進 PCB、緊貼 IC 底部減少 EMI，適用垂直供電小型電源模組。</td></tr>
+        <tr><td>去耦電容</td><td>接電源與地線之間、放 GPU 旁。蓄水池：被直流充飽，GPU 瞬間要電流時立即放電補上；濾波：高頻雜訊被「通交流」特性導引到地線，只留乾淨直流。對直流像牆、對高頻像通路，雜訊自然走好走的路流到地線。</td></tr>
+        <tr><td>隔離電容</td><td>讓兩個「講不同電壓語言」的區塊安全互傳訊號。讓訊號（交流性質）通過，擋住兩邊直流互不干擾——傳的是資訊不是能量。</td></tr>
+        <tr><td>諧振電容</td><td>與電感配合創造「盪鞦韆」節奏，開關在電流歸零瞬間切換、幾乎零損耗。降壓真正原理是「開多久關多久」的時間比例（48V 開 1/48 時間＝平均 1V），後接電感（把跳動壓成波浪）與電容（把波浪抹平）輸出穩定直流。它讓降壓從「暴力硬切」變「順節奏輕鬆切」，效率從 85% 提升到 97% 以上。</td></tr>
+        <tr><td>矽電容</td><td>容值小、無法取代 MLCC，但能直接做進 PCB、緊貼 IC 底部減 EMI，適用垂直供電小型電源模組。村田很早在做，技術不難但高容＋可靠度仍有挑戰。</td></tr>
+        <tr><td>電解電容<br>(牛角 Snap-in)</td><td>PSU 最缺元件之一，規格 450V/1000μF 以上。供應商：Rubycon、Nichicon、TDK EPCOS、台灣金山。門檻極高（高階鋁箔＋電解液配方＋製程穩定）。風險：配比不好會爆炸起火，資料中心不可接受。台達等系統廠已全球包廠搶貨。</td></tr>
+        <tr><td>Hybrid 電解電容</td><td>半固態＋半液態折衷。48V 架構主流選擇（固態做不到高壓、純電解不耐高溫），搭配 MLCC 大量並聯用於 48V 輸入端。</td></tr>
       </table>
-      <p>此外電源供應器（PSU）大量使用<b>電解電容</b>（牛角 Snap-in，450V/1000μF 以上），技術門檻極高、供不應求；48V 架構下則常用 <b>Hybrid 電解電容</b> 搭配 MLCC 大量並聯。</p>
-
-      <h2 id="ai">AI 伺服器的需求爆增</h2>
-      <p>這是被動元件接上 <a href="../cycles/ai-server.html">AI 伺服器週期</a> 的關鍵。一台 Nvidia GB200 伺服器需要約 30,000 顆 MLCC，整機櫃可達 44 萬顆，而傳統電源系統只需約 2,200 顆。村田社長指出，AI 伺服器用的 MLCC 數量是一般伺服器的約 8 倍且單價更高。MLCC 已成為 AI 伺服器 BOM 成本第三高的品項，僅次於 <a href="../companies/nvidia.html">GPU</a> 和 <a href="../parts/hbm.html">記憶體</a>。</p>
-      <p>且 AI 機櫃瓦數持續攻頂（100kW → 600kW → 1MW+），被動元件用量只增不減。</p>
-
       <h2 id="shortage">為何反覆缺貨</h2>
-      <p>結構性弱點在於：被動元件是<b>最末端才被採購的零件</b>。品牌商先敲定 CPU、DRAM、面板等關鍵件，被動元件因便宜、規格通用、過去是現貨市場，往往最後才買。於是需求一升溫、大家同時搶才發現缺貨，而產能擴充要 2–3 年（建廠、設備、良率爬坡都慢）。</p>
-      <p>2016–2018 那次最嚴重，是三波需求同時來：手機每代旗艦 MLCC 用量增加、車用電子（ADAS）起飛把單車用量從 3,000 拉向 5,000+、加上日本廠（村田、TDK）主動退出低端標準品轉做高利潤車規/工業品，標準品產能無法直接轉用。</p>
-
-      <h2 id="players">競爭格局與廠商</h2>
-      <table class="deftable">
-        <tr><td>日本系（領先）</td><td>村田製作所（6981.T，MLCC 全球第一、絕對王者）、TDK、太陽誘電。技術與高階品供應領先。</td></tr>
-        <tr><td>台灣系</td><td>國巨 Yageo（2327，台灣龍頭、全球第三大 MLCC，利基型佔比已達約 82%）、華新科（2492，台灣第二，推銅電極 MLCC 切入 AI 伺服器）。</td></tr>
-        <tr><td>韓國系</td><td>三星電機（高階 MLCC 重要供應商，常與村田一起率先漲價）。</td></tr>
-        <tr><td>電解電容</td><td>Rubycon、Nichicon、TDK EPCOS、台灣金山。</td></tr>
-      </table>
-
+      <p>結構性弱點：被動元件是<b>最末端才被採購的零件</b>。品牌商先敲定 CPU、DRAM、面板等關鍵件，被動元件因便宜、規格通用、過去是現貨市場，往往最後才買。於是需求一升溫、大家同時搶才發現缺貨，而產能擴充要 2–3 年。</p>
+      <p>2016–2018 那次最嚴重，是三波需求同時來：手機每代旗艦 MLCC 用量增加、車用電子（ADAS）起飛把單車用量從 3,000 拉向 5,000+、加上日本廠主動退出低端標準品轉做高利潤車規/工業品，標準品產能無法直接轉用。</p>
       <h2 id="signal">追蹤訊號</h2>
       <ul>
         <li><b>日韓廠是台廠先行指標</b>：村田、三星電機先漲代表高階緊缺；台廠跟漲通常滯後 1–2 個月，股價往往同步反應預期。</li>
         <li><b>追實際機架出貨量比 CAPEX 準</b>：雲端廠公告資本支出不等於立即拉貨，從預算到零件採購常延遲 2–3 季。</li>
         <li><b>車用 MLCC 是第二增長曲線</b>：電動車單車用量是燃油車 3–5 倍，但車規認證需 18–24 個月，認證通過者訂單能見度與毛利率較佳。</li>
       </ul>
-
       <div class="links-box">
         <div class="lt">關聯節點 · Connections</div>
         <div class="chip-row">
@@ -89,21 +172,20 @@
           <a class="link-chip" href="../cycles/ev.html"><span class="dot cycle"></span>電動車</a>
           <a class="link-chip" href="../cycles/smartphone.html"><span class="dot cycle"></span>智慧手機</a>
           <a class="link-chip" href="../parts/power-semi.html"><span class="dot part"></span>功率半導體</a>
+          <a class="link-chip" href="../companies/nvidia.html"><span class="dot company"></span>輝達</a>
         </div>
       </div>
-
       <h2 id="timeline">更新時間軸</h2>
       <div class="timeline">
-        <div class="ev"><div class="dt">2026.05</div>整合「被動元件說明」與「供應鏈學習路徑」兩次討論歸檔建立此頁；涵蓋電容原理、四種電容、AI 需求、缺貨結構、競爭格局與追蹤訊號。</div>
+        <div class="ev"><div class="dt">2026.06</div>整合獨立深度筆記，補進四象限分類、八廠商產能對比、溫度係數路徑、AI 主板三大應用精確規格、產能擴張策略與六步供需傳導鏈。</div>
+        <div class="ev"><div class="dt">2026.05</div>整合「被動元件說明」與「供應鏈學習路徑」兩次討論，建立此頁。</div>
       </div>
-
       <div class="note" style="margin-top:30px">
-        <b>擴充這一頁：</b> 國巨（Yageo）內容已足夠獨立成一張公司節點——若要建，可在 data.js 的 companies 加入 <code>yageo</code>，並回來把本頁「國巨」改成連結。村田、華新科同理。
+        <b>擴充這一頁：</b> 村田、國巨、華新科、禾伸堂的內容都已足夠獨立成公司節點——若要建，可在 data.js 的 companies 加入對應 id，並回來把本頁廠商名改成連結。
       </div>
     </article>
   </div>
 </div>
-
 <footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
 </body>
 </html>
