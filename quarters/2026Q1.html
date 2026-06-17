@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Q1 財報總覽 · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+    <span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#quarters">財報</a> / 2026 Q1</span>
+    <nav class="top">
+      <a href="../index.html#cycles">週期</a>
+      <a href="../index.html#companies">公司</a>
+      <a href="../index.html#parts">零件</a>
+      <a href="../index.html#quarters">財報</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="kicker" style="color:var(--quarter)">2026 Q1 · Quarterly Overview</div>
+    <h1>2026 Q1 財報總覽</h1>
+    <p class="lede">這一季的入口頁。下面列出已寫好觀察的公司財報，以及這一季的產業關鍵主題。新增一家公司財報，就在 data.js 的 quarters 陣列加一筆並建立 <code>2026Q1-公司id.html</code>。</p>
+  </section>
+
+  <h2 style="margin-top:36px;font-size:1.3rem">本季關鍵主題</h2>
+  <ul style="margin:14px 0 0 22px">
+    <li><b>AI 需求繼續超預期</b>——CoWoS 與 HBM 仍是出貨瓶頸</li>
+    <li><b>功率半導體景氣落後付</b>——類比已先轉正、功率才接近價格拐點</li>
+    <li><b>800V DC 直流匯流</b>進入放量初期，重新定義資料中心電源供應鏈</li>
+    <li><b>MLCC 高階產能緊缺</b>持續，村田、三星把產線集中 X6S/X7R</li>
+  </ul>
+
+  <h2 style="margin-top:36px;font-size:1.3rem">本季已寫的公司財報</h2>
+  <div class="cards" id="list" style="margin-top:14px"></div>
+
+  <div class="note" style="margin-top:30px">
+    <b>擴充這一頁：</b> 加入一家公司的本季財報後，這份清單會自動更新——它是從 data.js 的 quarters 陣列裡 period 為 "2026Q1" 的項目自動生成的。本頁上方「本季關鍵主題」可隨時編輯本檔補充。
+  </div>
+</div>
+
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+
+<script src="../assets/data.js"></script>
+<script>
+const PERIOD="2026Q1";
+const items=(KB.quarters||[])
+  .filter(q=>q.period===PERIOD && q.scope==="company");
+const compMap=Object.fromEntries(KB.companies.map(c=>[c.id,c]));
+document.getElementById("list").innerHTML = items.length
+  ? items.map(q=>{
+      const c=compMap[q.company];
+      const code=c&&c.code?`<span class="code">${c.code}</span>`:"";
+      return `<a class="item" data-t="quarter" href="${q.id}.html">
+        <div class="nm">${q.name} ${code}</div>
+        <div class="desc">${q.desc}</div></a>`;
+    }).join("")
+  : '<p style="color:var(--faint);font-style:italic">本季尚未寫入任何公司財報。</p>';
+</script>
+</body>
+</html>
