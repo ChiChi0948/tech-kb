@@ -14,6 +14,7 @@
       <a href="#cycles">週期</a>
       <a href="#companies">公司</a>
       <a href="#parts">零件</a>
+      <a href="#quarters">財報</a>
       <a href="reference/glossary.html">術語表</a>
       <a href="reference/frameworks.html">分析框架</a>
       <a href="reference/updates.html">更新日誌</a>
@@ -57,6 +58,14 @@
   <p class="section-sub">供應鏈裡流動的關鍵零件與技術。每個零件連到「誰做它、用在哪個週期」。</p>
   <div class="cards" id="list-parts"></div>
 
+  <!-- 財報 -->
+  <div class="section-head" id="quarters">
+    <span class="idx">04 · Financials</span>
+    <h2>財報追蹤</h2>
+  </div>
+  <p class="section-sub">每季的財報觀察。總覽頁是當季入口，下面列出當季有寫到的公司財報，可從公司頁雙向跳轉。</p>
+  <div id="list-quarters"></div>
+
   <div class="no-match" id="nomatch">沒有符合的節點</div>
 
   <!-- 擴充教學 -->
@@ -66,22 +75,22 @@
   </div>
   <div class="note">
     <p><b>新增一個節點分兩步：</b></p>
-    <p><b>① 在首頁清單登記。</b> 用編輯器打開 <code>assets/data.js</code>，在 <code>cycles</code> / <code>companies</code> / <code>parts</code> 三個陣列中對應的那個，照樣複製一筆。<code>status</code> 填 <code>"stub"</code>（骨架占位）或 <code>"done"</code>（已寫內容）。</p>
-    <p><b>② 寫內容頁。</b> 若是 <code>done</code>，到對應資料夾（<code>cycles/</code>、<code>companies/</code>、<code>parts/</code>）複製任一現成頁面當範本，改檔名為節點 id（例如 <code>amd.html</code>），填入內容與關聯連結即可。</p>
-    <p>關聯（串聯）就是在內容頁的「關聯節點」區塊放上其他節點的連結——一張卡可同時連公司、零件、週期三種。改完存檔、上傳 GitHub，全裝置就看得到。詳細範本說明寫在每個資料夾的 <code>_TEMPLATE.html</code> 註解裡。</p>
+    <p><b>① 在首頁清單登記。</b> 用編輯器打開 <code>assets/data.js</code>，在 <code>cycles</code> / <code>companies</code> / <code>parts</code> / <code>quarters</code> 四個陣列中對應的那個，照樣複製一筆。<code>status</code> 填 <code>"stub"</code>（骨架占位）或 <code>"done"</code>（已寫內容）。</p>
+    <p><b>② 寫內容頁。</b> 若是 <code>done</code>，到對應資料夾（<code>cycles/</code>、<code>companies/</code>、<code>parts/</code>、<code>quarters/</code>）複製任一現成頁面當範本，改檔名為節點 id（例如 <code>amd.html</code>、<code>2026Q2-tsmc.html</code>），填入內容與關聯連結即可。</p>
+    <p>關聯（串聯）就是在內容頁的「關聯節點」區塊放上其他節點的連結——一張卡可同時連公司、零件、週期、財報四種。財報節點若填上 <code>company</code> 欄位，對應公司頁會自動長出「財報追蹤」連結。改完存檔、上傳 GitHub，全裝置就看得到。</p>
   </div>
 </div>
 
 <footer class="site">
   <div class="wrap">
-    科技供應鏈知識庫 · 個人研究用 · 資料節點集中於 <code>assets/data.js</code> · 三色系統：<span style="color:var(--company)">公司</span> / <span style="color:var(--part)">零件</span> / <span style="color:var(--cycle)">週期</span>
+    科技供應鏈知識庫 · 個人研究用 · 資料節點集中於 <code>assets/data.js</code> · 四色系統：<span style="color:var(--company)">公司</span> / <span style="color:var(--part)">零件</span> / <span style="color:var(--cycle)">週期</span> / <span style="color:var(--quarter)">財報</span>
   </div>
 </footer>
 
 <script src="assets/data.js"></script>
 <script>
 const ICON={done:'<span class="badge done">已研究</span>',stub:'<span class="badge stub">待補</span>'};
-function path(kind,id){return ({cycles:"cycles/",companies:"companies/",parts:"parts/"})[kind]+id+".html";}
+function path(kind,id){return ({cycles:"cycles/",companies:"companies/",parts:"parts/",quarters:"quarters/"})[kind]+id+".html";}
 
 function itemHTML(kind,o,type){
   const href=path(kind,o.id);
@@ -90,7 +99,6 @@ function itemHTML(kind,o,type){
   const code=o.code?`<span class="code">${o.code}</span>`:(o.en?`<span class="code">${o.en}</span>`:"");
   const inner=`<div class="nm">${o.name} ${code} ${o.status==="done"?ICON.done:ICON.stub}</div>
                <div class="desc">${o.desc}</div>`;
-  // stub 也可點（會看到占位頁），但若你還沒建檔，連結會 404 —— 故 stub 預設不連結
   if(o.status==="done") return `<a class="${cls}" ${tag} href="${href}">${inner}</a>`;
   return `<div class="${cls}" ${tag} title="骨架待補，尚未建立內容頁">${inner}</div>`;
 }
@@ -117,15 +125,31 @@ compWrap.innerHTML=chtml;
 document.getElementById("list-parts").innerHTML =
   KB.parts.map(o=>itemHTML("parts",o,"part")).join("");
 
+// 財報（依 period 分組，總覽頁排最上）
+const qWrap=document.getElementById("list-quarters");
+const periods=[...new Set((KB.quarters||[]).map(q=>q.period))].sort().reverse();
+let qhtml="";
+periods.forEach(p=>{
+  const items=(KB.quarters||[]).filter(q=>q.period===p)
+    .sort((a,b)=>(a.scope==="overview"?-1:b.scope==="overview"?1:0));
+  const done=items.filter(q=>q.status==="done").length;
+  qhtml+=`<div class="group"><div class="group-bar">
+    <h3>${p}</h3><span class="en">Quarterly Financials</span>
+    <span class="prog">已寫 <b>${done}</b> / ${items.length}</span></div>
+    <div class="cards">${items.map(o=>itemHTML("quarters",o,"quarter")).join("")}</div></div>`;
+});
+qWrap.innerHTML=qhtml||'<p style="color:var(--faint);font-style:italic;padding:14px 0">尚無財報內容。在 data.js 的 quarters 陣列加入一筆，並在 quarters/ 資料夾建立對應頁面。</p>';
+
 // 統計
 const allComp=KB.companies.length, doneComp=KB.companies.filter(c=>c.status==="done").length;
 const allPart=KB.parts.length, donePart=KB.parts.filter(p=>p.status==="done").length;
 const allCyc=KB.cycles.length, doneCyc=KB.cycles.filter(c=>c.status==="done").length;
+const allQ=(KB.quarters||[]).length, doneQ=(KB.quarters||[]).filter(q=>q.status==="done").length;
 document.getElementById("stats").innerHTML=`
   <div class="stat"><div class="n">${doneCyc} / ${allCyc}</div><div class="l">週期 Cycles</div></div>
   <div class="stat"><div class="n">${doneComp} / ${allComp}</div><div class="l">公司 Companies</div></div>
   <div class="stat"><div class="n">${donePart} / ${allPart}</div><div class="l">零件 Parts</div></div>
-  <div class="stat"><div class="n">${doneComp+donePart+doneCyc}</div><div class="l">已建內容頁</div></div>`;
+  <div class="stat"><div class="n">${doneQ}</div><div class="l">財報 Reports</div></div>`;
 
 // 搜尋
 const search=document.getElementById("search"),nomatch=document.getElementById("nomatch");
