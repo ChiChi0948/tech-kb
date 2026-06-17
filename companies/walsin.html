@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>華新科 Walsin · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css"></head><body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+<span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#companies">公司</a> / 華新科</span>
+<nav class="top"><a href="../index.html#cycles">週期</a><a href="../index.html#companies">公司</a><a href="../index.html#parts">零件</a><a href="../index.html#quarters">財報</a></nav>
+</div></header>
+<div class="wrap"><div class="layout">
+<aside class="toc"><div class="tl">本頁目錄</div>
+<a href="#profile">基本定位</a><a href="#products">產品線</a><a href="#role">AI 受惠路徑</a><a href="#capacity">產能狀況</a><a href="#vs">vs 同業</a><a href="#financials">財報追蹤</a><a href="#timeline">更新時間軸</a>
+</aside><article>
+<span class="tag-type company">公司 · 被動元件</span>
+<h1>華新科 Walsin <span style="font-size:1rem;color:var(--faint);font-weight:400">2492</span></h1>
+<p class="lede">台灣 MLCC 第二、與信昌同體系。MLCC＋晶片電阻雙產品線，推銅電極 MLCC 切入 AI 伺服器。</p>
+
+<h2 id="profile">基本定位</h2>
+<table class="deftable">
+<tr><td>代號</td><td>Walsin · 2492</td></tr>
+<tr><td>體系</td><td>與 <b>信昌電（6173）</b> 同集團——信昌電做鋁電解、華新科做 MLCC＋電阻</td></tr>
+<tr><td>MLCC 月產能</td><td>約 400 億顆</td></tr>
+<tr><td>主力象限</td><td>第三象限（Commodity）為主、第二象限（高壓）有基礎</td></tr>
+</table>
+
+<h2 id="products">產品線</h2>
+<ul>
+<li><b>MLCC</b>：Commodity 次選（國巨之後），近期推<b>銅電極 MLCC</b> 切入 AI 伺服器市場。</li>
+<li><b>晶片電阻</b>：與 MLCC 同樣是 AI 主板暴增 IC 需求的等比受惠者。</li>
+</ul>
+
+<h2 id="role">AI 受惠路徑</h2>
+<p>華新科是 <b>「產能全滿＋雙產品線受惠」</b>：產能利用率已飽滿，2025 開出漲價第三槍（前兩槍是太陽誘電與三星電機）。除了 MLCC，<b>電阻產品線也同步受惠</b>於 AI 板子 IC 暴增——這是它跟純做 MLCC 廠商的差異。</p>
+
+<h2 id="capacity">產能狀況</h2>
+<p>產能已全滿、有下訂單但量不大，<b>觀望</b>擴產態度與 <a href="yageo.html">國巨</a> 類似——同樣受 2017-18 教訓影響。</p>
+
+<h2 id="vs">vs 同業</h2>
+<table class="deftable">
+<tr><td>vs <a href="yageo.html">國巨</a></td><td>同樣 Commodity，國巨規模大且產品線全（含鉭電容、KEMET）；華新科優勢在 MLCC＋電阻雙線。</td></tr>
+<tr><td>vs <a href="holystone.html">禾伸堂</a></td><td>華新科靠規模＋漲價彈性；禾伸堂靠高壓 niche 技術。受惠邏輯不同。</td></tr>
+<tr><td>關聯：信昌電</td><td>同集團做鋁電解電容，<b>AI PSU 牛角電容</b> 需求暴增的受惠者；華新科＋信昌電可視為「集團雙線」。</td></tr>
+</table>
+
+<h2 id="financials">財報追蹤</h2>
+<div class="fin-track"><div class="lt">每季財報觀察 · Quarterly Reports</div>
+<ul id="fin-list"><li style="color:var(--faint);font-style:italic">載入中⋯</li></ul></div>
+
+<div class="links-box"><div class="lt">關聯節點 · Connections</div>
+<div class="chip-row">
+<a class="link-chip" href="../parts/passive.html"><span class="dot part"></span>被動元件 (MLCC)</a>
+<a class="link-chip" href="../cycles/ai-server.html"><span class="dot cycle"></span>AI 伺服器</a>
+<a class="link-chip" href="yageo.html"><span class="dot company"></span>國巨</a>
+<a class="link-chip" href="holystone.html"><span class="dot company"></span>禾伸堂</a>
+</div></div>
+
+<h2 id="timeline">更新時間軸</h2>
+<div class="timeline">
+<div class="ev"><div class="dt">2026.06</div>由「被動元件深度解析（含分析師補充）」歸檔建立此頁。</div>
+</div>
+</article></div></div>
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+<script src="../assets/data.js"></script>
+<script>
+const COMPANY_ID="walsin";
+const reports=(KB.quarters||[]).filter(q=>q.company===COMPANY_ID&&q.scope==="company").sort((a,b)=>b.period.localeCompare(a.period));
+const list=document.getElementById("fin-list");
+list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</span><a href="../quarters/${r.id}.html">${r.desc}</a></li>`).join(""):'<li style="color:var(--faint);font-style:italic">尚無財報觀察。在 data.js 的 quarters 陣列加入 company:"walsin" 的項目，這裡會自動出現。</li>';
+</script>
+</body></html>
