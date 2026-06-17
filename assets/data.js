@@ -23,6 +23,9 @@ window.KB = {
     { id:"qualcomm",  group:"fabless", status:"stub", name:"高通",     code:"Qualcomm · QCOM", desc:"手機 SoC 與射頻；Snapdragon" },
     { id:"mediatek",  group:"fabless", status:"stub", name:"聯發科",   code:"MediaTek · 2454", desc:"手機 SoC；天璣系列" },
     { id:"apple-si",  group:"fabless", status:"stub", name:"蘋果晶片", code:"Apple Silicon", desc:"自研 A/M 系列；台積電最大客戶之一" },
+    // 功率半導體
+    { id:"infineon", group:"power",   status:"done", name:"Infineon 英飛凌", code:"IFX.DE", desc:"全球功率半導體龍頭；產品線最完整、AI 電源最直接受惠" },
+    { id:"stm",      group:"power",   status:"done", name:"STM 意法",       code:"STM",    desc:"全球功率第二、車用 SiC 要角；AI 故事尚未充分認知" },
     // 記憶體
     { id:"sk-hynix",  group:"memory",  status:"done", name:"SK 海力士", code:"SK Hynix",     desc:"HBM 領先者；AI 週期最大贏家之一" },
     { id:"samsung-mem", group:"memory", status:"stub", name:"三星記憶體", code:"Samsung",     desc:"DRAM/NAND 龍頭；追趕 HBM" },
@@ -52,6 +55,7 @@ window.KB = {
   groups: {
     foundry:{ name:"晶圓代工",  en:"Foundry" },
     fabless:{ name:"IC 設計",   en:"Fabless Design" },
+    power:  { name:"功率半導體", en:"Power Semiconductor" },
     memory: { name:"記憶體",    en:"Memory" },
     equip:  { name:"半導體設備", en:"Equipment" },
     ostat:  { name:"封裝測試",  en:"OSAT" },
