@@ -62,6 +62,8 @@
       <a href="#captypes">各類電容詳解</a>
       <a href="#shortage">為何反覆缺貨</a>
       <a href="#signal">追蹤訊號</a>
+      <a href="#family">被動元件家族</a>
+      <a href="#analyst">分析師補充：村田策略</a>
       <a href="#timeline">更新時間軸</a>
     </aside>
     <article>
@@ -93,11 +95,11 @@
         <tr><td><b>廠商</b></td><td><b>月產能(億顆) · 主力象限 · 核心優勢 · 當前策略</b></td></tr>
         <tr><td>村田 🇯🇵</td><td>1,400｜第四、第一｜全球龍頭，小尺寸高容技術絕對領先，高階產線集中日本出雲｜不主動漲價、優先保大客戶，菲律賓擴廠主攻車用</td></tr>
         <tr><td>三星電機 🇰🇷</td><td>1,000｜第四｜長期供貨母集團手機，0805 以下小尺寸技術成熟｜村田替代首選，5 月起 X5R 停止接單、全力做 X6S</td></tr>
-        <tr><td>國巨 🇹🇼</td><td>1,000｜第三｜含 KEMET，Commodity 主力、亞洲供應鏈首選｜產能移往高價值 X5R，Commodity 通路先行漲價</td></tr>
+        <tr><td><a href="../companies/yageo.html">國巨</a> 🇹🇼</td><td>1,000｜第三｜含 KEMET，Commodity 主力、亞洲供應鏈首選｜產能移往高價值 X5R，Commodity 通路先行漲價</td></tr>
         <tr><td>太陽誘電 🇯🇵</td><td>800｜第四(大尺寸)｜高疊層高容大尺寸(0805 以上)最強｜業界率先開出漲價第一槍</td></tr>
         <tr><td>TDK 🇯🇵</td><td>400｜第一、車用｜2017 後轉向車用，100V 高容技術最好，EPCOS 牛角電容｜深耕車用市場</td></tr>
-        <tr><td>華新科 🇹🇼</td><td>400｜第三、第二｜與信昌同體系，Commodity 次選、高壓有基礎｜產能全滿，開出漲價第三槍</td></tr>
-        <tr><td>禾伸堂 🇹🇼</td><td>100｜第二｜高壓 niche player，諧振電容新應用受惠者｜業界下最多關鍵設備訂單、積極擴廠</td></tr>
+        <tr><td><a href="../companies/walsin.html">華新科</a> 🇹🇼</td><td>400｜第三、第二｜與信昌同體系，Commodity 次選、高壓有基礎｜產能全滿，開出漲價第三槍</td></tr>
+        <tr><td><a href="../companies/holystone.html">禾伸堂</a> 🇹🇼</td><td>100｜第二｜高壓 niche player，諧振電容新應用受惠者｜業界下最多關鍵設備訂單、積極擴廠</td></tr>
         <tr><td>陸系 🇨🇳</td><td>500｜第三｜中低階為主、高階能力有限，四大 CSP 不採用｜中國 AI「以量換質」使內需訂單全滿</td></tr>
       </table>
       <p><b>尺寸分水嶺 0805：</b>0805 以下小尺寸三星電機較強（長期供貨手機 0603/0402/0201）；0805 以上大尺寸太陽誘電較強（高疊層高容）。</p>
@@ -165,6 +167,82 @@
         <li><b>追實際機架出貨量比 CAPEX 準</b>：雲端廠公告資本支出不等於立即拉貨，從預算到零件採購常延遲 2–3 季。</li>
         <li><b>車用 MLCC 是第二增長曲線</b>：電動車單車用量是燃油車 3–5 倍，但車規認證需 18–24 個月，認證通過者訂單能見度與毛利率較佳。</li>
       </ul>
+      <h2 id="family">被動元件家族分類與台股對應</h2>
+      <p>MLCC 只是電容家族的一支。AI 伺服器從 PSU 到主板用到的被動元件種類遠不止 MLCC。所有電容差別在「中間那層絕緣體」用什麼材料：</p>
+      <table class="deftable">
+        <tr><td><b>類型</b></td><td><b>絕緣層</b></td><td><b>優勢</b></td><td><b>劣勢</b></td><td><b>AI 主板位置</b></td></tr>
+        <tr><td>MLCC</td><td>陶瓷</td><td>小、快、耐溫</td><td>容值有上限</td><td>GPU 旁去耦、諧振、全板基礎</td></tr>
+        <tr><td>鋁電解（液態）</td><td>鋁氧化膜＋電解液</td><td>大容值、高壓</td><td>怕高溫、會爆</td><td>PSU 大型儲能（牛角電容）</td></tr>
+        <tr><td>固態電容</td><td>鋁氧化膜＋導電高分子</td><td>不爆、低 ESR、耐溫</td><td>耐壓低、較貴</td><td>CPU/GPU 供電 VRM 輸出端</td></tr>
+        <tr><td>Hybrid</td><td>固態＋液態混合</td><td>兼顧耐壓與壽命</td><td>折衷方案</td><td>48V 輸入端</td></tr>
+        <tr><td>鉭電容</td><td>鉭氧化膜</td><td>容值密度高、穩定</td><td>鉭稀有、貴</td><td>精密穩定度位置</td></tr>
+      </table>
+      <p><b>AI 主板四層位置與對應台股：</b></p>
+      <table class="deftable">
+        <tr><td>① PSU 機殼內</td><td>牛角電容（450V/1000μF+）：<b>立隆電 2472、信昌電 6173、凱美 2375</b>；台達已全球包廠搶貨。日系龍頭 NCC（去年資料中心營收 110 億日幣，今年翻倍，主供台達）。</td></tr>
+        <tr><td>② 48V 輸入端</td><td>Hybrid 電容（<b>金山電 8042</b>）、高壓 MLCC（<a href="../companies/holystone.html">禾伸堂</a>）——48V 諧振電容是禾伸堂從邊緣變主流的根本。</td></tr>
+        <tr><td>③ 電源轉換模組</td><td>固態電容（<b>鈺邦 6449、凱美</b>）——「不要電解、要固態」直接命中；高階 X5R MLCC 由 <a href="../companies/yageo.html">國巨</a> 承接日韓外溢訂單。</td></tr>
+        <tr><td>④ GPU / HBM / 各 IC</td><td>高階 MLCC X6S（村田、三星）→ GPU 旁去耦；Commodity MLCC（<a href="../companies/yageo.html">國巨</a>、<a href="../companies/walsin.html">華新科</a>）→ 全板基礎；電阻（<b>大毅 2478</b>、華新科、國巨）→ 全板偏壓；鉭電容（國巨 KEMET）→ 精密穩定度。</td></tr>
+      </table>
+      <p><b>10 家台灣個股對應的受惠邏輯：</b></p>
+      <ul>
+        <li><b>高階 MLCC 技術壁壘</b>：<a href="../companies/holystone.html">禾伸堂 3026</a>（48V 諧振電容 niche 王者）</li>
+        <li><b>MLCC 量大＋漲價彈性</b>：<a href="../companies/yageo.html">國巨 2327</a>（承接外溢＋全系列佈局）、<a href="../companies/walsin.html">華新科 2492</a>（產能全滿、MLCC＋電阻雙線）</li>
+        <li><b>固態電容對應 AI 板</b>：鈺邦 6449（「不要電解、要固態」直接命中）</li>
+        <li><b>牛角電容供不應求</b>：金山電 8042（Hybrid＋牛角雙線）、立隆電 2472（鋁電解主力）、信昌電 6173（華新科體系）</li>
+        <li><b>雙線佈局</b>：凱美 2375（固態＋電解兩條線，AI 和車用都吃）</li>
+        <li><b>通路商加價空間</b>：日電貿 3090（代理高階鉭電容和日系高階電容）</li>
+        <li><b>電阻溫和受惠</b>：大毅 2478（AI 板 IC 暴增、電阻等比增加）</li>
+      </ul>
+      <p class="note" style="border-left-color:var(--done)">整體來看，這波 AI 趨勢不是只有 MLCC 受惠。從 PSU 的牛角電容、48V 的 Hybrid、主板上的固態電容，到遍佈全板的 MLCC 和電阻，整條被動元件供應鏈都被拉動。差別在於：誰技術壁壘高（禾伸堂、鈺邦）、誰量大彈性大（國巨、華新科）、誰卡在最缺的環節（金山、立隆）。</p>
+
+      <h2 id="analyst">分析師補充：村田內部策略與產業新情報</h2>
+      <p>以下來自富邦分析師 Computex 期間與村田介面溝通後的深度分享，補充前述產業專家未提的關鍵數字。</p>
+
+      <p><b>① 村田 20% 產能轉移的真實規模。</b> 村田 6 月底將召開內部會議決定要從手機與消費性電子挪多少產能到 AI 資料中心——分析師聽到的數字可能高達 <b>20%</b>。村田今年營收超過一兆日幣，兩成就是約 2,000 億日幣，而 <a href="../companies/yageo.html">國巨</a> 加 <a href="../companies/walsin.html">華新科</a> 去年 MLCC 營收加總剛好也是 2,000 億日幣——<b>村田一家挪出來的缺口＝台灣兩大 MLCC 廠的全部營收</b>，會在市場製造巨大供給空洞。</p>
+
+      <p><b>② AI 資料中心營收爆發速度。</b></p>
+      <table class="deftable">
+        <tr><td>村田 AI 資料中心去年營收</td><td>1,200–1,300 億日幣</td></tr>
+        <tr><td>今年預估</td><td>接近翻倍</td></tr>
+        <tr><td>未來 3–4 年平均 CAGR</td><td>80%（一年半前的原始預期僅 30%）</td></tr>
+        <tr><td>資料中心佔 MLCC 營收比重</td><td>去年十幾% → 今年超過 20%</td></tr>
+      </table>
+      <p>調升主因：CSP 投資超預期 + Google TPU 用量超預期。</p>
+
+      <p><b>③ 最大意外：不是 GPU，是 TPU。</b> 村田表示 Rubin MLCC 用量增加約一倍在預期內。<b>真正的意外是 Google TPU 背面貼的 MLCC 數量比預期大很多</b>。AI 對 MLCC 的拉動是多條路線同時爆發：<a href="../companies/nvidia.html">輝達</a>、Google TPU、AWS ASIC、中國內需。</p>
+
+      <p><b>④ 10:1 的產能換算比。</b> 普通手機用的 MLCC，10 顆的產能才能做 1 顆 AI 資料中心用的。原因：疊層數遠多於手機用、陶瓷配方不同（X6S/X7R vs X5R）、切割尺寸不同；加上高階良率只有七成（甚至五到六成），實際換算更差。</p>
+
+      <p><b>⑤ 良率問題的技術根源。</b> 疊層燒結之後，介電層的陶瓷顆粒之間不能有空隙、必須非常緻密。有空隙則轉 X6S/X7R 時電容特性會浮動。問題持續一年多，村田認為時間可克服但何時不確定。</p>
+
+      <p><b>⑥ 村田設備優勢 vs 其他廠商。</b> 村田自製設備（材料和設備都自己做），真要擴廠 2–3 季即可——瓶頸不是「做不到」而是「不敢做」（怕過度擴產）。其他廠商如國巨、華新科須外購日本燒結爐和堆疊機，交期 12–18 個月，這才是真正的設備瓶頸。</p>
+
+      <p><b>⑦ 各廠商定位修正（vs 前述產業專家版本）：</b></p>
+      <table class="deftable">
+        <tr><td><b>廠商</b></td><td><b>新增情報</b></td></tr>
+        <tr><td>村田</td><td>AI 資料中心市佔超過 50%</td></tr>
+        <tr><td>三星電機</td><td>2025 Q4 良率突破後才大規模生產，時間上比村田晚一步</td></tr>
+        <tr><td>TDK</td><td>八成給汽車，承認 XPU decoupling「做不到了」——確認完全退出 IT 類</td></tr>
+        <tr><td>太陽誘電</td><td>大小顆都能做（蘋果用超小顆），<b>弱的是高壓</b>。被某 CSP 採用，AI 營收成長 80%。修正前述「小尺寸不行」→ 實際是高壓不行</td></tr>
+      </table>
+
+      <p><b>⑧ 牛角電容競爭格局：</b>NCC 全球最大（去年資料中心營收 110 億日幣、今年翻倍，八九成給 PSU、主供台達）；TDK/EPCOS 是歐洲子公司（去年僅 7–8 億，對大公司收益不大）；Rubycon 未上市；Nichicon 上市。<b>關鍵差異：牛角稼動率只有七八成，漲價主因是鋁價上漲、不是供不應求</b>——與 MLCC 的供需緊張有本質不同。</p>
+
+      <p><b>⑨ 電感全新觀察。</b> 目標應用是 vertical power（垂直供電）和 substrate（基板內建）；量不大但單價高；技術要求積層方式繞線，太陽誘電和 TDK 做得不太好；太陽誘電說明年底量開始放大；台達電技術跟日本非常接近。</p>
+
+      <p><b>⑩ 兩份專家交叉驗證的綜合判斷：</b></p>
+      <table class="deftable">
+        <tr><td><b>議題</b></td><td><b>綜合判斷</b></td></tr>
+        <tr><td>村田擴產</td><td>新擴 10–15% + 可能挪 20% 舊線，兩者並行</td></tr>
+        <tr><td>設備瓶頸</td><td>村田自製無瓶頸，其他廠外購才有（12–18 月）</td></tr>
+        <tr><td>太陽誘電</td><td>能做小尺寸但 AI 高容量上不及三星，弱在高壓</td></tr>
+        <tr><td>TDK</td><td>完全退出 IT 類，專注車用</td></tr>
+        <tr><td>村田漲價</td><td>短期傾向不漲（產品組合自然升級已賺到），但缺口擴大可能被迫</td></tr>
+        <tr><td>牛角電容</td><td>PSU 大型確實緊缺、整體產業未滿</td></tr>
+        <tr><td>最大驅動</td><td>多條路線同時爆發：Nvidia + Google TPU + 中國以量換質 + AWS ASIC</td></tr>
+      </table>
+
       <div class="links-box">
         <div class="lt">關聯節點 · Connections</div>
         <div class="chip-row">
@@ -173,10 +251,14 @@
           <a class="link-chip" href="../cycles/smartphone.html"><span class="dot cycle"></span>智慧手機</a>
           <a class="link-chip" href="../parts/power-semi.html"><span class="dot part"></span>功率半導體</a>
           <a class="link-chip" href="../companies/nvidia.html"><span class="dot company"></span>輝達</a>
+          <a class="link-chip" href="../companies/yageo.html"><span class="dot company"></span>國巨</a>
+          <a class="link-chip" href="../companies/walsin.html"><span class="dot company"></span>華新科</a>
+          <a class="link-chip" href="../companies/holystone.html"><span class="dot company"></span>禾伸堂</a>
         </div>
       </div>
       <h2 id="timeline">更新時間軸</h2>
       <div class="timeline">
+        <div class="ev"><div class="dt">2026.06</div>補入「被動元件家族分類」與「分析師補充：村田策略」兩大章節；新增國巨、華新科、禾伸堂三家公司節點並雙向串聯。</div>
         <div class="ev"><div class="dt">2026.06</div>整合獨立深度筆記，補進四象限分類、八廠商產能對比、溫度係數路徑、AI 主板三大應用精確規格、產能擴張策略與六步供需傳導鏈。</div>
         <div class="ev"><div class="dt">2026.05</div>整合「被動元件說明」與「供應鏈學習路徑」兩次討論，建立此頁。</div>
       </div>
