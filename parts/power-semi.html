@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>功率半導體 · 科技供應鏈知識庫</title>
 <link rel="stylesheet" href="../assets/style.css">
+<style>
+.voltage-chain{background:var(--paper2);border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin:14px 0;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88rem;line-height:2;color:var(--ink)}
+.voltage-chain .arrow{color:var(--faint)}
+.voltage-chain .stage{color:var(--accent);font-weight:700}
+.coverage-tbl td:not(:first-child){text-align:center}
+.cov{font-weight:700}
+.cov-full{color:var(--done)}
+.cov-mid{color:var(--stub)}
+.cov-low{color:#c0392b}
+.cov-none{color:var(--faint)}
+</style>
 </head>
 <body>
 <header class="site">
@@ -19,7 +30,6 @@
     </nav>
   </div>
 </header>
-
 <div class="wrap">
   <div class="layout">
     <aside class="toc">
@@ -27,16 +37,20 @@
       <a href="#what">這是什麼</a>
       <a href="#principle">運作原理</a>
       <a href="#materials">三種材料世代</a>
-      <a href="#apps">應用領域</a>
-      <a href="#landscape">全球競爭格局</a>
-      <a href="#players">主要廠商</a>
-      <a href="#trends">三大趨勢</a>
+      <a href="#trio">類比 / 功率 / MCU 三者</a>
+      <a href="#cycle">產業循環:類比先付、功率後付</a>
+      <a href="#datacenter">資料中心新需求</a>
+      <a href="#voltage">電壓段地圖 vs 公司覆蓋</a>
+      <a href="#tam">市場規模量化</a>
+      <a href="#pricing">產能與漲價循環</a>
+      <a href="#players">主要上市廠商</a>
+      <a href="#track">後續追蹤指標</a>
       <a href="#timeline">更新時間軸</a>
     </aside>
     <article>
       <span class="tag-type part">零件 / 模組</span>
       <h1>功率半導體</h1>
-      <p class="lede">Power Semiconductor · 負責電能的開關、整流與電壓轉換——讓電源產生的電，能被每個設備正確、有效率地使用。</p>
+      <p class="lede">Power Semiconductor · 負責電能的開關、整流與電壓轉換——從電網到 GPU 核心，每一段降壓都需要它。原本被歸類為「車用＋工業」題材，正在被市場重新理解為 <a href="../cycles/ai-server.html">AI 基礎設施</a> 供應鏈的一環。</p>
 
       <h2 id="what">這是什麼</h2>
       <p>功率半導體是專門處理「電力轉換」的元件，跟運算用的邏輯晶片不同：它不負責算數，負責讓電「以正確的形式」流到需要的地方。只要有用電的地方，幾乎都有它的身影——電動車、快充頭、太陽能、工廠馬達、AI 資料中心電源。</p>
@@ -52,39 +66,117 @@
       <h2 id="materials">三種材料世代</h2>
       <table class="deftable">
         <tr><td>矽 Si</td><td>最成熟、目前仍主流，適用中低壓應用。</td></tr>
-        <tr><td>碳化矽 SiC</td><td>高效、耐高壓，電動車 800V 平台關鍵材料。市場預計從 2025 年約 18.6 億美元、以約 25.7% 年複合成長率成長到 2032 年的 93.5 億美元，是最激烈的戰場。</td></tr>
-        <tr><td>氮化鎵 GaN</td><td>高頻、高效，適用快充與資料中心；手機 GaN 快充頭就是靠它把充電頭做小、效率又高。</td></tr>
+        <tr><td>碳化矽 SiC</td><td>高效、耐高壓，電動車 800V 平台關鍵材料。市場預計從 2025 年約 18.6 億美元、以約 25.7% 年複合成長率成長到 2032 年的 93.5 億美元。</td></tr>
+        <tr><td>氮化鎵 GaN</td><td>高頻、高效，適用快充與資料中心 48V 以下；手機 GaN 快充頭就是靠它把充電頭做小、效率又高。</td></tr>
       </table>
-      <p class="note" style="margin-top:8px">SiC 與 GaN 合稱「寬能隙（WBG）」半導體，是決定下一波產業座次的技術重心。</p>
+      <p class="note" style="margin-top:8px"><b>SiC vs GaN 之爭：</b>SiC 強在高壓（車用 800V、太陽能），GaN 強在高頻（資料中心 48V 以下）。Infineon 兩者都做、STM 偏 SiC、Navitas / EPC 偏 GaN。</p>
 
-      <h2 id="apps">應用領域</h2>
+      <h2 id="trio">類比 / 功率 / MCU 三者怎麼分工</h2>
+      <table class="deftable">
+        <tr><td>類比 IC (Analog)</td><td>處理連續訊號——電壓、電流、溫度、聲音、光線等真實世界訊號。代表：TI（德州儀器）、ADI（亞德諾）。差異化看「產品組合」：ADI 偏國防、半導體測試等高毛利利基，所以毛利率長期高於 TI。</td></tr>
+        <tr><td>功率半導體 (Power)</td><td>負責電力轉換、調節、開關。代表：Infineon、STM、onsemi。應用：電動車主驅、車載充電、工業馬達、資料中心電源。</td></tr>
+        <tr><td>MCU 微控制器</td><td>數位邏輯運算的小型處理器，負責「下指令」。在汽車裡負責 SDV（軟體定義汽車）、車身控制、ADAS 預處理。代表：NXP（恩智浦）、Renesas、Infineon。</td></tr>
+      </table>
+      <p>三者在電動車裡的合作：<b>感測器（類比）→ MCU（運算決策）→ 功率元件（驅動馬達）</b>。</p>
+
+      <h2 id="cycle">產業循環：類比先付、功率後付</h2>
+      <p>半導體景氣的復甦規律：離「消費」近的先付、離「車用／功率」近的後付，但高點延續更久。</p>
+      <h3 style="font-size:1rem;margin-top:14px">2020–2022 上行循環復甦順序</h3>
+      <table class="deftable">
+        <tr><td>1. 最先</td><td>消費電子</td></tr>
+        <tr><td>2. 接續</td><td>工業（TI 2022 Q3 見頂）</td></tr>
+        <tr><td>3. 再接</td><td>通訊基建（ADI 稍晚）</td></tr>
+        <tr><td>4. 最後</td><td>車用／功率（Infineon、STM 延續至 2023）</td></tr>
+      </table>
+      <h3 style="font-size:1rem;margin-top:14px">2023–2025 下行循環各家策略</h3>
+      <table class="deftable">
+        <tr><td>TI</td><td>逆週期擴產、持續轉 12 寸廠。短期壓力大，長期成本結構改善。</td></tr>
+        <tr><td>ADI</td><td>幾乎不調整，靠產品組合與營運效率撐過去。</td></tr>
+        <tr><td>NXP</td><td>升級資源（SDV、車內連接、邊緣 AI）。</td></tr>
+        <tr><td>onsemi</td><td>調整成本結構與產品技術（SiC）。</td></tr>
+        <tr><td>STM</td><td>明確重組——調整製造佈局與成本。</td></tr>
+        <tr><td>Infineon</td><td>集團級「Step Up」結構改善計畫，抵消價格與稼動率壓力。</td></tr>
+      </table>
+      <div class="note"><b>關鍵觀察：</b>除了 ADI 以外，其他公司都動了。下一個上行循環的<b>獲利彈性會更明顯</b>——成本基期低 + 產品組合升級。</div>
+      <h3 style="font-size:1rem;margin-top:14px">2026 復甦順序預期</h3>
+      <table class="deftable">
+        <tr><td>1. 先付</td><td>TI、ADI（類比）——工業、通訊、資料中心相關類比需求先回</td></tr>
+        <tr><td>2. 中段</td><td>NXP（MCU）——IoT／消費比重高、稍晚</td></tr>
+        <tr><td>3. 落後</td><td>Infineon、STM、onsemi（功率）——全年仍壓力大，但「落後不等於壞」</td></tr>
+      </table>
+      <p class="note" style="margin-top:8px;border-left-color:var(--done)"><b>投資啟示：</b>落後付不是壞事——上一輪功率公司高點延續最久。<b>現在是布局功率的時機。</b></p>
+
+      <h2 id="datacenter">資料中心：功率半導體的新戰場</h2>
+      <p>資料中心的電力架構是「從電網一路降壓到 GPU」，每一階都需要功率半導體：</p>
+      <div class="voltage-chain">
+電網 (kV 級)<br>
+&nbsp;&nbsp;<span class="arrow">↓</span> <span class="stage">固態變壓器 (SST)</span> ← 高電壓 / 早期階段<br>
+&nbsp;&nbsp;<span class="arrow">↓</span> <span class="stage">800V DC 直流匯流排</span> ← 2025 H2 開始放量<br>
+&nbsp;&nbsp;<span class="arrow">↓</span> <span class="stage">中段轉換</span> (800V → 48V)<br>
+&nbsp;&nbsp;<span class="arrow">↓</span> <span class="stage">Power Stage</span> (12V → GPU 核心) ← MPS 強項<br>
+&nbsp;&nbsp;<span class="arrow">↓</span> GPU / ASIC
+      </div>
+      <p><b>每千瓦約 175 美元</b>的功率半導體含量（Infineon 法說會口徑）。延伸知識：<b>固態變壓器（SST）</b>把入電從「工頻變壓器＋整流」整合成單一裝置，效率、體積、控制都有優勢；<b>800V DC 直流匯流</b>由 Open Compute Project 推動，<a href="../companies/nvidia.html">輝達</a> Rubin Ultra 世代開始大規模採用，是 2025 H2 → 2026 關鍵放量點。</p>
+      <p><b>為何車用功率元件可以「轉去」資料中心？</b> MOSFET 等功率元件的基本原理（電流控制、電壓調節）在車用和資料中心<b>完全一樣</b>，差別只在「電壓寬度」——電動車集中在 400V／800V／1200V 高壓段，資料中心則從 kV 級（電網）一路到 1V 級（GPU 核）都要。所以 Infineon 把車用高壓產能（獲利壓力大）直接轉去支援 AI 電源，這是當前正在發生的事。</p>
+
+      <h2 id="voltage">電壓段地圖 vs 公司覆蓋度</h2>
+      <p>看一家功率半導體公司，要看「它在哪個電壓段有產品」。這張地圖是本主題的核心：</p>
+      <table class="deftable coverage-tbl">
+        <tr><td><b>電壓段</b></td><td><b>應用位置</b></td><td><b>Infineon</b></td><td><b>STM</b></td><td><b>onsemi</b></td><td><b>MPS</b></td></tr>
+        <tr><td>超高壓 (kV)</td><td>固態變壓器、電網</td><td class="cov cov-full">✓ 早期布局</td><td class="cov cov-mid">⚠ 部分</td><td class="cov cov-none">—</td><td class="cov cov-none">—</td></tr>
+        <tr><td>800V DC</td><td>機櫃級直流匯流</td><td class="cov cov-full">✓ 完整</td><td class="cov cov-full">✓ 強項</td><td class="cov cov-mid">⚠</td><td class="cov cov-none">—</td></tr>
+        <tr><td>中壓 48V–400V</td><td>機架轉換、車用主驅</td><td class="cov cov-full">✓ 完整</td><td class="cov cov-full">✓ 完整</td><td class="cov cov-full">✓ SiC</td><td class="cov cov-mid">⚠</td></tr>
+        <tr><td>低壓 &lt;48V</td><td>GPU 周邊穩壓 / VR</td><td class="cov cov-full">✓ 完整</td><td class="cov cov-low">較弱</td><td class="cov cov-none">—</td><td class="cov cov-full">✓ 王者</td></tr>
+      </table>
+      <p><b>各家一句話定位：</b></p>
       <ul>
-        <li><b>電動車</b>（最大需求來源）：逆變器把電池直流電轉成馬達交流電，SiC 決定加速與續航。連到 <a href="../cycles/ev.html">電動車週期</a>。</li>
-        <li><b>手機快充</b>：GaN 快充頭，連到 <a href="../cycles/smartphone.html">智慧手機週期</a>。</li>
-        <li><b>太陽能與風電</b>：逆變器把直流轉交流併入電網。</li>
-        <li><b>工廠馬達變頻器</b>：可省下逾 30% 電費，工業節電貢獻最大。</li>
-        <li><b>AI 資料中心</b>：電源管理（PMIC）把高壓電穩定轉成晶片低壓電，效率每升 1% 都省巨量電費。連到 <a href="../cycles/ai-server.html">AI 伺服器週期</a>。</li>
-        <li><b>高鐵與捷運</b>：大功率 IGBT 模組驅動列車、回收煞車能量。</li>
+        <li><a href="../companies/infineon.html">Infineon（英飛凌）</a>：<b>產品線最完整</b>——從電網到 GPU 都有。AI 受惠最直接，但市場已大致認知。</li>
+        <li><a href="../companies/stm.html">STM（意法）</a>：強在 800V 高壓直電、SiC、中段轉換。低壓 GPU 端較弱，但這也代表上修空間大。</li>
+        <li>onsemi：SiC 強項在車用、太陽能，資料中心布局相對不完整。</li>
+        <li>MPS（Monolithic Power）：<b>低壓 GPU 周邊 VR 的霸主</b>，與輝達長期合作。</li>
+        <li>TI：逆週期擴產，12 寸成本優勢將在復甦期展現。</li>
+        <li>ADI：國防＋半導體測試差異化，毛利率最穩。</li>
       </ul>
 
-      <h2 id="landscape">全球競爭格局</h2>
-      <p>2025 年全球市場估值約 556 億美元，預計 2035 年成長至約 975 億美元（年複合約 5.8%），由電動車、資料中心能耗管理、工業自動化與再生能源驅動。格局是「Infineon 一哥領跑，ST、onsemi、TI 緊追」。2025 年前五大（Infineon、onsemi、TI、ST、三菱電機）合計約 45.5% 市佔，其中 Infineon 超過 19.5%。</p>
-      <p>SiC 是最關鍵的增量戰場：ST、onsemi、Infineon、Wolfspeed、ROHM 五家在 2024 年合計掌握逾 70% 的 SiC 元件營收。</p>
+      <h2 id="tam">市場規模量化</h2>
+      <table class="deftable">
+        <tr><td><b>應用</b></td><td><b>新增市場規模（5 年）</b></td><td><b>假設基礎</b></td></tr>
+        <tr><td>車用</td><td>113–134 億美元</td><td>Gartner 等口徑；含 ADAS、底盤、車身結構</td></tr>
+        <tr><td>AI 資料中心</td><td><b>105–240 億美元</b></td><td>175 美元/kW × 第三方新增電力容量預估</td></tr>
+      </table>
+      <div class="note" style="border-left-color:var(--done)"><b>結論：</b>資料中心已和車用「同一量級」，上緣情境甚至超越車用。<b>這是 Infineon／STM 重新估值的關鍵基礎。</b></div>
+
+      <h2 id="pricing">產能變化與漲價循環</h2>
+      <p><b>三股力量推升漲價（2025 已發生兩輪）：</b></p>
+      <table class="deftable">
+        <tr><td>① AI 排擠效應</td><td>Infineon 把中壓（60V–100V）產能轉給 AI 電源 → 其他無自有產能的公司必須往外找代工 → 攻擊縮減</td></tr>
+        <tr><td>② 8 寸代工產能緊缺</td><td><a href="../companies/tsmc.html">台積電</a> 等退出 8 寸 → 客戶轉 12 寸或轉中國代工廠 → 中國 8 寸也已吃緊 → 攻擊縮減</td></tr>
+        <tr><td>③ 成本推升</td><td>原物料、晶圓代工成本同步上漲</td></tr>
+      </table>
+      <p><b>漲價循環特徵：</b></p>
+      <ul>
+        <li>STM 2025 已兩輪漲價（4 月底、6 月底生效）</li>
+        <li>Infineon 兩輪漲價，明確指向 AI 電源</li>
+        <li>與上一輪不同：這次「營收翻正 → 漲價」僅隔一個季度（上輪隔了一年）</li>
+      </ul>
+      <p class="note"><b>意涵：獲利修復速度可能快於營收復甦速度。</b></p>
+      <p><b>價格目前位置（WSTS 數據）：</b>MCU 平均價年增率已轉正（車用／工業已在修復）；功率半導體仍負但跌幅收斂——<b>才剛接近價格拐點，不是高點</b>。</p>
 
       <h2 id="players">主要上市廠商</h2>
       <table class="deftable">
-        <tr><td>歐洲系</td><td>Infineon（IFX.DE，全球第一）、STMicroelectronics（STM，全球第二、車用 SiC 要角）</td></tr>
-        <tr><td>美洲系</td><td>onsemi（ON，車用 SiC 崛起）、Texas Instruments（TXN，類比＋功率 IC）、Wolfspeed（WOLF，純 SiC 廠）、Microchip、Vishay、Power Integrations</td></tr>
+        <tr><td>歐洲系</td><td><a href="../companies/infineon.html">Infineon（IFX.DE，全球第一）</a>、<a href="../companies/stm.html">STMicroelectronics（STM，全球第二、車用 SiC 要角）</a></td></tr>
+        <tr><td>美洲系</td><td>onsemi（ON）、Texas Instruments（TXN）、Analog Devices（ADI）、Wolfspeed（WOLF，純 SiC 廠）、MPS（MPWR）、Microchip、Vishay、Power Integrations</td></tr>
         <tr><td>日本系</td><td>三菱電機、富士電機、東芝、ROHM（SiC 先驅）、瑞薩 Renesas（模組強勢）</td></tr>
         <tr><td>中國系</td><td>士蘭微、華潤微、斯達半導、揚杰科技、比亞迪半導體（成熟 Si 快速擴產，SiC 追趕中）</td></tr>
       </table>
 
-      <h2 id="trends">三大趨勢</h2>
-      <ul>
-        <li><b>SiC 紅海淘汰賽</b>：中國廠商低價進入，歐日美以技術差距因應，車用 SiC 面臨價格與良率壓力。</li>
-        <li><b>地緣政治重組供應鏈</b>：Infineon 建馬來西亞 SiC 廠、onsemi 擴捷克廠、Wolfspeed 仰賴美國 CHIPS 補助。</li>
-        <li><b>寬能隙決定下一波座次</b>：誰先提升 SiC／GaN 良率、降成本，誰就主導下一代電動車與儲能供應。</li>
-      </ul>
+      <h2 id="track">後續追蹤指標</h2>
+      <table class="deftable">
+        <tr><td>功率半導體價格年增率</td><td>何時轉正——確認價格拐點</td></tr>
+        <tr><td>Infineon 800V 直電 / SST 出貨時點</td><td>2025 H2 起——每千瓦含量上修觸發</td></tr>
+        <tr><td>STM 資料中心營收占比</td><td>季增速度——重估值的核心</td></tr>
+        <tr><td>8 寸代工稼動率</td><td>中國代工廠動向——攻擊縮減持續性</td></tr>
+      </table>
 
       <div class="links-box">
         <div class="lt">關聯節點 · Connections</div>
@@ -92,21 +184,26 @@
           <a class="link-chip" href="../cycles/ev.html"><span class="dot cycle"></span>電動車</a>
           <a class="link-chip" href="../cycles/ai-server.html"><span class="dot cycle"></span>AI 伺服器</a>
           <a class="link-chip" href="../cycles/smartphone.html"><span class="dot cycle"></span>智慧手機</a>
+          <a class="link-chip" href="../companies/infineon.html"><span class="dot company"></span>Infineon</a>
+          <a class="link-chip" href="../companies/stm.html"><span class="dot company"></span>STM</a>
+          <a class="link-chip" href="../companies/tsmc.html"><span class="dot company"></span>台積電</a>
+          <a class="link-chip" href="../companies/nvidia.html"><span class="dot company"></span>輝達</a>
+          <a class="link-chip" href="../parts/passive.html"><span class="dot part"></span>被動元件</a>
         </div>
       </div>
 
       <h2 id="timeline">更新時間軸</h2>
       <div class="timeline">
+        <div class="ev"><div class="dt">2026.06</div>整合券商分析師教材：補進類比/功率/MCU 三者分工、產業循環順序、電壓段地圖、資料中心 TAM 量化、三股漲價驅動力。新增關聯公司節點 Infineon、STM。</div>
         <div class="ev"><div class="dt">2026.05</div>由「功率半導體全球競爭格局」討論歸檔建立此頁；涵蓋原理、三種材料、應用、競爭格局與主要廠商。</div>
       </div>
 
       <div class="note" style="margin-top:30px">
-        <b>擴充這一頁：</b> 之後若把 Infineon、onsemi、Wolfspeed 等建成獨立公司節點，可回來在「關聯節點」加上對應 link-chip，並把內文廠商名稱改成連結。
+        <b>擴充這一頁：</b> 之後若把 onsemi、MPS、Marvell 等建成獨立公司節點，回來在「關聯節點」加 link-chip，並把內文廠商名稱改成連結。
       </div>
     </article>
   </div>
 </div>
-
 <footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
 </body>
 </html>
