@@ -60,5 +60,13 @@ window.KB = {
     equip:  { name:"半導體設備", en:"Equipment" },
     ostat:  { name:"封裝測試",  en:"OSAT" },
     system: { name:"品牌 / 系統整合", en:"Brand / System" },
-  }
+  },
+  /* 財報節點。檔案位於 quarters/。
+     - scope:"overview"  → 一季的總覽頁，檔名 {period}.html（例：2026Q1.html）
+     - scope:"company"   → 單家公司一季的財報頁，檔名 {period}-{company}.html（例：2026Q1-tsmc.html）
+     company 欄位填對應 companies 陣列裡的 id，這樣公司頁可自動長出「財報追蹤」連結列表。 */
+  quarters: [
+    { id:"2026Q1",      period:"2026Q1", scope:"overview", status:"done", name:"2026 Q1 財報總覽", desc:"季度總覽：哪幾家公司有什麼動態的入口頁" },
+    { id:"2026Q1-tsmc", period:"2026Q1", scope:"company",  company:"tsmc", status:"done", name:"台積電 2026Q1", desc:"AI 需求持續強勁，CoWoS 產能仍緊缺" },
+  ]
 };

@@ -162,3 +162,34 @@ footer.site a{color:var(--ink-soft);text-decoration:none}
   padding:11px 15px;font-size:.95rem;font-family:inherit;color:var(--ink)}
 #search:focus{outline:none;border-color:var(--accent)}
 .no-match{display:none;color:var(--faint);font-style:italic;padding:30px 0;text-align:center}
+
+/* ---------- 財報節點 (第四種卡片) ---------- */
+:root{ --quarter:#a64d4d; }
+.item[data-t="quarter"]::before{background:var(--quarter)}
+.card[data-type="quarter"]::before{background:var(--quarter)}
+.tag-type.quarter{background:rgba(166,77,77,.13);color:var(--quarter)}
+a.link-chip .dot.quarter{background:var(--quarter)}
+/* 公司頁的財報追蹤區塊 */
+.fin-track{background:var(--card);border:1px solid var(--line);border-radius:11px;
+  padding:16px 18px;margin:18px 0;box-shadow:var(--shadow)}
+.fin-track .lt{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+.fin-track ul{list-style:none;margin:0;padding:0}
+.fin-track li{padding:7px 0;border-bottom:1px solid var(--line2);font-size:.92rem;
+  display:flex;gap:12px;align-items:baseline}
+.fin-track li:last-child{border-bottom:none}
+.fin-track li .pd{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.78rem;
+  color:var(--quarter);font-weight:700;min-width:64px}
+.fin-track a{color:var(--ink);text-decoration:none}
+.fin-track a:hover{color:var(--accent)}
+/* 財報頁的核心數字表 */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;
+  background:var(--line2);border:1px solid var(--line);border-radius:12px;
+  overflow:hidden;margin:18px 0}
+.kpi{background:var(--card);padding:14px 16px}
+.kpi .v{font-size:1.35rem;font-weight:700;letter-spacing:-.3px}
+.kpi .l{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.7rem;letter-spacing:1px;
+  text-transform:uppercase;color:var(--faint);margin-top:2px}
+.kpi .d{font-size:.78rem;color:var(--ink-soft);margin-top:3px}
+.kpi .d.up{color:var(--done)}
+.kpi .d.dn{color:#c0392b}
