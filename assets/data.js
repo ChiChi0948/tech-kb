@@ -26,6 +26,10 @@ window.KB = {
     // 功率半導體
     { id:"infineon", group:"power",   status:"done", name:"Infineon 英飛凌", code:"IFX.DE", desc:"全球功率半導體龍頭；產品線最完整、AI 電源最直接受惠" },
     { id:"stm",      group:"power",   status:"done", name:"STM 意法",       code:"STM",    desc:"全球功率第二、車用 SiC 要角；AI 故事尚未充分認知" },
+    // 被動元件
+    { id:"yageo",    group:"passive", status:"done", name:"國巨",     code:"Yageo · 2327",  desc:"台灣被動元件龍頭、全球第三大 MLCC；Commodity 主力＋鉭電容（KEMET）" },
+    { id:"walsin",   group:"passive", status:"done", name:"華新科",   code:"Walsin · 2492", desc:"台灣 MLCC 第二＋晶片電阻雙產品線；推銅電極切入 AI 伺服器" },
+    { id:"holystone",group:"passive", status:"done", name:"禾伸堂",   code:"Holy Stone · 3026", desc:"高壓 MLCC niche player；48V 諧振電容新需求直接受惠，最積極擴廠" },
     // 記憶體
     { id:"sk-hynix",  group:"memory",  status:"done", name:"SK 海力士", code:"SK Hynix",     desc:"HBM 領先者；AI 週期最大贏家之一" },
     { id:"samsung-mem", group:"memory", status:"stub", name:"三星記憶體", code:"Samsung",     desc:"DRAM/NAND 龍頭；追趕 HBM" },
@@ -56,6 +60,7 @@ window.KB = {
     foundry:{ name:"晶圓代工",  en:"Foundry" },
     fabless:{ name:"IC 設計",   en:"Fabless Design" },
     power:  { name:"功率半導體", en:"Power Semiconductor" },
+    passive:{ name:"被動元件",  en:"Passive Components" },
     memory: { name:"記憶體",    en:"Memory" },
     equip:  { name:"半導體設備", en:"Equipment" },
     ostat:  { name:"封裝測試",  en:"OSAT" },
