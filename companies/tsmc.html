@@ -27,6 +27,7 @@
       <a href="#profile">基本定位</a>
       <a href="#role">在 AI 週期的角色</a>
       <a href="#moat">護城河</a>
+      <a href="#financials">財報追蹤</a>
       <a href="#timeline">更新時間軸</a>
     </aside>
     <article>
@@ -44,6 +45,13 @@
   <h2 id="moat">護城河</h2>
   <p>先進製程領先對手一個世代以上，加上良率與長期信任，使高階晶片代工高度集中於它。</p>
  
+
+  <h2 id="financials">財報追蹤</h2>
+  <div class="fin-track" id="fin-track">
+    <div class="lt">每季財報觀察 · Quarterly Reports</div>
+    <ul id="fin-list"><li style="color:var(--faint);font-style:italic">載入中⋯</li></ul>
+  </div>
+
 
       <div class="links-box">
         <div class="lt">關聯節點 · Connections</div>
@@ -63,5 +71,20 @@
 </div>
 
 <footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+
+<script src="../assets/data.js"></script>
+<script>
+// 自動列出本公司所有季度財報。新增財報時，只要在 data.js quarters 加一筆 company:"tsmc"，
+// 這份清單就會自動出現對應連結。
+const COMPANY_ID="tsmc";
+const reports=(KB.quarters||[])
+  .filter(q=>q.company===COMPANY_ID && q.scope==="company")
+  .sort((a,b)=>b.period.localeCompare(a.period));
+const list=document.getElementById("fin-list");
+list.innerHTML = reports.length
+  ? reports.map(r=>`<li><span class="pd">${r.period}</span>
+      <a href="../quarters/${r.id}.html">${r.desc}</a></li>`).join("")
+  : '<li style="color:var(--faint);font-style:italic">尚無財報觀察。在 data.js 的 quarters 陣列加入 company:"tsmc" 的項目，這裡會自動出現。</li>';
+</script>
 </body>
 </html>
