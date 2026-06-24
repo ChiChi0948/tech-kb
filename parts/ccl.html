@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCL 銅箔基板 · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.stack-row{display:grid;grid-template-columns:140px 1fr 60px;align-items:center;gap:12px;padding:8px 0;border-bottom:1px dotted var(--line2)}
+.stack-row:last-child{border-bottom:none}
+.stack-name{font-size:.88rem}
+.stack-name .sub{display:block;font-family:ui-sans-serif,system-ui,sans-serif;font-size:.7rem;color:var(--faint);margin-top:1px}
+.stack-bar{height:18px;background:var(--paper2);border-radius:3px;overflow:hidden}
+.stack-fill{height:100%;background:linear-gradient(90deg,#b6843a 0%,#d4a358 100%);display:flex;align-items:center;padding-left:8px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:.7rem;color:#fff;font-weight:700}
+.stack-fill.cyan{background:linear-gradient(90deg,#3a8f86 0%,#5fb5ad 100%)}
+.stack-fill.dim{background:var(--line);color:var(--ink-soft)}
+.stack-pct{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.82rem;text-align:right;font-weight:600}
+.evo-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:.82rem}
+.evo-step{padding:5px 11px;border:1px solid var(--line);border-radius:6px;background:var(--paper2);white-space:nowrap}
+.evo-step.mid{border-color:var(--accent);color:var(--accent)}
+.evo-step.end{border-color:var(--company);color:var(--company);background:rgba(182,132,58,.08)}
+.evo-arrow{color:var(--faint)}
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line2);border:1px solid var(--line);border-radius:11px;overflow:hidden;margin:18px 0}
+.metric-cell{background:var(--card);padding:16px 18px}
+.metric-code{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;color:var(--company);letter-spacing:1px;font-weight:700;margin-bottom:6px}
+.metric-name{font-size:1.05rem;font-weight:700;margin-bottom:8px}
+.metric-desc{font-size:.85rem;color:var(--ink-soft);line-height:1.55}
+.metric-low{margin-top:10px;padding-top:10px;border-top:1px dotted var(--line2);font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;color:var(--part)}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+    <span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#parts">零件</a> / CCL 銅箔基板</span>
+    <nav class="top">
+      <a href="../index.html#cycles">週期</a>
+      <a href="../index.html#companies">公司</a>
+      <a href="../index.html#parts">零件</a>
+      <a href="../index.html#quarters">財報</a>
+      <a href="../reference/glossary.html">術語表</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap"><div class="layout">
+<aside class="toc">
+  <div class="tl">本頁目錄</div>
+  <a href="#what">CCL 是什麼</a>
+  <a href="#metrics">三大物理指標</a>
+  <a href="#resin">材料一：特種樹脂</a>
+  <a href="#glass">材料二：電子級玻纖布</a>
+  <a href="#copper">材料三：電子銅箔</a>
+  <a href="#process">工藝門檻</a>
+  <a href="#landscape">全球競爭格局</a>
+  <a href="#thinking">投資視角五個提問</a>
+  <a href="#timeline">更新時間軸</a>
+</aside>
+<article>
+<span class="tag-type part">零件 / 模組</span>
+<h1>CCL 銅箔基板</h1>
+<p class="lede">Copper Clad Laminate · PCB 的核心基材，由樹脂、玻纖布、銅箔三材料壓合而成。AI 算力的真正命門不在 GPU，而在這層被忽視的材料底層。</p>
+
+<h2 id="what">CCL 是什麼 — 在 PCB 裡的位置</h2>
+<p>PCB 是「板子」，CCL 是「板子的肉」。整塊 PCB 由三大材料構成，<b>CCL 佔 PCB 成本 40–70%</b>。</p>
+<div class="note">
+<div style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;color:var(--company);letter-spacing:1px;margin-bottom:10px">PCB 成本拆解</div>
+<div class="stack-row"><div class="stack-name">CCL 銅箔基板<span class="sub">core substrate</span></div><div class="stack-bar"><div class="stack-fill" style="width:80%">CORE</div></div><div class="stack-pct">40–70%</div></div>
+<div class="stack-row"><div class="stack-name">半固化片 PP<span class="sub">prepreg</span></div><div class="stack-bar"><div class="stack-fill cyan" style="width:30%">PP</div></div><div class="stack-pct">10–20%</div></div>
+<div class="stack-row"><div class="stack-name">電子銅箔<span class="sub">copper foil</span></div><div class="stack-bar"><div class="stack-fill dim" style="width:10%"></div></div><div class="stack-pct">5%</div></div>
+</div>
+<p>把 CCL 本身拆開，會發現它是由 <b>樹脂、玻纖布、銅箔</b> 三種材料壓合而成。半固化片 PP 本質上只是「沒有銅箔的 CCL 半成品」。</p>
+<div class="note">
+<div style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;color:var(--company);letter-spacing:1px;margin-bottom:10px">CCL 內部材料拆解</div>
+<div class="stack-row"><div class="stack-name">電子銅箔<span class="sub">copper foil</span></div><div class="stack-bar"><div class="stack-fill" style="width:40%">40%</div></div><div class="stack-pct">~40%</div></div>
+<div class="stack-row"><div class="stack-name">玻纖布<span class="sub">glass fabric</span></div><div class="stack-bar"><div class="stack-fill cyan" style="width:25%">25%</div></div><div class="stack-pct">~25%</div></div>
+<div class="stack-row"><div class="stack-name">特種樹脂<span class="sub">specialty resin</span></div><div class="stack-bar"><div class="stack-fill" style="width:25%">25%</div></div><div class="stack-pct">~25%</div></div>
+</div>
+<p class="note" style="border-left-color:var(--done)"><b>核心洞察：</b>整個 PCB 的材料成本，<b>80% 以上都來自銅箔、玻纖布、特種樹脂這三大底層材料</b>。AI 算力 PCB 的真命門不在板廠手裡，而在上游材料廠——這跟光模組產業類似，組裝廠再怎麼擴產，命門永遠在上游寡頭手裡。</p>
+
+<p><b>PCB 按工藝複雜度分類：</b></p>
+<ul>
+<li>單層 / 雙層板：遙控器、家電</li>
+<li>多層板：辦公電腦</li>
+<li>HDI 高密度互聯板：高端智慧手機</li>
+<li>超高多層板 + HDI：AI 伺服器主板、800G 交換器、1.6T 光模組</li>
+<li>載板 / IC 封裝基板：直接承載晶片，技術等級最高（詳見 <a href="abf.html">ABF 載板</a>）</li>
+</ul>
+<p>全球 PCB 廠商超過 2,800 家，但<b>全球前十大 PCB 市占合計不到 40%</b>——產業規模巨大、集中度卻低，紅海主要集中在普通板。真正能切入 AI 高端算力板的廠商少之又少。</p>
+
+<h2 id="metrics">三大物理指標 — 所有升級的根本邏輯</h2>
+<p>整個 CCL 產業所有的材料升級、所有的技術突破、所有上游材料巨頭的市值，本質上都是為了死磕這三個數字。</p>
+<div class="metric-grid">
+<div class="metric-cell"><div class="metric-code">Dk</div><div class="metric-name">介電常數</div><div class="metric-desc">決定訊號跑得有多快。可理解為「阻力」——值越低訊號跑越快、伺服器反應越快。</div><div class="metric-low">▼ LOWER IS BETTER</div></div>
+<div class="metric-cell"><div class="metric-code">Df</div><div class="metric-name">介電損耗因子</div><div class="metric-desc">決定訊號在傳輸過程中衰減多少。樹脂、玻纖布像海綿一樣會吸走訊號，Df 越低吸得越少。</div><div class="metric-low">▼ LOWER IS BETTER</div></div>
+<div class="metric-cell"><div class="metric-code">CTE</div><div class="metric-name">熱膨脹係數</div><div class="metric-desc">決定板子在高溫下會不會扭曲報廢。三大材料的 CTE 必須極度匹配，否則內部微米級線路會錯位斷裂。</div><div class="metric-low">▼ LOWER & MATCHED</div></div>
+</div>
+<p class="note"><b>為什麼這三個指標突然變重要？</b> 普通電子產品（家電、手機）對這三個指標不敏感。但當 <a href="../cycles/ai-server.html">AI 伺服器</a> 的傳輸速率衝到 <b>112G → 224G → 448G</b>，任何一點訊號衰減、任何一絲材料膨脹差異，都會放大成致命的訊號失真或硬體報廢。這就是為什麼 AI 把 CCL 產業推向「材料軍備競賽」。</p>
+
+<h2 id="resin">材料一：特種樹脂 — 訊號的保護層</h2>
+<p><b>功能定位：</b>樹脂把玻纖布黏在一起，並把電訊號包裹在樹脂跟線路之間，防止訊號外洩造成串擾。主要影響 <b>Df（訊號損耗）</b>。</p>
+<p><b>升級路徑：</b>普通電路板用環氧樹脂（FR4），分子結構決定會極度吸收高頻訊號——在 AI 主板 112G 以上速率下像吸水海綿。為解決這問題，業界找到 <b>聚苯醚（PPO）</b> 替代品。PPO 不是新東西（汽車儀表板、家電外殼常用），但要用在高端 PCB 上必須升級為<b>電子級 PPO</b>——極高純度、極低分子量，分子鏈兩端加上特定接口才能跟其他材料完美交聯。</p>
+<div class="evo-row">
+<span class="evo-step">環氧樹脂 FR4</span><span class="evo-arrow">→</span>
+<span class="evo-step mid">PPO 聚苯醚</span><span class="evo-arrow">→</span>
+<span class="evo-step mid">碳氫樹脂</span><span class="evo-arrow">→</span>
+<span class="evo-step end">PTFE 鐵氟龍</span>
+</div>
+
+<p><b>寡占格局：</b>過去幾十年，電子級 PPO 粉末的合成專利與絕大部分產能，被 <b>沙特 SABIC</b> 與 <b>日本旭化成</b> 兩家寡頭壟斷。但有頂級粉末不代表能做出頂級 CCL——買回粉末後 CCL 廠要加入固化劑、交聯劑，經過極其複雜的化學調配才能做成 CCL 專用特種樹脂。這環節 <b>日本松下擁有絕對統治力</b>，推出的 Megtron 系列（M 系列）配方太穩定、市占太高，最後變成全行業標準。</p>
+<p class="note" style="border-left-color:var(--company)"><b>M 系列的真相：</b>你在報告裡看到的 <b>M6 / M7 / M8 / M9</b> 等級材料，其實全部是「業界對標松下 Megtron 配方體系」的代號。<a href="../companies/nvidia.html">NVIDIA</a> 等大廠在設計主板時會直接指定「必須使用 M8 或同等級材料」——這種基於長週期驗證形成的<b>配方信任</b>，是比製造設備更深的護城河。</p>
+
+<p><b>中國／台灣突圍進度：</b></p>
+<ul>
+<li><b>上游粉末</b>：東材、聖泉等本土化工已成功量產電子級 PPO，打破海外壟斷</li>
+<li><b>下游配方</b>：<b>生益科技</b> 代表中國大陸，M8/M9 等級已通過國內外核心伺服器大廠認證，開始實質性切分松下份額</li>
+<li><b>台廠地位</b>：<a href="../companies/tuc.html">台光電</a> 在高速材料體系持續突破，已是 NVIDIA AI 伺服器供應鏈最重要的 CCL 廠之一；<b>台燿 6274</b> 亦是 CCL 主要玩家</li>
+</ul>
+
+<h2 id="glass">材料二：電子級玻纖布 — 板子的骨架</h2>
+<p>樹脂像「水泥」，玻纖布像「鋼筋」。樹脂負責保護訊號，玻纖布負責支撐整塊板材的機械結構。AI 時代裡這副骨架的重要性絲毫不亞於樹脂——訊號也要穿梭在這層密集的鋼筋網裡。</p>
+<p>它同時決定兩件事：</p>
+<ul>
+<li><b>厚度</b>：要塞 30–40 層線路，每層都不能太厚。高端電子布的玻纖直徑只有<b>幾微米</b>，比頭髮絲還細十幾倍</li>
+<li><b>熱穩定性（CTE）</b>：AI 伺服器長期高溫運作，骨架的熱膨脹要極小，否則內部幾十萬個微米級雷射孔會錯位失效</li>
+</ul>
+<p><b>兩道製造門檻：</b></p>
+<ul>
+<li><b>造紗</b>：把特定玻璃礦石投入上千度高溫爐融化，拉成比蜘蛛絲還細的電子玻璃紗</li>
+<li><b>織布</b>：用精密織機把原紗以極高精度編織成均勻網格。一絲波動就會導致材料性能下降</li>
+</ul>
+<p><b>寡占格局：</b>過去很長時間，<b>日本日東紡（Nittobo）</b>幾乎壟斷整個高端電子玻纖布市場——從上游低損耗原紗到下游極薄布、超薄布長期主導。許多高端 CCL 廠開發新產品時，會直接圍繞日東紡的材料參數設計。</p>
+<p class="note" style="border-left-color:var(--stub)"><b>真正的卡脖子環節：</b>中國企業即便已經攻克玻纖紗的拉絲技術，<b>產能擴張仍然被卡脖子</b>——因為把玻纖紗織成電子布，高度依賴 <b>日本豐田跟金田綜手裡的噴氣織機</b>。沒有這些頂級進口母機，就算掌握了編織手藝，產能也擴不出來。</p>
+
+<p><b>突圍進度：</b></p>
+<ul>
+<li><b>上游拉紗</b>：中國國際復材已掌握低介電、超低損耗特種電子紗的熔煉與拉絲技術</li>
+<li><b>下游織布</b>：宏和科技攻克極薄、超薄電子布精密編織技術；中材科技在低 Dk/Df 玻纖領域持續推進</li>
+<li><b>台廠角色</b>：<b>富喬 1815</b>、<b>德宏 5475</b> 在 Low-Dk / Q-glass 領域是台光電、台燿的重要供應商，與信越並列頂級供應鏈</li>
+</ul>
+
+<p><b>Q-glass（石英玻纖）— 頂規路線：</b>往 M9 以上走，玻纖布的選擇從 E-glass → Low-Dk glass → NE-glass → 走到頂規的 <b>Q-glass（石英玻纖）</b>。Q-glass 的 Dk 約 3.8（傳統 E-glass 約 6.6），但脆、加工難。目前是 AI 主板供應鏈最稀缺的料源之一，由信越、Asahi、菲利華、富喬、德宏等少數玩家供應。</p>
+
+<h2 id="copper">材料三：電子銅箔 — 訊號的跑道</h2>
+<p>樹脂保護訊號、玻纖布支撐結構，那麼<b>銅箔承擔的就是最核心的任務：傳輸訊號本身</b>。無論是 <a href="../companies/nvidia.html">GPU</a>、<a href="hbm.html">HBM</a> 還是交換晶片，所有資料最終都要在銅箔蝕刻出來的線路裡高速奔跑。</p>
+<p><b>集膚效應 — 為什麼粗糙度變得致命：</b>理論上銅的導電性已經夠好。但 AI 伺服器傳輸速率衝到 112G、224G 之後，一個過去被忽視的問題浮現：<b>銅箔表面太粗糙了</b>。為什麼粗糙？因為傳統製程為了讓銅箔能黏住樹脂，會故意做出大量微觀凸起——像砂紙表面的顆粒。衡量這個粗糙度的指標叫 <b>Rz 值</b>，傳統銅箔 Rz 通常大於 3μm。</p>
+<p>低頻時代沒影響，但高頻時代不一樣——訊號不是在銅線內部跑，而是以<b>電磁波形式在銅箔表面跟樹脂之間傳輸</b>，這叫<b>集膚效應（skin effect）</b>。粗糙表面就像盤山公路，訊號跑越快、碰撞跟能量損耗越大。</p>
+<p><b>HVLP 銅箔 — 把銅磨成鏡面：</b>為了把損耗壓到極限，高端 AI PCB 必須把銅磨得像鏡子一樣光滑。目前打入 AI 伺服器的<b>極低稜線銅箔 HVLP</b>，Rz 已經做到 1μm 以下。</p>
+<div class="evo-row">
+<span class="evo-step">標準銅箔</span><span class="evo-arrow">→</span>
+<span class="evo-step">RTF 反轉銅箔</span><span class="evo-arrow">→</span>
+<span class="evo-step mid">VLP 極低稜線</span><span class="evo-arrow">→</span>
+<span class="evo-step end">HVLP / HVLP2/3/4</span>
+</div>
+
+<p><b>工程悖論 — 越光滑越難黏：</b>銅箔越光滑越難黏附在樹脂上。AI 主板用的 M8 頂級樹脂本身已經很光滑，銅又被磨成鏡面——進高溫爐就會瞬間脫層報廢。</p>
+<p class="note" style="border-left-color:var(--company)"><b>黑盒子：偶聯劑配方。</b>產業鏈的解法不是物理咬合，而是<b>表面化學處理</b>——在銅箔表面鍍上一層奈米級「偶聯劑」。這種分子一端親水可跟銅的氧化層結合，另一端親油可跟樹脂發生交聯反應。肉眼看銅箔依然光滑如鏡，但分子層面已經有無數化學鎖鏈把銅跟樹脂死死縫合。這是整個 HVLP 銅箔製造中<b>利潤最豐厚、技術最神奇的黑盒</b>。每家大廠的偶聯劑配方都是絕密——誰能在最平的表面提供最強拉力，誰就稱霸這個市場。</p>
+
+<p><b>寡占格局：</b><b>日本三井金屬</b>在這個領域絕對統治。不只能把銅做到極薄極光滑，更掌握了配合頂級 PPO 樹脂的最強偶聯劑配方。NVIDIA 高端算力板的銅箔供應，三井幾乎壟斷；福田金屬、JX 金屬緊隨其後。<b>日本企業基本鎖死了全球高頻高速 CCL 的「面子」</b>。</p>
+<p><b>中國突圍進度：</b>德福科技、銅冠銅箔等本土廠商，不只在物理層面做到極薄極光滑，還配合下游板廠針對國產特種樹脂體系攻克了偶聯配方。目前中國在 HVLP 領域已實現規模化量產，開始實質打入全球 AI 算力供應鏈。</p>
+
+<h2 id="process">工藝門檻 — MSAP、HDI、壓合</h2>
+<p>材料只是門票，<b>製造工藝才是真正的資本壁壘</b>。從普通板到高端 AI 算力板之間至少還隔著兩座大山：先進材料（前面講過）跟先進工藝（這節）。</p>
+<table class="deftable">
+<tr><td><b>① MSAP</b><br>把線路刻到 10μm 以下</td><td>普通板用<b>減成法</b>（蝕刻去除多餘銅）。AI 板線路只有十幾微米，強酸會像水流沖刷河岸把保護膜下方精密線路的側面也咬壞（「側蝕」）。高端板必須改用半導體製造的<b>改良型半加成法 MSAP</b>——先保留極薄底銅、貼保護膜露出走線位置、用電鍍工藝讓銅離子順著微米級凹槽長厚，完美規避強酸側蝕。</td></tr>
+<tr><td><b>② 壓合</b><br>數十層完美對齊</td><td>幾十層蝕好微米級線路的銅箔基板，疊上半固化片跟銅箔，送進<b>幾百度的高溫壓合機</b>。不同材料熱脹冷縮程度不一致，壓合過程中只要出現<b>哪怕 1μm 的錯位</b>，前面長出的精密線路就會相互干擾甚至短路——整塊裸板報廢。</td></tr>
+<tr><td><b>③ HDI 雷射鑽孔</b><br>30 層間打通電梯</td><td>傳統 PCB 機械鑽頭從一樓打到頂樓，在 30 層 AI 主板上完全行不通——粗暴的貫穿孔會破壞其他樓層佈線空間。必須用<b>高能雷射在特定樓層之間精準打出幾十萬個微盲孔</b>。</td></tr>
+<tr><td><b>④ 通孔電鍍</b><br>把絕緣孔變成電梯</td><td>打完孔還要透過極嚴苛化學反應，<b>在微米級孔壁上均勻沉積一層銅</b>，讓絕緣通道變成導電電梯，真正打通層與層的物理互聯。哪怕只有一個孔沒鍍好，整塊板子就報廢。</td></tr>
+</table>
+<p class="note" style="border-left-color:var(--stub)"><b>為什麼這是「資本」壁壘？</b> 沒有先進設備就根本不存在先進工藝。要刻得細、壓得準、打得通——PCB 廠必須砸下重金買幾百到上千萬一台的<b>頂級雷射鑽孔機、高端壓合機、超高精度曝光機</b>。一條高端 HDI 或超高多層板產線，<b>前期資本支出 10 億到幾十億級別</b>。這就是為什麼 PCB 全行業集中度不到 40%，但<b>高端電路板賽道前十大廠商佔據 90% 以上市占</b>——資本門檻直接把絕大多數中小廠擋在 AI 俱樂部門外。</p>
+
+<h2 id="landscape">全球競爭格局 — 三方分工</h2>
+<table class="deftable">
+<tr><td><b>環節</b></td><td><b>主導者</b></td></tr>
+<tr><td>PPO 樹脂粉末</td><td>SABIC（沙特）、旭化成（日本）——雙寡頭</td></tr>
+<tr><td>高端 CCL 配方</td><td>松下（日本）、羅傑斯（美國）、<a href="../companies/tuc.html">台光電（台灣）</a>——M 系列代號來自松下 Megtron</td></tr>
+<tr><td>玻纖布</td><td>日東紡、信越、Asahi（日本）；富喬 1815、德宏 5475（台灣）</td></tr>
+<tr><td>玻纖織機</td><td>豐田、金田綜（日本）——真正的卡脖子</td></tr>
+<tr><td>HVLP 銅箔</td><td>三井金屬、福田金屬、JX 金屬（日本）——三井偶聯劑配方絕對統治</td></tr>
+<tr><td>中國突圍</td><td>生益科技（CCL）、東材／聖泉（PPO 粉末）、國際復材／宏和（玻纖）、德福／銅冠（銅箔）</td></tr>
+<tr><td>台廠地位</td><td><a href="../companies/tuc.html">台光電 2383</a>、台燿 6274（CCL）、富喬 1815、德宏 5475（玻纖）、華通、欣興（PCB / ABF）</td></tr>
+</table>
+<p class="note"><b>中港台 vs 日本——真實態勢：</b>中國大陸 + 中國台灣壟斷了全球 PCB 市場<b>超過 80% 產能</b>。但越往上游走、越往高端走，<b>日本的話語權越大</b>——樹脂粉末、玻纖織機、HVLP 銅箔偶聯劑這些「黑盒環節」仍是日商的天下。中港台主要強在<b>製造跟 CCL 配方</b>，材料源頭仍在追趕。</p>
+
+<h2 id="thinking">總結 — 投資視角的五個提問</h2>
+<table class="deftable">
+<tr><td><b>① 它在產業鏈的哪一層？</b></td><td>粉末廠？玻纖紗廠？織機廠？CCL 廠？PCB 廠？載板廠？封裝設備廠？越往上游越寡占、越往下游越紅海。</td></tr>
+<tr><td><b>② 它服務哪三個物理指標？</b></td><td>Dk、Df、CTE——它的技術突破在解決哪個痛點？講不出來可能就是炒題材。</td></tr>
+<tr><td><b>③ 它跟下一代晶片 roadmap 對應到哪裡？</b></td><td>Hopper → Blackwell → Rubin → 下一代。對應 CCL M7 → M8 → M9 → M10、銅箔 HVLP → HVLP2/3/4、玻纖 Low-Dk → Q-glass。看得懂這條線就能判斷卡位時機。</td></tr>
+<tr><td><b>④ 它的競爭來自哪個國家？</b></td><td>日本黑盒配方（樹脂、銅箔偶聯劑、ABF 膜）？中國全鏈條突圍？台灣 CCL 龍頭地位？地緣決定話語權。</td></tr>
+<tr><td><b>⑤ 結構性錢 vs 循環性錢？</b></td><td>高階 AI 材料漲價是<b>結構性升級紅利</b>（量價齊升、護城河擴大）；中低階板漲價是<b>循環性供需失衡</b>（AI 紅利結束就回落）。混為一談是最容易踩雷的地方。</td></tr>
+</table>
+
+<div class="links-box">
+<div class="lt">關聯節點 · Connections</div>
+<div class="chip-row">
+<a class="link-chip" href="../cycles/ai-server.html"><span class="dot cycle"></span>AI 伺服器</a>
+<a class="link-chip" href="abf.html"><span class="dot part"></span>ABF 載板</a>
+<a class="link-chip" href="hbm.html"><span class="dot part"></span>HBM</a>
+<a class="link-chip" href="cowos.html"><span class="dot part"></span>CoWoS</a>
+<a class="link-chip" href="../companies/tuc.html"><span class="dot company"></span>台光電</a>
+<a class="link-chip" href="../companies/nvidia.html"><span class="dot company"></span>輝達</a>
+<a class="link-chip" href="../companies/tsmc.html"><span class="dot company"></span>台積電</a>
+</div></div>
+
+<h2 id="timeline">更新時間軸</h2>
+<div class="timeline">
+<div class="ev"><div class="dt">2026.06</div>由「CCL 完整教學筆記」歸檔建立此頁；涵蓋結構、Dk/Df/CTE 三大指標、三大材料（樹脂/玻纖/銅箔）、工藝門檻、競爭格局、五個投資提問框架。</div>
+</div>
+
+<div class="note" style="margin-top:30px">
+<b>擴充這一頁：</b>之後若把台燿、富喬、德宏、生益科技、味之素等建成獨立公司節點，回來在「關聯節點」加 link-chip，並把內文廠商名稱改成連結。
+</div>
+</article></div></div>
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+</body></html>
