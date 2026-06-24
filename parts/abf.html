@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABF 載板 · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.evo-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:.82rem}
+.evo-step{padding:5px 11px;border:1px solid var(--line);border-radius:6px;background:var(--paper2);white-space:nowrap}
+.evo-step.mid{border-color:var(--accent);color:var(--accent)}
+.evo-step.end{border-color:var(--company);color:var(--company);background:rgba(182,132,58,.08)}
+.evo-arrow{color:var(--faint)}
+</style>
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+<span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#parts">零件</a> / ABF 載板</span>
+<nav class="top"><a href="../index.html#cycles">週期</a><a href="../index.html#companies">公司</a><a href="../index.html#parts">零件</a><a href="../index.html#quarters">財報</a></nav>
+</div></header>
+<div class="wrap"><div class="layout">
+<aside class="toc"><div class="tl">本頁目錄</div>
+<a href="#what">這是什麼</a>
+<a href="#evolution">演化路徑</a>
+<a href="#abf-film">味之素 ABF 膜</a>
+<a href="#players">產能與廠商</a>
+<a href="#cert">認證壁壘</a>
+<a href="#next">下一代：玻璃基板</a>
+<a href="#timeline">更新時間軸</a>
+</aside>
+<article>
+<span class="tag-type part">零件 / 模組</span>
+<h1>ABF 載板</h1>
+<p class="lede">AI 晶片封裝的關鍵過渡層。NVIDIA GPU、高性能 CPU、各種 ASIC 都剛需，但上游核心專利掌握在一家「原本生產味精的公司」手裡。</p>
+
+<h2 id="what">這是什麼</h2>
+<p>ABF 載板是 IC 載板的一種，位置在 <b>晶片與主板之間的過渡層</b>。為什麼需要這層？因為 AI 晶片的電晶體數量跟接腳規模指數級增長，普通 <a href="ccl.html">PCB</a> 即便壓縮到極限，也無法滿足頂級 GPU 直接貼裝的精度。產業不得不在晶片跟主板之間增加一個過渡層，這層本質上就是一塊「微縮版 PCB」。</p>
+<p><a href="../companies/nvidia.html">NVIDIA</a> GPU、高性能 CPU、各種 ASIC 都剛需 ABF 載板。</p>
+
+<h2 id="evolution">演化路徑：從 PCB 到玻璃基板</h2>
+<div class="evo-row">
+<span class="evo-step">普通 PCB</span><span class="evo-arrow">→</span>
+<span class="evo-step mid">SLP 載板（類載板）</span><span class="evo-arrow">→</span>
+<span class="evo-step mid">BT 載板</span><span class="evo-arrow">→</span>
+<span class="evo-step end">ABF 載板</span><span class="evo-arrow">→</span>
+<span class="evo-step end">玻璃基板</span>
+</div>
+<table class="deftable">
+<tr><td><b>SLP（類載板）</b></td><td>PCB 跟 IC 載板之間的中間形態，線路精度遠高於傳統 PCB。廣泛應用於 iPhone 等高端手機內部，也是頭部 PCB 廠最早攻下的新戰場。</td></tr>
+<tr><td><b>BT 載板</b></td><td>IC 載板的一種，用 BT 樹脂製造，廣泛用於手機晶片、儲存等領域。中國深南電路等廠商已有突破。</td></tr>
+<tr><td><b>ABF 載板</b></td><td><b>AI 時代最重要的封裝材料之一。</b>NVIDIA GPU、高性能 CPU、各種 ASIC 都剛需。但製造必須使用<b>味之素 ABF 膜</b>，核心專利與絕大部分產能長期掌握在日本味之素。</td></tr>
+<tr><td><b>玻璃基板</b></td><td>下一代方向。Intel、Samsung 以及多家先進封裝巨頭重押。詳見本頁底部。</td></tr>
+</table>
+
+<h2 id="abf-film">味之素 ABF 膜：一家賣味精的公司掌握 AI 入口</h2>
+<p>製造 ABF 載板必須使用一種特殊絕緣薄膜——<b>味之素 ABF 膜（Ajinomoto Build-up Film）</b>，核心專利與絕大部分產能長期掌握在 <b>日本味之素</b> 手裡。</p>
+<p class="note" style="border-left-color:var(--company)"><b>一家賣味精的公司掌握 AI 入口：</b>無論是新光、欣興等廠，所有高端載板製造商都必須採購味之素的 ABF 材料。這家「原本生產味精」的企業，掌握著全球 AI 算力晶片封裝的關鍵入口。這是供應鏈研究最容易被忽略、但最有故事性的卡位之一。</p>
+
+<h2 id="players">產能與廠商</h2>
+<p>全球最頂級 ABF 載板產能集中在：</p>
+<table class="deftable">
+<tr><td>日本</td><td><b>揖斐電 Ibiden</b>、<b>新光電氣 Shinko</b>——絕對龍頭</td></tr>
+<tr><td>台灣</td><td><b>欣興電子 3037</b>、<b>南亞電路板 8046</b>——主要追兵</td></tr>
+</table>
+
+<h2 id="cert">認證壁壘：為什麼 ABF 行業長期高利潤、高集中</h2>
+<p>ABF 載板最大的壁壘其實不是製造本身，而是<b>認證</b>。</p>
+<p>因為普通 PCB 失效可能只損失幾百元，但一塊 ABF 載板失效可能報廢一顆<b>價值數萬美元的 GPU/CPU</b>。所以 ABF 載板從驗證到量產動輒數年。<b>一旦進入供應體系，客戶不會輕易更換</b>——這就是 ABF 行業長期保持高利潤率跟高集中度的原因。</p>
+<p>這個邏輯跟車用半導體的認證壁壘類似——進入難、淘汰也難，是少數可以「躺著賺」的位置。</p>
+
+<h2 id="next">下一代：玻璃基板</h2>
+<p>ABF 也不是終點。隨著 AI 晶片尺寸越來越大、功耗越來越高，ABF 自身也接近物理極限——<b>翹曲、散熱、尺寸穩定性</b>都是傳統 ABF 載板無法克服的問題。</p>
+<p>產業正在尋找下一代方案：<b>玻璃基板</b>。利用熱穩定性更強、尺寸精度更高的玻璃材料取代傳統有機材料作為新的封裝底座。這正是 <b>Intel、Samsung 以及多家先進封裝巨頭重押的新方向</b>。</p>
+<p>玻璃基板若成功量產，會挑戰 ABF 的地位，但更可能是「ABF 繼續做主流、玻璃基板吃頂規」——這是值得長期追蹤的演化主題。</p>
+
+<div class="links-box">
+<div class="lt">關聯節點 · Connections</div>
+<div class="chip-row">
+<a class="link-chip" href="../cycles/ai-server.html"><span class="dot cycle"></span>AI 伺服器</a>
+<a class="link-chip" href="ccl.html"><span class="dot part"></span>CCL 銅箔基板</a>
+<a class="link-chip" href="cowos.html"><span class="dot part"></span>CoWoS</a>
+<a class="link-chip" href="hbm.html"><span class="dot part"></span>HBM</a>
+<a class="link-chip" href="../companies/nvidia.html"><span class="dot company"></span>輝達</a>
+<a class="link-chip" href="../companies/tsmc.html"><span class="dot company"></span>台積電</a>
+</div></div>
+
+<h2 id="timeline">更新時間軸</h2>
+<div class="timeline">
+<div class="ev"><div class="dt">2026.06</div>由「CCL 完整教學筆記」第八章歸檔建立此頁；涵蓋演化路徑、味之素 ABF 膜寡占、欣興/南電/揖斐電/新光、認證壁壘、玻璃基板下一代方向。</div>
+</div>
+
+<div class="note" style="margin-top:30px">
+<b>擴充這一頁：</b>欣興電子、南亞電路板、揖斐電 Ibiden、味之素、Intel（玻璃基板）內容都足夠各自成為公司節點——若要建，回來在「關聯節點」加 link-chip 並把內文改成連結。
+</div>
+</article></div></div>
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+</body></html>
