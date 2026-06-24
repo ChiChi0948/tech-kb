@@ -30,6 +30,8 @@ window.KB = {
     { id:"yageo",    group:"passive", status:"done", name:"國巨",     code:"Yageo · 2327",  desc:"台灣被動元件龍頭、全球第三大 MLCC；Commodity 主力＋鉭電容（KEMET）" },
     { id:"walsin",   group:"passive", status:"done", name:"華新科",   code:"Walsin · 2492", desc:"台灣 MLCC 第二＋晶片電阻雙產品線；推銅電極切入 AI 伺服器" },
     { id:"holystone",group:"passive", status:"done", name:"禾伸堂",   code:"Holy Stone · 3026", desc:"高壓 MLCC niche player；48V 諧振電容新需求直接受惠，最積極擴廠" },
+    // PCB / 載板
+    { id:"tuc",      group:"pcb",     status:"done", name:"台光電",   code:"TUC · 2383",   desc:"台灣 CCL 龍頭、NVIDIA AI 伺服器供應鏈領導地位；M8 等級高速材料" },
     // 記憶體
     { id:"sk-hynix",  group:"memory",  status:"done", name:"SK 海力士", code:"SK Hynix",     desc:"HBM 領先者；AI 週期最大贏家之一" },
     { id:"samsung-mem", group:"memory", status:"stub", name:"三星記憶體", code:"Samsung",     desc:"DRAM/NAND 龍頭；追趕 HBM" },
@@ -55,12 +57,15 @@ window.KB = {
     { id:"cis",        status:"stub", name:"影像感測器",       en:"CMOS Image Sensor", desc:"手機相機核心；Sony 領先" },
     { id:"optical",    status:"stub", name:"光通訊模組",       en:"Optical Transceiver", desc:"資料中心高速互連" },
     { id:"passive",    status:"done", name:"被動元件 (MLCC)",  en:"Passive Components", desc:"電容/電阻/電感；無處不在的基礎件。AI 伺服器用量爆增，村田領先、國巨追趕" },
+    { id:"ccl",        status:"done", name:"CCL 銅箔基板",    en:"Copper Clad Laminate", desc:"PCB 核心基材；樹脂+玻纖+銅箔三材料；AI 主板材料命門" },
+    { id:"abf",        status:"done", name:"ABF 載板",        en:"ABF Substrate",     desc:"AI 晶片封裝過渡層；味之素 ABF 膜獨佔上游" },
   ],
   groups: {
     foundry:{ name:"晶圓代工",  en:"Foundry" },
     fabless:{ name:"IC 設計",   en:"Fabless Design" },
     power:  { name:"功率半導體", en:"Power Semiconductor" },
     passive:{ name:"被動元件",  en:"Passive Components" },
+    pcb:    { name:"PCB / 載板", en:"PCB / Substrate" },
     memory: { name:"記憶體",    en:"Memory" },
     equip:  { name:"半導體設備", en:"Equipment" },
     ostat:  { name:"封裝測試",  en:"OSAT" },
