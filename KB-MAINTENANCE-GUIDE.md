@@ -179,20 +179,86 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 
 `style.css` 已備有這些 class:
 
+### 6.1 基礎版式
+
 - **`.deftable`** — 兩欄定義表,左欄淡色標籤、右欄內容(用於規格、對照、來源等)
 - **`.note`** — 提示框,左邊有色條。可加 `style="border-left-color:var(--done)"` 改顏色,綠=利多/結論、黃 `--stub`=警告、紫 `--cycle`=一般提示
 - **`.timeline`** + **`.ev`** + **`.dt`** — 時間軸列表
 - **`.links-box`** + **`.chip-row`** + **`.link-chip`** — 底部關聯節點區塊。`.dot` 的 class 決定顏色圓點
-- **`.fin-track`** — 公司頁的財報追蹤區塊(配上面的 script 自動填入)
 - **`.tag-type`** + 類型 class(`company`/`part`/`cycle`/`quarter`) — h1 上方的彩色 tag
 - **`.tl`** — 小標籤(uppercase letter-spacing)
 
-**色票 CSS 變數**(都已定義在 style.css 的 `:root`):
+### 6.2 Q&A 卡片 `.qa`
+
+灰底白卡的問答區塊,適合寫「常見誤解 / FAQ / 快速對照」段落。可連續放多張形成 Q&A 列表。
+
+```html
+<div class="qa">
+  <div class="q">HBM 跟一般 DRAM 有什麼不同?</div>
+  <div class="a">HBM 是把多顆 DRAM die 垂直堆疊、用 TSV 貫穿電極連接,再透過矽中介層與 GPU 並列封裝。頻寬遠高於 DDR/GDDR,但成本與良率門檻也高。</div>
+</div>
+```
+
+**用時機:** 節點頁想快速答幾個典型問題、破除誤解、或列一組「你以為 X,其實 Y」時。不要拿來寫長篇論述——長段落用 `<p>`。
+
+### 6.3 骨架橫幅 `.stub-banner`
+
+黃色橫幅,標示「這頁還是骨架、內容待補」。放在 `<h1>` 下方、正文之前。
+
+```html
+<div class="stub-banner">
+  <b>骨架頁面</b> · 這一節點還在等使用者提供內容做深入。
+  目前只有基本定位與關聯,細節請以外部資料為準。
+</div>
+```
+
+**用時機:** 在 `data.js` 標了 `status:"stub"` 但為了讓連結不斷、先建了空殼頁時。等內容寫進來就把 banner 移掉、把 `status` 改成 `done`。
+
+### 6.4 財報核心數字表 `.kpi-grid` / `.kpi`
+
+財報頁專用的關鍵指標並排卡,每張顯示一個數字 + 標籤 + 變化幅度。
+
+```html
+<div class="kpi-grid">
+  <div class="kpi">
+    <div class="v">$25.5B</div>
+    <div class="l">Revenue</div>
+    <div class="d up">+8.7% QoQ</div>
+  </div>
+  <div class="kpi">
+    <div class="v">57.8%</div>
+    <div class="l">Gross Margin</div>
+    <div class="d up">+1.2 ppt</div>
+  </div>
+  <div class="kpi">
+    <div class="v">$2.14</div>
+    <div class="l">EPS</div>
+    <div class="d dn">-3.5% YoY</div>
+  </div>
+</div>
+```
+
+**子元素規則:**
+- `.v` — 大數字本體(自動加粗、負字距)
+- `.l` — 底下的小標籤(自動 uppercase + letter-spacing)
+- `.d` — 變化描述行。加 `.up` 變綠、`.dn` 變紅、不加就是灰
+
+**用時機:** 財報頁 (`quarters/*.html`) 的最上方,讓讀者一眼看到當季核心數字。3–6 張為宜,超過就拆兩排。
+
+### 6.5 財報追蹤 `.fin-track`
+
+公司頁用來自動列出所有相關季度財報頁的區塊。**不要手動填內容**,配 §5 底部那段 script 使用,會從 `data.js` 的 `quarters` 抓取。
+
+### 6.6 色票 CSS 變數
+
+都已定義在 `style.css` 的 `:root`:
 - `--paper` 紙底、`--ink` 主文字、`--ink-soft` 次文字、`--faint` 最淡
 - `--company` 赭金、`--part` 青、`--cycle` 紫、`--quarter` 深紅
 - `--done` 綠、`--stub` 黃、`--accent` 藍
 
-**重要:** 不要自己引入新的 CSS 框架(Tailwind、Bootstrap 等)。也不要用 `<style>` 寫破壞全站視覺的自訂樣式。如果某個元件不存在但你需要,就用 `<style>` 加在那一頁內、命名以該頁專屬前綴(例如 `pkg3d-` 是 CoWoS 3D 的命名空間),避免污染全站。
+### 6.7 自訂樣式邊界
+
+**不要自己引入新的 CSS 框架**(Tailwind、Bootstrap 等)。也不要用 `<style>` 寫破壞全站視覺的自訂樣式。如果某個元件不存在但你需要,就用 `<style>` 加在那一頁內、命名以該頁專屬前綴(例如 `pkg3d-` 是 CoWoS 3D 的命名空間),避免污染全站。
 
 ---
 
@@ -278,7 +344,7 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 如果你是第一次接手這個知識庫,使用者會像這樣開始一個新對話:
 
 > 我有一個科技供應鏈知識庫(部署在 GitHub Pages),架構是「週期 / 公司 / 零件 / 財報」四種卡片互相串聯。我貼一份維護指引給你讀,之後請照這份指引幫我歸檔新內容、新增節點、做必要的串聯。讀完跟我說一聲,我就開始給你內容。
-> 
+>
 > [附上本文件]
 
 讀完後你應該:
@@ -298,4 +364,5 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 
 ---
 
-*本指引版本: 2026.06 · 由初代維護對話編寫,可自由更新擴充。*
+*本指引版本: 2026.07 · 由初代維護對話編寫,可自由更新擴充。*
+*2026.07 更新:§6 補上 `.qa` / `.stub-banner` / `.kpi-grid` 三個元件的用法。*
