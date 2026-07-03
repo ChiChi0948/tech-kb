@@ -5,6 +5,63 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI 伺服器 · 科技供應鏈知識庫</title>
 <link rel="stylesheet" href="../assets/style.css">
+<style>
+/* 3D 立體成本環：把 GPU 70% / 網路 15-20% / 電氣散熱 10% 視覺化 */
+.aiviz-wrap{margin:24px 0 36px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.aiviz-stage{width:520px;height:340px;perspective:1200px;cursor:pointer;user-select:none;position:relative}
+.aiviz-scene{width:280px;height:80px;position:absolute;left:120px;top:130px;transform-style:preserve-3d;transform:rotateX(-28deg) rotateY(0deg);animation:aiviz-spin 24s linear infinite}
+.aiviz-stage:hover .aiviz-scene,
+.aiviz-stage.exploded .aiviz-scene{animation-play-state:paused}
+@keyframes aiviz-spin{from{transform:rotateX(-28deg) rotateY(0deg)}to{transform:rotateX(-28deg) rotateY(360deg)}}
+.aiviz-part{position:absolute;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.34,1.3,.5,1)}
+/* GPU 70%：金色，最大最寬 */
+.aiviz-gpu{width:196px;height:56px;left:42px;top:12px;
+  background:linear-gradient(180deg,#d4a358 0%,#8a5e22 100%);
+  border:1px solid #6e4a18;border-radius:3px;
+  box-shadow:0 6px 16px rgba(60,50,30,.35);transform:translateZ(0)}
+.aiviz-gpu::after{content:"GPU / HBM / CoWoS · 70%";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;color:#fff5df;letter-spacing:1px;font-weight:700}
+/* 網路 15-20%：青色 */
+.aiviz-net{width:50px;height:56px;left:242px;top:12px;
+  background:linear-gradient(180deg,#5fb5ad 0%,#3a8f86 100%);
+  border:1px solid #2a6862;border-radius:3px;
+  box-shadow:0 4px 10px rgba(0,0,0,.25);transform:translateZ(0)}
+.aiviz-net::after{content:"網路 · 18%";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:ui-sans-serif,system-ui,sans-serif;font-size:.62rem;color:#fff;letter-spacing:.5px;font-weight:700;writing-mode:vertical-rl;transform:rotate(180deg)}
+/* 電氣散熱 10%：深紫色 */
+.aiviz-power{width:30px;height:56px;left:6px;top:12px;
+  background:linear-gradient(180deg,#a67bd4 0%,#6a3fa0 100%);
+  border:1px solid #4a2878;border-radius:3px;
+  box-shadow:0 4px 10px rgba(0,0,0,.25);transform:translateZ(0)}
+.aiviz-power::after{content:"電氣散熱 · 10%";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:ui-sans-serif,system-ui,sans-serif;font-size:.56rem;color:#fff;letter-spacing:.5px;font-weight:700;writing-mode:vertical-rl;transform:rotate(180deg)}
+/* 拆解狀態 */
+.aiviz-stage.exploded .aiviz-gpu{transform:translateX(0) translateZ(0) translateY(-30px)}
+.aiviz-stage.exploded .aiviz-net{transform:translateX(60px) translateY(-30px)}
+.aiviz-stage.exploded .aiviz-power{transform:translateX(-60px) translateY(-30px)}
+.aiviz-label{position:absolute;font-family:ui-sans-serif,system-ui,sans-serif;font-size:.78rem;white-space:nowrap;opacity:0;transition:opacity .5s ease .3s;pointer-events:none}
+.aiviz-label .pct{display:block;font-size:.65rem;color:var(--faint);font-weight:400;margin-top:1px}
+.aiviz-stage.exploded .aiviz-label{opacity:1}
+.aiviz-label.l-gpu{color:#8a5e22;font-weight:700;left:430px;top:140px}
+.aiviz-label.l-net{color:#2a6862;font-weight:700;left:430px;top:190px}
+.aiviz-label.l-pow{color:#4a2878;font-weight:700;left:20px;top:190px}
+.aiviz-hint{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.75rem;color:var(--faint);letter-spacing:.5px}
+.aiviz-hint .key{color:var(--accent);font-weight:600}
+
+/* 賽道卡片 */
+.lane-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:20px 0}
+.lane-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.lane-card::before{content:"";position:absolute;left:0;top:0;width:4px;height:100%;background:var(--part)}
+.lane-card.gpu-lane::before{background:var(--company)}
+.lane-card.net-lane::before{background:var(--part)}
+.lane-card.power-lane::before{background:var(--cycle)}
+.lane-card h4{font-size:1.02rem;margin-bottom:4px;display:flex;align-items:baseline;gap:8px}
+.lane-card h4 .pct{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;color:var(--faint);font-weight:400}
+.lane-card .sub{font-size:.78rem;color:var(--ink-soft);margin-bottom:10px;font-style:italic}
+.lane-card .players{font-size:.82rem;line-height:1.6}
+.lane-card .players b{color:var(--ink)}
+.moat-tag{display:inline-block;font-family:ui-sans-serif,system-ui,sans-serif;font-size:.65rem;letter-spacing:.5px;padding:2px 7px;border-radius:5px;margin-left:6px;font-weight:600;text-transform:uppercase}
+.moat-tag.deep{background:rgba(63,157,90,.14);color:var(--done)}
+.moat-tag.mid{background:rgba(58,143,134,.14);color:var(--part)}
+.moat-tag.shallow{background:rgba(201,154,46,.14);color:var(--stub)}
+</style>
 </head>
 <body>
 <header class="site">
@@ -15,56 +72,182 @@
       <a href="../index.html#cycles">週期</a>
       <a href="../index.html#companies">公司</a>
       <a href="../index.html#parts">零件</a>
-      <a href="../reference/glossary.html">術語表</a>
+      <a href="../index.html#quarters">財報</a>
     </nav>
   </div>
 </header>
 
-<div class="wrap">
-  <div class="layout">
-    <aside class="toc">
-      <div class="tl">本頁目錄</div>
-      <a href="#overview">週期概述</a>
-      <a href="#structure">供應鏈結構</a>
-      <a href="#bottleneck">關鍵瓶頸</a>
-      <a href="#vs">與手機週期對照</a>
-      <a href="#timeline">更新時間軸</a>
-    </aside>
-    <article>
-      <span class="tag-type cycle">週期 / 主題</span>
-      <h1>AI 伺服器</h1>
-      <p class="lede">2023～ · 由生成式 AI 的訓練與推論需求所驅動的科技週期。</p>
-      
-  <h2 id="overview">週期概述</h2>
-  <p>AI 伺服器週期的核心需求是「算力」：訓練大型語言模型需要大量 GPU，而 GPU 要發揮效能，得搭配高頻寬記憶體與先進封裝把它們緊密整合。這個週期由 <a href="../companies/nvidia.html">輝達</a> 幾乎定義了規格。</p>
-  <h2 id="structure">供應鏈結構</h2>
-  <table class="deftable"><tr><td>出規格/設計</td><td>輝達設計 GPU 與整套系統，並掌握 CUDA 軟體生態</td></tr>
-<tr><td>製造</td><td>台積電以先進製程代工，並提供 CoWoS 封裝</td></tr>
-<tr><td>記憶體</td><td>SK 海力士等供應 HBM</td></tr>
-<tr><td>最上游設備</td><td>ASML 的 EUV 光刻機決定先進製程能否實現</td></tr></table>
-  <h2 id="bottleneck">關鍵瓶頸</h2>
-  <p>這個週期的瓶頸不在「晶片設計」，而在<b>先進封裝（<a href="../parts/cowos.html">CoWoS</a>）與 <a href="../parts/hbm.html">HBM</a> 的產能</b>。設計再好、晶片再多，沒有封裝產能也組不出成品。</p>
-  <h2 id="vs">與手機週期對照</h2>
-  <p>同一批代工與封測廠（台積電、日月光）角色大致不變，但訂單重心從手機 SoC 轉向 AI 加速器。這正是「同一批名字、不同週期扮演不同角色」的典型例子。</p>
- 
+<div class="wrap"><div class="layout">
+<aside class="toc">
+  <div class="tl">本頁目錄</div>
+  <a href="#overview">週期概述</a>
+  <a href="#capex">大廠 CapEx 帳本</a>
+  <a href="#breakdown">硬體九大賽道</a>
+  <a href="#gpu-lane">算力晶片 70%</a>
+  <a href="#network-lane">網路設備 15–20%</a>
+  <a href="#power-lane">電氣與散熱 10%</a>
+  <a href="#thinking">投資邏輯:賣鏟人</a>
+  <a href="#vs">與其他週期對照</a>
+  <a href="#timeline">更新時間軸</a>
+</aside>
 
-      <div class="links-box">
-        <div class="lt">關聯節點 · Connections</div>
-        <div class="chip-row"><a class="link-chip" href="../companies/nvidia.html"><span class="dot company"></span>輝達</a><a class="link-chip" href="../companies/tsmc.html"><span class="dot company"></span>台積電</a><a class="link-chip" href="../companies/sk-hynix.html"><span class="dot company"></span>SK 海力士</a><a class="link-chip" href="../parts/hbm.html"><span class="dot part"></span>HBM 高頻寬記憶體</a><a class="link-chip" href="../parts/cowos.html"><span class="dot part"></span>CoWoS 先進封裝</a><a class="link-chip" href="../parts/euv.html"><span class="dot part"></span>EUV 極紫外光刻</a></div>
-      </div>
+<article>
+<span class="tag-type cycle">週期 / 主題</span>
+<h1>AI 伺服器</h1>
+<p class="lede">2023～ · 生成式 AI 訓練與推論驅動的科技週期。核心是「大量 GPU 算力 + 高頻寬記憶體 + 先進封裝把它們塞在一起」,而真正定義這個週期的不是 GPU 本身,而是<b>圍繞 GPU 建構的整套硬體帳本</b>——這頁就是要把這本帳拆開。</p>
 
-      <h2 id="timeline">更新時間軸</h2>
-      <div class="timeline">
-        <div class="ev"><div class="dt">2026.05</div>建立此頁，先鋪 AI 伺服器週期主結構</div>
-      </div>
-
-      <div class="note" style="margin-top:30px">
-        <b>擴充這一頁：</b> 直接編輯本檔。新增段落＝再加一個 <code>&lt;h2&gt;</code> 區塊並在左側目錄補連結；新增關聯＝在「關聯節點」加一個 link-chip；有新進展＝在「更新時間軸」最上方加一筆。
-      </div>
-    </article>
+<div class="aiviz-wrap">
+  <div class="aiviz-stage" id="aiviz3d" title="點擊拆解 / 合體;滑鼠移上暫停旋轉">
+    <div class="aiviz-scene">
+      <div class="aiviz-part aiviz-power"></div>
+      <div class="aiviz-part aiviz-gpu"></div>
+      <div class="aiviz-part aiviz-net"></div>
+    </div>
+    <div class="aiviz-label l-gpu">算力晶片 · GPU/HBM/CoWoS<span class="pct">70% 硬體支出</span></div>
+    <div class="aiviz-label l-net">網路設備 · 光模組/交換機<span class="pct">15–20% 硬體支出</span></div>
+    <div class="aiviz-label l-pow">電氣與散熱系統<span class="pct">~10% 硬體支出</span></div>
   </div>
+  <div class="aiviz-hint">點擊 <span class="key">拆解</span> 看三大類佔比 · 滑鼠移上暫停旋轉</div>
 </div>
 
+<h2 id="overview">週期概述</h2>
+<p>AI 伺服器週期的核心需求是「算力」:訓練大型語言模型需要大量 GPU,而 GPU 要發揮效能,得搭配<a href="../parts/hbm.html">高頻寬記憶體 HBM</a>與<a href="../parts/cowos.html">先進封裝 CoWoS</a>把它們緊密整合。這個週期由 <a href="../companies/nvidia.html">輝達</a> 幾乎定義了規格——GPU 淨利率約 55%,一個 Oracle 的 400 億美元訂單就能貢獻超過 200 億美元純利潤。</p>
+<p>但把眼光只放在 GPU 上會錯過整條產業鏈。真正決定產業結構的是<b>圍繞 GPU 展開的九大硬體賽道</b>——GPU 只是最大宗、最貴的一塊,不是唯一的一塊。</p>
+
+<h2 id="capex">大廠 CapEx 帳本(2025)</h2>
+<p>資本規模比想像的還瘋狂。四大 CSP + 頂級 AI 公司的年度 AI 基建投入以千億美元計:</p>
+<table class="deftable">
+<tr><td>Amazon</td><td>1,190 億美元(投入 AWS)</td></tr>
+<tr><td>Google</td><td>910 億美元</td></tr>
+<tr><td>Microsoft</td><td>809 億美元</td></tr>
+<tr><td>Meta</td><td>720 億美元</td></tr>
+<tr><td>Oracle</td><td>510 億美元(全部押注 AI 基建)</td></tr>
+<tr><td>OpenAI</td><td>4,000 億美元(未來五年 40 GW 算力承諾)</td></tr>
+<tr><td>xAI</td><td>1,800 億美元(未來 3-4 年 5–7 GW 算力承諾)</td></tr>
+</table>
+<p>OpenAI 更向輝達下了單筆 5,000 億美元的 5-7 年 GPU 訂單,加上與 Oracle 的 300 GW 星際之門項目——都是<b>幾千億美元級別的巨額 CapEx</b>。錢正以前所未見的規模流進這條產業鏈,但問題是:錢的流向真的均勻嗎?</p>
+
+<h2 id="breakdown">硬體九大賽道 — 這是這個週期的帳本核心</h2>
+<p>一個算力中心的硬體支出可以清楚分為<b>三大類、九個賽道</b>:</p>
+
+<div class="lane-grid">
+<div class="lane-card gpu-lane"><h4>算力晶片與封裝 <span class="pct">~70%</span></h4>
+<div class="sub">絕對主宰,但競爭已進入白熱化</div>
+<div class="players"><b><a href="../companies/nvidia.html">輝達</a></b>:GPU 龍頭,55% 淨利率、單一 Oracle 訂單 400 億<br>
+<b>AMD、Intel</b>:GPU 追趕者<br>
+Google、Amazon、Meta:自研 ASIC<br>
+<a href="../parts/hbm.html">HBM</a>:<a href="../companies/sk-hynix.html">SK 海力士</a>、三星、美光<br>
+<a href="../parts/cowos.html">CoWoS</a>:<a href="../companies/tsmc.html">台積電</a>獨佔</div>
+</div>
+
+<div class="lane-card net-lane"><h4>網路與互聯 <span class="pct">15–20%</span></h4>
+<div class="sub">GPU 規模指數增加、通信需求跳躍式暴漲</div>
+<div class="players"><b>光模組</b>:中際旭創、天孚、新易盛(1.6T/3.2T)<br>
+<b>交換機</b>:輝達(NVLink)、博通(Tomahawk)<br>
+<b>銅纜互聯</b>:安費諾、立訊、兆龍<br>
+<b>算力線路板 <a href="../parts/ccl.html">CCL</a></b>:<a href="../companies/tuc.html">台光電</a>(M8 材料 224G→448G)</div>
+</div>
+
+<div class="lane-card power-lane"><h4>電氣與散熱 <span class="pct">~10%</span></h4>
+<div class="sub">機櫃功率暴衝(100kW→600kW→1MW+),整個電力鏈重構</div>
+<div class="players"><b>液冷</b>:雙良、英維克、Vertiv<br>
+<b>電力設備</b>:施耐德、日立能源<br>
+<b><a href="../parts/power-semi.html">功率半導體</a></b>:<a href="../companies/infineon.html">Infineon</a>、<a href="../companies/stm.html">STM</a>(800V DC、SST)<br>
+<b><a href="../parts/passive.html">被動元件</a></b>:村田、<a href="../companies/yageo.html">國巨</a>、<a href="../companies/holystone.html">禾伸堂</a>(48V 諧振)</div>
+</div>
+</div>
+
+<h2 id="gpu-lane">賽道一:算力晶片與封裝 — 70% 佔比,但競爭生態複雜</h2>
+<p><b>1. GPU 訓練與推論晶片(絕對核心)</b></p>
+<p><a href="../companies/nvidia.html">輝達</a>是絕對霸主。GPU 淨利率約 55%,一個 Oracle 400 億訂單就能貢獻超過 200 億純利潤。CUDA 軟體生態鎖定開發者+晶片架構領先,客戶轉換成本極高。<b>AMD 與 Intel</b> 在硬體性能上力追,但要真正撼動輝達仍極其艱難。</p>
+
+<p><b>2. 大廠自研 ASIC(結構性威脅)</b></p>
+<p>為了擺脫對輝達的依賴,雲端大廠都在自研專用 AI 晶片:Google TPU、Amazon Trainium、Meta MTIA。實測 Google TPU 的 MLCC 用量比預期還高——這代表 ASIC 不僅是 rumor,已經在真實出貨,並牽動整條材料供應鏈。</p>
+
+<p><b>3. 高頻寬記憶體 <a href="../parts/hbm.html">HBM</a></b></p>
+<p>幾乎和 GPU 綁定的黃金搭檔。目前市場由 <a href="../companies/sk-hynix.html">SK 海力士</a>、三星、美光壟斷,而且進入 HBM4 世代升級週期——每一代升級,單價、單卡用量、良率要求都上一個台階。</p>
+
+<p><b>4. 先進封裝 <a href="../parts/cowos.html">CoWoS</a></b></p>
+<p>台積電獨佔的技術,一路吃盡輝達與 AMD 全部訂單。這是<b>整個 AI 供應鏈的最核心瓶頸</b>——設計再多、晶片再多,沒 CoWoS 產能就組不出成品。</p>
+
+<h2 id="network-lane">賽道二:網路與互聯 — 15-20%,通信需求跳躍式暴漲</h2>
+<p><b>底層邏輯:</b>當 GPU 規模從幾百顆擴展到幾十萬顆,晶片之間的通信需求不是線性增加,而是<b>跳躍式暴漲</b>——這才是「網路才是新的算力」的真正含義。</p>
+
+<p><b>1. 光模組(數量最多、量價齊升)</b></p>
+<p>每一顆 GPU 都需要多個光模組完成互聯,傳輸速率從 400G → 800G → 1.6T → 3.2T 一路狂奔。全球出貨完全由中國廠商主導:<b>中際旭創、天孚通信、新易盛</b>。</p>
+
+<p><b>2. 高速交換機(架構定義者)</b></p>
+<p>整個 AI 集群的「大腦」。輝達力推 NVLink 生態把交換機也自產化;博通用其 Tomahawk 交換晶片,以更開放的姿態與輝達正面對抗。這是一場關於 AI 集群未來架構的戰爭。</p>
+
+<p><b>3. 銅纜互聯(短距新戰場)</b></p>
+<p>機櫃內部短距離互聯用銅纜(便宜、可靠、功耗低);跨機櫃長距離互聯用光模組。銅纜技術含量看似不高,但涉及大量精密製造與高頻連接器,由<b>安費諾、立訊精密、兆龍互連</b>等頭部連接器廠商壟斷。</p>
+
+<p><b>4. 算力線路板(CCL 材料軍備競賽)</b></p>
+<p>信號速率飆升到 <b>224G、甚至下一代 448G</b>,對板材的介電損耗要求跳躍式提高。「M8 等級」以上 CCL 材料成為 AI 主板剛需,由 <a href="../companies/tuc.html">台光電</a> 為首的少數頂級 CCL 廠寡佔。詳見 <a href="../parts/ccl.html">CCL 銅箔基板</a>。</p>
+
+<h2 id="power-lane">賽道三:電氣與散熱 — 10%,但整個電力鏈正在重構</h2>
+<p><b>底層趨勢:</b>單個機櫃功率從 100kW 一路衝到 600kW、1MW+。這催生兩個結構性變化:液冷全面取代風冷、整個資料中心供電架構往<b>800V 高壓直流</b>重構。</p>
+
+<p><b>1. 液冷散熱(從 optional 變 mandatory)</b></p>
+<p>傳統風冷完全帶不動 100kW+ 機櫃。液冷不再是選項,而是唯一選項——冷板式、浸沒式方案齊上陣。<b>雙良節能、英維克、Vertiv、施耐德</b> 這些老牌工業與熱管理龍頭直接吃到二次騰飛。</p>
+
+<p><b>2. 電力供應與 UPS(高壓直流化)</b></p>
+<p>800V DC 從無到有、規模鋪開。<b>施耐德、日立能源、伊頓</b>等傳統電力巨頭獲得結構性訂單。</p>
+
+<p><b>3. <a href="../parts/power-semi.html">功率半導體</a> — 資料中心的隱形受益者</b></p>
+<p>從電網 kV 級一路降到 GPU 核心 1V 級,每一階降壓都需要 <b>MOSFET / IGBT / SiC / GaN</b>。<a href="../companies/infineon.html">Infineon</a> 產品線最完整、覆蓋 SST 到 GPU 周邊全電壓段;<a href="../companies/stm.html">STM</a> 強在 800V 高壓直電與中段轉換。過去被歸類為「車用+工業」題材,現在正在被市場重新理解為 <b>AI 基建鏈的核心一環</b>。</p>
+
+<p><b>4. <a href="../parts/passive.html">被動元件</a>(MLCC / 電解電容大爆發)</b></p>
+<p>Rubin 一台主板 25,000 顆 MLCC、GB200 3 萬顆、整機櫃可達 44 萬顆——是傳統伺服器的 8 倍且單價更高。48V 諧振電容從邊緣變主流,由 <a href="../companies/holystone.html">禾伸堂</a>直接受惠;Commodity 漲價由 <a href="../companies/yageo.html">國巨</a>、<a href="../companies/walsin.html">華新科</a>承接;PSU 牛角電解電容全球包廠搶貨。</p>
+
+<h2 id="thinking">投資邏輯 — 誰是真正的「賣鏟人」?</h2>
+<p>幾千億美元 CapEx 流下來,但錢的流向極不均勻。整條產業鏈可以分成三類:</p>
+<table class="deftable">
+<tr><td><b>類型</b></td><td><b>特徵與代表</b></td></tr>
+<tr><td>絕對王者<span class="moat-tag deep">護城河極深</span></td><td>技術、專利、生態雙壁壘。錢一定流過,而且大部分都是它們吃。代表:輝達(GPU)、台積電(CoWoS)、SK 海力士(HBM)、Infineon(功率半導體)、村田(MLCC)、施耐德(電力設備)</td></tr>
+<tr><td>賣鏟人<span class="moat-tag mid">位卡關鍵環節</span></td><td>不是最耀眼、但被產業鏈強行推動升級的關鍵環節供應商。代表:台光電(CCL M8)、中際旭創(光模組)、禾伸堂(48V 諧振)、雙良(液冷)、STM(800V 直電)</td></tr>
+<tr><td>紅海競爭<span class="moat-tag shallow">彈性最大但淘汰快</span></td><td>技術門檻相對低、產能可快速擴張。代表:PCB 中低階、部分連接器、通路商、部分陸系材料商</td></tr>
+</table>
+<p class="note" style="border-left-color:var(--done)"><b>核心投資邏輯:</b>把握 AI 大基建浪潮的核心,不是追 GPU 這種眾所週知的英雄,而是<b>找到那些位在關鍵環節、被產業鏈強行推動升級的「賣鏟人」</b>。它們可能沒有輝達那麼耀眼,但它們是這場淘金熱裡真正能穩定收錢的人。</p>
+
+<h2 id="vs">與其他週期對照</h2>
+<p>同一批代工廠與封測廠(台積電、日月光)在不同週期角色不變,但訂單重心轉移。<b>手機週期</b>訂單是 SoC + 影像感測 + 面板;<b>AI 伺服器週期</b>訂單重心是 GPU + HBM + CoWoS + 高階 CCL + 800V 功率半導體。這正是「同一批名字、不同週期扮演不同角色」的經典範例。</p>
+<p><a href="ev.html">電動車週期</a>也和 AI 週期存在交叉——例如功率半導體、車用 MCU 都是兩者共用資產。<b>資料中心週期</b>則直接和 AI 週期融合,已幾乎不可分。</p>
+
+<div class="links-box">
+<div class="lt">關聯節點 · Connections</div>
+<div class="chip-row">
+<a class="link-chip" href="../companies/nvidia.html"><span class="dot company"></span>輝達</a>
+<a class="link-chip" href="../companies/tsmc.html"><span class="dot company"></span>台積電</a>
+<a class="link-chip" href="../companies/sk-hynix.html"><span class="dot company"></span>SK 海力士</a>
+<a class="link-chip" href="../companies/infineon.html"><span class="dot company"></span>Infineon</a>
+<a class="link-chip" href="../companies/stm.html"><span class="dot company"></span>STM</a>
+<a class="link-chip" href="../companies/tuc.html"><span class="dot company"></span>台光電</a>
+<a class="link-chip" href="../companies/yageo.html"><span class="dot company"></span>國巨</a>
+<a class="link-chip" href="../companies/holystone.html"><span class="dot company"></span>禾伸堂</a>
+<a class="link-chip" href="../parts/hbm.html"><span class="dot part"></span>HBM</a>
+<a class="link-chip" href="../parts/cowos.html"><span class="dot part"></span>CoWoS</a>
+<a class="link-chip" href="../parts/ccl.html"><span class="dot part"></span>CCL</a>
+<a class="link-chip" href="../parts/power-semi.html"><span class="dot part"></span>功率半導體</a>
+<a class="link-chip" href="../parts/passive.html"><span class="dot part"></span>被動元件</a>
+</div></div>
+
+<h2 id="timeline">更新時間軸</h2>
+<div class="timeline">
+<div class="ev"><div class="dt">2026.06</div>大幅重寫:整合「AI 算力中心九大賽道」深度分析,新增大廠 CapEx 帳本、九大賽道成本佔比、電氣散熱鏈、賣鏟人投資邏輯、3D 成本拆解視覺化。</div>
+<div class="ev"><div class="dt">2026.05</div>建立此頁,先鋪 AI 伺服器週期主結構</div>
+</div>
+
+<div class="note" style="margin-top:30px">
+<b>擴充這一頁:</b>內文中標粗體但尚未建節點的公司——中際旭創(光模組)、天孚通信、新易盛、工業富聯(FII)、雙良、英維克、Vertiv、施耐德、安費諾——內容已足夠成為公司節點。哪天想深入某家,跟我說「知識庫歸檔:把 XXX 做成公司節點」即可。
+</div>
+</article></div></div>
+
 <footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
-</body>
-</html>
+<script>
+(function(){
+  const s=document.getElementById('aiviz3d');
+  s.addEventListener('click',()=>s.classList.toggle('exploded'));
+})();
+</script>
+</body></html>
