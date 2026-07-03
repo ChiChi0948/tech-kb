@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>探針卡 · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+<span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#parts">零件</a> / 探針卡</span>
+<nav class="top"><a href="../index.html#cycles">週期</a><a href="../index.html#companies">公司</a><a href="../index.html#parts">零件</a><a href="../index.html#quarters">財報</a></nav>
+</div></header>
+<div class="wrap"><div class="layout">
+
+<aside class="toc"><div class="tl">本頁目錄</div>
+<a href="#what">這是什麼</a>
+<a href="#tech">三種主流技術</a>
+<a href="#mems-trigger">MEMS 導入觸發點</a>
+<a href="#global">全球競爭格局</a>
+<a href="#biz-model">自製 vs 外購差異</a>
+<a href="#customers">客戶對應矩陣</a>
+<a href="#timeline">更新時間軸</a>
+</aside>
+
+<article>
+<span class="tag-type part">零件 / 模組</span>
+<h1>探針卡 <span style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:1rem;color:var(--faint);font-weight:400">Probe Card</span></h1>
+<p class="lede"><a href="semi-testing.html">CP 階段</a>接觸晶圓的「針床」——上千根細針同時戳在晶圓上讀取電性。3 奈米以下的先進製程必須用 <b>MEMS 針</b>,是探針卡產業當前最激烈的技術戰場。</p>
+
+<h2 id="what">這是什麼</h2>
+<p>探針卡是一塊上面插著幾千根細針的板子,用來在晶圓針測(CP)階段同時接觸晶圓上的測試墊(bond pad),把訊號傳給 <b>ATE 測試機</b>。一片 12 吋晶圓上有幾百顆晶片,探針卡逐顆對準、通電、讀取回應。</p>
+
+<p>它是 CP 階段最關鍵的耗材——晶圓不斷變,探針卡也不斷換,而且針會磨損。每一世代新晶片誕生前,都要先做出對應的新探針卡。</p>
+
+<h2 id="tech">三種主流技術</h2>
+
+<table class="deftable">
+<tr><td><b>CPC · 懸臂式</b></td><td>針像手指斜插 · 間距 70–80μm · 適合成熟製程、便宜晶片(DDIC、PMIC)</td></tr>
+<tr><td><b>VPC · 垂直式(Cobra)</b></td><td>彎曲眼鏡蛇形 · 間距 40–90μm · 適合高頻、CPU / GPU / DRAM · 2026 前的 ASIC(BC / MRVL)、Nvidia 電競 GPU 用這個</td></tr>
+<tr><td><b>MEMS</b></td><td>半導體製程做出的微針 · 間距 <40μm · <b>AI / HPC、3 奈米以下必用</b></td></tr>
+</table>
+
+<p>三種技術的商業意義完全不同:CPC 是穩定但成長低的成熟市場;Cobra 是 2020 前後成長的主力;MEMS 是 AI 時代真正的新增量。三種都會共存,但成長全在 MEMS。</p>
+
+<h2 id="mems-trigger">MEMS 導入觸發點</h2>
+
+<div class="note" style="border-left-color:var(--done)"><b>硬指標</b> · <b>3 奈米以下製程必須轉 MEMS</b>。因為 3 奈米以下測試墊太薄,Cobra 針壓力太大會壓壞晶片。這是判斷哪些晶片會用 MEMS 的唯一硬指標——不是市場偏好,是物理逼你轉。</div>
+
+<h4>2026 年會用 MEMS 的晶片列表</h4>
+<ul>
+<li><b>AI GPU</b>:Blackwell、Rubin(N3 / N3P 製程)</li>
+<li><b>ASIC</b>:Google Humming Fish TPU、Meta MTIA(瑪雅)、AWS Trainium 3</li>
+<li><b>CPU</b>:AMD Server CPU(用 MEMS)</li>
+<li><b>網通</b>:Nvidia Mellanox 網通 IC</li>
+</ul>
+
+<h4>還不會用的</h4>
+<ul>
+<li>成熟製程晶片(28nm 以上)——CPC 就夠</li>
+<li>2026 前設計的 ASIC(Broadcom BC 系列、Marvell 現行案)——Cobra 撐得住</li>
+<li>手機 SoC(聯發科天璣)——目前還是精測的 Cobra 為主</li>
+</ul>
+
+<h2 id="global">全球競爭格局</h2>
+
+<table class="deftable">
+<tr><td>FormFactor(美)</td><td><b>25%</b> · 全球第一 · Nvidia AI GPU 供應鏈</td></tr>
+<tr><td>Technoprobe(義)</td><td><b>19%</b> · 全球第二 · MEMS 針龍頭,穎崴向他買針</td></tr>
+<tr><td>Micronics Japan(日)</td><td><b>13%</b> · 傳統強項在記憶體</td></tr>
+<tr><td><a href="../companies/mpi.html">旺矽(台)</a></td><td><b>8%</b> · 但在 AI 高階遠高於這個數字</td></tr>
+<tr><td><a href="../companies/chpt.html">精測(台)</a></td><td>聯發科手機 SoC 100%</td></tr>
+<tr><td><a href="../companies/yjc.html">雍智(台)</a></td><td>純設計、Google Humming Fish 新單</td></tr>
+</table>
+
+<p>整體全球市佔看起來台廠只有 10% 左右,<b>但 AI 高階探針卡市佔超過 50%</b>。這是分析看待這個產業的關鍵反差。</p>
+
+<h2 id="biz-model">自製 vs 外購:MEMS 毛利率的關鍵</h2>
+
+<div class="note" style="border-left-color:var(--stub)"><b>這是旺矽與穎崴最大的商業模式差異</b> · MEMS 針的產出方式決定毛利率結構——旺矽自製、穎崴外購,兩家在 MEMS 週期的獲利彈性完全相反。</div>
+
+<h4>旺矽:MEMS 針自製</h4>
+<ul>
+<li>從頭自建 MEMS 產能</li>
+<li><b>MEMS 出貨越多,毛利率越好</b></li>
+<li>2026 年 MEMS 佔比 28%,2027 年更高;2028 年整體毛利率上看 59–60%</li>
+</ul>
+
+<h4>穎崴:MEMS 針向 Technoprobe 外購</h4>
+<ul>
+<li>板子自己做,針向意大利 Technoprobe(全球市佔第一)採購</li>
+<li><b>MEMS 出貨越多,毛利率被壓越嚴重</b>(從 Cobra 50%+ 掉到 MEMS 30–40%)</li>
+<li>這是為什麼今年穎崴毛利率反而衰退——上半年出很多 MEMS 探針卡(給 AMD CPU + Mellanox)</li>
+</ul>
+
+<div class="qa">
+<div class="q">穎崴為什麼不自製 MEMS?</div>
+<div class="a">MEMS 針的自製產能建置門檻極高——需要半導體製程級的無塵室與微機電製程能力,投資金額和技術累積都不是短期能追上。穎崴選擇聚焦測試座本業(這是他真正的護城河),探針卡端接受外購的毛利率壓縮,換取更快進入 MEMS 客戶。</div>
+</div>
+
+<h2 id="customers">客戶對應矩陣</h2>
+
+<h4>Nvidia 產品線</h4>
+<table class="deftable">
+<tr><td>AI GPU(Hopper / Blackwell / Rubin)</td><td>Technoprobe + FormFactor(台積電 Turnkey 指定)——<b>旺矽完全吃不到</b></td></tr>
+<tr><td>電競 GPU(RTX 50/60)</td><td><a href="../companies/mpi.html">旺矽</a> 50% / <a href="../companies/winway.html">穎崴</a> 50% · 用 Cobra 針</td></tr>
+<tr><td>Mellanox 網通 IC</td><td>穎崴 70–80% / 旺矽 20–30% · 用 MEMS 針</td></tr>
+</table>
+
+<h4>ASIC 陣營(旺矽主場)</h4>
+<table class="deftable">
+<tr><td>Broadcom ASIC</td><td><b>旺矽幾乎 100%(獨家)</b> · Broadcom 自管供應鏈,不走 Turnkey</td></tr>
+<tr><td>Marvell ASIC</td><td><b>旺矽幾乎 100%(獨家)</b> · 同上邏輯</td></tr>
+<tr><td>Google TPU · ZebraFish</td><td><a href="../companies/chpt.html">精測</a> 100%(聯發科做 Design Service)</td></tr>
+<tr><td>Google TPU · Humming Fish(下代)</td><td><b><a href="../companies/yjc.html">雍智</a> 拿下(從精測手上搶到)</b></td></tr>
+<tr><td>Meta MTIA(瑪雅)</td><td>旺矽(2026 底放量) · Pin count 60,000–70,000 最高,改用 MEMS</td></tr>
+<tr><td>AWS Trainium 3</td><td>旺矽 · 2025 底開始出 MEMS,是旺矽 2025 MEMS 首單</td></tr>
+</table>
+
+<h4>其他重要客戶</h4>
+<table class="deftable">
+<tr><td>AMD Server CPU</td><td>旺矽 20–30%(用 MEMS)</td></tr>
+<tr><td><a href="../companies/mediatek.html">聯發科</a>手機 SoC</td><td><b>精測 100%</b>——整套探針卡都是精測,每年穩定貢獻精測 20% 營收</td></tr>
+<tr><td>特斯拉 AI5</td><td>旺矽 70% / 精測 30% · 尚未量產鎖定</td></tr>
+</table>
+
+<div class="note" style="border-left-color:var(--done)"><b>產業真相</b> · <b>技術差不多,客戶關係決定訂單。</b> Technoprobe、FormFactor、旺矽三家技術相差不遠,但誰跟哪個客戶關係好、綁得深,誰就拿單。這就是為什麼要一家一家看客戶矩陣。</div>
+
+<div class="links-box">
+<div class="lt">關聯節點 · Connections</div>
+<div class="chip-row">
+<a class="link-chip" href="semi-testing.html"><span class="dot part"></span>半導體測試</a>
+<a class="link-chip" href="test-socket.html"><span class="dot part"></span>測試座</a>
+<a class="link-chip" href="../cycles/ai-server.html"><span class="dot cycle"></span>AI 伺服器</a>
+<a class="link-chip" href="../companies/tsmc.html"><span class="dot company"></span>台積電</a>
+<a class="link-chip" href="../companies/nvidia.html"><span class="dot company"></span>輝達</a>
+<a class="link-chip" href="../companies/mpi.html"><span class="dot company"></span>旺矽</a>
+<a class="link-chip" href="../companies/winway.html"><span class="dot company"></span>穎崴</a>
+<a class="link-chip" href="../companies/chpt.html"><span class="dot company"></span>精測</a>
+<a class="link-chip" href="../companies/yjc.html"><span class="dot company"></span>雍智</a>
+</div></div>
+
+<h2 id="timeline">更新時間軸</h2>
+<div class="timeline">
+<div class="ev"><div class="dt">2026.07</div>由「半導體測試產業筆記」歸檔建立此頁;涵蓋 CPC/Cobra/MEMS 三世代、MEMS 導入觸發點、自製 vs 外購商業模式差異、客戶對應矩陣。</div>
+</div>
+
+</article>
+</div></div>
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+</body></html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>半導體測試 · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+<span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#parts">零件</a> / 半導體測試</span>
+<nav class="top"><a href="../index.html#cycles">週期</a><a href="../index.html#companies">公司</a><a href="../index.html#parts">零件</a><a href="../index.html#quarters">財報</a></nav>
+</div></header>
+<div class="wrap"><div class="layout">
+
+<aside class="toc"><div class="tl">本頁目錄</div>
+<a href="#why">為什麼變成關鍵戰場</a>
+<a href="#stages">五個測試階段</a>
+<a href="#wat-cp-ft">WAT / CP / FT 差在哪</a>
+<a href="#slt-burnin">SLT 與 Burn-in</a>
+<a href="#physics">CP vs FT 的物理限制</a>
+<a href="#money-flow">Nvidia GPU 錢流分配</a>
+<a href="#taiwan">台廠競爭格局</a>
+<a href="#numbers">關鍵數字</a>
+<a href="#timeline">更新時間軸</a>
+</aside>
+
+<article>
+<span class="tag-type part">零件 / 模組</span>
+<h1>半導體測試</h1>
+<p class="lede">Semiconductor Testing · 從晶圓下線到出貨前的五個把關階段。過去是附屬環節,<a href="../cycles/ai-server.html">AI 伺服器週期</a>把每顆晶片價值推到 5,000 美元以上,測試變成決定良率與獲利的關鍵戰場,也是台廠後段設備最大的成長主場。</p>
+
+<h2 id="why">為什麼變成關鍵戰場</h2>
+<p>過去消費性晶片便宜,測試成本佔比低,廠商寧可放寬標準。AI 時代徹底改變邏輯,三個原因:</p>
+
+<h4>1. 晶片價值暴增</h4>
+<table class="deftable">
+<tr><td>Power IC / Analog</td><td>US$ 0.5 – 5</td></tr>
+<tr><td>Mobile SoC</td><td>US$ 20 – 50</td></tr>
+<tr><td>Laptop / Desktop CPU</td><td>US$ 60 – 100</td></tr>
+<tr><td>Gaming GPU</td><td>US$ 100 – 200</td></tr>
+<tr><td><b>High-end AI GPU / <a href="cowos.html">CoWoS</a> 封裝</b></td><td><b>US$ 5,000 – 10,000</b></td></tr>
+</table>
+<p>一顆失效就是幾千美元蒸發,晶片廠寧願多花錢測試,也要避免瑕疵品流入資料中心——事後召回成本更恐怖。</p>
+
+<h4>2. 架構複雜度爆炸</h4>
+<p>AI 晶片從單一大 die 走向 Chiplet 多 die 整合,搭配 <a href="hbm.html">HBM</a>、interposer、die-to-die bonding。每一代功耗和複雜度都倍增:</p>
+<ul>
+<li><b>Hopper</b>:700W、6 顆 HBM</li>
+<li><b>Blackwell</b>:1,200–1,400W、8 顆 HBM</li>
+<li><b>Rubin</b>:1,800W、16 顆 HBM</li>
+<li><b>Rubin Ultra</b>:3,600W</li>
+</ul>
+
+<h4>3. 腳位數激增</h4>
+<ul>
+<li>消費性 DDIC:1,000 – 2,000 pins</li>
+<li>TDDI:3,000 – 4,000 pins</li>
+<li><b>AI / HPC 晶片:20,000 – 40,000 pins,下一代甚至破 10 萬</b></li>
+</ul>
+<p>腳位越多、測試點越多、測試時間越長、設備越貴。</p>
+
+<div class="note" style="border-left-color:var(--done)"><b>底線</b> · 測試從「附屬環節」變成「決定良率和獲利的關鍵戰場」。晶片越貴 → 測試越不能省 → 設備 ASP 和數量同時放大 → 台廠在後段測試全面受惠。</div>
+
+<h2 id="stages">五個測試階段</h2>
+<p>類比一下:想像你是蛋糕工廠老闆,要做一個 30 萬的頂級婚禮蛋糕(就像 AI 晶片那麼貴)。你會在麵粉進貨、麵糊攪好、烤好、裝飾完、放展示櫃各檢查一次——每個階段加工成本越來越高,越晚發現問題損失越大。晶片測試邏輯一模一樣。</p>
+
+<table class="deftable">
+<tr><td><b>WAT</b> · 晶圓製程驗收</td><td>測晶圓上預留的測試結構,問「台積電製程穩不穩」。不逐顆測晶片。</td></tr>
+<tr><td><b>CP</b> · 晶圓針測</td><td>WAT 過關後,逐顆檢查裸晶——通電後有沒有短路、開路、漏電;邏輯閘、記憶體單元能不能寫入讀取。目的:篩 <b>KGD(Known Good Die)</b>,只讓好晶片進昂貴封裝。</td></tr>
+<tr><td><b>FT</b> · 成品測試</td><td>封裝後,測「跑多快、賣多少」。高速交流、時序、速度 Binning、完整功能驗證。時間:幾十秒到幾分鐘。</td></tr>
+<tr><td><b>Burn-in</b> · 高溫老化</td><td>用極端高溫高壓操幾小時,逼出「先天有缺陷但剛開始看不出來」的晶片。過去只有車用做(車子要跑 10 年),現在 AI GPU 24 小時運作也必須做。</td></tr>
+<tr><td><b>SLT</b> · 系統級測試</td><td>把晶片裝在迷你伺服器裡,跑真實 AI 運算,抓 <b>SDC(Silent Data Corruption,靜默資料毀損)</b>。測試時間數十分鐘。</td></tr>
+</table>
+
+<div class="note"><b>為什麼要有 KGD 這個概念</b> · <a href="cowos.html">CoWoS</a> 封裝一次要把 GPU + 8 顆 <a href="hbm.html">HBM</a> 包在一起,只要一顆壞就整包報廢損失上萬美元。CP 的角色就是把 KGD 篩到極致,只讓好晶片進入昂貴封裝。這是 AI 時代 CP 地位飆升的根本原因。</div>
+
+<h2 id="wat-cp-ft">WAT / CP / FT 差在哪</h2>
+<p>三者都是在測電路,但層次和目的完全不同。用蓋大樓比喻最清楚:</p>
+
+<table class="deftable">
+<tr><td><b>WAT</b></td><td>檢查<b>建材</b>——水泥、鋼筋的品質。台積電製程今天穩不穩?</td></tr>
+<tr><td><b>CP</b></td><td>檢查<b>每一間房</b>——水電通不通、開關有沒有反應。這顆晶片能不能動?</td></tr>
+<tr><td><b>FT</b></td><td>檢查<b>整棟大樓</b>——電梯跑得快不快、消防有沒有跟保全連動、整體耗電正不正常。這顆晶片跑多快、賣多少?</td></tr>
+</table>
+
+<h4>CP 測不到的</h4>
+<p>高速訊號、精準時序、整顆晶片的綜合表現。因為探針是暫時接觸,會產生雜訊,幾 GHz 訊號會被搞砸——詳見下方物理限制章節。</p>
+
+<h4>FT 才能做的</h4>
+<ul>
+<li>高速交流測試:5 GHz 時訊號波形漂不漂亮?</li>
+<li>時序測試:訊號從 A 腳到 B 腳延遲幾奈秒?</li>
+<li>速度 Binning:這顆能穩定跑 5.0 GHz 還是只能 4.8 GHz?分級銷售</li>
+<li>完整功能驗證:所有指令、模式跑一遍</li>
+</ul>
+
+<div class="qa">
+<div class="q">一句話總結三者關係</div>
+<div class="a">WAT 問「製程穩不穩」→ CP 問「這顆能不能動」→ FT 問「這顆跑多快、賣多少」。三者測的層次不同、目的不同,缺一不可。</div>
+</div>
+
+<h2 id="slt-burnin">SLT 與 Burn-in</h2>
+
+<h4>Burn-in:老化測試</h4>
+<p>有些晶片內部有微小空洞或弱點,正常用沒事,用久了會壞。Burn-in 用極端高溫高壓操幾小時,加速這個老化過程,提前淘汰。過去只有車用晶片做(車子要跑 10 年),現在 AI GPU 要在資料中心 24 小時跑,也必須做。Rubin 世代開始廣泛導入。</p>
+
+<h4>SLT:系統級測試(目前最熱戰場)</h4>
+<p>把晶片裝在迷你伺服器裡,跑真實 AI 運算,看長時間運作會不會出怪事。核心目的是抓 SDC。</p>
+
+<div class="note" style="border-left-color:var(--stub)"><b>什麼是 SDC?</b> · 晶片表面上運作正常,但默默地算錯答案,不會發出任何警告。想像 Google 用有 SDC 的晶片訓練 AI 三個月,花了幾千萬美元,結果模型怪怪的——因為晶片偶爾把 1+1 算成 3,但只在特定高負載下才會發生。FT 測不出來(FT 只測幾十秒),必須靠 SLT 長時間跑真實 workload 才抓得到。</div>
+
+<h4>四種測試的能力堆疊</h4>
+<table class="deftable">
+<tr><td>CP</td><td>直流 + 低速功能 → 完全壞掉的裸晶</td></tr>
+<tr><td>FT</td><td>高速交流 + 時序 → 規格不達標、速度不夠</td></tr>
+<tr><td>Burn-in</td><td>高溫高壓老化 → 早期生命週期瑕疵</td></tr>
+<tr><td>SLT</td><td>真實 workload → SDC、長時間運作異常</td></tr>
+</table>
+
+<div class="note" style="border-left-color:var(--done)"><b>關鍵洞察</b> · <b>SLT 用量是 FT 的 4–5 倍</b>——不是單價貴,是測試時間長 + 用量大。例如 Rubin 要用 1,000 顆 FT Socket,就要 4,000–5,000 顆 SLT Socket。這是 <a href="../companies/winway.html">穎崴</a>、<a href="../companies/hongjing.html">鴻勁</a> 最大的成長動能來源。</div>
+
+<h2 id="physics">CP vs FT 的物理限制</h2>
+<p>為什麼 CP 測不到 FT 能測的東西?答案在物理接觸方式。</p>
+
+<h4>差異 1:接觸的「穩定性」</h4>
+<p><b>探針卡(CP)</b>:針壓在晶圓上力很輕,接觸面積極小(針尖幾微米)。接觸電阻不穩定、容易跳動——像用牙籤輕點在金屬板上傳電,訊號品質不穩。</p>
+<p><b>Socket(FT)</b>:晶片被壓進 Socket,壓頭用幾十公斤力壓下,腳和接點是面接觸,面積大——像用整個手掌穩穩按在金屬板上,訊號穩定。</p>
+
+<h4>差異 2:訊號的「速度上限」</h4>
+<ul>
+<li>探針卡的針有寄生電感電容,訊號跑超過 <b>1–2 GHz</b> 就失真</li>
+<li>Socket 高階 Coaxial 有同軸結構遮蔽干擾,可以測 <b>幾十 GHz</b> 的訊號</li>
+</ul>
+
+<h4>差異 3:能跑的測試內容深度</h4>
+<table class="deftable">
+<tr><td><b>CP 能做</b></td><td>連續性測試(開路、短路)、漏電、直流參數、基本功能——<em>靜態測試,能不能動</em></td></tr>
+<tr><td><b>FT 能做</b></td><td>高速交流、時序、速度 Binning、功耗——<em>動態測試,動得多快、多穩、多省電</em></td></tr>
+</table>
+
+<div class="note" style="border-left-color:var(--done)"><b>核心結論</b> · CP 和 FT 的根本差異不是「測什麼」,而是「物理上能測到什麼」。CP 用針點觸,訊號髒,只能測靜態;FT 用 Socket 面接觸,訊號乾淨,可以測動態;SLT 再加「長時間 + 真實負載」抓 SDC。這也是為什麼後段測試設備(<a href="test-socket.html">Socket</a>、Handler)價值越來越高。</div>
+
+<h2 id="money-flow">Nvidia GPU 錢流分配</h2>
+<div class="note" style="border-left-color:var(--stub)"><b>關鍵前提</b> · <a href="../companies/nvidia.html">Nvidia</a> AI GPU 走「<a href="../companies/tsmc.html">台積電</a> Turnkey」——整顆晶片從製造到測試都委託台積電一條龍處理。這個決定影響整個供應鏈分配,因為台積電有自己偏好的供應商。</p>
+
+<table class="deftable">
+<tr><td><b>Step 1</b> 晶圓製造</td><td>台積電 N3 製程 → 台積電賺製造費</td></tr>
+<tr><td><b>Step 2</b> CP 測試</td><td>在台積電廠內 · ATE 給 Advantest、探針卡給 Technoprobe + FormFactor(台積電 Turnkey 指定)、Prober 給 TEL/Accretech(日廠壟斷)。<b>台廠在這一站賺零</b>——這就是為什麼 <a href="../companies/mpi.html">旺矽</a>攻 Broadcom 和 Marvell。</td></tr>
+<tr><td><b>Step 3</b> CoWoS 封裝</td><td>台積電賺封裝費,一個模組 $5,000–10,000</td></tr>
+<tr><td><b>Step 4</b> FT 測試</td><td>在京元電或日月光 · ATE 給 Advantest 100%、Load Board 給 <a href="../companies/chpt.html">精測</a> <b>70%</b>(Blackwell 25% 大幅躍升)、Socket 給 <a href="../companies/winway.html">穎崴</a>接近 100%。<b>台廠開始賺錢</b>。</td></tr>
+<tr><td><b>Step 5</b> Burn-in</td><td>Rubin 世代開始導入 · 主要海外廠賺,台廠參與度較低</td></tr>
+<tr><td><b>Step 6</b> SLT 測試</td><td><b>最肥的一站</b> · SLT Socket 穎崴獨吃、SLT Handler <a href="../companies/hongjing.html">鴻勁</a>(ATC 讓 ASP 從 NT$6M → NT$20M+)、SLT Board 精測加碼</td></tr>
+<tr><td><b>Step 7</b> 出貨給 Nvidia</td><td>Nvidia 組成 GB200 / Rubin 系統賣 CSP</td></tr>
+</table>
+
+<h4>Nvidia AI GPU vs Broadcom ASIC 對照</h4>
+<table class="deftable">
+<tr><td>CP 探針卡</td><td>Nvidia → Technoprobe + FormFactor;Broadcom → <a href="../companies/mpi.html">旺矽</a>幾乎 100%</td></tr>
+<tr><td>FT / SLT Socket</td><td>兩家都給 <a href="../companies/winway.html">穎崴</a></td></tr>
+<tr><td>Load Board</td><td>兩家都給 <a href="../companies/chpt.html">精測</a></td></tr>
+<tr><td>SLT Handler</td><td>兩家都給 <a href="../companies/hongjing.html">鴻勁</a></td></tr>
+</table>
+
+<div class="note" style="border-left-color:var(--done)"><b>重要洞察</b> · Nvidia 走 turnkey,探針卡只能拿海外廠;<b>Broadcom 自己管供應鏈</b>,探針卡 100% 給旺矽。這就是為什麼旺矽的成長故事完全建立在 Broadcom 和 Marvell 的 ASIC 放量上——他吃不到 Nvidia,但吃下了 ASIC 陣營。</div>
+
+<div class="qa">
+<div class="q">為什麼技術差不多,訂單分配差這麼多?</div>
+<div class="a">Technoprobe、FormFactor、旺矽三家探針卡技術相差不遠,但誰跟哪個客戶關係好,誰就拿單。這是分析師的核心觀點——<b>技術差異不大,客戶關係決定訂單</b>。這也解釋為什麼要一家一家看客戶對應矩陣,而不是只看誰技術最強。</div>
+</div>
+
+<h2 id="taiwan">台廠競爭格局</h2>
+<p>台廠在半導體測試供應鏈的定位可以用一句話總結:<b>整體全球市佔 10–15%,但 AI 高階測試介面市佔超過 50%,甚至到 60–70%</b>。技術差異不大,關鍵是客戶關係。</p>
+
+<h4>五家台廠一句話定位</h4>
+<div class="chip-row" style="margin:14px 0">
+<a class="link-chip" href="../companies/mpi.html"><span class="dot company"></span><b>旺矽</b> · 探針卡龍頭、BC/MRVL 獨家、MEMS 自製</a>
+<a class="link-chip" href="../companies/winway.html"><span class="dot company"></span><b>穎崴</b> · 測試座專營、Nvidia/AMD/Google SLT 主供</a>
+<a class="link-chip" href="../companies/chpt.html"><span class="dot company"></span><b>精測</b> · Load Board 龍頭、Nvidia GPU 板 25% → 70%</a>
+<a class="link-chip" href="../companies/hongjing.html"><span class="dot company"></span><b>鴻勁</b> · SLT Handler 唯一台廠、ATC 3x ASP</a>
+<a class="link-chip" href="../companies/yjc.html"><span class="dot company"></span><b>雍智</b> · 純設計、Google Humming Fish re-rating</a>
+</div>
+
+<h4>海外對手速記</h4>
+<table class="deftable">
+<tr><td>探針卡</td><td>FormFactor(美,全球 25%)、Technoprobe(義,19%)、Micronics Japan(日,13%)</td></tr>
+<tr><td>測試座</td><td>Smith(美,已被 Molex 收購)、LEENO(韓)、Cohu(美)、Yamaichi(日)</td></tr>
+<tr><td>ATE 測試機</td><td>Advantest(日,AI GPU/HPC/Memory 主導)、Teradyne(美,遊戲 GPU)</td></tr>
+<tr><td>Prober</td><td><b>TEL、Tokyo Seimitsu (Accretech) 日廠壟斷,台廠進不去</b></td></tr>
+<tr><td>FT Handler</td><td>Cohu、Advantest,海外主導</td></tr>
+</table>
+
+<div class="note" style="border-left-color:var(--done)"><b>為什麼台廠投資邏輯集中在「後段 FT/SLT」</b> · Prober 是日廠禁臠,幾十年精密機械累積門檻太高。前段 CP 的機會只在「非 Nvidia 客戶」——這就是旺矽卡 ASIC 陣營的原因。後段 FT/SLT 的 Handler、Socket、Load Board 才是台廠真正的戰場,穎崴、鴻勁、精測全在這裡。</div>
+
+<h2 id="numbers">關鍵數字</h2>
+
+<h4>Pin Count 對照</h4>
+<table class="deftable">
+<tr><td>DDIC / PMIC</td><td>1,000 – 2,000</td></tr>
+<tr><td>TDDI</td><td>3,000 – 4,000</td></tr>
+<tr><td>Google TPU</td><td>15,000 – 20,000(下一代 20,000 – 25,000)</td></tr>
+<tr><td>ASIC 主流</td><td>20,000 – 40,000</td></tr>
+<tr><td>Nvidia Blackwell Socket</td><td>9,000</td></tr>
+<tr><td>Nvidia Rubin Socket</td><td>11,000</td></tr>
+<tr><td><b>Meta MTIA(瑪雅)</b></td><td><b>60,000 – 70,000(目前最高)</b></td></tr>
+</table>
+
+<h4>測試時間對照(Nvidia GPU 世代)</h4>
+<table class="deftable">
+<tr><td>Hopper</td><td>700W / 350 秒 / ASP 1x</td></tr>
+<tr><td>Blackwell</td><td>1,200–1,400W / 700–1,000 秒 / ASP 1.5–2x</td></tr>
+<tr><td><b>Rubin</b></td><td><b>1,800–3,600W / 1,200–1,800 秒 / ASP 2.5x 以上</b></td></tr>
+</table>
+
+<h4>市場規模</h4>
+<ul>
+<li>SoC Tester:68–69 億美元(Advantest / Teradyne 主導)</li>
+<li>Memory Tester:20–21 億美元(<b>Advantest 幾乎壟斷</b>)</li>
+<li>探針卡市場 2024–2030 CAGR 25%,2030 年約 98 億美元</li>
+<li>MEMS 探針卡 2024 年 TAM 17.11 億美元(佔整體 68%),2030 年 66.3 億美元</li>
+<li>Testing Socket 2024 年 11.79 億美元,2030 年 41.31 億美元(CAGR 20%)</li>
+<li>CoWoS 需求:2024 年 32.2 萬片 → 2027 年 180 萬片(CAGR 54%)</li>
+</ul>
+
+<div class="note" style="border-left-color:var(--stub)"><b>資料來源</b> · 上述客戶份額與市場規模數據多來自凱基投顧分析師 Serena 的產業訪談(2026.06),為訪談當下的市場估計,實際份額可能隨新一代產品放量微調。</div>
+
+<div class="links-box">
+<div class="lt">關聯節點 · Connections</div>
+<div class="chip-row">
+<a class="link-chip" href="probe-card.html"><span class="dot part"></span>探針卡</a>
+<a class="link-chip" href="test-socket.html"><span class="dot part"></span>測試座</a>
+<a class="link-chip" href="cowos.html"><span class="dot part"></span>CoWoS 先進封裝</a>
+<a class="link-chip" href="hbm.html"><span class="dot part"></span>HBM 高頻寬記憶體</a>
+<a class="link-chip" href="../cycles/ai-server.html"><span class="dot cycle"></span>AI 伺服器</a>
+<a class="link-chip" href="../companies/tsmc.html"><span class="dot company"></span>台積電</a>
+<a class="link-chip" href="../companies/nvidia.html"><span class="dot company"></span>輝達</a>
+<a class="link-chip" href="../companies/mpi.html"><span class="dot company"></span>旺矽</a>
+<a class="link-chip" href="../companies/winway.html"><span class="dot company"></span>穎崴</a>
+<a class="link-chip" href="../companies/chpt.html"><span class="dot company"></span>精測</a>
+<a class="link-chip" href="../companies/hongjing.html"><span class="dot company"></span>鴻勁</a>
+<a class="link-chip" href="../companies/yjc.html"><span class="dot company"></span>雍智</a>
+</div></div>
+
+<h2 id="timeline">更新時間軸</h2>
+<div class="timeline">
+<div class="ev"><div class="dt">2026.07</div>由「半導體測試產業筆記」歸檔建立此頁;涵蓋五階段、物理限制、Nvidia 錢流、台廠競爭格局。同步新增 <a href="probe-card.html">探針卡</a> 與 <a href="test-socket.html">測試座</a> 兩個關聯零件節點,以及旺矽、穎崴、精測、鴻勁、雍智五家台廠公司節點與新分組「測試介面」。</div>
+</div>
+
+<div class="note"><b>擴充這一頁</b> · 內文中未建節點的公司(Advantest、Technoprobe、FormFactor、TEL、Cohu、Teradyne 等海外廠)以粗體標示。之後若真的想深入某家,再獨立成節點。</div>
+
+</article>
+</div></div>
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+</body></html>

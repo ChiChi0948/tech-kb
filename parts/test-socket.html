@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>測試座 · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+<span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#parts">零件</a> / 測試座</span>
+<nav class="top"><a href="../index.html#cycles">週期</a><a href="../index.html#companies">公司</a><a href="../index.html#parts">零件</a><a href="../index.html#quarters">財報</a></nav>
+</div></header>
+<div class="wrap"><div class="layout">
+
+<aside class="toc"><div class="tl">本頁目錄</div>
+<a href="#what">這是什麼</a>
+<a href="#types">三種主流類型</a>
+<a href="#slt-scale">SLT 用量放大原理</a>
+<a href="#atc">ATC 溫控如何抬 ASP</a>
+<a href="#global">競爭格局</a>
+<a href="#cpo">CPO Insertion 四階段</a>
+<a href="#timeline">更新時間軸</a>
+</aside>
+
+<article>
+<span class="tag-type part">零件 / 模組</span>
+<h1>測試座 <span style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:1rem;color:var(--faint);font-weight:400">Test Socket</span></h1>
+<p class="lede">FT、Burn-in、SLT 階段用來夾住封裝晶片的「插座」——比探針卡穩定,能測高速訊號,是後段測試最關鍵的介面。<b>SLT 用量是 FT 的 4–5 倍</b>,這就是 <a href="../companies/winway.html">穎崴</a>、<a href="../companies/hongjing.html">鴻勁</a> 最大的成長引擎。</p>
+
+<h2 id="what">這是什麼</h2>
+<p>當晶片完成封裝、要開始 <a href="semi-testing.html">FT / SLT 測試</a>時,得用一個機械結構把晶片壓緊、讓所有腳位穩定接觸測試線路——這個結構就是測試座 (Socket)。</p>
+
+<p>它和探針卡的根本差異是<b>接觸方式</b>:探針卡是「針點觸」,雜訊多、上限 1–2 GHz;Socket 是「面接觸」,訊號乾淨、上限可達幾十 GHz。所以只要是需要測高速動態表現的階段,一定用 Socket。</p>
+
+<h2 id="types">三種主流類型</h2>
+
+<table class="deftable">
+<tr><td><b>Pogo Pin(彈簧針)</b></td><td>傳統 FT、低頻晶片 · 便宜、耐用 · 高頻會失真</td></tr>
+<tr><td><b>Coaxial Socket</b></td><td>高速 FT、SLT 目前主流 · 同軸結構遮蔽干擾 · 2026 主力</td></tr>
+<tr><td><b>Hypersocket</b></td><td>穎崴最新技術 · <b>有散熱功能 + 換針快</b> · ASP 比 Coaxial 貴 20–30% · 2026 小量工程樣品(客戶想用但穎崴產能不夠)、<b>2027 正式放量</b>(Nvidia + AMD)</td></tr>
+</table>
+
+<h2 id="slt-scale">SLT 用量放大原理:為什麼是 4–5 倍</h2>
+
+<p>這是理解穎崴、鴻勁成長邏輯的關鍵——不是 SLT Socket 單價高,而是<b>用量放大</b>。</p>
+
+<h4>原理</h4>
+<ul>
+<li>FT 測試時間:幾十秒到幾分鐘</li>
+<li>SLT 測試時間:數十分鐘(需要跑真實 workload 抓 <b>SDC</b>,見 <a href="semi-testing.html#slt-burnin">半導體測試 · SLT 章節</a>)</li>
+<li>SLT 時間比 FT 長 <b>20–30 倍</b></li>
+<li>為維持相同的產能,同樣一顆晶片就需要 <b>4–5 倍</b> 的 SLT Socket 平行測試</li>
+</ul>
+
+<h4>實例</h4>
+<div class="note" style="border-left-color:var(--done)"><b>Rubin 世代量化</b> · 如果一批 Rubin 需要 1,000 顆 <b>FT Socket</b>,同一批就需要 <b>4,000–5,000 顆 SLT Socket</b>——晶片還沒變多,Socket 用量已經放大 4–5 倍。這就是穎崴今年的成長核心。</div>
+
+<h2 id="atc">ATC 溫控:Handler 端的關鍵升級</h2>
+
+<p>Socket 只是「夾住晶片」,把晶片搬進 Socket 的是 <b>Handler(分選機)</b>。AI 晶片的功耗爆增讓 Handler 也大改造:</p>
+
+<ul>
+<li>傳統 Handler:一台 NT$6M · 室溫測試</li>
+<li><b>加上 ATC(Active Temperature Control) 主動溫控:一台 NT$20M+</b>——ASP 漲 3 倍</li>
+</ul>
+
+<div class="note" style="border-left-color:var(--stub)"><b>為什麼需要 ATC?</b> · Rubin 吃 1,800W 自己會發熱,若要測「正常運作溫度」下的表現,就要主動把熱抽走(冷板)或給暖(低溫測試)——傳統無主動溫控的 Handler 根本沒辦法。這是 <a href="../companies/hongjing.html">鴻勁</a> 的核心成長動能。</div>
+
+<h4>Handler 三種類型</h4>
+<table class="deftable">
+<tr><td>轉盤式</td><td>速度 20K–30K+ UPH · 精度 ±50–100μm · 室溫 · 適合小型 IC</td></tr>
+<tr><td><b>水平式</b></td><td>速度 8K–20K UPH · 精度 <b>±10–25μm</b> · 耐熱 -40°C ~ 155°C · <b>AI / HPC / Chiplet 用這款</b></td></tr>
+<tr><td>重力式</td><td>速度 5K–15K UPH · 精度 ±100μm+ · 室溫 · 傳統成熟 IC</td></tr>
+</table>
+
+<h2 id="global">競爭格局</h2>
+
+<h4>測試座</h4>
+<table class="deftable">
+<tr><td><a href="../companies/winway.html">穎崴(台)</a></td><td>台廠唯一測試座專營 · Nvidia AI GPU FT/SLT 接近 100%、AMD / Google 都吃</td></tr>
+<tr><td>Smith(美)</td><td>已被 Molex 收購</td></tr>
+<tr><td>LEENO(韓)</td><td>聯發科手機 SoC FT Socket 主供</td></tr>
+<tr><td>Cohu(美)</td><td>FT Socket + Handler 兼營</td></tr>
+<tr><td>Yamaichi(日)</td><td>Burn-in Socket 強項</td></tr>
+</table>
+
+<h4>Handler</h4>
+<table class="deftable">
+<tr><td>FT Handler</td><td>Cohu、Advantest(海外主導)——台廠在 FT Handler 較弱</td></tr>
+<tr><td><b>SLT Handler</b></td><td><b><a href="../companies/hongjing.html">鴻勁</a>(台廠主力)</b>、致茂 · ATC 溫控是護城河</td></tr>
+</table>
+
+<h4>Burn-in 相關(補充)</h4>
+<table class="deftable">
+<tr><td>Burn-in Socket</td><td>Enplas、Yamaichi、BOYD 主導</td></tr>
+<tr><td>Burn-in Board</td><td>雍智、精測、京元電(自用)</td></tr>
+<tr><td>Burn-in 爐子</td><td>MCC、Aehr Test、DELTA · MCC 爐子近期有良率問題</td></tr>
+</table>
+
+<h2 id="cpo">CPO 光電封裝的四階段 Insertion</h2>
+
+<p>CPO(Co-Packaged Optics)是 Nvidia 下一世代把光學元件直接封在 GPU 旁邊的新架構,測試分四階段:</p>
+
+<table class="deftable">
+<tr><td>Insertion 1 · PIC Wafer Test</td><td>單測光晶片 · FormFactor 主導 · <b>台廠沒有</b></td></tr>
+<tr><td>Insertion 2 · PIC+EIC 整合 Wafer Level</td><td><a href="../companies/mpi.html">旺矽</a> 50% vs FCT 50% · Nvidia 總需求 400 台,旺矽產能只做 200 台 · ASP US$1–2M/台 · 搭 Advantest tester</td></tr>
+<tr><td>Insertion 3 · Optical Engine Test</td><td>三方混戰:旺矽、FCT、致茂 · 路線未定</td></tr>
+<tr><td>Insertion 4 · CPO Module + System Level Test</td><td><b><a href="../companies/hongjing.html">鴻勁</a></b>(SLT Handler 延伸)</td></tr>
+</table>
+
+<div class="note" style="border-left-color:var(--done)"><b>CPO 的意涵</b> · 這是台廠測試設備廠的第二成長曲線——除了傳統電性測試,還多了「光電整合」的全新測試需求。旺矽、鴻勁都在裡面卡到位。</div>
+
+<div class="links-box">
+<div class="lt">關聯節點 · Connections</div>
+<div class="chip-row">
+<a class="link-chip" href="semi-testing.html"><span class="dot part"></span>半導體測試</a>
+<a class="link-chip" href="probe-card.html"><span class="dot part"></span>探針卡</a>
+<a class="link-chip" href="../cycles/ai-server.html"><span class="dot cycle"></span>AI 伺服器</a>
+<a class="link-chip" href="../companies/nvidia.html"><span class="dot company"></span>輝達</a>
+<a class="link-chip" href="../companies/winway.html"><span class="dot company"></span>穎崴</a>
+<a class="link-chip" href="../companies/hongjing.html"><span class="dot company"></span>鴻勁</a>
+<a class="link-chip" href="../companies/mpi.html"><span class="dot company"></span>旺矽</a>
+</div></div>
+
+<h2 id="timeline">更新時間軸</h2>
+<div class="timeline">
+<div class="ev"><div class="dt">2026.07</div>由「半導體測試產業筆記」歸檔建立此頁;涵蓋 Pogo/Coaxial/Hypersocket 三類型、SLT 4-5x 用量原理、ATC 溫控 3x ASP、CPO 四階段 Insertion。</div>
+</div>
+
+</article>
+</div></div>
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+</body></html>
