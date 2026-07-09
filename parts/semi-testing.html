@@ -19,6 +19,8 @@
 <a href="#stages">五個測試階段</a>
 <a href="#wat-cp-ft">WAT / CP / FT 差在哪</a>
 <a href="#slt-burnin">SLT 與 Burn-in</a>
+<a href="#setups">各階段設備組合圖</a>
+<a href="#load-board">Load Board 深入拆解</a>
 <a href="#physics">CP vs FT 的物理限制</a>
 <a href="#money-flow">Nvidia GPU 錢流分配</a>
 <a href="#taiwan">台廠競爭格局</a>
@@ -120,6 +122,155 @@
 </table>
 
 <div class="note" style="border-left-color:var(--done)"><b>關鍵洞察</b> · <b>SLT 用量是 FT 的 4–5 倍</b>——不是單價貴,是測試時間長 + 用量大。例如 Rubin 要用 1,000 顆 FT Socket,就要 4,000–5,000 顆 SLT Socket。這是 <a href="../companies/winway.html">穎崴</a>、<a href="../companies/hongjing.html">鴻勁</a> 最大的成長動能來源。</div>
+
+<h2 id="setups">各階段設備組合圖</h2>
+<p>每個測試階段用不同的設備組合。以下是四個核心階段的實務組裝方式——用純文字示意圖呈現,幫助建立空間感。</p>
+
+<style>
+.st-diagram {
+  background:#efeadb; border:1px solid var(--rule);
+  padding:20px; margin:16px 0;
+  font-family:'SF Mono','Menlo','Consolas',monospace;
+  font-size:12px; line-height:1.55;
+  white-space:pre; overflow-x:auto;
+  color:#1a1a1a;
+}
+</style>
+
+<h4>CP 測試站(在台積電廠內)</h4>
+<div class="st-diagram">┌─────────────────────┐
+│   ATE 測試機本體      │  Advantest / Teradyne
+│  (產生訊號、量測)     │
+└──────────┬──────────┘
+           │ 粗纜線
+           ▼
+┌─────────────────────┐
+│   Test Head 測試頭    │  ATE 伸出來的「手」
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│   探針卡 Probe Card   │  旺矽 / Technoprobe / FormFactor
+│   (幾萬根針朝下)      │
+└──────────┬──────────┘
+           │ 針往下戳
+           ▼
+┌─────────────────────┐
+│    晶圓 Wafer         │  台積電
+│   (幾百顆裸晶)        │
+└──────────┬──────────┘
+           ▲
+           │ 平移升降
+┌──────────┴──────────┐
+│  Prober 探針台        │  TEL / Accretech(日廠壟斷)
+│  (吸住晶圓,移動)     │
+└─────────────────────┘</div>
+<p>設備由上而下堆疊。晶圓由 Prober 平移到定位,升上去讓針戳到,測完降下移動到下一顆。動作單純,精度要求極高。</p>
+
+<h4>FT 測試站(在京元電或日月光)</h4>
+<div class="st-diagram">┌─────────────────────┐
+│   ATE 測試機本體      │  Advantest 主導
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│   Test Head 測試頭    │  朝上放
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────────────────┐
+│    Load Board 測試板 (DIB)       │  精測(Nvidia GPU 70%)
+│   ┌──────────────┐              │
+│   │Socket 焊在上面│  ←────────  │  穎崴(Nvidia FT 100%)
+│   └──────────────┘              │
+└──────────┬──────────────────────┘
+           ▲ 從上方壓下
+           │
+     ┌─────┴─────┐
+     │ 封裝晶片   │
+     └─────▲─────┘
+           │ 機械手臂放進來
+    ┌──────┴──────┐
+    │   Handler   │  Cohu / Advantest(水平式)
+    │  分選機      │  抓取、對位、施壓、Binning
+    └─────────────┘</div>
+<p>比 CP 多了 Load Board 和 Handler。Socket 焊在 Load Board 上,Handler 負責把晶片一顆顆放進 Socket、壓下、抓走、按等級分類。整站一天可測幾千顆。</p>
+
+<h4>Burn-in 測試站</h4>
+<div class="st-diagram">┌───────────────────────────────────┐
+│      Burn-in 爐(高溫烤箱)         │  MCC / Aehr Test / DELTA
+│                                    │
+│   ┌────────────────────────────┐   │
+│   │ Burn-in Board(大烤盤)     │   │  雍智 / 精測
+│   │  ┌──┐┌──┐┌──┐┌──┐┌──┐   │   │
+│   │  │晶││晶││晶││晶││晶│   │   │  ← 幾十~幾百顆
+│   │  │片││片││片││片││片│   │   │     插在 Burn-in Socket
+│   │  └──┘└──┘└──┘└──┘└──┘   │   │     (Enplas / Yamaichi)
+│   └────────────────────────────┘   │
+│                                    │
+│   環境:125°C / 高壓 / 通電運作     │
+│   時間:數小時 ~ 數十小時           │
+└────────────────────────────────────┘</div>
+<p>沒有 ATE 也沒有 Handler。這是<b>環境壓力測試</b>——爐子提供高溫高壓和電源,晶片自己在裡面通電運作幾小時到幾十小時,逼出早期瑕疵。晶片預先插在 Burn-in Board 上,整塊板子推進爐子,測完再拿出來複測(複測會回到 FT 站)。</p>
+
+<h4>SLT 測試站(目前最熱)</h4>
+<div class="st-diagram">┌─────────────────────────────────────┐
+│      SLT 平台(迷你伺服器陣列)       │  Advantest / 自建系統
+│                                      │
+│  ┌────┐ ┌────┐ ┌────┐ ┌────┐     │
+│  │站 1│ │站 2│ │站 3│ │站 4│ ... │  ← 幾百個測試站
+│  └─┬──┘ └─┬──┘ └─┬──┘ └─┬──┘     │     並行運作
+│    │      │      │      │            │
+└────┼──────┼──────┼──────┼────────────┘
+     ▼      ▼      ▼      ▼
+    每個站的組成:
+    ┌──────────────────────┐
+    │  Load Board          │  精測
+    │  ┌────────────────┐  │
+    │  │Hypersocket     │  │  穎崴(2027 放量)
+    │  │(有散熱功能)    │  │
+    │  └──────▲─────────┘  │
+    │         │壓下         │
+    │      封裝晶片          │
+    └─────────┼──────────── ┘
+              │
+    ┌─────────┴──────────┐
+    │  SLT Handler + ATC │  鴻勁(唯一台廠)
+    │  (主動溫控)         │  ASP NT$6M → 20M+
+    └────────────────────┘
+
+    工作方式:一顆晶片壓進 Socket,連續跑
+              真實 AI workload 數十分鐘,
+              抓 SDC 靜默資料毀損</div>
+<p>與 FT 最大差異是「一顆晶片要壓著測很久」。所以要有<b>幾百個測試站並行</b>才追得上產能,而且每站都需要 ATC 主動溫控(晶片自己會發熱)。這就是為什麼 SLT 用量是 FT 的 4–5 倍。</p>
+
+<div class="note" style="border-left-color:var(--done)"><b>四個階段誰賺錢一次看完</b>
+<ul style="margin:8px 0 0">
+<li><b>CP</b>:探針卡(海外主導)+ ATE(Advantest)+ Prober(日廠壟斷)——台廠只在 ASIC 陣營(<a href="../companies/mpi.html">旺矽</a>卡 BC/MRVL)賺</li>
+<li><b>FT</b>:ATE(Advantest)+ Load Board(<a href="../companies/chpt.html">精測</a>)+ Socket(<a href="../companies/winway.html">穎崴</a>)+ Handler(Cohu 主導)——台廠開始賺</li>
+<li><b>Burn-in</b>:爐子(海外)+ Board(<a href="../companies/yjc.html">雍智</a>/精測)+ Socket(海外)——台廠貢獻中等</li>
+<li><b>SLT</b>:平台 + Load Board(精測)+ Hypersocket(穎崴)+ Handler+ATC(<a href="../companies/hongjing.html">鴻勁</a>)——<b>台廠賺最多的一站</b></li>
+</ul></div>
+
+<h2 id="load-board">Load Board 深入拆解</h2>
+<p>Load Board 常被忽略,但它是<b>連接 ATE 與晶片的關鍵中介</b>。ATE 有標準訊號通道(例如 Advantest V93000 上有 1,024–2,048 個),但每顆晶片腳位排列都不同——Load Board 就是把「ATE 標準通道」重新路由到「這顆晶片對應腳位」的客製化轉接板。</p>
+
+<h4>Load Board 上有什麼零件?</h4>
+<table class="deftable">
+<tr><td>多層 PCB 走線</td><td>AI 晶片可達 <b>40+ 層</b>(消費 IC 只要 8–12 層)</td></tr>
+<tr><td>電源模組 DC-DC</td><td>Rubin 吃 1,800W(0.8V × 2,000A),要多顆穩壓模組</td></tr>
+<tr><td>去耦電容</td><td>數百到數千顆,像蓄水池穩定瞬間電流</td></tr>
+<tr><td>繼電器</td><td>切換不同測試路徑</td></tr>
+<tr><td>訊號調節元件</td><td>高頻放大器、等化器、匹配電路</td></tr>
+<tr><td>溫度感測器 + 通訊介面</td><td>與 ATC 溫控和 Handler 連動</td></tr>
+</table>
+
+<div class="note" style="border-left-color:var(--done)"><b>關鍵事實</b> · <b>Socket 是焊在 Load Board 上的</b>,兩者「一組」設計搭配。每顆新晶片放量,就要重新設計一組 Load Board + Socket——這就是為什麼 <a href="../companies/chpt.html">精測</a>(Load Board)、<a href="../companies/winway.html">穎崴</a>(Socket)的營收會跟著客戶新品週期跳動,且往往一起接單。</div>
+
+<div class="qa">
+<div class="q">為什麼 Load Board 越做越厚(40+ 層)?</div>
+<div class="a">AI 晶片腳位動輒兩三萬支,每支腳都要有專屬走線通到 ATE 對應通道,還要考慮訊號完整性(避免高頻串擾)、電源穩定性(1,800W 的瞬間電流)、以及訊號隔離。層數越多,走線空間越大、隔離越好——這是為什麼精測的 Load Board ASP 從 Blackwell 到 Rubin 世代大幅上漲。</div>
+</div>
 
 <h2 id="physics">CP vs FT 的物理限制</h2>
 <p>為什麼 CP 測不到 FT 能測的東西?答案在物理接觸方式。</p>
@@ -244,6 +395,7 @@
 
 <h2 id="timeline">更新時間軸</h2>
 <div class="timeline">
+<div class="ev"><div class="dt">2026.07 (更新)</div>補上兩塊:(1) <a href="#setups">各階段設備組合圖</a>——CP / FT / Burn-in / SLT 四張純文字設備堆疊示意,幫助建立空間感;(2) <a href="#load-board">Load Board 深入拆解</a>——列出板上零件、解釋 Socket 與 Load Board 為何一組設計,補足原本忽略的中介關鍵元件。</div>
 <div class="ev"><div class="dt">2026.07</div>由「半導體測試產業筆記」歸檔建立此頁;涵蓋五階段、物理限制、Nvidia 錢流、台廠競爭格局。同步新增 <a href="probe-card.html">探針卡</a> 與 <a href="test-socket.html">測試座</a> 兩個關聯零件節點,以及旺矽、穎崴、精測、鴻勁、雍智五家台廠公司節點與新分組「測試介面」。</div>
 </div>
 
