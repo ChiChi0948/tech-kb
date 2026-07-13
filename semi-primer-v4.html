@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>半導體產業鏈 Primer v4 · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+    <span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#reports">產業報告</a> / 半導體產業鏈 Primer v4</span>
+    <nav class="top">
+      <a href="../index.html#cycles">週期</a>
+      <a href="../index.html#companies">公司</a>
+      <a href="../index.html#parts">零件</a>
+      <a href="../index.html#quarters">財報</a>
+      <a href="../index.html#reports">報告</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+<article>
+<span class="tag-type report">產業報告 · Primer</span>
+
+<h1>半導體產業鏈 Primer v4</h1>
+
+<p>一份從矽砂到 AI 加速器的完整分段導覽。每一節先說「這段在幹嘛」,再用表格列出主要廠商、國家、特色,最後一節做整體統整分析。</p>
+
+<p><strong>v4 改版重點</strong>:</p>
+<ul>
+<li>新增「環節七:廠務自動化與晶圓傳載(AMHS)」獨立章節,把天車、FOUP、EUV Pod 補齊</li>
+<li>新增「探針卡與測試治具」段落(FormFactor、中華精測、旺矽)</li>
+<li>新增「晶圓探針台」段落</li>
+<li>補上先進封裝模壓設備 Towa(東和)</li>
+<li>微影段補上 NuFlare(電子束光罩寫入)</li>
+<li>檢測段補上 Horiba(堀場)、Rigaku(理學)、ULVAC(愛發科)</li>
+<li>材料段補上 Lintec、Eastman、Adeka、MacDermid Alpha、Nippon Steel、深南電路</li>
+<li>修正若干中文譯名(西部數據、CEVA、Ansys)</li>
+</ul>
+
+<hr>
+
+<h2>環節一:晶圓與基板 (Wafer & Substrate)</h2>
+
+<h3>這段在幹嘛</h3>
+<p>提供晶片製造的「畫布」。把高純度矽(或碳化矽、氮化鎵)拉成單晶柱、切割、拋光成鏡面基板,交給晶圓廠在上面蓋電路。純度要達 99.999999999%(11 個 9)。集中度全產業最高。</p>
+
+<h3>1-1 矽晶圓 (Silicon Wafer) — 主流邏輯與記憶體基材</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Shin-Etsu</td><td>信越化學</td><td>🇯🇵 日本</td><td>全球第一,約 30% 市佔,300mm 高階龍頭</td></tr>
+<tr><td>SUMCO</td><td>勝高</td><td>🇯🇵 日本</td><td>全球第二,日系兩家合計超過一半市佔</td></tr>
+<tr><td>GlobalWafers</td><td>環球晶圓</td><td>🇹🇼 台灣</td><td>全球第三,曾嘗試收購 Siltronic 未果</td></tr>
+<tr><td>Siltronic</td><td>世創電子</td><td>🇩🇪 德國</td><td>歐洲唯一大廠,300mm 技術強</td></tr>
+<tr><td>SK Siltron</td><td>SK Siltron</td><td>🇰🇷 韓國</td><td>三星、SK 海力士自家鏈,已併 DuPont SiC 事業</td></tr>
+<tr><td>Ferrotec</td><td>中欣晶圓</td><td>🇯🇵/🇨🇳</td><td>日中合資,中國本土化主力</td></tr>
+</table>
+
+<h3>1-2 SiC 晶圓 (碳化矽) — 電動車、快充、工業功率</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Wolfspeed</td><td>Wolfspeed</td><td>🇺🇸 美國</td><td>SiC 純玩家,8 吋量產最早,原名 Cree</td></tr>
+<tr><td>Coherent</td><td>Coherent</td><td>🇺🇸 美國</td><td>2022 II-VI 併購 Coherent 後改名</td></tr>
+<tr><td>Resonac</td><td>昭和電工</td><td>🇯🇵 日本</td><td>SiC 磊晶片龍頭,2023 從昭和電工改名</td></tr>
+<tr><td>SICrystal</td><td>SICrystal</td><td>🇩🇪 德國</td><td>Rohm 子公司,歐洲車廠主要供應</td></tr>
+<tr><td>SICC</td><td>天岳先進</td><td>🇨🇳 中國</td><td>中國國家隊,產能擴張最快</td></tr>
+<tr><td>TankeBlue</td><td>天科合達</td><td>🇨🇳 中國</td><td>導電型 SiC 襯底追趕主力</td></tr>
+</table>
+
+<h3>1-3 GaN 材料 (氮化鎵) — 快充、5G、車用逆變器</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Sumitomo Electric</td><td>住友電氣</td><td>🇯🇵 日本</td><td>GaN 磊晶基板主要供應</td></tr>
+<tr><td>Shin-Etsu</td><td>信越化學</td><td>🇯🇵 日本</td><td>GaN-on-Si 磊晶</td></tr>
+<tr><td>Infineon</td><td>英飛凌</td><td>🇩🇪 德國</td><td>2023 收購 GaN Systems 後成整合大廠</td></tr>
+<tr><td>EPC</td><td>宜普電源轉換</td><td>🇺🇸 美國</td><td>GaN 功率元件先驅</td></tr>
+<tr><td>Navitas</td><td>納微半導體</td><td>🇺🇸 美國</td><td>GaN 快充晶片主要玩家</td></tr>
+</table>
+
+<h3>小結</h3>
+<p>矽晶圓集中度全產業最高,日本兩家 + 台德韓三家近乎壟斷。SiC / GaN 正在洗牌,美系領先但中國追趕最兇。</p>
+
+<hr>
+
+<h2>環節二:EDA 軟體與 IP 授權 (Design Tools & IP)</h2>
+
+<h3>這段在幹嘛</h3>
+<p>晶片設計的「語言與樂高積木」。EDA 是設計晶片用的軟體工具;IP 則是預先設計好、可授權重用的電路模組(CPU 核、USB 介面、DDR 控制器)。沒有這一段,連 Fabless 都不存在。</p>
+
+<h3>2-1 EDA 軟體</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Synopsys</td><td>新思科技</td><td>🇺🇸 美國</td><td>市佔第一,強項數位設計流程,2024 宣布收購 Ansys</td></tr>
+<tr><td>Cadence</td><td>益華電腦</td><td>🇺🇸 美國</td><td>市佔第二,類比/混合訊號、封裝設計強</td></tr>
+<tr><td>Siemens EDA</td><td>西門子 EDA</td><td>🇩🇪 德國</td><td>原 Mentor,PCB 與系統級設計強</td></tr>
+<tr><td>Ansys</td><td>Ansys</td><td>🇺🇸 美國</td><td>模擬與熱分析,2024–25 併入 Synopsys</td></tr>
+<tr><td>Silvaco</td><td>Silvaco</td><td>🇺🇸 美國</td><td>TCAD 元件模擬專長</td></tr>
+<tr><td>Empyrean</td><td>華大九天</td><td>🇨🇳 中國</td><td>中國自主 EDA 龍頭</td></tr>
+<tr><td>Primarius</td><td>概倫電子</td><td>🇨🇳 中國</td><td>中國本土 EDA 追趕者</td></tr>
+<tr><td>JEDAT</td><td>JEDAT</td><td>🇯🇵 日本</td><td>日本本土 EDA</td></tr>
+</table>
+
+<h3>2-2 IP 授權</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Arm</td><td>安謀</td><td>🇬🇧 英國</td><td>行動與 AI 運算事實標準,軟銀持有</td></tr>
+<tr><td>Synopsys</td><td>新思科技</td><td>🇺🇸 美國</td><td>介面 IP、記憶體控制器 IP 大戶</td></tr>
+<tr><td>Cadence</td><td>益華電腦</td><td>🇺🇸 美國</td><td>高速介面、DSP IP</td></tr>
+<tr><td>CEVA</td><td>CEVA</td><td>🇺🇸 美國</td><td>DSP、無線通訊 IP(無標準中文譯名)</td></tr>
+<tr><td>Imagination</td><td>Imagination</td><td>🇬🇧 英國</td><td>GPU IP,曾是 Apple 供應商</td></tr>
+<tr><td>eMemory</td><td>力旺電子</td><td>🇹🇼 台灣</td><td>NVM 非揮發性記憶體 IP 全球龍頭</td></tr>
+<tr><td>Andes</td><td>晶心科技</td><td>🇹🇼 台灣</td><td>RISC-V 架構代表廠</td></tr>
+<tr><td>Rambus</td><td>Rambus</td><td>🇺🇸 美國</td><td>記憶體介面 IP、安全 IP</td></tr>
+<tr><td>Alphawave</td><td>Alphawave</td><td>🇬🇧/🇨🇦</td><td>高速 SerDes IP</td></tr>
+<tr><td>VeriSilicon</td><td>芯原</td><td>🇨🇳 中國</td><td>中國最大 IP + 設計服務公司</td></tr>
+</table>
+
+<h3>小結</h3>
+<p>EDA 是美國對中國出口管制最有效的槓桿 —— 停授權三天,先進晶片設計就停擺。Arm 是另一個支點,RISC-V(晶心為代表)是長期挑戰者。</p>
+
+<hr>
+
+<h2>環節三:製造設備 (Equipment)</h2>
+
+<h3>這段在幹嘛</h3>
+<p>蓋一座 12 吋晶圓廠要花 150–200 億美元,設備佔七成以上。前段製程六大步驟 —— 微影、蝕刻、沉積、離子植入、CMP、清洗檢測 —— 各有寡佔玩家。設備世代決定製程節點:沒有 <a href="../parts/euv.html">EUV</a> 就做不了 3 奈米。</p>
+
+<h3>3-1 微影 (Lithography) — 全產業最集中的一段</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>ASML</td><td>艾司摩爾</td><td>🇳🇱 荷蘭</td><td><strong>EUV 極紫外光機唯一供應商</strong>,一台約 2 億美元</td></tr>
+<tr><td>Nikon</td><td>尼康</td><td>🇯🇵 日本</td><td>DUV 微影,成熟製程與特殊應用</td></tr>
+<tr><td>Canon</td><td>佳能</td><td>🇯🇵 日本</td><td>奈米壓印(NIL),記憶體潛在替代方案</td></tr>
+<tr><td>NuFlare</td><td>NuFlare</td><td>🇯🇵 日本</td><td><strong>高階光罩電子束寫入機霸主</strong>,東芝旗下</td></tr>
+</table>
+
+<h3>3-2 蝕刻 (Etch)</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Lam Research</td><td>科林研發</td><td>🇺🇸 美國</td><td>蝕刻絕對霸主,3D NAND 高深寬比蝕刻專精</td></tr>
+<tr><td>Tokyo Electron (TEL)</td><td>東京威力科創</td><td>🇯🇵 日本</td><td>蝕刻全能,同時做塗佈顯影</td></tr>
+<tr><td>Applied Materials</td><td>應用材料</td><td>🇺🇸 美國</td><td>蝕刻補位 + 沉積主力</td></tr>
+<tr><td>Hitachi High-Tech</td><td>日立高新</td><td>🇯🇵 日本</td><td>特殊蝕刻與檢測</td></tr>
+<tr><td>Plasma-Therm</td><td>Plasma-Therm</td><td>🇺🇸 美國</td><td>化合物半導體蝕刻</td></tr>
+<tr><td>Naura</td><td>北方華創</td><td>🇨🇳 中國</td><td>中國設備國家隊,28nm 以上蝕刻</td></tr>
+<tr><td>AMEC</td><td>中微半導體</td><td>🇨🇳 中國</td><td>中國蝕刻先鋒,已進入國際供應鏈</td></tr>
+</table>
+
+<h3>3-3 薄膜沉積 (Deposition)</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Applied Materials</td><td>應用材料</td><td>🇺🇸 美國</td><td>全球最大沉積設備廠,PVD/CVD 全能</td></tr>
+<tr><td>Tokyo Electron</td><td>東京威力科創</td><td>🇯🇵 日本</td><td>CVD、ALD 補位</td></tr>
+<tr><td>ASM International</td><td>ASM International</td><td>🇳🇱 荷蘭</td><td><strong>ALD 原子層沉積龍頭</strong>,GAA 電晶體關鍵</td></tr>
+<tr><td>Kokusai Electric</td><td>國際電氣</td><td>🇯🇵 日本</td><td>熱處理與 ALD 爐管</td></tr>
+<tr><td>Lam Research</td><td>科林研發</td><td>🇺🇸 美國</td><td>沉積補位,記憶體強</td></tr>
+<tr><td>ULVAC</td><td>愛發科</td><td>🇯🇵 日本</td><td>PVD 濺鍍設備專精</td></tr>
+</table>
+
+<h3>3-4 CMP 化學機械平坦化</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Ebara</td><td>荏原製作所</td><td>🇯🇵 日本</td><td>CMP 機台雙雄之一</td></tr>
+<tr><td>Applied Materials</td><td>應用材料</td><td>🇺🇸 美國</td><td>CMP 機台雙雄之一</td></tr>
+</table>
+
+<h3>3-5 離子植入 (Ion Implantation)</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Axcelis</td><td>Axcelis</td><td>🇺🇸 美國</td><td>離子植入專精廠</td></tr>
+<tr><td>Applied Materials</td><td>應用材料</td><td>🇺🇸 美國</td><td>離子植入補位</td></tr>
+</table>
+
+<h3>3-6 清洗、檢測、量測 (Cleaning, Inspection & Metrology)</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>KLA</td><td>科磊</td><td>🇺🇸 美國</td><td><strong>檢測量測獨佔性玩家</strong>,毛利率全業界最高</td></tr>
+<tr><td>SCREEN</td><td>SCREEN</td><td>🇯🇵 日本</td><td>濕式清洗設備龍頭</td></tr>
+<tr><td>Lasertec</td><td>雷射科技</td><td>🇯🇵 日本</td><td><strong>EUV 光罩檢測唯一供應商</strong></td></tr>
+<tr><td>Onto Innovation</td><td>Onto</td><td>🇺🇸 美國</td><td>量測補位</td></tr>
+<tr><td>Nova</td><td>Nova</td><td>🇮🇱 以色列</td><td>光學量測</td></tr>
+<tr><td>Hitachi High-Tech</td><td>日立高新</td><td>🇯🇵 日本</td><td>電子束檢測</td></tr>
+<tr><td>ASML (HMI)</td><td>漢微科</td><td>🇳🇱/🇹🇼</td><td>已被 ASML 收購,電子束檢測</td></tr>
+<tr><td>Horiba</td><td>堀場製作所</td><td>🇯🇵 日本</td><td>分析儀器、氣體流量計</td></tr>
+<tr><td>Rigaku</td><td>理學電機</td><td>🇯🇵 日本</td><td>X 光量測儀器</td></tr>
+<tr><td>ThermoFisher</td><td>賽默飛世爾</td><td>🇺🇸 美國</td><td>電子顯微鏡與分析</td></tr>
+<tr><td>Bruker</td><td>布魯克</td><td>🇺🇸 美國</td><td>表面分析與量測</td></tr>
+</table>
+
+<h3>3-7 晶圓探針台 (Wafer Prober)</h3>
+<p><strong>這段在幹嘛</strong>:晶圓測試時,負責精確移動晶圓、把探針對準晶片墊(pad)的機械平台。是測試機(ATE)的搭檔。</p>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Tokyo Electron</td><td>東京威力科創</td><td>🇯🇵 日本</td><td>12 吋探針台主力</td></tr>
+<tr><td>Accretech (Tokyo Seimitsu)</td><td>東京精密</td><td>🇯🇵 日本</td><td>精密探針台雙雄之一</td></tr>
+</table>
+
+<h3>3-8 測試機 (ATE)</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Advantest</td><td>愛德萬測試</td><td>🇯🇵 日本</td><td>記憶體與 SoC 測試龍頭,AI/HBM 最大受惠</td></tr>
+<tr><td>Teradyne</td><td>泰瑞達</td><td>🇺🇸 美國</td><td>SoC 測試,蘋果供應鏈</td></tr>
+<tr><td>Chroma</td><td>致茂</td><td>🇹🇼 台灣</td><td>系統測試治具,已進 AI 供應鏈</td></tr>
+</table>
+
+<h3>小結</h3>
+<p>「WFE Big 5」<a href="../companies/asml.html">ASML</a>、AMAT、Lam、TEL、KLA 合計吃下超過七成市場。任何一家配合出口管制,先進製程都會受影響 —— 這是美日荷三邊管制的技術基礎。</p>
+
+<hr>
+
+<h2>環節四:製程材料與化學品 (Materials)</h2>
+
+<h3>這段在幹嘛</h3>
+<p>晶片製造要用到超過 300 種特殊材料,每一種都要極高純度、每片晶圓都消耗一次。這是日本累積幾十年 know-how 的護城河 —— 2019 年日本對韓國限制 EUV 光阻出口,重創三星,就是這段話語權的最好例子。</p>
+
+<h3>4-1 光阻劑與製程膠帶 (Photoresist & Process Tapes)</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Tokyo Ohka (TOK)</td><td>東京應化</td><td>🇯🇵 日本</td><td>EUV 光阻三強之一</td></tr>
+<tr><td>JSR</td><td>JSR</td><td>🇯🇵 日本</td><td>EUV 光阻三強,<strong>2023 被日本官方基金 JIC 收購</strong></td></tr>
+<tr><td>Shin-Etsu</td><td>信越化學</td><td>🇯🇵 日本</td><td>EUV 光阻三強</td></tr>
+<tr><td>Fujifilm</td><td>富士軟片</td><td>🇯🇵 日本</td><td>ArF、KrF 光阻</td></tr>
+<tr><td>Sumitomo Chemical</td><td>住友化學</td><td>🇯🇵 日本</td><td>ArF 光阻</td></tr>
+<tr><td>Merck</td><td>默克</td><td>🇩🇪 德國</td><td>唯一非日系大玩家</td></tr>
+<tr><td>DuPont</td><td>杜邦</td><td>🇺🇸 美國</td><td>光阻補位</td></tr>
+<tr><td>Lintec</td><td>琳得科</td><td>🇯🇵 日本</td><td><strong>晶圓切割膠帶、背研膠帶(BG tape)龍頭</strong></td></tr>
+</table>
+
+<h3>4-2 光罩與光罩基板 (Photomask & Blank)</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Hoya</td><td>豪雅</td><td>🇯🇵 日本</td><td><strong>EUV 光罩基板近乎壟斷</strong></td></tr>
+<tr><td>AGC</td><td>艾傑旭(旭硝子)</td><td>🇯🇵 日本</td><td>EUV 光罩基板另一大供應</td></tr>
+<tr><td>Toppan</td><td>凸版印刷</td><td>🇯🇵 日本</td><td>商用光罩四強</td></tr>
+<tr><td>DNP</td><td>大日本印刷</td><td>🇯🇵 日本</td><td>商用光罩四強</td></tr>
+<tr><td>Photronics</td><td>Photronics</td><td>🇺🇸 美國</td><td>美系唯一大型光罩廠</td></tr>
+</table>
+
+<h3>4-3 電子特種氣體 (Electronic Gases)</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Air Liquide</td><td>液化空氣</td><td>🇫🇷 法國</td><td>工業氣體三巨頭</td></tr>
+<tr><td>Linde</td><td>林德</td><td>🇩🇪 德國</td><td>工業氣體三巨頭</td></tr>
+<tr><td>Air Products</td><td>空氣化工</td><td>🇺🇸 美國</td><td>工業氣體三巨頭</td></tr>
+<tr><td>Taiyo Nippon Sanso</td><td>大陽日酸</td><td>🇯🇵 日本</td><td>特化氣主力</td></tr>
+<tr><td>Kanto Denka</td><td>關東電化</td><td>🇯🇵 日本</td><td>氟系特氣專精</td></tr>
+<tr><td>SK Materials</td><td>SK Materials</td><td>🇰🇷 韓國</td><td>韓國本土化主力</td></tr>
+<tr><td>Eastman</td><td>伊士曼化學</td><td>🇺🇸 美國</td><td>特殊溶劑與化學品</td></tr>
+<tr><td>Resonac</td><td>昭和電工</td><td>🇯🇵 日本</td><td>特化氣與 CMP 材料</td></tr>
+</table>
+
+<h3>4-4 濕化學品與 CMP 漿料 (Wet Chemicals & Slurry)</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Merck</td><td>默克</td><td>🇩🇪 德國</td><td>高純化學品全能王</td></tr>
+<tr><td>BASF</td><td>巴斯夫</td><td>🇩🇪 德國</td><td>化學品大廠</td></tr>
+<tr><td>Honeywell</td><td>漢威聯合</td><td>🇺🇸 美國</td><td>特化與電子材料</td></tr>
+<tr><td>Solvay</td><td>蘇威</td><td>🇧🇪 比利時</td><td>特化</td></tr>
+<tr><td>Kanto Chemical</td><td>關東化學</td><td>🇯🇵 日本</td><td>高純硫酸、雙氧水、顯影液</td></tr>
+<tr><td>Adeka</td><td>艾迪科</td><td>🇯🇵 日本</td><td>High-k 前驅物、高階特化</td></tr>
+<tr><td>Entegris</td><td>應特格</td><td>🇺🇸 美國</td><td>過濾、純化、CMP 漿料</td></tr>
+<tr><td>Cabot Microelectronics</td><td>Cabot(已併入 Entegris)</td><td>🇺🇸 美國</td><td>CMP 漿料頭部廠</td></tr>
+<tr><td>Fujimi</td><td>富士美</td><td>🇯🇵 日本</td><td>CMP 漿料頭部廠</td></tr>
+<tr><td>Fujifilm</td><td>富士軟片</td><td>🇯🇵 日本</td><td>CMP 漿料補位</td></tr>
+</table>
+
+<h3>4-5 超純水系統 (UPW)</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Kurita</td><td>栗田工業</td><td>🇯🇵 日本</td><td>超純水系統龍頭</td></tr>
+<tr><td>Organo</td><td>奧加諾</td><td>🇯🇵 日本</td><td>超純水系統</td></tr>
+<tr><td>Nomura Micro Science</td><td>NMS</td><td>🇯🇵 日本</td><td>超純水系統</td></tr>
+</table>
+
+<h3>小結</h3>
+<p>這段的關鍵字就是「日本」。光阻、光罩基板、CMP、超純水…每個子項目日系都是頭部。這是最難被地緣政治重塑的一段 —— 對手不是錢,是時間。</p>
+
+<hr>
+
+<h2>環節五:半導體製造 (Manufacturer)</h2>
+
+<h3>這段在幹嘛</h3>
+<p>整條產業鏈的匯流點。上面四段全部注入這裡產出實體晶片。分成「只設計不製造」(Fabless)、「只製造不設計」(Foundry)、「一條龍」(IDM),再加各種專用型玩家。</p>
+
+<h3>5-1 Fabless(無廠設計)</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>NVIDIA</td><td>輝達</td><td>🇺🇸 美國</td><td>AI GPU 獨佔,全球市值第一</td></tr>
+<tr><td>AMD</td><td>超微</td><td>🇺🇸 美國</td><td>CPU + GPU + AI 加速器</td></tr>
+<tr><td>Qualcomm</td><td>高通</td><td>🇺🇸 美國</td><td>手機基頻與 SoC 龍頭</td></tr>
+<tr><td>Broadcom</td><td>博通</td><td>🇺🇸 美國</td><td>網通、客製化 ASIC(Google/Meta)</td></tr>
+<tr><td>MediaTek</td><td>聯發科</td><td>🇹🇼 台灣</td><td>中低階手機 SoC 龍頭,攻高階中</td></tr>
+<tr><td>Marvell</td><td>邁威爾</td><td>🇺🇸 美國</td><td>資料中心網路與客製化 ASIC</td></tr>
+<tr><td>Realtek</td><td>瑞昱</td><td>🇹🇼 台灣</td><td>網通、消費性 SoC</td></tr>
+<tr><td>Novatek</td><td>聯詠</td><td>🇹🇼 台灣</td><td>面板驅動 IC 龍頭</td></tr>
+<tr><td>GUC</td><td>創意電子</td><td>🇹🇼 台灣</td><td>台積電系 ASIC 設計服務</td></tr>
+<tr><td>Socionext</td><td>Socionext</td><td>🇯🇵 日本</td><td>富士通 + 松下合資</td></tr>
+<tr><td>GigaDevice</td><td>兆易創新</td><td>🇨🇳 中國</td><td>NOR Flash + MCU</td></tr>
+</table>
+
+<h3>5-2 In-house 自研(雲廠與品牌自研)</h3>
+
+<table class="deftable">
+<tr><th>公司</th><th>代表晶片</th><th>特色</th></tr>
+<tr><td>Apple</td><td>M 系列 / A 系列</td><td>蘋果生態系全自研</td></tr>
+<tr><td>Google</td><td>TPU / Tensor</td><td>AI 加速與 Pixel</td></tr>
+<tr><td>AWS</td><td>Graviton / Trainium</td><td>雲端 CPU 與 AI</td></tr>
+<tr><td>Microsoft</td><td>Maia / Cobalt</td><td>雲端 AI + CPU</td></tr>
+<tr><td>Meta</td><td>MTIA</td><td>AI 推論</td></tr>
+<tr><td>ByteDance / Tencent / Alibaba</td><td>各家自研</td><td>中國雲廠自研 AI</td></tr>
+</table>
+
+<p><strong>意義</strong>:雲廠自研是近年最大結構變化,長期削弱 NVIDIA 議價力。</p>
+
+<h3>5-3 Foundry(晶圓代工)</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>TSMC</td><td>台積電</td><td>🇹🇼 台灣</td><td>全球約 60% 市佔,先進製程近乎獨佔</td></tr>
+<tr><td>Samsung Foundry</td><td>三星代工</td><td>🇰🇷 韓國</td><td>唯一與台積電同節點對手,但良率落後</td></tr>
+<tr><td>Intel Foundry</td><td>英特爾代工</td><td>🇺🇸 美國</td><td>從 IDM 轉型代工,18A 是關鍵一戰</td></tr>
+<tr><td>Rapidus</td><td>Rapidus</td><td>🇯🇵 日本</td><td>日本國家隊,目標 2nm,與 IBM 合作</td></tr>
+<tr><td>SMIC</td><td>中芯國際</td><td>🇨🇳 中國</td><td>中國最大代工,受制裁仍推進 7nm</td></tr>
+<tr><td>UMC</td><td>聯電</td><td>🇹🇼 台灣</td><td>成熟製程主力</td></tr>
+<tr><td>GlobalFoundries</td><td>格羅方德</td><td>🇺🇸 美國</td><td>成熟製程,退出先進節點</td></tr>
+<tr><td>Tower Semiconductor</td><td>高塔</td><td>🇮🇱 以色列</td><td>特殊製程(Intel 併購失敗)</td></tr>
+<tr><td>VIS</td><td>世界先進</td><td>🇹🇼 台灣</td><td>8 吋成熟製程</td></tr>
+<tr><td>PSMC</td><td>力積電</td><td>🇹🇼 台灣</td><td>記憶體與邏輯代工</td></tr>
+<tr><td>Hua Hong</td><td>華虹</td><td>🇨🇳 中國</td><td>中國成熟製程</td></tr>
+</table>
+
+<h3>5-4 OSAT(封測代工)</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>ASE</td><td>日月光投控</td><td>🇹🇼 台灣</td><td>全球最大 OSAT</td></tr>
+<tr><td>Amkor</td><td>艾克爾</td><td>🇺🇸 美國</td><td>全球第二</td></tr>
+<tr><td>JCET</td><td>長電科技</td><td>🇨🇳 中國</td><td>中國最大封測</td></tr>
+<tr><td>TFME</td><td>通富微電</td><td>🇨🇳 中國</td><td>AMD 主要封測夥伴</td></tr>
+<tr><td>Hua Tian</td><td>華天科技</td><td>🇨🇳 中國</td><td>中國三大之一</td></tr>
+<tr><td>SPIL</td><td>矽品</td><td>🇹🇼 台灣</td><td>已併入日月光集團</td></tr>
+<tr><td>PTI</td><td>力成</td><td>🇹🇼 台灣</td><td>記憶體封測</td></tr>
+<tr><td>KYEC</td><td>京元電子</td><td>🇹🇼 台灣</td><td>測試專門</td></tr>
+<tr><td>ChipMOS</td><td>南茂</td><td>🇹🇼 台灣</td><td>面板驅動 IC 封測</td></tr>
+<tr><td>Chipbond</td><td>頎邦</td><td>🇹🇼 台灣</td><td>COF/COG 封裝</td></tr>
+</table>
+
+<h3>5-5 記憶體 IDM</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Samsung</td><td>三星</td><td>🇰🇷 韓國</td><td>DRAM + NAND 雙料第一</td></tr>
+<tr><td>SK Hynix</td><td>SK 海力士</td><td>🇰🇷 韓國</td><td>HBM 目前領先(NVIDIA 主要供應)</td></tr>
+<tr><td>Micron</td><td>美光</td><td>🇺🇸 美國</td><td>DRAM + NAND 第三</td></tr>
+<tr><td>Kioxia</td><td>鎧俠</td><td>🇯🇵 日本</td><td>NAND,原東芝記憶體</td></tr>
+<tr><td>Western Digital</td><td>西部數據</td><td>🇺🇸 美國</td><td>NAND(與 Kioxia 合資生產)</td></tr>
+<tr><td>YMTC</td><td>長江存儲</td><td>🇨🇳 中國</td><td>中國 NAND 國家隊</td></tr>
+<tr><td>CXMT</td><td>長鑫存儲</td><td>🇨🇳 中國</td><td>中國 DRAM 國家隊</td></tr>
+<tr><td>Nanya</td><td>南亞科</td><td>🇹🇼 台灣</td><td>台系 DRAM</td></tr>
+<tr><td>Winbond</td><td>華邦電子</td><td>🇹🇼 台灣</td><td>利基型記憶體</td></tr>
+</table>
+
+<h3>5-6 影像感測器 (CIS)</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Sony</td><td>索尼</td><td>🇯🇵 日本</td><td>手機 CIS 約 50% 市佔,iPhone 主力</td></tr>
+<tr><td>Samsung</td><td>三星</td><td>🇰🇷 韓國</td><td>全球第二</td></tr>
+<tr><td>OmniVision</td><td>豪威科技</td><td>🇨🇳 中國</td><td>車用強,中資韋爾股份持有</td></tr>
+<tr><td>STMicroelectronics</td><td>意法半導體</td><td>🇪🇺 歐洲</td><td>車用與 ToF</td></tr>
+<tr><td>onsemi</td><td>安森美</td><td>🇺🇸 美國</td><td>車用感測</td></tr>
+</table>
+
+<h3>5-7 功率半導體 (Power)</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Infineon</td><td>英飛凌</td><td>🇩🇪 德國</td><td>全球第一,車用 IGBT/SiC 龍頭</td></tr>
+<tr><td>onsemi</td><td>安森美</td><td>🇺🇸 美國</td><td>SiC 車用強</td></tr>
+<tr><td>STMicroelectronics</td><td>意法半導體</td><td>🇪🇺 歐洲</td><td>特斯拉 SiC 主力供應</td></tr>
+<tr><td>Toshiba</td><td>東芝</td><td>🇯🇵 日本</td><td>功率元件</td></tr>
+<tr><td>Rohm</td><td>羅姆</td><td>🇯🇵 日本</td><td>SiC 垂直整合(自有 SICrystal)</td></tr>
+<tr><td>Nexperia</td><td>安世半導體</td><td>🇳🇱/🇨🇳</td><td>中資聞泰持有</td></tr>
+</table>
+
+<h3>5-8 MCU、類比、MEMS</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色與市場地位</th></tr>
+<tr><td>Texas Instruments</td><td>德州儀器</td><td>🇺🇸 美國</td><td>類比 IC 全球第一,產品線最廣</td></tr>
+<tr><td>Analog Devices</td><td>ADI</td><td>🇺🇸 美國</td><td>高階類比與訊號鏈龍頭</td></tr>
+<tr><td>NXP</td><td>恩智浦</td><td>🇳🇱 荷蘭</td><td>車用 MCU 龍頭</td></tr>
+<tr><td>Renesas</td><td>瑞薩電子</td><td>🇯🇵 日本</td><td>車用 MCU 三強</td></tr>
+<tr><td>Microchip</td><td>Microchip</td><td>🇺🇸 美國</td><td>通用 MCU</td></tr>
+<tr><td>Nuvoton</td><td>新唐</td><td>🇹🇼 台灣</td><td>消費性 MCU</td></tr>
+<tr><td>Skyworks</td><td>思佳訊</td><td>🇺🇸 美國</td><td>手機射頻前端</td></tr>
+<tr><td>Qorvo</td><td>Qorvo</td><td>🇺🇸 美國</td><td>手機射頻前端</td></tr>
+<tr><td>Bosch</td><td>博世</td><td>🇩🇪 德國</td><td>車用 MEMS 感測獨佔性玩家</td></tr>
+<tr><td>TDK</td><td>TDK</td><td>🇯🇵 日本</td><td>消費 MEMS + 磁性材料</td></tr>
+<tr><td>Knowles</td><td>Knowles</td><td>🇺🇸 美國</td><td>MEMS 麥克風</td></tr>
+<tr><td>Goertek</td><td>歌爾股份</td><td>🇨🇳 中國</td><td>MEMS 麥克風、聲學組裝</td></tr>
+</table>
+
+<h3>小結</h3>
+<p>這是整條產業鏈的話語權中心。<a href="../companies/tsmc.html">台積電</a>之所以叫「矽盾」,是因為它同時是 <a href="../companies/nvidia.html">NVIDIA</a>、AMD、Apple、Qualcomm、Broadcom 唯一先進製程選項。</p>
+
+<hr>
+
+<h2>環節六:先進封裝與 HBM 生態 (Advanced Packaging)</h2>
+
+<h3>這段在幹嘛</h3>
+<p>摩爾定律變慢後,先進封裝取代電晶體微縮成為新戰場。<strong>AI 晶片能不能量產,關鍵不在製程,在 <a href="../parts/cowos.html">CoWoS</a> 產能與 <a href="../parts/hbm.html">HBM</a> 供給</strong>。這一段整合了 Foundry、OSAT、記憶體、載板、設備、材料六方玩家,是 2023 年之後 AI 供應鏈最緊的環節。</p>
+
+<h3>6-1 CoWoS 與 2.5D/3D 封裝平台</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色</th></tr>
+<tr><td>TSMC</td><td>台積電</td><td>🇹🇼 台灣</td><td><strong>CoWoS 開發者與獨佔量產</strong>,NVIDIA H100/B200 唯一封裝</td></tr>
+<tr><td>Intel</td><td>英特爾</td><td>🇺🇸 美國</td><td>Foveros 3D 封裝,自家 CPU 與 Ponte Vecchio</td></tr>
+<tr><td>Samsung</td><td>三星</td><td>🇰🇷 韓國</td><td>I-Cube 追趕方案</td></tr>
+<tr><td>ASE</td><td>日月光</td><td>🇹🇼 台灣</td><td>VIPack 平台,替代 CoWoS 的 OSAT 方案</td></tr>
+<tr><td>Amkor</td><td>艾克爾</td><td>🇺🇸 美國</td><td>SLIM/SWIFT 先進封裝</td></tr>
+</table>
+
+<h3>6-2 HBM 高頻寬記憶體</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色</th></tr>
+<tr><td>SK Hynix</td><td>SK 海力士</td><td>🇰🇷 韓國</td><td><strong>HBM 目前領先</strong>,NVIDIA 主要供應,HBM3E 先出貨</td></tr>
+<tr><td>Samsung</td><td>三星</td><td>🇰🇷 韓國</td><td>HBM3E 認證追趕中</td></tr>
+<tr><td>Micron</td><td>美光</td><td>🇺🇸 美國</td><td>HBM3E 已進 NVIDIA 供應鏈,佔比第三</td></tr>
+</table>
+
+<h3>6-3 <a href="../parts/abf.html">ABF</a> 載板 (Ajinomoto Build-up Film Substrate)</h3>
+
+<p>高階 AI/CPU/GPU 必用的封裝基板,近三年最緊的瓶頸之一。</p>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色</th></tr>
+<tr><td>Ibiden</td><td>揖斐電</td><td>🇯🇵 日本</td><td>ABF 載板全球第一,Intel/NVIDIA 主要供應</td></tr>
+<tr><td>Shinko</td><td>新光電氣</td><td>🇯🇵 日本</td><td>ABF 載板全球第二</td></tr>
+<tr><td>Unimicron</td><td>欣興電子</td><td>🇹🇼 台灣</td><td>台系載板龍頭</td></tr>
+<tr><td>Nan Ya PCB</td><td>南亞電路</td><td>🇹🇼 台灣</td><td>台系載板三雄</td></tr>
+<tr><td>Kinsus</td><td>景碩科技</td><td>🇹🇼 台灣</td><td>台系載板三雄</td></tr>
+<tr><td>Samsung Electro-Mech</td><td>三星電機</td><td>🇰🇷 韓國</td><td>韓系載板龍頭</td></tr>
+<tr><td>Daeduck</td><td>大德電子</td><td>🇰🇷 韓國</td><td>韓系載板</td></tr>
+<tr><td>LG Innotek</td><td>LG Innotek</td><td>🇰🇷 韓國</td><td>已重返 FC-BGA 市場</td></tr>
+<tr><td>AT&amp;S</td><td>奧特斯</td><td>🇦🇹 奧地利</td><td>歐洲唯一大廠,Intel 供應鏈</td></tr>
+<tr><td>Kyocera</td><td>京瓷</td><td>🇯🇵 日本</td><td>陶瓷載板與封裝</td></tr>
+<tr><td>SCC</td><td>深南電路</td><td>🇨🇳 中國</td><td><strong>中國最大封裝載板/PCB 廠</strong></td></tr>
+<tr><td>Ajinomoto</td><td>味之素</td><td>🇯🇵 日本</td><td><strong>ABF 膜本體獨佔供應</strong> —— 是,就是那個賣調味料的</td></tr>
+</table>
+
+<h3>6-4 先進封裝關鍵設備</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色</th></tr>
+<tr><td>Besi</td><td>Besi</td><td>🇳🇱 荷蘭</td><td><strong>混合鍵合(Hybrid Bonding)先驅</strong>,HBM4 關鍵</td></tr>
+<tr><td>ASMPT</td><td>ASMPT</td><td>🇭🇰 香港</td><td>TCB 熱壓鍵合設備主力</td></tr>
+<tr><td>Towa</td><td>東和</td><td>🇯🇵 日本</td><td><strong>高階先進封裝模壓(Molding)設備霸主</strong></td></tr>
+<tr><td>Disco</td><td>Disco</td><td>🇯🇵 日本</td><td>晶圓切割獨佔</td></tr>
+<tr><td>Kulicke &amp; Soffa</td><td>K&amp;S</td><td>🇺🇸 美國</td><td>打線與 TCB</td></tr>
+<tr><td>Shinkawa</td><td>新川</td><td>🇯🇵 日本</td><td>已被 ASMPT 收購</td></tr>
+</table>
+
+<h3>6-5 探針卡與測試治具 (Probe Card & Test Interconnect)</h3>
+<p><strong>這段在幹嘛</strong>:探針卡是 AI 晶片測試時「接觸晶片墊」的消耗性精密元件,晶片複雜度越高、腳位越多,單張探針卡越貴(高階 HBM/AI 探針卡一張可上百萬美元)。是 AI 時代高毛利、高進入門檻的隱形冠軍賽道。</p>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色</th></tr>
+<tr><td>FormFactor</td><td>FormFactor</td><td>🇺🇸 美國</td><td>全球探針卡龍頭,DRAM 與邏輯強</td></tr>
+<tr><td>Technoprobe</td><td>Technoprobe</td><td>🇮🇹 義大利</td><td>邏輯 IC 探針卡龍頭</td></tr>
+<tr><td>CHPT</td><td>中華精測</td><td>🇹🇼 台灣</td><td>台積電系,AI 探針卡大受惠</td></tr>
+<tr><td>MPI</td><td>旺矽科技</td><td>🇹🇼 台灣</td><td>MEMS 探針卡與探針測試站</td></tr>
+<tr><td>MJC</td><td>日本電子材料</td><td>🇯🇵 日本</td><td>記憶體探針卡</td></tr>
+</table>
+
+<h3>6-6 先進封裝材料</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色</th></tr>
+<tr><td>Resonac</td><td>昭和電工</td><td>🇯🇵 日本</td><td>Molding compound(封裝樹脂)龍頭</td></tr>
+<tr><td>Sumitomo Bakelite</td><td>住友電木</td><td>🇯🇵 日本</td><td>Molding compound</td></tr>
+<tr><td>Tanaka</td><td>田中貴金屬</td><td>🇯🇵 日本</td><td>Bonding wire(金線/銀線)</td></tr>
+<tr><td>Heraeus</td><td>賀利氏</td><td>🇩🇪 德國</td><td>Bonding wire</td></tr>
+<tr><td>Nippon Steel</td><td>日本製鐵</td><td>🇯🇵 日本</td><td>Bonding wire 補位</td></tr>
+<tr><td>Namics</td><td>Namics</td><td>🇯🇵 日本</td><td>Underfill 底部填膠</td></tr>
+<tr><td>Henkel</td><td>漢高</td><td>🇩🇪 德國</td><td>Underfill</td></tr>
+<tr><td>MacDermid Alpha</td><td>麥德美愛法</td><td>🇺🇸 美國</td><td>電鍍化學品、燒結材料</td></tr>
+</table>
+
+<h3>小結</h3>
+<p><a href="../parts/cowos.html">CoWoS</a> 的產能天花板 = AI 加速器出貨的天花板。<a href="../companies/tsmc.html">台積電</a>、<a href="../companies/sk-hynix.html">SK Hynix</a>、Ibiden、Besi、Advantest 是這條「AI 供應鏈五人組」,再加上 Towa(模壓)、味之素(<a href="../parts/abf.html">ABF</a> 膜)、中華精測(探針卡),每個節點都不可替代。</p>
+
+<hr>
+
+<h2>環節七:廠務自動化與晶圓傳載 (AMHS & Wafer Handling) 🆕</h2>
+
+<h3>這段在幹嘛</h3>
+<p>晶圓廠是全球最貴的無塵室,一片 12 吋晶圓在廠內要跑上千道工序,人手根本碰不得。整座廠都靠<strong>天花板軌道(OHT)</strong> 上的自動化天車跑晶圓盒,搭配標準規格的<strong>晶圓傳送盒(FOUP)</strong> 保存氣氛。這段看起來像「物流」,其實是晶圓廠的血管系統,一停就全廠停。<strong>EUV 光罩傳送盒(EUV Pod)</strong> 更是先進製程獨門耗材。</p>
+
+<h3>7-1 OHT / AGV 自動搬運系統</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色</th></tr>
+<tr><td>Daifuku</td><td>大福</td><td>🇯🇵 日本</td><td><strong>無塵室天車系統全球龍頭</strong>,台積電新廠主要供應</td></tr>
+<tr><td>Muratec</td><td>村田機械</td><td>🇯🇵 日本</td><td>天車系統雙雄之一,韓廠主力</td></tr>
+<tr><td>Semes</td><td>Semes</td><td>🇰🇷 韓國</td><td>三星集團旗下,韓國廠務設備</td></tr>
+<tr><td>Mirle</td><td>盟立自動化</td><td>🇹🇼 台灣</td><td>台系自動化,面板與半導體</td></tr>
+</table>
+
+<h3>7-2 FOUP / FOSB 晶圓傳送盒與 EUV Pod</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色</th></tr>
+<tr><td>Entegris</td><td>應特格</td><td>🇺🇸 美國</td><td><strong>FOUP 全球龍頭</strong>,晶圓廠標準耗材</td></tr>
+<tr><td>Shin-Etsu</td><td>信越化學</td><td>🇯🇵 日本</td><td>FOUP 補位</td></tr>
+<tr><td>3S Korea</td><td>3S Korea</td><td>🇰🇷 韓國</td><td>韓國本土 FOUP 供應</td></tr>
+<tr><td>Gintek</td><td><strong>家登精密</strong></td><td>🇹🇼 台灣</td><td><strong>EUV 光罩傳送盒(EUV Pod)全球市佔超過八成</strong> —— 全世界只有幾家有能力做,家登獨佔性極高</td></tr>
+</table>
+
+<h3>7-3 廠務潔淨室設備(EFEM、Sorter、Loadport)</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色</th></tr>
+<tr><td>Sinfonia</td><td>Sinfonia</td><td>🇯🇵 日本</td><td>Loadport 龍頭</td></tr>
+<tr><td>Brooks</td><td>Brooks</td><td>🇺🇸 美國</td><td>真空機械手臂與晶圓傳送</td></tr>
+<tr><td>Rorze</td><td>Rorze</td><td>🇯🇵 日本</td><td>EFEM 前端模組</td></tr>
+<tr><td>Hirata</td><td>平田機工</td><td>🇯🇵 日本</td><td>EFEM 補位</td></tr>
+<tr><td>TDK / Recif</td><td>TDK / Recif</td><td>🇯🇵/🇫🇷</td><td>Loadport</td></tr>
+<tr><td>Robostar</td><td>Robostar</td><td>🇰🇷 韓國</td><td>韓系機械手臂</td></tr>
+<tr><td>Kawasaki Robotics</td><td>川崎重工</td><td>🇯🇵 日本</td><td>真空機械手臂</td></tr>
+<tr><td>Yaskawa</td><td>安川電機</td><td>🇯🇵 日本</td><td>真空機械手臂</td></tr>
+<tr><td>JEL</td><td>JEL</td><td>🇯🇵 日本</td><td>晶圓機械手臂</td></tr>
+<tr><td>Nidec</td><td>日本電產</td><td>🇯🇵 日本</td><td>精密馬達與傳送</td></tr>
+</table>
+
+<h3>小結</h3>
+<p>這一段是隱形冠軍賽道:項目冷門、寡佔極強、單價高、AI 建廠潮直接受惠。台廠家登精密的 EUV Pod 是最鮮明的例子 —— 全世界的 EUV 機台都要用它的盒子裝光罩,這種利基型獨佔在整條產業鏈到處都是。</p>
+
+<hr>
+
+<h2>環節八:半導體通路 (Distributors)</h2>
+
+<h3>這段在幹嘛</h3>
+<p>把晶片從原廠配送到全球數十萬個中小品牌客戶。原廠不會直接服務做電子鍋、掃地機、工控盒的客戶,通路負責備貨、拆貨、技術支援、小量出貨。看似不起眼,但在供應緊張時通路的分配權就是實質定價權。</p>
+
+<h3>廠商列表</h3>
+
+<table class="deftable">
+<tr><th>英文名稱</th><th>中文/通稱</th><th>國家</th><th>特色</th></tr>
+<tr><td>Arrow Electronics</td><td>艾睿電子</td><td>🇺🇸 美國</td><td>全球最大,涵蓋北美歐洲</td></tr>
+<tr><td>Avnet</td><td>安富利</td><td>🇺🇸 美國</td><td>全球第二,工業與嵌入式強</td></tr>
+<tr><td>WPG Holdings</td><td>大聯大</td><td>🇹🇼 台灣</td><td>亞洲最大,整合品佳/友尚/詮鼎/世平</td></tr>
+<tr><td>WT Microelectronics</td><td>文曄</td><td>🇹🇼 台灣</td><td>全球第三,收購 Future 後躍升</td></tr>
+<tr><td>Supreme Electronics</td><td>崇越電通</td><td>🇹🇼 台灣</td><td>三星記憶體代理主力</td></tr>
+<tr><td>Macnica</td><td>Macnica</td><td>🇯🇵 日本</td><td>高階設計服務型通路</td></tr>
+<tr><td>Toyota Tsusho</td><td>豐田通商</td><td>🇯🇵 日本</td><td>車用晶片配送</td></tr>
+<tr><td>Future Electronics</td><td>Future</td><td>🇨🇦 加拿大</td><td>曾全球第三,已被文曄收購</td></tr>
+</table>
+
+<h3>小結</h3>
+<p>通路整併近幾年很激烈。台系(大聯大 + 文曄)全球市佔已超過美系。AI + 車用讓原廠更依賴通路做庫存管理,通路地位在提升。</p>
+
+<hr>
+
+<h2>整體統整與分析</h2>
+
+<h3>一、產業鏈結構特徵</h3>
+
+<p><strong>越上游越集中</strong><br>
+矽晶圓(前五家 &gt;90%)、EDA(前三家 &gt;75%)、EUV(ASML 獨佔)、高階光阻(日系近 90%)、EUV Pod(家登 &gt;80%)、ABF 膜(味之素獨佔) —— 這些「入口」都是寡佔或獨佔。中游最競爭(Fabless 數百家),下游最分散(通路商數千家)。</p>
+
+<p><strong>越上游越難撼動</strong><br>
+Fabless 三年可以起家,Foundry 十年可以追一個節點,但矽晶圓、EDA、光阻要幾十年 —— 這是為什麼美國能對中國卡設備但難卡設計。</p>
+
+<h3>二、地緣分工地圖</h3>
+
+<table class="deftable">
+<tr><th>環節</th><th>主導國家</th><th>代表玩家</th></tr>
+<tr><td>EDA / IP</td><td>🇺🇸 美 + 🇬🇧 英</td><td>Synopsys、Cadence、Arm</td></tr>
+<tr><td>矽晶圓</td><td>🇯🇵 日 + 🇹🇼 台 + 🇩🇪 德</td><td>Shin-Etsu、SUMCO、環球晶</td></tr>
+<tr><td>微影設備</td><td>🇳🇱 荷</td><td>ASML 獨佔</td></tr>
+<tr><td>其他設備</td><td>🇺🇸 美 + 🇯🇵 日</td><td>AMAT、Lam、KLA、TEL</td></tr>
+<tr><td>光阻/特化</td><td>🇯🇵 日 + 🇩🇪 德</td><td>JSR、TOK、信越、Merck</td></tr>
+<tr><td>ABF 載板</td><td>🇯🇵 日 + 🇹🇼 台</td><td>Ibiden、Shinko、欣興</td></tr>
+<tr><td>ABF 膜料</td><td>🇯🇵 日</td><td>味之素獨佔</td></tr>
+<tr><td>廠務自動化</td><td>🇯🇵 日 + 🇹🇼 台</td><td>Daifuku、Muratec、家登</td></tr>
+<tr><td>先進製程</td><td>🇹🇼 台</td><td>TSMC</td></tr>
+<tr><td>記憶體 / HBM</td><td>🇰🇷 韓 + 🇺🇸 美</td><td>SK Hynix、Samsung、Micron</td></tr>
+<tr><td>CIS</td><td>🇯🇵 日</td><td>Sony</td></tr>
+<tr><td>車用功率 / MCU</td><td>🇪🇺 歐</td><td>Infineon、NXP、ST、Bosch</td></tr>
+<tr><td>探針卡</td><td>🇺🇸 美 + 🇹🇼 台 + 🇮🇹 義</td><td>FormFactor、中華精測、Technoprobe</td></tr>
+<tr><td>通路</td><td>🇺🇸 美 + 🇹🇼 台</td><td>Arrow、Avnet、大聯大、文曄</td></tr>
+<tr><td>追趕者</td><td>🇨🇳 中</td><td>中芯、北方華創、中微、YMTC、CXMT</td></tr>
+</table>
+
+<h3>三、八個「卡脖子」節點</h3>
+
+<ol>
+<li><strong>ASML EUV 曝光機</strong> — 沒有它做不了 5nm 以下,全球唯一</li>
+<li><strong>Lasertec EUV 光罩檢測</strong> — EUV 光罩缺陷檢測全球唯一供應商,可視為「設備界的另類 ASML」,近年市值飆升極快</li>
+<li><strong>EDA 三強</strong> — Synopsys/Cadence/Siemens,停授權就停設計,美國最有效的軟性槓桿</li>
+<li><strong>日本光阻與光罩基板</strong> — JSR/TOK/信越 + Hoya/AGC,know-how 護城河最深</li>
+<li><strong>TSMC CoWoS</strong> — AI 加速器封裝獨佔,產能天花板 = AI 供給天花板</li>
+<li><strong>SK Hynix HBM</strong> — NVIDIA 主要供應,HBM 良率決定 AI GPU 出貨</li>
+<li><strong>味之素 ABF 膜</strong> — 一家日本調味料公司卡住全世界的 CPU/GPU 載板</li>
+<li><strong>家登精密 EUV Pod</strong> — 一個裝光罩的盒子,全球市佔 &gt;80%</li>
+</ol>
+
+<p>其中 1、2、8 三點串成一個有趣的故事:整條 EUV 生態鏈上,光機、光罩檢測、光罩傳送盒 —— 每一環都是全球唯一或近乎唯一的供應商。第 7、8 兩點則說明這條產業鏈的「隱形冠軍」現象:看起來完全不重要的品項,實際上是全球獨佔。</p>
+
+<h3>四、四個「結構變化」正在發生</h3>
+
+<ol>
+<li><strong>雲廠自研晶片</strong> — Apple/Google/AWS/Meta 都在做,長期削弱 NVIDIA 議價力</li>
+<li><strong>先進封裝取代摩爾定律</strong> — CoWoS、HBM、Hybrid Bonding、chiplet 成為新戰場,ABF 載板、Besi、Towa、Advantest、探針卡話語權大幅上升</li>
+<li><strong>第三代半導體崛起</strong> — SiC/GaN 因電動車、快充、AI 電源需求成為新賽道,Wolfspeed、Coherent、Infineon、Rohm 是主要玩家</li>
+<li><strong>中國全鏈自主化</strong> — 從設備(北方華創/中微)、材料(安集/華特)、EDA(華大九天)、代工(中芯)、記憶體(長江/長鑫)、HBM(CXMT)全面推進</li>
+</ol>
+
+<h3>五、五筆值得記住的近期併購 / 重組</h3>
+
+<table class="deftable">
+<tr><th>案子</th><th>時間</th><th>意義</th></tr>
+<tr><td>JSR → JIC 收購</td><td>2023</td><td>日本政府把 EUV 光阻收歸國有戰略資產</td></tr>
+<tr><td>Ansys → Synopsys</td><td>2024–25</td><td>EDA 巨頭橫向擴張到多物理模擬</td></tr>
+<tr><td>GaN Systems → Infineon</td><td>2023</td><td>傳統功率大廠垂直整合第三代半導體</td></tr>
+<tr><td>II-VI 併 Coherent 改名</td><td>2022</td><td>SiC + 光通訊整合</td></tr>
+<tr><td>Future Electronics → 文曄</td><td>2023–24</td><td>台系通路首次登上全球前三</td></tr>
+</table>
+
+<h3>六、隱形冠軍名單(用來說服自己這產業有多細)</h3>
+
+<ul>
+<li><strong>味之素</strong>:一家做調味料的日本公司,壟斷全球高階 CPU/GPU 的封裝載板膜料</li>
+<li><strong>家登精密</strong>:一個裝 EUV 光罩的塑膠盒,全球 &gt;80% 市佔</li>
+<li><strong>Lasertec</strong>:一台檢測 EUV 光罩缺陷的機器,全世界只有它會做</li>
+<li><strong>Disco</strong>:每一片晶圓最後被切成小晶片,幾乎都用它的機台</li>
+<li><strong>Ebara</strong>:每一層電路做完都要拋光,雙寡佔之一</li>
+<li><strong>Ibiden</strong>:一家原本做水泥製品的岐阜公司,現在是 Intel 與 NVIDIA 的載板首選</li>
+<li><strong>中華精測</strong>:AI 晶片測試時接觸晶片墊的探針卡,單張要價百萬美元</li>
+</ul>
+
+<p>這些公司大多沒人聽過,但少一家全球晶片就出不來。</p>
+
+<h3>七、一句話總結</h3>
+
+<p>半導體是一條<strong>沒有任何國家能單獨完成</strong>的產業鏈:設計卡在美英、代工卡在台灣、設備卡在美日荷、材料卡在日本、記憶體與 HBM 卡在韓國、車用功率卡在歐洲、CoWoS 卡在台積電、ABF 膜卡在味之素、EUV Pod 卡在家登。這種極致分工既是效率的極致,也是脆弱性的極致 —— 這也是為什麼過去十年,這個產業從「商業話題」變成「國家安全話題」。</p>
+
+<div class="report-nav">
+<div class="lt">從這份 Primer 延伸到知識庫的節點</div>
+<div class="nav-row">
+<a class="nav-item" href="../cycles/ai-server.html">→ <b>AI 伺服器週期</b></a>
+<a class="nav-item" href="../companies/tsmc.html">→ <b>台積電</b></a>
+<a class="nav-item" href="../companies/nvidia.html">→ <b>輝達</b></a>
+<a class="nav-item" href="../companies/sk-hynix.html">→ <b>SK 海力士</b></a>
+<a class="nav-item" href="../companies/asml.html">→ <b>ASML</b></a>
+<a class="nav-item" href="../companies/infineon.html">→ <b>Infineon</b></a>
+<a class="nav-item" href="../companies/stm.html">→ <b>STM</b></a>
+<a class="nav-item" href="../companies/tuc.html">→ <b>台光電</b></a>
+<a class="nav-item" href="../companies/yageo.html">→ <b>國巨</b></a>
+<a class="nav-item" href="../companies/walsin.html">→ <b>華新科</b></a>
+<a class="nav-item" href="../companies/holystone.html">→ <b>禾伸堂</b></a>
+<a class="nav-item" href="../parts/hbm.html">→ <b>HBM</b></a>
+<a class="nav-item" href="../parts/cowos.html">→ <b>CoWoS</b></a>
+<a class="nav-item" href="../parts/ccl.html">→ <b>CCL</b></a>
+<a class="nav-item" href="../parts/abf.html">→ <b>ABF 載板</b></a>
+<a class="nav-item" href="../parts/euv.html">→ <b>EUV</b></a>
+<a class="nav-item" href="../parts/passive.html">→ <b>被動元件</b></a>
+<a class="nav-item" href="../parts/power-semi.html">→ <b>功率半導體</b></a>
+</div>
+</div>
+
+<div class="links-box">
+<div class="lt">關聯節點 · Connections</div>
+<div class="chip-row">
+<a class="link-chip" href="../cycles/ai-server.html"><span class="dot cycle"></span>AI 伺服器</a>
+<a class="link-chip" href="../companies/tsmc.html"><span class="dot company"></span>台積電</a>
+<a class="link-chip" href="../companies/nvidia.html"><span class="dot company"></span>輝達</a>
+<a class="link-chip" href="../companies/sk-hynix.html"><span class="dot company"></span>SK 海力士</a>
+<a class="link-chip" href="../companies/asml.html"><span class="dot company"></span>ASML</a>
+<a class="link-chip" href="../parts/hbm.html"><span class="dot part"></span>HBM</a>
+<a class="link-chip" href="../parts/cowos.html"><span class="dot part"></span>CoWoS</a>
+<a class="link-chip" href="../parts/abf.html"><span class="dot part"></span>ABF</a>
+<a class="link-chip" href="../parts/euv.html"><span class="dot part"></span>EUV</a>
+</div></div>
+
+</article>
+</div>
+
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+</body>
+</html>
