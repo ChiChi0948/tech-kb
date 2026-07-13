@@ -193,3 +193,27 @@ a.link-chip .dot.quarter{background:var(--quarter)}
 .kpi .d{font-size:.78rem;color:var(--ink-soft);margin-top:3px}
 .kpi .d.up{color:var(--done)}
 .kpi .d.dn{color:#c0392b}
+
+/* ---------- 報告節點 (第五種卡片) ---------- */
+:root{ --report:#7a5c3f; }  /* 赭褐色，跟公司赭金區隔但同色系 */
+.item[data-t="report"]::before{background:var(--report)}
+.card[data-type="report"]::before{background:var(--report)}
+.tag-type.report{background:rgba(122,92,63,.13);color:var(--report)}
+a.link-chip .dot.report{background:var(--report)}
+/* 報告頁的來源框 */
+.report-source{background:var(--paper2);border:1px solid var(--line);border-radius:11px;
+  padding:14px 18px;margin:20px 0;font-size:.88rem;color:var(--ink-soft);
+  border-left:3px solid var(--report)}
+.report-source b{color:var(--ink)}
+.report-source .meta{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;
+  color:var(--faint);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;display:block}
+/* 報告頁的節點導覽 */
+.report-nav{background:var(--card);border:1px solid var(--line);border-radius:11px;
+  padding:16px 18px;margin:24px 0;box-shadow:var(--shadow)}
+.report-nav .lt{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+.report-nav .nav-row{display:flex;flex-wrap:wrap;gap:10px}
+.report-nav .nav-item{background:var(--paper2);border:1px solid var(--line);border-radius:8px;
+  padding:8px 12px;font-size:.85rem;text-decoration:none;color:var(--ink);transition:.14s}
+.report-nav .nav-item:hover{background:var(--card);border-color:var(--report)}
+.report-nav .nav-item b{color:var(--report);font-weight:700}
