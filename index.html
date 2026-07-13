@@ -15,6 +15,7 @@
       <a href="#companies">公司</a>
       <a href="#parts">零件</a>
       <a href="#quarters">財報</a>
+      <a href="#reports">報告</a>
       <a href="reference/glossary.html">術語表</a>
       <a href="reference/frameworks.html">分析框架</a>
       <a href="reference/updates.html">更新日誌</a>
@@ -66,6 +67,14 @@
   <p class="section-sub">每季的財報觀察。總覽頁是當季入口，下面列出當季有寫到的公司財報，可從公司頁雙向跳轉。</p>
   <div id="list-quarters"></div>
 
+  <!-- 產業報告 -->
+  <div class="section-head" id="reports">
+    <span class="idx">05 · Deep Dives</span>
+    <h2>產業報告</h2>
+  </div>
+  <p class="section-sub">完整分析的存檔——用一個視角看整個產業的深度筆記。跟拆散的零件/公司節點互補：想快速查節點 → 用零件頁；想重讀一份完整分析 → 用這裡。</p>
+  <div class="cards" id="list-reports"></div>
+
   <div class="no-match" id="nomatch">沒有符合的節點</div>
 
   <!-- 擴充教學 -->
@@ -83,14 +92,14 @@
 
 <footer class="site">
   <div class="wrap">
-    科技供應鏈知識庫 · 個人研究用 · 資料節點集中於 <code>assets/data.js</code> · 四色系統：<span style="color:var(--company)">公司</span> / <span style="color:var(--part)">零件</span> / <span style="color:var(--cycle)">週期</span> / <span style="color:var(--quarter)">財報</span>
+    科技供應鏈知識庫 · 個人研究用 · 資料節點集中於 <code>assets/data.js</code> · 五色系統：<span style="color:var(--company)">公司</span> / <span style="color:var(--part)">零件</span> / <span style="color:var(--cycle)">週期</span> / <span style="color:var(--quarter)">財報</span> / <span style="color:var(--report)">報告</span>
   </div>
 </footer>
 
 <script src="assets/data.js"></script>
 <script>
 const ICON={done:'<span class="badge done">已研究</span>',stub:'<span class="badge stub">待補</span>'};
-function path(kind,id){return ({cycles:"cycles/",companies:"companies/",parts:"parts/",quarters:"quarters/"})[kind]+id+".html";}
+function path(kind,id){return ({cycles:"cycles/",companies:"companies/",parts:"parts/",quarters:"quarters/",reports:"reports/"})[kind]+id+".html";}
 
 function itemHTML(kind,o,type){
   const href=path(kind,o.id);
@@ -140,16 +149,24 @@ periods.forEach(p=>{
 });
 qWrap.innerHTML=qhtml||'<p style="color:var(--faint);font-style:italic;padding:14px 0">尚無財報內容。在 data.js 的 quarters 陣列加入一筆，並在 quarters/ 資料夾建立對應頁面。</p>';
 
+// 產業報告
+document.getElementById("list-reports").innerHTML =
+  (KB.reports||[]).length
+    ? (KB.reports||[]).map(o=>itemHTML("reports",o,"report")).join("")
+    : '<p style="color:var(--faint);font-style:italic;padding:14px 0">尚無報告。</p>';
+
 // 統計
 const allComp=KB.companies.length, doneComp=KB.companies.filter(c=>c.status==="done").length;
 const allPart=KB.parts.length, donePart=KB.parts.filter(p=>p.status==="done").length;
 const allCyc=KB.cycles.length, doneCyc=KB.cycles.filter(c=>c.status==="done").length;
 const allQ=(KB.quarters||[]).length, doneQ=(KB.quarters||[]).filter(q=>q.status==="done").length;
+const allR=(KB.reports||[]).length, doneR=(KB.reports||[]).filter(r=>r.status==="done").length;
 document.getElementById("stats").innerHTML=`
   <div class="stat"><div class="n">${doneCyc} / ${allCyc}</div><div class="l">週期 Cycles</div></div>
   <div class="stat"><div class="n">${doneComp} / ${allComp}</div><div class="l">公司 Companies</div></div>
   <div class="stat"><div class="n">${donePart} / ${allPart}</div><div class="l">零件 Parts</div></div>
-  <div class="stat"><div class="n">${doneQ}</div><div class="l">財報 Reports</div></div>`;
+  <div class="stat"><div class="n">${doneQ}</div><div class="l">財報 Reports</div></div>
+  <div class="stat"><div class="n">${doneR}</div><div class="l">產業報告 Deep Dives</div></div>`;
 
 // 搜尋
 const search=document.getElementById("search"),nomatch=document.getElementById("nomatch");
