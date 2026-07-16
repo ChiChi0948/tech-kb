@@ -5,6 +5,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>半導體產業鏈 Primer v4 · 科技供應鏈知識庫</title>
 <link rel="stylesheet" href="../assets/style.css">
+<style>
+/* 表格第 3 欄「國旗 + 國名」——變成醒目的小胶囊 */
+article table td:nth-child(3){
+  white-space:nowrap;
+  font-family:ui-sans-serif,system-ui,sans-serif;
+  font-size:.78rem;
+  font-weight:600;
+  color:var(--ink);
+  background:var(--paper2);
+  border-radius:20px;
+  padding:4px 10px !important;
+  text-align:center;
+  vertical-align:middle;
+}
+/* 國旗 emoji 放大 */
+article table td:nth-child(3)::first-letter{
+  font-size:1.4em;
+  margin-right:3px;
+  vertical-align:-2px;
+}
+/* 讓包含國旗的欄位不要撐開整格：加點內邊距讓表格好看 */
+article table td{
+  padding:8px 10px;
+  vertical-align:top;
+}
+/* 標題列更明顯 */
+article table th{
+  background:var(--paper2);
+  font-family:ui-sans-serif,system-ui,sans-serif;
+  font-size:.7rem;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--faint);
+  text-align:left;
+  padding:10px 12px;
+  border-bottom:2px solid var(--line);
+}
+/* 表格整體：更精緻 */
+article table{
+  border-collapse:separate;
+  border-spacing:0;
+  width:100%;
+  margin:12px 0 20px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+article table tr:not(:last-child) td{
+  border-bottom:1px solid var(--line2);
+}
+</style>
 </head>
 <body>
 <header class="site">
