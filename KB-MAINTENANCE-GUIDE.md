@@ -26,7 +26,9 @@
 | **零件 part** | 青 `--part` | `parts/` | 流動於供應鏈的零件 / 模組 / 技術 | HBM、CoWoS、CCL、功率半導體 |
 | **財報 quarter** | 深紅 `--quarter` | `quarters/` | 每季的公司財報觀察 | 2026Q1-tsmc |
 
-**串聯原則:** 一張卡可同時連 4 種,在每頁底部「關聯節點 Connections」區塊用 `link-chip` 串。雙向串聯需手動兩邊都加(沒有自動回連)。
+**串聯原則(2026.10 起):** 關聯一律登記在 `assets/data.js` 的 `links`,一行一條,例如 `["tsmc","cowos","獨家量產"]`。`assets/kb.js` 會在兩邊頁面自動產生「關聯節點」,週期頁還會自動產生「週期角色地圖」。**不要再手寫 link-chip**,內容頁的 `<div class="links-box">` 只是佔位。
+
+**產業鏈層級:** 公司與零件必須填 `layer`,值是 `data.js` 裡 `layers` 的 id(materials / equipment / design / fab / package / component / system);週期自動歸在 demand。首頁「產業鏈地圖」靠這個欄位排位置。
 
 ---
 
@@ -38,7 +40,10 @@ techkb/
 ├── README.md               基本介紹與部署說明
 ├── assets/
 │   ├── style.css           全站共用樣式,改這裡全站生效
-│   └── data.js             節點總表 ← 新增節點必改這裡
+│   ├── data.js             節點、關聯、層級、追蹤、圖解總表 ← 平常只改這裡
+│   └── kb.js               共用程式:自動產生關聯/角色地圖/追蹤/圖解(不用改)
+├── start.html              從這裡開始:新手閱讀路徑(順序由 data.js 的 startPath 控制)
+├── images/                 截圖(登記在 data.js 的 figures)
 ├── cycles/                 週期頁 + _TEMPLATE.html
 ├── companies/              公司頁 + _TEMPLATE.html
 ├── parts/                  零件頁 + _TEMPLATE.html
@@ -133,13 +138,7 @@ window.KB = {
 
 <!-- 視內容需要使用 deftable / note 等樣式元件,見下方 §6 -->
 
-<div class="links-box">
-<div class="lt">關聯節點 · Connections</div>
-<div class="chip-row">
-<a class="link-chip" href="../cycles/ai-server.html"><span class="dot cycle"></span>AI 伺服器</a>
-<a class="link-chip" href="../companies/tsmc.html"><span class="dot company"></span>台積電</a>
-<!-- dot 的 class 必須對應目標卡片類型:cycle / company / part / quarter -->
-</div></div>
+<div class="links-box"><!-- 關聯節點由 assets/kb.js 依 data.js 的 links 自動產生;要新增關聯請改 data.js --></div>
 
 <h2 id="timeline">更新時間軸</h2>
 <div class="timeline">
@@ -148,6 +147,8 @@ window.KB = {
 </article>
 </div></div>
 <footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+<script src="../assets/data.js"></script>
+<script src="../assets/kb.js"></script>
 </body></html>
 ```
 
@@ -282,7 +283,8 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 ### 步驟 4:執行
 - 改 `data.js`(新增節點登記、必要時新增 group)
 - 建 / 改內容頁(用 §5 骨架)
-- 既有相關節點互加 `link-chip`(雙向串聯)
+- 在 `data.js` 的 `links` 加上新節點的關聯(一行一條,填角色);新公司或零件記得填 `layer`
+- 若有追蹤指標,寫進 `data.js` 的 `watch`;若使用者給了截圖,壓成 .webp 放進 `images/`,登記到 `figures` 並填出處
 - 改 `reference/updates.html` 加一筆 `<div class="ev">` 到時間軸最上方
 - 用 Python 掃描所有 HTML 的內部連結,確認沒有斷鏈
 
@@ -319,7 +321,9 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 
 **內文先 mark,後獨立。** 第一次提到某公司時用 `<b>` 標粗,等之後值得獨立成卡片再加 `<a>` 連結。這讓擴充節奏自然。
 
-**雙向串聯。** 在 A 加連到 B 的同時,也要在 B 加連到 A。沒有自動回連,要靠手動兩邊都改。
+**關聯只登記一次。** 在 `data.js` 的 `links` 加一行,兩邊自動出現。不要在頁面裡手寫 link-chip,否則會跟自動產生的重複。
+
+**圖片一定標出處。** 網站是公開的,`figures` 每筆都要有 `source` 和 `url`。結構和實物圖用截圖;關係圖交給自動產生的地圖與角色表;AI 生圖只當概念示意。
 
 **內容寫繁體中文。** 整個知識庫以繁體中文為主,英文只用在專有名詞、技術術語、公司代號。
 
@@ -366,3 +370,4 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 
 *本指引版本: 2026.07 · 由初代維護對話編寫,可自由更新擴充。*
 *2026.07 更新:§6 補上 `.qa` / `.stub-banner` / `.kpi-grid` 三個元件的用法。*
+*2026.10 更新:關聯改由 `data.js` 的 `links` 自動產生;新增 `layer`、`watch`、`figures`、`startPath`、`assets/kb.js`、`start.html`、`images/`。*

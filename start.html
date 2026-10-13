@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>從這裡開始 · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">供應鏈<span class="mk">·</span>知識庫</a>
+    <span class="crumb"><a href="index.html">首頁</a> / 從這裡開始</span>
+    <nav class="top">
+      <a href="index.html#map">地圖</a>
+      <a href="index.html#cycles">週期</a>
+      <a href="index.html#companies">公司</a>
+      <a href="index.html#parts">零件</a>
+      <a href="index.html#watch">追蹤</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="kicker">Start Here</div>
+    <h1>從這裡開始</h1>
+    <p class="lede">這份知識庫的節點會越來越多，但新手不需要全部讀完。照下面的順序讀大約十張卡，就能建立整條供應鏈的骨架；之後遇到新名字，只要問「它在地圖的哪一層、連到哪個瓶頸」，就能把它掛上去。</p>
+  </section>
+
+  <div class="section-head"><span class="idx">Step 0</span><h2>先看一眼地圖</h2></div>
+  <p class="section-sub">首頁的 <a href="index.html#map">產業鏈地圖</a> 把每個節點放在它所屬的層級：需求在最上面，設備與材料在最下面。讀下面每一步時，回頭對照它在哪一層。</p>
+
+  <div class="section-head"><span class="idx">Path</span><h2>建議閱讀順序</h2></div>
+  <div class="steps" id="steps"></div>
+
+  <div class="section-head"><span class="idx">Habit</span><h2>讀完之後：怎麼持續追蹤</h2></div>
+  <div class="qa"><div class="q">每月：看月營收</div><div class="a">台股每月 10 號前公布營收。對照首頁 <a href="index.html#watch">追蹤清單</a>，看鏈上哪一段先動。</div></div>
+  <div class="qa"><div class="q">每季：寫財報卡</div><div class="a">財報出來時，在 <code>quarters/</code> 新增一頁，驗證每月看到的訊號是不是真的。</div></div>
+  <div class="qa"><div class="q">每半年：重讀週期頁</div><div class="a">檢查週期頁上的論點還成不成立，並對照 <a href="reference/frameworks.html#patterns">週期規律</a>，判斷現在走到哪個階段。</div></div>
+  <div class="qa"><div class="q">遇到新名字</div><div class="a">用 <a href="reference/frameworks.html#newco">新公司 5 問</a> 想一遍，在 <code>data.js</code> 登記節點並加上關聯，它就會自動出現在地圖與相關頁面上。</div></div>
+</div>
+
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用 · 閱讀順序由 <code>data.js</code> 的 <code>startPath</code> 控制</div></footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/kb.js"></script>
+<script>
+(function(){
+  const {NODES,chip,esc,LAYERS,layerOf}=KBX;
+  const layerName=id=>{const l=LAYERS.find(x=>x.id===layerOf(NODES[id]||{}));return l?l.name:"";};
+  document.getElementById("steps").innerHTML=(KB.startPath||[]).map(s=>{
+    const where=[...new Set(s.ids.map(layerName).filter(Boolean))].join("、");
+    return `<div class="step"><h3>${esc(s.step)}</h3><p>${esc(s.note)}</p>
+      <div class="chip-row">${s.ids.map(id=>chip(id,"")).join("")}</div>
+      ${where?`<div class="why">地圖位置：${esc(where)}</div>`:""}</div>`;
+  }).join("") + `<div class="step"><h3>學會自己研究</h3><p>最後讀分析框架：研究新公司的 5 個問題，以及每個週期都會重演的規律。</p>
+      <div class="chip-row"><a class="link-chip" href="reference/frameworks.html"><span class="dot cycle"></span>分析框架</a></div></div>`;
+})();
+</script>
+</body>
+</html>

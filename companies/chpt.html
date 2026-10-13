@@ -116,18 +116,7 @@
 <ul id="fin-list"><li style="color:var(--faint);font-style:italic">載入中⋯</li></ul>
 </div>
 
-<div class="links-box">
-<div class="lt">關聯節點 · Connections</div>
-<div class="chip-row">
-<a class="link-chip" href="../parts/semi-testing.html"><span class="dot part"></span>半導體測試</a>
-<a class="link-chip" href="../parts/probe-card.html"><span class="dot part"></span>探針卡</a>
-<a class="link-chip" href="../parts/test-socket.html"><span class="dot part"></span>測試座</a>
-<a class="link-chip" href="../cycles/ai-server.html"><span class="dot cycle"></span>AI 伺服器</a>
-<a class="link-chip" href="nvidia.html"><span class="dot company"></span>輝達</a>
-<a class="link-chip" href="mpi.html"><span class="dot company"></span>旺矽</a>
-<a class="link-chip" href="winway.html"><span class="dot company"></span>穎崴</a>
-<a class="link-chip" href="yjc.html"><span class="dot company"></span>雍智</a>
-</div></div>
+<div class="links-box"><!-- 關聯節點由 assets/kb.js 依 data.js 的 links 自動產生；要新增關聯請改 data.js --></div>
 
 <h2 id="timeline">更新時間軸</h2>
 <div class="timeline">
@@ -144,4 +133,5 @@ const reports=(KB.quarters||[]).filter(q=>q.company===COMPANY_ID&&q.scope==="com
 const list=document.getElementById("fin-list");
 list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</span><a href="../quarters/${r.id}.html">${r.desc}</a></li>`).join(""):'<li style="color:var(--faint);font-style:italic">尚無財報觀察。</li>';
 </script>
+<script src="../assets/kb.js"></script>
 </body></html>

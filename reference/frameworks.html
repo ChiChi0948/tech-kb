@@ -10,7 +10,7 @@
 </div></header>
 <div class="wrap"><div class="layout">
 <aside class="toc"><div class="tl">本頁目錄</div>
-<a href="#newco">新公司 5 問</a><a href="#position">供應鏈定位法</a><a href="#cycle">週期判讀</a></aside>
+<a href="#newco">新公司 5 問</a><a href="#position">供應鏈定位法</a><a href="#cycle">週期判讀</a><a href="#patterns">週期規律</a></aside>
 <article>
 <span class="tag-type cycle">參考 · 可重複套用</span>
 <h1>分析框架</h1>
@@ -25,6 +25,21 @@
 <p>把任何節點放進這條鏈來理解：<b>設備（ASML）→ 製造（台積電）→ 設計（輝達）→ 封測（日月光）→ 系統（鴻海）</b>。記憶體（SK 海力士）則從旁切入製造端。</p>
 <h2 id="cycle">週期判讀</h2>
 <p>判斷一個科技週期，先問「終端需求是什麼」，再往回推「需要哪些零件 → 誰做這些零件 → 瓶頸在哪」。瓶頸通常不在設計，而在某個產能受限的環節。</p>
+<h2 id="patterns">週期規律：每一輪都會重演的劇本</h2>
+<p>工藝和公司每輪都不同，但供需循環的劇本幾乎一樣。判斷一個零件現在走到哪一步，比記住它的規格更重要。</p>
+<div class="qa"><div class="q">① 需求拐點</div><div class="a">終端出現新需求（AI 伺服器、電動車），訂單開始超出原本的預期。<br><b>訊號：</b>下游客戶上修資本支出、月營收連續成長。</div></div>
+<div class="qa"><div class="q">② 缺貨與交期拉長</div><div class="a">產能跟不上，交期從幾週拉長到幾個月。<br><b>訊號：</b>交期、龍頭廠報價、稼動率接近滿載。</div></div>
+<div class="qa"><div class="q">③ 重複下單與漲價</div><div class="a">客戶怕缺貨，向多家供應商同時下單，帳面需求被放大，價格開始上漲。<br><b>訊號：</b>漲價擴散到二線廠、通路商庫存快速增加。</div></div>
+<div class="qa"><div class="q">④ 擴產</div><div class="a">供應商大舉投資新產能，但產能要一到兩年後才開出。<br><b>訊號：</b>資本支出大增、設備商接單創新高。</div></div>
+<div class="qa"><div class="q">⑤ 產能開出、需求放緩</div><div class="a">新產能上線時，重複下單的部分消失，真實需求比帳面少。<br><b>訊號：</b>交期縮短、庫存天數上升、報價鬆動。</div></div>
+<div class="qa"><div class="q">⑥ 庫存修正</div><div class="a">客戶停止拉貨、消化庫存，價格下跌、稼動率下降，直到下一個需求拐點。<br><b>訊號：</b>月營收年減、毛利率下滑、資本支出下修。</div></div>
+<div class="note"><b>瓶頸型零件例外：</b>技術門檻極高、只有一兩家能做的零件（例如 <a href="../parts/euv.html">EUV</a>、<a href="../parts/cowos.html">CoWoS</a>、<a href="../parts/hbm.html">HBM</a>），擴產慢、不容易被重複下單沖垮，循環的振幅通常比較小。真正大起大落的，多半是產能容易擴充的標準品，例如 <a href="../parts/passive.html">被動元件</a>、<a href="../parts/power-semi.html">功率半導體</a>。</div>
+<h3>歷史實例（持續補充）</h3>
+<p>研究某個零件時，若找到一輪完整的循環案例，就記在這裡，並寫明它走過哪幾個階段。下一輪出現同樣訊號時，回來對照。</p>
+<ul class="plain-list">
+<li><a href="../parts/passive.html">被動元件</a>：歷次 MLCC 缺貨潮，詳見該頁<a href="../parts/passive.html#shortage">「為何反覆缺貨」</a>。</li>
+<li><a href="../parts/power-semi.html">功率半導體</a>：價格年增率何時轉正，判斷是否走到下一個需求拐點。</li>
+</ul>
 <div class="note">新增框架：在本頁加 <code>&lt;h2&gt;</code> 區塊，並於左側目錄補一個連結。</div>
 </article></div></div>
 <footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>

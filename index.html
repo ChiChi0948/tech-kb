@@ -11,11 +11,14 @@
   <div class="wrap">
     <a class="brand" href="index.html">供應鏈<span class="mk">·</span>知識庫</a>
     <nav class="top">
+      <a href="start.html"><b>從這裡開始</b></a>
+      <a href="#map">地圖</a>
       <a href="#cycles">週期</a>
       <a href="#companies">公司</a>
       <a href="#parts">零件</a>
       <a href="#quarters">財報</a>
       <a href="#reports">報告</a>
+      <a href="#watch">追蹤</a>
       <a href="reference/glossary.html">術語表</a>
       <a href="reference/frameworks.html">分析框架</a>
       <a href="reference/updates.html">更新日誌</a>
@@ -28,12 +31,22 @@
     <div class="kicker">Tech Supply Chain Research</div>
     <h1>科技供應鏈知識庫</h1>
     <p class="lede">以「週期 / 公司 / 零件」三種卡片互相串聯的個人研究筆記。全球科技供應鏈約八成是同一批名字，只是每個週期裡負責不同的零件或模組——這份知識庫就是用來把這些角色關係串起來、並持續長大。</p>
+    <a class="start-cta" href="start.html">第一次來？從這裡開始 →</a>
     <div class="search-wrap">
       <input id="search" placeholder="🔍 搜尋公司、零件、週期⋯ 例如：HBM、台積電、CoWoS">
     </div>
   </section>
 
   <div class="stats" id="stats"></div>
+
+  <!-- 產業鏈地圖 -->
+  <div class="section-head" id="map">
+    <span class="idx">00 · Map</span>
+    <h2>產業鏈地圖</h2>
+  </div>
+  <p class="section-sub">由上而下是需求往上游傳遞的方向：週期產生需求，系統廠組裝，往下一路追到設備與材料。每個節點都放在它所屬的那一層；虛線灰色是還沒寫內容的骨架。</p>
+  <div class="chain-legend"><span style="color:var(--cycle)">●</span> 週期　<span style="color:var(--part)">●</span> 零件　<span style="color:var(--company)">●</span> 公司</div>
+  <div class="chain" id="chain"></div>
 
   <!-- 週期 -->
   <div class="section-head" id="cycles">
@@ -75,6 +88,14 @@
   <p class="section-sub">完整分析的存檔——用一個視角看整個產業的深度筆記。跟拆散的零件/公司節點互補：想快速查節點 → 用零件頁；想重讀一份完整分析 → 用這裡。</p>
   <div class="cards" id="list-reports"></div>
 
+  <!-- 追蹤清單 -->
+  <div class="section-head" id="watch">
+    <span class="idx">06 · Watchlist</span>
+    <h2>追蹤清單</h2>
+  </div>
+  <p class="section-sub">各節點頁上的「追蹤指標」彙整在這裡。每月看一次月營收、每季看一次財報，用這張清單判斷故事有沒有變。要增刪項目，改 <code>data.js</code> 的 <code>watch</code>。</p>
+  <div class="watch-all" id="list-watch"></div>
+
   <div class="no-match" id="nomatch">沒有符合的節點</div>
 
   <!-- 擴充教學 -->
@@ -83,10 +104,12 @@
     <h2>如何擴充這份知識庫</h2>
   </div>
   <div class="note">
-    <p><b>新增一個節點分兩步：</b></p>
-    <p><b>① 在首頁清單登記。</b> 用編輯器打開 <code>assets/data.js</code>，在 <code>cycles</code> / <code>companies</code> / <code>parts</code> / <code>quarters</code> 四個陣列中對應的那個，照樣複製一筆。<code>status</code> 填 <code>"stub"</code>（骨架占位）或 <code>"done"</code>（已寫內容）。</p>
-    <p><b>② 寫內容頁。</b> 若是 <code>done</code>，到對應資料夾（<code>cycles/</code>、<code>companies/</code>、<code>parts/</code>、<code>quarters/</code>）複製任一現成頁面當範本，改檔名為節點 id（例如 <code>amd.html</code>、<code>2026Q2-tsmc.html</code>），填入內容與關聯連結即可。</p>
-    <p>關聯（串聯）就是在內容頁的「關聯節點」區塊放上其他節點的連結——一張卡可同時連公司、零件、週期、財報四種。財報節點若填上 <code>company</code> 欄位，對應公司頁會自動長出「財報追蹤」連結。改完存檔、上傳 GitHub，全裝置就看得到。</p>
+    <p><b>所有「登記」都在 <code>assets/data.js</code> 一個檔案完成，頁面只負責寫內容。</b></p>
+    <p><b>① 新節點：</b>在 <code>cycles</code> / <code>companies</code> / <code>parts</code> 加一筆，公司與零件要填 <code>layer</code>（產業鏈層級）。<code>status</code> 填 <code>"stub"</code>（骨架）或 <code>"done"</code>（已寫內容頁）。</p>
+    <p><b>② 內容頁：</b>若是 <code>done</code>，複製該資料夾的 <code>_TEMPLATE.html</code>，檔名改成節點 id。</p>
+    <p><b>③ 關聯：</b>在 <code>links</code> 加一行 <code>["台積電id","零件id","角色"]</code>。兩邊頁面的「關聯節點」、週期頁的「角色地圖」都會自動更新，不用改任何 HTML。</p>
+    <p><b>④ 追蹤與圖解：</b>追蹤指標寫在 <code>watch</code>；截圖放進 <code>images/</code> 後登記在 <code>figures</code>（務必填出處）。</p>
+    <p>詳細說明見 repo 裡的 <code>KB-MAINTENANCE-GUIDE.md</code>。</p>
   </div>
 </div>
 
@@ -97,6 +120,26 @@
 </footer>
 
 <script src="assets/data.js"></script>
+<script src="assets/kb.js"></script>
+<script>
+// 產業鏈地圖
+(function(){
+  const {NODES,LAYERS,chip,layerOf,esc}=KBX;
+  const all=Object.values(NODES).filter(n=>["cycle","part","company"].includes(n.type));
+  const rank={cycle:0,part:1,company:2}, st={done:0,stub:1};
+  document.getElementById("chain").innerHTML=LAYERS.map(l=>{
+    const ns=all.filter(n=>layerOf(n)===l.id).sort((a,b)=>rank[a.type]-rank[b.type]||st[a.status]-st[b.status]);
+    return `<div class="chain-row"><div class="ly">${esc(l.name)}<small>${esc(l.desc)}</small></div>
+      <div class="ns">${ns.length?ns.map(n=>chip(n.id,"")).join(""):'<span class="empty">尚無節點</span>'}</div></div>`;
+  }).join("");
+  // 追蹤清單
+  const W=KB.watch||{};
+  const ids=Object.keys(W).sort((a,b)=>KBX.layerIndex(layerOf(NODES[a]||{}))-KBX.layerIndex(layerOf(NODES[b]||{})));
+  document.getElementById("list-watch").innerHTML=ids.length?ids.map(id=>`<div class="wcard">${chip(id,"")}
+    <ul>${W[id].map(([k,why])=>`<li><b>${esc(k)}</b>${why?"："+esc(why):""}</li>`).join("")}</ul></div>`).join("")
+    :'<p class="muted">尚無追蹤指標。在 data.js 的 watch 加入即可。</p>';
+})();
+</script>
 <script>
 const ICON={done:'<span class="badge done">已研究</span>',stub:'<span class="badge stub">待補</span>'};
 function path(kind,id){return ({cycles:"cycles/",companies:"companies/",parts:"parts/",quarters:"quarters/",reports:"reports/"})[kind]+id+".html";}

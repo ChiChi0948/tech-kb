@@ -7,27 +7,27 @@
 
 ## 檔案結構
 ```
-index.html              首頁（清單由 assets/data.js 生成）
+index.html              首頁（清單、產業鏈地圖、追蹤清單都由 assets/data.js 生成）
+start.html              從這裡開始：新手閱讀路徑
 assets/
   style.css             全站共用樣式（改這裡全站生效）
-  data.js               節點總表 ← 新增節點先改這裡
-cycles/                 週期頁    + _TEMPLATE.html（複製範本）
-companies/              公司頁    + _TEMPLATE.html
-parts/                  零件頁    + _TEMPLATE.html
+  data.js               節點、關聯、追蹤指標、圖解的總表 ← 平常只改這裡
+  kb.js                 共用程式：自動產生關聯、週期角色地圖、追蹤、圖解（不用改）
+images/                 截圖與圖解（登記在 data.js 的 figures）
+cycles/ companies/ parts/   內容頁 + _TEMPLATE.html
+quarters/ reports/      財報頁、產業報告
 reference/              術語表 / 分析框架 / 更新日誌
 ```
 
-## 新增一個節點（兩步）
-1. **登記**：開 `assets/data.js`，在 cycles / companies / parts 對應陣列加一筆。
-   - 只先佔位 → `status:"stub"`（首頁顯示灰底「待補」，不需建檔）
-   - 已寫內容 → `status:"done"`（需建內容頁）
-2. **寫內容頁**：到對應資料夾複製 `_TEMPLATE.html`，改檔名為節點 id（如 `amd.html`），
-   照註解填內容。串聯就在「關聯節點」區塊加 link-chip。
+## 新增一個節點
+1. **登記**：在 `assets/data.js` 的 cycles / companies / parts 加一筆；公司與零件填 `layer`。
+   - 只先佔位 → `status:"stub"`；已寫內容 → `status:"done"`（需建內容頁）
+2. **寫內容頁**：複製該資料夾的 `_TEMPLATE.html`，改檔名為節點 id。
+3. **串聯**：在 `data.js` 的 `links` 加一行 `["id1","id2","角色"]`，兩邊頁面自動出現，不用改 HTML。
 
-## 串聯（重點）
-一張卡可同時連公司、零件、週期三種。連結有兩種寫法：
-- **內文連結**：段落裡 `<a href="../parts/hbm.html">HBM</a>`
-- **關聯節點區塊**：底部 link-chip，含三色圓點標示類型
+## 加圖片
+把截圖放進 `images/`（建議先轉成 .webp、寬度 1200px 以內），在 `data.js` 的 `figures` 登記一筆，
+並填上 `source`（出處名稱）與 `url`（原始網址）。對應節點頁會自動出現「圖解」區塊。
 
 ## 放到網路上（跨裝置都能開）
 1. 註冊 GitHub，新建一個 repository

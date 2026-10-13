@@ -217,3 +217,97 @@ a.link-chip .dot.report{background:var(--report)}
   padding:8px 12px;font-size:.85rem;text-decoration:none;color:var(--ink);transition:.14s}
 .report-nav .nav-item:hover{background:var(--card);border-color:var(--report)}
 .report-nav .nav-item b{color:var(--report);font-weight:700}
+
+/* ============================================================
+   2026.10 改版：自動關聯、週期角色地圖、追蹤指標、圖解、產業鏈地圖
+   ============================================================ */
+/* 自動關聯：分組 + 角色 + stub 灰色 */
+.chip-group{display:flex;gap:10px;align-items:flex-start;margin:6px 0}
+.chip-group .cg-label{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;color:var(--faint);
+  min-width:30px;padding-top:7px;letter-spacing:1px}
+.link-chip .role{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;color:var(--ink-soft);
+  border-left:1px solid var(--line);padding-left:6px;margin-left:2px}
+span.link-chip{font-size:.85rem;padding:5px 12px;border-radius:8px;display:inline-flex;align-items:center;gap:6px}
+span.link-chip.stub{border:1px dashed var(--line);background:transparent;color:var(--faint);cursor:help}
+span.link-chip.stub .dot{width:8px;height:8px;border-radius:50%;opacity:.45}
+span.link-chip .dot.company{background:var(--company)}
+span.link-chip .dot.part{background:var(--part)}
+span.link-chip .dot.cycle{background:var(--cycle)}
+.muted{color:var(--faint);font-size:.85rem;font-style:italic}
+
+/* 週期角色地圖 */
+.rolemap-wrap{overflow-x:auto;margin:14px 0 24px}
+table.rolemap{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);
+  border-radius:11px;overflow:hidden}
+table.rolemap th{width:120px;text-align:left;vertical-align:top;padding:12px 14px;background:var(--paper2);
+  border-bottom:1px solid var(--line2);font-size:.9rem;white-space:nowrap}
+table.rolemap th small{display:block;font-family:ui-sans-serif,system-ui,sans-serif;font-size:.66rem;
+  color:var(--faint);font-weight:400;letter-spacing:.5px}
+table.rolemap td{padding:10px 14px;border-bottom:1px solid var(--line2)}
+.rm-part{display:flex;align-items:flex-start;gap:8px;padding:4px 0;flex-wrap:wrap}
+.rm-part .arrow{color:var(--faint);padding-top:5px}
+.rm-makers,.rm-loose{display:flex;flex-wrap:wrap;gap:6px}
+.rm-loose{padding:6px 0 2px;border-top:1px dashed var(--line2);margin-top:4px}
+
+/* 追蹤指標 */
+.watch-box{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:11px;padding:16px 18px;margin:20px 0;box-shadow:var(--shadow)}
+.watch-box .lt,.figs-lt{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.watch-box ul{list-style:none}
+.watch-box li{padding:7px 0;border-bottom:1px solid var(--line2);font-size:.92rem}
+.watch-box li:last-child{border-bottom:none}
+.watch-box li b{display:block}
+.watch-box li span{color:var(--ink-soft);font-size:.86rem}
+
+/* 圖解 */
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:14px 0 24px}
+figure.kb-fig{background:var(--card);border:1px solid var(--line);border-radius:11px;overflow:hidden;margin:0}
+figure.kb-fig img{width:100%;height:auto;display:block;background:var(--paper2)}
+figure.kb-fig figcaption{padding:10px 14px;font-size:.88rem}
+figure.kb-fig .src{display:block;font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;color:var(--faint);margin-top:4px}
+figure.kb-fig .src a{color:var(--accent)}
+
+/* 首頁：產業鏈地圖 */
+.chain{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card);margin:10px 0 8px}
+.chain-row{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid var(--line2)}
+.chain-row:last-child{border-bottom:none}
+.chain-row .ly{background:var(--paper2);padding:12px 14px;font-weight:700;font-size:.92rem;position:relative}
+.chain-row .ly small{display:block;font-weight:400;font-family:ui-sans-serif,system-ui,sans-serif;
+  font-size:.7rem;color:var(--faint);line-height:1.4;margin-top:2px}
+.chain-row .ns{padding:10px 12px;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start}
+.chain-row .ns .empty{color:var(--faint);font-size:.8rem;font-style:italic;padding-top:4px}
+.chain-legend{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.76rem;color:var(--faint);margin-bottom:6px}
+@media (max-width:640px){
+  .chain-row{grid-template-columns:1fr}
+  .chain-row .ly{padding:8px 12px}
+  table.rolemap th{width:auto;white-space:normal}
+}
+
+/* 首頁：追蹤清單 */
+.watch-all{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:10px 0}
+.watch-all .wcard{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px 14px}
+.watch-all .wcard ul{list-style:none;margin-top:6px}
+.watch-all .wcard li{font-size:.86rem;padding:3px 0;color:var(--ink-soft)}
+.watch-all .wcard li b{color:var(--ink);font-weight:600}
+
+/* 從這裡開始 */
+.start-cta{display:inline-block;margin-top:14px;padding:10px 18px;border-radius:10px;background:var(--ink);
+  color:var(--paper);text-decoration:none;font-family:ui-sans-serif,system-ui,sans-serif;font-size:.9rem}
+.start-cta:hover{opacity:.88}
+.steps{counter-reset:s;margin:20px 0}
+.step{position:relative;padding:0 0 26px 52px;border-left:2px solid var(--line);margin-left:16px}
+.step:last-child{border-left-color:transparent}
+.step::before{counter-increment:s;content:counter(s);position:absolute;left:-17px;top:-2px;width:32px;height:32px;
+  border-radius:50%;background:var(--card);border:2px solid var(--cycle);color:var(--cycle);
+  display:flex;align-items:center;justify-content:center;font-family:ui-sans-serif,system-ui,sans-serif;font-weight:700;font-size:.9rem}
+.step h3{font-size:1.08rem;margin-bottom:4px}
+.step p{color:var(--ink-soft);font-size:.92rem;margin-bottom:8px}
+.step .chip-row{gap:8px}
+.step .why{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.8rem;color:var(--faint);margin-top:6px}
+ul.plain-list{margin:10px 0 18px 20px}
+ul.plain-list li{margin:4px 0}
+.rm-users{flex-basis:100%;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding-left:24px;opacity:.75}
+.rm-users .cg-label{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.7rem;color:var(--faint);margin-right:4px}
+.rm-users .link-chip{font-size:.78rem;padding:3px 9px}
+.watch-box ul,.watch-all .wcard ul{margin-left:0;padding-left:0}
