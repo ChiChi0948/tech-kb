@@ -44,13 +44,30 @@
     <span class="idx">00 · Map</span>
     <h2>產業鏈地圖</h2>
   </div>
-  <p class="section-sub">由上而下是需求往上游傳遞的方向：週期產生需求，系統廠組裝，往下一路追到設備與材料。每個節點都放在它所屬的那一層；虛線灰色是還沒寫內容的骨架。</p>
-  <div class="chain-legend"><span style="color:var(--cycle)">●</span> 週期　<span style="color:var(--part)">●</span> 零件　<span style="color:var(--company)">●</span> 公司</div>
-  <div class="chain" id="chain"></div>
+  <p class="section-sub"><b>點任何一個節點，看它連到誰。</b>跟它有關的節點會亮起來，其他變淡，右邊會列出每一條關係的角色。由上而下是需求往上游傳遞的方向：週期產生需求，一路追到設備與材料。</p>
+  <div class="map-try">試試看：<button type="button" data-try="tsmc">台積電</button><button type="button" data-try="cowos">CoWoS</button><button type="button" data-try="nvidia">輝達</button><button type="button" data-try="test-socket">測試座</button></div>
+  <div class="map-layout">
+    <div>
+      <div class="chain-legend"><span style="color:var(--cycle)">●</span> 週期　<span style="color:var(--part)">●</span> 零件　<span style="color:var(--company)">●</span> 公司　<span class="lg-stub">虛線</span> 骨架待補</div>
+      <div class="chain" id="chain"></div>
+    </div>
+    <aside class="chain-panel" id="chain-panel" aria-live="polite"></aside>
+  </div>
 
+  <!-- 追蹤清單 -->
+  <div class="section-head" id="watch">
+    <span class="idx">01 · Watchlist</span>
+    <h2>追蹤清單</h2>
+  </div>
+  <p class="section-sub">各節點頁上的「追蹤指標」彙整在這裡。每月看一次月營收、每季看一次財報，用這張清單判斷故事有沒有變。要增刪項目，改 <code>data.js</code> 的 <code>watch</code>。</p>
+  <div class="watch-all" id="list-watch"></div>
+
+  <!-- 全部節點清單（預設收合） -->
+  <details class="fold" id="all">
+    <summary><span class="fold-t">全部節點清單</span><span class="fold-s" id="all-count"></span></summary>
   <!-- 週期 -->
   <div class="section-head" id="cycles">
-    <span class="idx">01 · Cycles</span>
+    <span class="idx">A · Cycles</span>
     <h2>週期 / 主題</h2>
   </div>
   <p class="section-sub">每個科技週期由不同的終端需求驅動。點進去看這個週期裡「哪些公司負責哪些零件」。</p>
@@ -58,7 +75,7 @@
 
   <!-- 公司 -->
   <div class="section-head" id="companies">
-    <span class="idx">02 · Companies</span>
+    <span class="idx">B · Companies</span>
     <h2>公司</h2>
   </div>
   <p class="section-sub">依在供應鏈中的角色分類。同一家公司可能橫跨多個週期——左側色條代表已有筆記，灰底為骨架待補。</p>
@@ -66,7 +83,7 @@
 
   <!-- 零件 -->
   <div class="section-head" id="parts">
-    <span class="idx">03 · Parts & Modules</span>
+    <span class="idx">C · Parts & Modules</span>
     <h2>零件 / 模組</h2>
   </div>
   <p class="section-sub">供應鏈裡流動的關鍵零件與技術。每個零件連到「誰做它、用在哪個週期」。</p>
@@ -74,7 +91,7 @@
 
   <!-- 財報 -->
   <div class="section-head" id="quarters">
-    <span class="idx">04 · Financials</span>
+    <span class="idx">D · Financials</span>
     <h2>財報追蹤</h2>
   </div>
   <p class="section-sub">每季的財報觀察。總覽頁是當季入口，下面列出當季有寫到的公司財報，可從公司頁雙向跳轉。</p>
@@ -82,27 +99,17 @@
 
   <!-- 產業報告 -->
   <div class="section-head" id="reports">
-    <span class="idx">05 · Deep Dives</span>
+    <span class="idx">E · Deep Dives</span>
     <h2>產業報告</h2>
   </div>
   <p class="section-sub">完整分析的存檔——用一個視角看整個產業的深度筆記。跟拆散的零件/公司節點互補：想快速查節點 → 用零件頁；想重讀一份完整分析 → 用這裡。</p>
   <div class="cards" id="list-reports"></div>
 
-  <!-- 追蹤清單 -->
-  <div class="section-head" id="watch">
-    <span class="idx">06 · Watchlist</span>
-    <h2>追蹤清單</h2>
-  </div>
-  <p class="section-sub">各節點頁上的「追蹤指標」彙整在這裡。每月看一次月營收、每季看一次財報，用這張清單判斷故事有沒有變。要增刪項目，改 <code>data.js</code> 的 <code>watch</code>。</p>
-  <div class="watch-all" id="list-watch"></div>
+    <div class="no-match" id="nomatch">沒有符合的節點</div>
+  </details>
 
-  <div class="no-match" id="nomatch">沒有符合的節點</div>
-
-  <!-- 擴充教學 -->
-  <div class="section-head">
-    <span class="idx">＋ How to grow</span>
-    <h2>如何擴充這份知識庫</h2>
-  </div>
+  <details class="fold" id="grow">
+    <summary><span class="fold-t">如何擴充這份知識庫</span><span class="fold-s">維護說明</span></summary>
   <div class="note">
     <p><b>所有「登記」都在 <code>assets/data.js</code> 一個檔案完成，頁面只負責寫內容。</b></p>
     <p><b>① 新節點：</b>在 <code>cycles</code> / <code>companies</code> / <code>parts</code> 加一筆，公司與零件要填 <code>layer</code>（產業鏈層級）。<code>status</code> 填 <code>"stub"</code>（骨架）或 <code>"done"</code>（已寫內容頁）。</p>
@@ -111,6 +118,7 @@
     <p><b>④ 追蹤與圖解：</b>追蹤指標寫在 <code>watch</code>；截圖放進 <code>images/</code> 後登記在 <code>figures</code>（務必填出處）。</p>
     <p>詳細說明見 repo 裡的 <code>KB-MAINTENANCE-GUIDE.md</code>。</p>
   </div>
+  </details>
 </div>
 
 <footer class="site">
@@ -122,16 +130,87 @@
 <script src="assets/data.js"></script>
 <script src="assets/kb.js"></script>
 <script>
-// 產業鏈地圖
+// 產業鏈地圖（可點擊串連）
 (function(){
-  const {NODES,LAYERS,chip,layerOf,esc}=KBX;
+  const {NODES,LAYERS,layerOf,esc,neighbors,chip,summaryRows,LABEL}=KBX;
   const all=Object.values(NODES).filter(n=>["cycle","part","company"].includes(n.type));
   const rank={cycle:0,part:1,company:2}, st={done:0,stub:1};
-  document.getElementById("chain").innerHTML=LAYERS.map(l=>{
+  const chain=document.getElementById("chain"), panel=document.getElementById("chain-panel");
+
+  chain.innerHTML=LAYERS.map(l=>{
     const ns=all.filter(n=>layerOf(n)===l.id).sort((a,b)=>rank[a.type]-rank[b.type]||st[a.status]-st[b.status]);
-    return `<div class="chain-row"><div class="ly">${esc(l.name)}<small>${esc(l.desc)}</small></div>
-      <div class="ns">${ns.length?ns.map(n=>chip(n.id,"")).join(""):'<span class="empty">尚無節點</span>'}</div></div>`;
+    return `<div class="chain-row" data-layer="${l.id}"><div class="ly">${esc(l.name)}<small>${esc(l.desc)}</small></div>
+      <div class="ns">${ns.length?ns.map(n=>`<button type="button" class="mchip ${n.status==="stub"?"stub":""}" data-id="${n.id}"><span class="dot ${n.type}"></span>${esc(n.name)}</button>`).join(""):'<span class="empty">尚無節點</span>'}</div></div>`;
   }).join("");
+
+  const idle=`<div class="cp-idle"><b>點地圖上的任何節點</b><p>這裡會顯示它是什麼、在哪一層，以及它連到的每個節點與角色。</p>
+    <p class="cp-tip">建議從 <b>AI 伺服器</b> 開始：先看這個週期需要什麼，再沿著零件往下點。</p></div>`;
+  panel.innerHTML=idle;
+
+  let current=null;
+  function select(id, scroll){
+    const n=NODES[id];
+    if(!n || current===id){ clear(); return; }
+    current=id;
+    const nb=neighbors(id), set=new Set(nb.map(x=>x.id));
+    chain.classList.add("has-sel");
+    chain.querySelectorAll(".mchip").forEach(b=>{
+      const i=b.dataset.id;
+      b.classList.toggle("me", i===id);
+      b.classList.toggle("hit", set.has(i));
+      b.setAttribute("aria-pressed", i===id ? "true" : "false");
+    });
+    chain.querySelectorAll(".chain-row").forEach(r=>{
+      r.classList.toggle("lit", !!r.querySelector(".mchip.me,.mchip.hit"));
+    });
+    // 關聯依類型分組，連同角色
+    const order=["cycle","part","company","report","quarter"];
+    const groups={};
+    nb.forEach(x=>{const m=NODES[x.id]; if(m)(groups[m.type]=groups[m.type]||[]).push(x);});
+    const rel=order.filter(t=>groups[t]).map(t=>`<div class="cp-g"><div class="cp-gl">${LABEL[t]}</div>
+      <div class="cp-list">${groups[t].map(x=>`<div class="cp-rel">${chip(x.id,"")}${x.role?`<span class="cp-role">${esc(x.role)}</span>`:""}</div>`).join("")}</div></div>`).join("");
+    const open = n.status==="done"
+      ? `<a class="cp-open" href="${n.folder}/${n.id}.html">打開「${esc(n.name)}」完整頁面 →</a>`
+      : `<span class="cp-stub">這是骨架節點，內容還沒寫</span>`;
+    panel.innerHTML=`<div class="cp-head"><span class="tag-type ${n.type}">${LABEL[n.type]}</span>
+        <button type="button" class="cp-x" aria-label="關閉">×</button></div>
+      <h3 class="cp-name">${esc(n.name)}</h3>
+      <div class="cp-sum">${summaryRows(id,"")}</div>
+      <div class="cp-lt">連到 ${nb.length} 個節點</div>
+      ${rel || '<p class="muted">還沒有關聯。在 data.js 的 links 加一行即可。</p>'}
+      ${open}`;
+    panel.classList.add("open");
+    panel.querySelector(".cp-x").onclick=clear;
+    try{ history.replaceState(null,"","#n="+encodeURIComponent(id)); }catch(e){}
+    if(scroll) document.getElementById("map").scrollIntoView({behavior:"smooth"});
+  }
+  function clear(){
+    current=null;
+    chain.classList.remove("has-sel");
+    chain.querySelectorAll(".mchip").forEach(b=>{b.classList.remove("me","hit");b.setAttribute("aria-pressed","false");});
+    chain.querySelectorAll(".chain-row").forEach(r=>r.classList.remove("lit"));
+    panel.classList.remove("open");
+    panel.innerHTML=idle;
+    try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){}
+  }
+  chain.addEventListener("click",e=>{const b=e.target.closest(".mchip"); if(b) select(b.dataset.id);});
+  document.querySelectorAll("[data-try]").forEach(b=>b.addEventListener("click",()=>{current=null;select(b.dataset.try);}));
+  // 側欄裡的連結：在地圖上的節點直接切換，不跳頁（按住 Ctrl / ⌘ 仍可開新分頁）
+  panel.addEventListener("click",e=>{
+    const a=e.target.closest("a.link-chip");
+    if(!a || e.metaKey || e.ctrlKey) return;
+    const id=(a.getAttribute("href")||"").split("/").pop().replace(".html","");
+    if(chain.querySelector(`.mchip[data-id="${id}"]`)){ e.preventDefault(); current=null; select(id); }
+  });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape" && current) clear(); });
+  // 從內頁「在地圖上看」連過來：#n=節點id
+  function fromHash(){
+    const m=location.hash.match(/^#n=(.+)$/);
+    if(m){ current=null; select(decodeURIComponent(m[1]), true); }
+  }
+  window.addEventListener("hashchange", fromHash);
+  fromHash();
+
   // 追蹤清單
   const W=KB.watch||{};
   const ids=Object.keys(W).sort((a,b)=>KBX.layerIndex(layerOf(NODES[a]||{}))-KBX.layerIndex(layerOf(NODES[b]||{})));
@@ -213,8 +292,17 @@ document.getElementById("stats").innerHTML=`
 
 // 搜尋
 const search=document.getElementById("search"),nomatch=document.getElementById("nomatch");
+const fold=document.getElementById("all");
+document.getElementById("all-count").textContent=`週期 ${allCyc} · 公司 ${allComp} · 零件 ${allPart} · 財報 ${allQ} · 報告 ${allR}`;
+function openFoldFor(hash){
+  const el=hash&&hash.length>1?document.getElementById(hash.slice(1)):null;
+  if(el&&fold.contains(el)){fold.open=true;setTimeout(()=>el.scrollIntoView(),0);}
+}
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener("click",()=>openFoldFor(a.getAttribute("href"))));
+openFoldFor(location.hash);
 search.addEventListener("input",()=>{
   const q=search.value.trim().toLowerCase();let vis=0;
+  if(q) fold.open=true;
   document.querySelectorAll(".item").forEach(el=>{
     const t=el.textContent.toLowerCase();
     const show=!q||t.includes(q);el.style.display=show?"":"none";if(show)vis++;

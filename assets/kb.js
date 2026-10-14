@@ -49,8 +49,54 @@
     return `<a class="link-chip" href="${href(n,root)}">${inner}</a>`;
   }
 
+  /* ---------- 摘要資料：內頁摘要卡與首頁地圖側欄共用 ---------- */
+  const KEY_LABEL = {part:"瓶頸在誰手上", company:"卡位與護城河", cycle:"瓶頸環節"};
+  function layerName(n){ const l = LAYERS.find(x=>x.id===layerOf(n)); return l ? l.name : ""; }
+  // 該追蹤什麼：自己有 watch 就用自己的；沒有就借用它供應的零件的 watch
+  function watchFor(id){
+    const W = K.watch || {};
+    if(W[id] && W[id].length) return {from:id, item:W[id][0]};
+    const n = NODES[id]; if(!n) return null;
+    for(const x of neighbors(id)){
+      const m = NODES[x.id];
+      if(m && m.type==="part" && !USER_ROLE.test(x.role) && W[x.id] && W[x.id].length) return {from:x.id, item:W[x.id][0]};
+    }
+    for(const x of neighbors(id)){
+      const m = NODES[x.id];
+      if(m && (m.type==="part"||m.type==="cycle") && W[x.id] && W[x.id].length) return {from:x.id, item:W[x.id][0]};
+    }
+    return null;
+  }
+  // 摘要卡內容（root = 連結前綴；首頁傳 ""，內頁傳 "../"）
+  function summaryRows(id, root){
+    const n = NODES[id]; if(!n) return "";
+    const rows = [];
+    rows.push(["一句話", esc(n.brief || n.desc || "")]);
+    const pos = layerName(n);
+    if(pos){
+      let extra = "";
+      if(n.type==="company"){
+        const made = neighbors(id).filter(x=>NODES[x.id] && NODES[x.id].type==="part" && !USER_ROLE.test(x.role));
+        if(made.length) extra = `<span class="sm-sub">負責</span>${made.map(x=>chip(x.id, root)).join("")}`;
+      } else if(n.type==="part"){
+        const mk = neighbors(id).filter(x=>NODES[x.id] && NODES[x.id].type==="company" && !USER_ROLE.test(x.role));
+        if(mk.length) extra = `<span class="sm-sub">誰做</span>${mk.map(x=>chip(x.id, root)).join("")}`;
+      }
+      rows.push(["產業鏈位置", `<b>${esc(pos)}</b>${extra}`]);
+    }
+    if(n.key) rows.push([KEY_LABEL[n.type] || "重點", esc(n.key)]);
+    if(n.type!=="cycle"){
+      const cyc = neighbors(id).filter(x=>NODES[x.id] && NODES[x.id].type==="cycle");
+      rows.push(["出現在哪些週期", cyc.length ? cyc.map(x=>chip(x.id, root)).join("") : '<span class="muted">尚未連到週期</span>']);
+    }
+    const w = watchFor(id);
+    rows.push(["該追蹤什麼", w ? `${esc(w.item[0])}${w.from!==id ? `<span class="sm-sub">（來自 ${esc(NODES[w.from].name)}）</span>` : ""}`
+                               : '<span class="muted">尚未設定，在 data.js 的 watch 加入</span>']);
+    return rows.map(([k,v])=>`<div class="sm-row"><div class="sm-k">${k}</div><div class="sm-v">${v}</div></div>`).join("");
+  }
+
   /* ---------- 公開給首頁與「從這裡開始」頁使用 ---------- */
-  window.KBX = { NODES, LAYERS, neighbors, chip, href, esc, layerOf, layerIndex, LABEL };
+  window.KBX = { NODES, LAYERS, neighbors, chip, href, esc, layerOf, layerIndex, LABEL, summaryRows, USER_ROLE, KEY_LABEL };
 
   /* ---------- 以下只在內容頁執行 ---------- */
   const parts = location.pathname.split("/").filter(Boolean);
@@ -80,6 +126,26 @@
     const a = document.createElement("a"); a.href = "#"+id; a.textContent = text;
     const tl = toc.querySelector('a[href="#timeline"]');
     tl ? toc.insertBefore(a, tl) : toc.appendChild(a);
+  }
+
+  /* ⓪ 頂端摘要卡（週期、公司、零件） */
+  if(["cycle","company","part"].includes(me.type)){
+    const card = document.createElement("div");
+    card.className = "summary-card";
+    card.innerHTML = `<div class="lt">一眼看懂 · At a glance<a class="sm-map" href="${ROOT}index.html#n=${encodeURIComponent(ME)}">在地圖上看它的串連 →</a></div>${summaryRows(ME, ROOT)}`;
+    const h1 = article.querySelector("h1");
+    // 放在標題下第一段導言之後；找不到就放標題後
+    let after = h1;
+    if(h1){
+      let el = h1.nextElementSibling, hops = 0;
+      while(el && hops < 3){
+        if(el.tagName==="P" || el.classList.contains("lede")){ after = el; break; }
+        if(el.tagName==="H2") break;
+        el = el.nextElementSibling; hops++;
+      }
+    }
+    if(after && after.parentNode) after.parentNode.insertBefore(card, after.nextSibling);
+    else article.insertBefore(card, article.firstChild);
   }
 
   /* ② 週期角色地圖 */

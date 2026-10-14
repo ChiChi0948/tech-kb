@@ -28,6 +28,8 @@
 
 **串聯原則(2026.10 起):** 關聯一律登記在 `assets/data.js` 的 `links`,一行一條,例如 `["tsmc","cowos","獨家量產"]`。`assets/kb.js` 會在兩邊頁面自動產生「關聯節點」,週期頁還會自動產生「週期角色地圖」。**不要再手寫 link-chip**,內容頁的 `<div class="links-box">` 只是佔位。
 
+**摘要欄位:** 週期、公司、零件都應填 `brief`(一句話它是什麼)與 `key`(零件=瓶頸在誰手上;公司=卡位與護城河;週期=瓶頸環節)。內頁頂端「一眼看懂」摘要卡、首頁地圖點擊後的側欄都讀這兩個欄位。歸檔新節點時一定要寫。
+
 **產業鏈層級:** 公司與零件必須填 `layer`,值是 `data.js` 裡 `layers` 的 id(materials / equipment / design / fab / package / component / system);週期自動歸在 demand。首頁「產業鏈地圖」靠這個欄位排位置。
 
 ---

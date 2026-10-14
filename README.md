@@ -23,7 +23,8 @@ reference/              術語表 / 分析框架 / 更新日誌
 1. **登記**：在 `assets/data.js` 的 cycles / companies / parts 加一筆；公司與零件填 `layer`。
    - 只先佔位 → `status:"stub"`；已寫內容 → `status:"done"`（需建內容頁）
 2. **寫內容頁**：複製該資料夾的 `_TEMPLATE.html`，改檔名為節點 id。
-3. **串聯**：在 `data.js` 的 `links` 加一行 `["id1","id2","角色"]`，兩邊頁面自動出現，不用改 HTML。
+3. **摘要**：在節點加上 `brief`（一句話）與 `key`（瓶頸 / 卡位），內頁頂端的摘要卡與首頁地圖側欄會自動顯示。
+4. **串聯**：在 `data.js` 的 `links` 加一行 `["id1","id2","角色"]`，兩邊頁面自動出現，不用改 HTML。
 
 ## 加圖片
 把截圖放進 `images/`（建議先轉成 .webp、寬度 1200px 以內），在 `data.js` 的 `figures` 登記一筆，
