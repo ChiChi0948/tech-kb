@@ -2,6 +2,13 @@
 
 > 這份文件給「未來任何幫我維護這個知識庫的對話」。讀完這份你就具備跟原始對話相同的能力。
 > 看到「知識庫歸檔」這個觸發詞,就照本文件的工作流執行。
+>
+> **這份文件與 `assets/data.js` 的最新版永遠在 GitHub:**
+> - 指引:https://raw.githubusercontent.com/ChiChi0948/tech-kb/main/KB-MAINTENANCE-GUIDE.md
+> - 節點總表:https://raw.githubusercontent.com/ChiChi0948/tech-kb/main/assets/data.js
+> - Repo:https://github.com/ChiChi0948/tech-kb(公開)
+>
+> 開始任何歸檔前,先讀這兩個檔的最新版,不要靠記憶推測現有節點。
 
 ---
 
@@ -65,34 +72,29 @@ techkb/
 ```javascript
 window.KB = {
   cycles: [
-    { id:"ai-server", status:"done", name:"AI 伺服器", en:"AI Server", desc:"一句話描述" },
-    // status: "done"(已寫內容頁) 或 "stub"(骨架占位)
+    { id:"ai-server", status:"done", name:"AI 伺服器", en:"AI Server", desc:"首頁卡片短描述",
+      brief:"一句話它是什麼", key:"瓶頸環節" },
   ],
   companies: [
-    { id:"tsmc", group:"foundry", status:"done", name:"台積電", code:"TSMC · 2330", desc:"..." },
-    // group 必須對應下方 groups map 裡的鍵
+    { id:"tsmc", layer:"fab", group:"foundry", status:"done", name:"台積電", code:"TSMC · 2330", desc:"...",
+      brief:"一句話它是什麼", key:"卡位與護城河" },
   ],
   parts: [
-    { id:"hbm", status:"done", name:"HBM 高頻寬記憶體", en:"...", desc:"..." },
+    { id:"hbm", layer:"fab", status:"done", name:"HBM 高頻寬記憶體", en:"...", desc:"...",
+      brief:"一句話它是什麼", key:"瓶頸在誰手上" },
   ],
-  groups: {  // 公司分組,可隨架構成長新增
-    foundry:{name:"晶圓代工", en:"Foundry"},
-    fabless:{name:"IC 設計", en:"Fabless Design"},
-    power:  {name:"功率半導體", en:"Power Semiconductor"},
-    passive:{name:"被動元件", en:"Passive Components"},
-    pcb:    {name:"PCB / 載板", en:"PCB / Substrate"},
-    memory: {name:"記憶體", en:"Memory"},
-    equip:  {name:"半導體設備", en:"Equipment"},
-    ostat:  {name:"封裝測試", en:"OSAT"},
-    system: {name:"品牌 / 系統整合", en:"Brand / System"},
-  },
-  quarters: [
-    // 季度總覽
-    { id:"2026Q1", period:"2026Q1", scope:"overview", status:"done", name:"2026 Q1 財報總覽", desc:"..." },
-    // 單家公司財報
-    { id:"2026Q1-tsmc", period:"2026Q1", scope:"company", company:"tsmc", status:"done",
-      name:"台積電 2026Q1", desc:"一句話重點" },
-  ]
+  groups: { foundry:{name:"晶圓代工", en:"Foundry"}, /* ...公司分組,可新增 */ },
+  quarters: [ /* 財報:scope:"overview" 或 scope:"company" + company:"公司id" */ ],
+  reports:  [ /* 產業報告 */ ],
+
+  layers: [ /* 產業鏈層級,由上而下:demand / system / component / package / fab / design / equipment / materials */ ],
+  links: [
+    ["tsmc","cowos","獨家量產"],      // 一行一條關係,順序不拘,第三欄是角色(選填)
+    ["cowos","nvidia","最大客戶"],    // 公司↔零件的角色含「客戶/買家/用戶/相關」時,會被當成使用者而非供應商
+  ],
+  watch: { "cowos": [ ["台積電 CoWoS 月產能", "為什麼要看 / 怎麼判讀"] ] },   // 追蹤指標
+  figures: [ { node:"cowos", src:"images/cowos-1.webp", caption:"說明", source:"出處", url:"https://..." } ],
+  startPath: [ /* 「從這裡開始」頁的閱讀順序 */ ],
 };
 ```
 
@@ -100,6 +102,8 @@ window.KB = {
 - `id` 必須與檔名一致(`id:"tsmc"` → `companies/tsmc.html`)
 - 公司頁的「財報追蹤」會自動從 `quarters` 拉出 `company` 欄位等於它 id 的記錄,**不要手動加連結**
 - 新分組要加進 `groups` 才會在首頁顯示
+- 週期、公司、零件**必填** `brief` 與 `key`;公司與零件**必填** `layer`
+- 每個新節點至少要有一條 `links`,否則它在地圖上點了什麼都不會亮
 
 ---
 
@@ -187,7 +191,7 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 - **`.deftable`** — 兩欄定義表,左欄淡色標籤、右欄內容(用於規格、對照、來源等)
 - **`.note`** — 提示框,左邊有色條。可加 `style="border-left-color:var(--done)"` 改顏色,綠=利多/結論、黃 `--stub`=警告、紫 `--cycle`=一般提示
 - **`.timeline`** + **`.ev`** + **`.dt`** — 時間軸列表
-- **`.links-box`** + **`.chip-row`** + **`.link-chip`** — 底部關聯節點區塊。`.dot` 的 class 決定顏色圓點
+- **`.links-box`** — 底部關聯節點的佔位。內容由 `kb.js` 自動產生,**只放空的 `<div class="links-box"></div>`**
 - **`.tag-type`** + 類型 class(`company`/`part`/`cycle`/`quarter`) — h1 上方的彩色 tag
 - **`.tl`** — 小標籤(uppercase letter-spacing)
 
@@ -269,40 +273,44 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 
 當使用者說「知識庫歸檔:幫我找『XXX』那次討論,整理成一頁,接上架構」,執行下列步驟:
 
+### 步驟 0:讀最新版
+用 WebFetch(或 git clone)讀 GitHub 上最新的 `KB-MAINTENANCE-GUIDE.md` 與 `assets/data.js`,確認現有節點 id、分組、層級。新內容一律接到既有 id,不要重複建。
+
 ### 步驟 1:取得內容
-- **a)** 若在同一專案內,用 `conversation_search` 搜尋對應對話。查詢字串用內容關鍵字(產品名、技術名、公司名),不要用「討論」「對話」這類後設詞
-- **b)** 若使用者直接貼 HTML 或文字內容,以那個為準
-- **c)** 若使用者貼的是 `file://` 本機路徑,告訴他你打不開,請他貼內容
+- **a)** 使用者指定之前的討論:用對話搜尋找出來。查詢字串用內容關鍵字(產品名、技術名、公司名),不要用「討論」「對話」這類後設詞
+- **b)** 使用者直接貼文字、檔案或截圖:以那個為準
+- **c)** 數字只用來源裡有的,不要自己補
 
 ### 步驟 2:盤點增量、決定切法
-- 內容該成為哪種卡片?(零件 / 公司 / 週期)
+- 內容該成為哪種卡片?(零件 / 公司 / 週期 / 財報 / 報告)
 - 該補進既有節點,還是新建?(避免重複)
 - 提到的公司有幾家?**不要每家都建公司節點**——遵循 §9 的「克制原則」
 
 ### 步驟 3:跟使用者確認切法
-用 `ask_user_input_v0` 給 2-3 個明確選項,讓使用者選。**不要不問就動手**,因為節點切法影響長期。
+切法會影響長期結構時(新建 2 個以上節點、新增分組、改既有節點定位),先列出 2–3 個選項讓使用者選。只是補內容進既有節點就直接做。
 
 ### 步驟 4:執行
-- 改 `data.js`(新增節點登記、必要時新增 group)
-- 建 / 改內容頁(用 §5 骨架)
-- 在 `data.js` 的 `links` 加上新節點的關聯(一行一條,填角色);新公司或零件記得填 `layer`
-- 若有追蹤指標,寫進 `data.js` 的 `watch`;若使用者給了截圖,壓成 .webp 放進 `images/`,登記到 `figures` 並填出處
-- 改 `reference/updates.html` 加一筆 `<div class="ev">` 到時間軸最上方
-- 用 Python 掃描所有 HTML 的內部連結,確認沒有斷鏈
+- `data.js`:登記新節點(含 `layer`、`brief`、`key`),必要時新增 `groups`
+- 建 / 改內容頁(複製該資料夾的 `_TEMPLATE.html`,用 §5 骨架)
+- `data.js` 的 `links`:每條關係一行並填角色;**不要在頁面手寫 link-chip**
+- `data.js` 的 `watch`:有可追蹤的指標就加
+- 使用者給截圖:壓成 .webp(寬 ≤1200px、≤300KB)放進 `images/`,登記到 `figures`,**一定填 source 與 url**
+- `reference/updates.html` 時間軸最上方加一筆
+- 檢查:所有內部連結不斷;`links`、`watch`、`figures`、`startPath` 裡的 id 都存在於 data.js;`done` 節點都有對應頁面
 
-### 步驟 5:交付
-- 把改動的檔案打包成 zip
-- 用 `present_files` 給使用者
-- **明確列出哪些檔案要上傳到 GitHub 的哪個資料夾**(這對使用者操作很重要)
-- 提醒「待辦」:內文中標粗體但還沒建節點的公司,等使用者哪天想做就跟你說
+### 步驟 5:交付(依可用的權限二選一)
+- **能推送到 repo**(例如 Claude Code 雲端工作階段):開新分支、commit、push、開 PR,給使用者 PR 連結與預覽連結
+  `https://raw.githack.com/ChiChi0948/tech-kb/<分支名>/index.html`
+- **不能推送**(一般聊天):把改動的檔案打包成 zip 交給使用者,**用表格列出每個檔案要上傳到 repo 的哪個資料夾、是覆蓋還是新增**
+- 最後提醒「待辦」:內文提到、但還沒建節點的公司
 
 ---
 
 ## 8. 「歸檔咒語」——使用者會這樣呼叫你
 
-> **「知識庫歸檔:幫我找『XXX』的那次討論,整理成一頁,接上科技供應鏈知識庫的架構。已有節點:〔貼 data.js 或寫『沿用上次』〕」**
+> **「知識庫歸檔:〔主題,或「幫我找之前聊『XXX』的那次討論」,或直接貼內容 / 截圖〕」**
 
-「沿用上次」的意思是:使用者沒貼 `data.js`,你要靠自己手上有的版本推測現有節點。這時要在最後告訴他「我假設了你有哪些節點,請核對」。
+使用者不需要貼 `data.js`。你自己從 GitHub 讀最新版(見步驟 0);只有讀不到時才請他貼。
 
 ---
 
@@ -335,7 +343,9 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 
 使用者在自己的 GitHub 有一個 repo(通常叫 `tech-kb`),設定 Pages 從 main 分支 root 部署。網址形如 `https://{username}.github.io/tech-kb/`。
 
-每次歸檔後,使用者要做的事:
+如果是 PR:使用者在 GitHub 按 Merge 即可,1–2 分鐘後網站更新。
+
+如果是 zip,使用者要做的事:
 1. 解壓你給的 zip
 2. 進 GitHub repo,把改動的檔案逐個或整批上傳(同名檔自動覆蓋)
 3. Commit,等 1-2 分鐘部署完成
@@ -349,13 +359,11 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 
 如果你是第一次接手這個知識庫,使用者會像這樣開始一個新對話:
 
-> 我有一個科技供應鏈知識庫(部署在 GitHub Pages),架構是「週期 / 公司 / 零件 / 財報」四種卡片互相串聯。我貼一份維護指引給你讀,之後請照這份指引幫我歸檔新內容、新增節點、做必要的串聯。讀完跟我說一聲,我就開始給你內容。
->
-> [附上本文件]
+> 知識庫歸檔:〔要歸檔的內容或主題〕。請先讀 https://raw.githubusercontent.com/ChiChi0948/tech-kb/main/KB-MAINTENANCE-GUIDE.md 和 assets/data.js 的最新版,照格式處理。
 
 讀完後你應該:
 1. 簡短確認你看懂了架構(不要複述整份文件,讓使用者煩)
-2. 告知有什麼**還需要的資訊**:最新的 `data.js`(這樣你才知道現有節點)、現有的 `style.css`(這樣你不會發明已存在的樣式)
+2. 自己去 GitHub 讀最新的 `data.js`,不用請使用者貼;讀不到時才請他貼
 3. 等使用者下指令(通常是「知識庫歸檔:XXX」)
 
 ---
@@ -370,6 +378,7 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 
 ---
 
-*本指引版本: 2026.07 · 由初代維護對話編寫,可自由更新擴充。*
+*本指引版本: 2026.10 · 由初代維護對話編寫,可自由更新擴充。*
 *2026.07 更新:§6 補上 `.qa` / `.stub-banner` / `.kpi-grid` 三個元件的用法。*
+*2026.10 更新:新增 `brief` / `key` 摘要欄位、可點擊的串連地圖、從 GitHub 讀最新版的步驟 0、PR 交付方式。*
 *2026.10 更新:關聯改由 `data.js` 的 `links` 自動產生;新增 `layer`、`watch`、`figures`、`startPath`、`assets/kb.js`、`start.html`、`images/`。*
