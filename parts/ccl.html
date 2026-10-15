@@ -53,7 +53,8 @@
   <a href="#process">工藝門檻</a>
   <a href="#landscape">全球競爭格局</a>
   <a href="#thinking">投資視角五個提問</a>
-  <a href="#timeline">更新時間軸</a>
+  <a href="#recent">近況更新 10.15</a>
+<a href="#timeline">更新時間軸</a>
 </aside>
 <article>
 <span class="tag-type part">零件 / 模組</span>
@@ -190,10 +191,68 @@
 <tr><td><b>⑤ 結構性錢 vs 循環性錢？</b></td><td>高階 AI 材料漲價是<b>結構性升級紅利</b>（量價齊升、護城河擴大）；中低階板漲價是<b>循環性供需失衡</b>（AI 紅利結束就回落）。混為一談是最容易踩雷的地方。</td></tr>
 </table>
 
+<h2 id="recent">近況更新 <span style="font-size:.7em;color:var(--faint);font-weight:400">· 2026.10.15</span></h2>
+<p class="note" style="border-left-color:var(--stub)"><b>資料來源：</b>2026.10 PCB 產業法說逐字稿（OCP 展後），內容為單一分析師觀點，數字皆來自逐字稿，未另行查證。</p>
+<p><b>主線：</b>AI 晶片越做越強，逼著整條板材供應鏈升級；上游材料跟不上，於是缺貨、漲價，價值一路往上游移動。以下照因果順序整理。</p>
+
+<h3>① 起點：AI 晶片更快、更大</h3>
+<p>傳輸速度越快（GB200、GB300 → Vera Rubin，ASIC 也一樣），訊號損耗越大，CCL 就得從 M6、M7 升到 M8、M9。晶片越大，載板也要變大、層數變多。結果是<b>每片板子用料等級更高、用量更多</b>，後面的缺貨與漲價都從這裡開始。</p>
+
+<h3>② 上游跟不上：高低階同時缺貨</h3>
+<table class="deftable">
+<tr><td><b>低階先缺</b></td><td>日東紡放棄低階 E-glass，產能轉做 Low DK 布與 T-glass，低階料供給突然消失。</td></tr>
+<tr><td><b>高階也缺</b></td><td>高階材料難做，良率短期拉不上來，產能開不出來。</td></tr>
+</table>
+<p>形成少見的局面：<b>高階因為「做不出來」而缺，低階因為「沒人要做」而缺。</b></p>
+
+<h3>③ CCL 漲得動，價值往 CCL 集中</h3>
+<p>稼動率滿載、客戶搶產能，CCL 廠有議價權。M4 到 M9 機台可共用，高階單一來就把低階產線轉去做高階，低階供給更少。CCL 廠因此能完整轉嫁成本，還多賺一段溢價。</p>
+<div class="kpi-grid">
+<div class="kpi"><div class="v">≈ NT$1 萬</div><div class="l">M9 + Q 布 每張</div><div class="d">幾乎只有台光電出貨，客戶僅 NVIDIA</div></div>
+<div class="kpi"><div class="v">5–6 千</div><div class="l">M8 / M8+ 每張</div><div class="d">目前主流</div></div>
+<div class="kpi"><div class="v">≈ 5 成</div><div class="l">CCL 佔 PCB 成本</div><div class="d up">過去 20–30%</div></div>
+</div>
+
+<h3>④ 漲價節奏：今年低階、明年高階</h3>
+<table class="deftable">
+<tr><td><b>2026</b></td><td>缺口最大的是被排擠的低階料（E-glass、低階銅箔）。M4、M6 漲幅大於 M7、M8。二三線廠（如<b>聯茂</b>）毛利改善速度可能比台光、台燿更快。</td></tr>
+<tr><td><b>2027 起</b></td><td>Rubin Ultra、Trainium 3/4、TPU V8/V9 大量用到最高階玻纖布與銅箔，高階料真正缺貨。M7、M8、M9 迎來新一波漲價，受惠者換成台光、台燿。</td></tr>
+</table>
+
+<h3>⑤ 擴產速度差：台廠吃到更多</h3>
+<p><b>台光、台燿、聯茂</b>擴產積極，2027 年大量開出；<b>生益、斗山、Panasonic</b>要等到 2028–29 年。兩個連鎖效應：</p>
+<table class="deftable">
+<tr><td><b>轉單</b></td><td>外商 2027 年接不下的單轉給台廠。</td></tr>
+<tr><td><b>外溢</b></td><td>台光、台燿產能被高階單吃滿，低階單讓給二三線（<b>南亞</b>、聯茂）。</td></tr>
+</table>
+<p>新產能已被客戶預訂，分析師認為反轉成供過於求的機率小；但<b>沒有提供需求預估</b>，缺口大小無法量化，只能追蹤驗證。</p>
+
+<h3>⑥ 份額由什麼決定</h3>
+<p>銅箔與玻纖布大家買到的差不多，關鍵在兩點：<b>樹脂配方</b>（要調出符合客戶電性標準的材料才能送驗）與<b>產能、料源掌控</b>（高階料緊缺時，交得出貨的廠商更受青睞）。各客戶份額見 <a href="../companies/tuc.html#recent">台光電近況更新</a>。</p>
+
+<h3>⑦ 漲價傳導：為什麼 PCB 排最後</h3>
+<p class="note" style="border-left-color:var(--cycle)"><b>材料先漲 → CCL 跟漲 → 最後才輪到 PCB。</b>PCB 廠成本先上升、售價晚一段才調得上去，時間差壓縮毛利。所以分析師排序是 CCL、載板 &gt; PCB：越靠上游、越早漲價、越不會被成本擠壓。</p>
+<p><b>例外：光模組 PCB。</b>800G / 1.6T 光模組需要類載板製程（逐字稿寫 M7，從描述判斷應是 mSAP），只有<b>欣興、臻鼎、華通、深南</b>做得到。單價是手機主板的 2–3 倍；800G 毛利約 30–35%，1.6T 價格再高 2 倍以上，毛利可到約 5 成。欣興目前領先但資本支出偏重載板，<b>臻鼎、華通</b>未來兩年有機會大幅提升份額。</p>
+
+<h3>⑧ 銅箔近況：金居</h3>
+<table class="deftable">
+<tr><td><b>產能</b></td><td>高階（HVLP3 + HVLP4）現在每月 200 噸。2027 年三廠每季末開一條線、每條 150 噸、共四條，年底達每月 800 噸；2029 年後東南亞廠 ramp up。分析師認為每條 150 噸偏保守。</td></tr>
+<tr><td><b>短期雜音</b></td><td>Q3 夏季電價壓縮毛利，產能移轉與良率仍在爬坡。2026 年毛利約 29–30%，低於市場預期的 3 成以上，財報可能小幅 miss；2027 年可接近 4 成。</td></tr>
+<tr><td><b>設備優勢</b></td><td>銅箔擴產卡在表面處理機，主要來自一家日本廠（逐字稿寫「三傳」，名稱待確認），交期很慢。金居四五年前被卡過，之後自己培養台灣設備供應鏈，這次擴產（含東南亞廠）較不受影響。</td></tr>
+</table>
+
+<h3>⑨ 兩個市場疑慮</h3>
+<div class="qa"><div class="q">PTFE 會取代主流 CCL 嗎？</div><div class="a">不會。PTFE 電性極好、損耗極低，所以 NVIDIA 在 OCP 展出 PTFE switchboard。但它材質太軟，多層板鑽孔、壓合良率低；熱膨脹係數差，板子受熱漲縮會讓晶片訊號不穩。承載 GPU、CPU、記憶體的 compute board 不能用，只適合 midplane、switchboard 這類純訊號板，約佔產業 1–3%。ASIC 規格落後 NVIDIA 一到兩代，離 PTFE 更遠。方案可能是 PTFE 混 M9，尚未定調，價格估計比 M9 高 3–5 成。</div></div>
+<div class="qa"><div class="q">PTFE 誰會贏？</div><div class="a"><b>生益</b>。從原料、CCL 到與 PCB 廠合作都有完整解方，年初就和 NVIDIA 合作並發白皮書。台光電、台燿良率與產能落後，台光電過去也不看好 PTFE、投入不多；但市場太小，不會侵蝕台光主要份額。深南、台郡等 PCB 廠則是拿 PTFE 原料自行加工，彼此都是競爭關係。</div></div>
+<div class="qa"><div class="q">CPO 會讓 CCL 降規嗎？</div><div class="a">可能性很低。CPO 目前只用在機櫃之間（scale-out），滲透率低；要進到機櫃內部（scale-up）大量量產至少還要 3–5 年。就算 GPU 之間改走光，CPU 與記憶體之間仍要銅線，只要還有銅線，CCL 規格就不能降。</div></div>
+
+<p class="note" style="border-left-color:var(--done)"><b>一條鏈串起來：</b>AI 晶片更快、更大 → 板材升規、用量增加 → 上游玻纖布、銅箔、T-glass、ABF 膜供不上 → CCL、載板滿載、能漲價且能轉嫁 → 台廠擴產快、接到轉單，龍頭讓出的低階單流向二三線 → 漲價依序傳到 PCB（光模組 PCB 例外）。</p>
+
 <div class="links-box"><!-- 關聯節點由 assets/kb.js 依 data.js 的 links 自動產生；要新增關聯請改 data.js --></div>
 
 <h2 id="timeline">更新時間軸</h2>
 <div class="timeline">
+<div class="ev"><div class="dt">2026.10.15</div>新增「近況更新」：CCL 產業法說：漲價因果鏈、今年低階明年高階、台廠擴產與轉單、光模組 PCB、金居銅箔產能、PTFE 與 CPO 疑慮。</div>
 <div class="ev"><div class="dt">2026.06</div>由「CCL 完整教學筆記」歸檔建立此頁；涵蓋結構、Dk/Df/CTE 三大指標、三大材料（樹脂/玻纖/銅箔）、工藝門檻、競爭格局、五個投資提問框架。</div>
 </div>
 
