@@ -4,9 +4,11 @@
      1. 複製這個檔，改檔名為節點 id，例如 amd.html
      2. 把下面所有 {{...}} 換成你的內容
      3. 回 ../assets/data.js 的 companies 陣列，把該節點 status 改成 "done"
-     4. 串聯：在「關聯節點」區塊，每連一個節點加一行 link-chip
-        link-chip 格式： <a class="link-chip" href="../資料夾/節點id.html"><span class="dot 類型"></span>名稱</a>
-        資料夾 = cycles / companies / parts；類型 = cycle / company / part
+     4. 串聯：不用改這個檔案。到 assets/data.js 的 links 加一行 ["本頁id","對方id","角色"]，
+        兩邊頁面的「關聯節點」都會自動出現（由 assets/kb.js 產生）
+     5. 公司與零件記得在 data.js 填 layer（產業鏈層級），首頁地圖才放得進去；
+        並填 brief（一句話）與 key（瓶頸 / 卡位），頁面頂端的摘要卡會自動產生
+     6. 追蹤指標寫在 data.js 的 watch、截圖登記在 data.js 的 figures，本頁會自動顯示
      ============================================================ -->
 <html lang="zh-Hant"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,16 +34,13 @@
 </table>
 <h2 id="role">角色</h2>
 <p>{{在相關週期裡扮演什麼角色，可在這裡用 <a href="../parts/某零件.html">內文連結</a> 串到其他節點}}</p>
-<div class="links-box"><div class="lt">關聯節點 · Connections</div>
-<div class="chip-row">
-<!-- 每連一個節點加一行，例如： -->
-<a class="link-chip" href="../cycles/ai-server.html"><span class="dot cycle"></span>AI 伺服器</a>
-<a class="link-chip" href="../parts/hbm.html"><span class="dot part"></span>HBM 高頻寬記憶體</a>
-</div></div>
+<div class="links-box"><!-- 關聯節點由 assets/kb.js 依 data.js 的 links 自動產生；要新增關聯請改 data.js --></div>
 <h2 id="timeline">更新時間軸</h2>
 <div class="timeline">
 <div class="ev"><div class="dt">{{日期}}</div>建立此頁</div>
 </div>
 </article></div></div>
 <footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+<script src="../assets/data.js"></script>
+<script src="../assets/kb.js"></script>
 </body></html>
