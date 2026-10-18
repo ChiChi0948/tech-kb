@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCB 印刷電路板 · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.evo-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:.82rem}
+.evo-step{padding:5px 11px;border:1px solid var(--line);border-radius:6px;background:var(--paper2);white-space:nowrap}
+.evo-step.mid{border-color:var(--accent);color:var(--accent)}
+.evo-step.end{border-color:var(--company);color:var(--company);background:rgba(182,132,58,.08)}
+.evo-arrow{color:var(--faint)}
+</style>
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+<span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#parts">零件</a> / PCB 印刷電路板</span>
+<nav class="top"><a href="../index.html#cycles">週期</a><a href="../index.html#companies">公司</a><a href="../index.html#parts">零件</a><a href="../index.html#quarters">財報</a></nav>
+</div></header>
+<div class="wrap"><div class="layout">
+<aside class="toc"><div class="tl">本頁目錄</div>
+<a href="#what">PCB 是什麼</a>
+<a href="#chain">在產業鏈的位置</a>
+<a href="#boards">AI 伺服器裡的板子</a>
+<a href="#process">工藝門檻</a>
+<a href="#pricing">漲價傳導：PCB 是第三棒</a>
+<a href="#optical">利基市場：光模組 PCB</a>
+<a href="#players">廠商</a>
+<a href="#timeline">更新時間軸</a>
+</aside>
+<article>
+<span class="tag-type part">零件 / 模組</span>
+<h1>PCB 印刷電路板</h1>
+<p class="lede">Printed Circuit Board · 把 CCL 加工成有線路、有孔、可以焊上晶片的板子。材料的命門在上游，但「做不做得出來」的資本壁壘在 PCB 廠。</p>
+
+<h2 id="what">PCB 是什麼</h2>
+<p>PCB 是電子產品裡承載、連接所有晶片的那塊板子。它的原料是 <a href="ccl.html">CCL 銅箔基板</a>：PCB 廠把一層層 CCL 刻出線路、疊起來壓合、鑽孔、電鍍，做成幾十層的多層板。</p>
+<p>用一句話分工：<b>CCL 是「板子的肉」，PCB 是「蓋好的大樓」</b>。CCL 決定材料等級（Dk、Df、CTE），PCB 廠決定線路能刻多細、層數能疊多高、孔能打多準。</p>
+
+<h2 id="chain">在產業鏈的位置</h2>
+<div class="evo-row">
+<span class="evo-step">玻纖布 · 銅箔 · 樹脂</span><span class="evo-arrow">→</span>
+<span class="evo-step mid"><a href="ccl.html">CCL</a></span><span class="evo-arrow">→</span>
+<span class="evo-step end">PCB</span><span class="evo-arrow">→</span>
+<span class="evo-step">伺服器 / 手機 / 光模組</span>
+</div>
+<p>PCB 和 <a href="abf.html">ABF 載板</a> 是兄弟：載板是「微縮版 PCB」，夾在晶片和 PCB 主板之間。兩者之間還有一個中間形態 <b>SLP 類載板</b>，線路精度遠高於傳統 PCB，用在 iPhone 主板，也是現在光模組 PCB 的製程（見下方）。</p>
+<p class="note" style="border-left-color:var(--done)"><b>成本結構：</b>PCB 材料成本 80% 以上來自銅箔、玻纖布、樹脂三大底層材料；其中 CCL 佔 PCB 成本的比重，從過去的 20–30% 一路升到 AI 高階板接近 5 成。價值正在往上游 CCL 移動，詳見 <a href="ccl.html#what">CCL 成本拆解</a>。</p>
+
+<h2 id="boards">AI 伺服器裡的板子</h2>
+<p>同一台 AI 伺服器裡有好幾種板子，用途不同、材料要求也不同：</p>
+<table class="deftable">
+<tr><td><b>Compute board</b></td><td>放 GPU、CPU、記憶體的運算板。除了訊號，還要扛晶片的熱與尺寸穩定性，<b>熱膨脹係數（CTE）要求最嚴</b>。</td></tr>
+<tr><td><b>Switchboard</b></td><td>交換器板，主要負責訊號傳輸，對<b>訊號損耗</b>最敏感。</td></tr>
+<tr><td><b>Midplane</b></td><td>背板 / 中板，連接機櫃內各板，同樣以純訊號傳輸為主。</td></tr>
+</table>
+<p>這個分法決定了新材料能用在哪裡。例如 PTFE 電性極好但材質軟、CTE 差，只適合 switchboard、midplane，不能用在 compute board（見 <a href="ccl.html#recent">CCL 近況更新</a>）。</p>
+
+<h2 id="process">工藝門檻 — MSAP、HDI、壓合</h2>
+<p>材料只是門票，<b>製造工藝才是真正的資本壁壘</b>。從普通板到高端 AI 算力板之間至少還隔著兩座大山：先進材料（見 <a href="ccl.html">CCL</a>）跟先進工藝（這節）。</p>
+<table class="deftable">
+<tr><td><b>① MSAP</b><br>把線路刻到 10μm 以下</td><td>普通板用<b>減成法</b>（蝕刻去除多餘銅）。AI 板線路只有十幾微米，強酸會像水流沖刷河岸把保護膜下方精密線路的側面也咬壞（「側蝕」）。高端板必須改用半導體製造的<b>改良型半加成法 MSAP</b>——先保留極薄底銅、貼保護膜露出走線位置、用電鍍工藝讓銅離子順著微米級凹槽長厚，完美規避強酸側蝕。</td></tr>
+<tr><td><b>② 壓合</b><br>數十層完美對齊</td><td>幾十層蝕好微米級線路的銅箔基板，疊上半固化片跟銅箔，送進<b>幾百度的高溫壓合機</b>。不同材料熱脹冷縮程度不一致，壓合過程中只要出現<b>哪怕 1μm 的錯位</b>，前面長出的精密線路就會相互干擾甚至短路——整塊裸板報廢。</td></tr>
+<tr><td><b>③ HDI 雷射鑽孔</b><br>30 層間打通電梯</td><td>傳統 PCB 機械鑽頭從一樓打到頂樓，在 30 層 AI 主板上完全行不通——粗暴的貫穿孔會破壞其他樓層佈線空間。必須用<b>高能雷射在特定樓層之間精準打出幾十萬個微盲孔</b>。</td></tr>
+<tr><td><b>④ 通孔電鍍</b><br>把絕緣孔變成電梯</td><td>打完孔還要透過極嚴苛化學反應，<b>在微米級孔壁上均勻沉積一層銅</b>，讓絕緣通道變成導電電梯，真正打通層與層的物理互聯。哪怕只有一個孔沒鍍好，整塊板子就報廢。</td></tr>
+</table>
+<p class="note" style="border-left-color:var(--stub)"><b>為什麼這是「資本」壁壘？</b> 沒有先進設備就根本不存在先進工藝。要刻得細、壓得準、打得通——PCB 廠必須砸下重金買幾百到上千萬一台的<b>頂級雷射鑽孔機、高端壓合機、超高精度曝光機</b>。一條高端 HDI 或超高多層板產線，<b>前期資本支出 10 億到幾十億級別</b>。這就是為什麼 PCB 全行業集中度不到 40%，但<b>高端電路板賽道前十大廠商佔據 90% 以上市占</b>——資本門檻直接把絕大多數中小廠擋在 AI 俱樂部門外。</p>
+<p>這也是光模組 PCB 只有少數廠商做得到的原因：MSAP 製程需要的設備與經驗，就是類載板的門檻。</p>
+
+<h2 id="pricing">漲價傳導：PCB 是第三棒</h2>
+<p class="note" style="border-left-color:var(--cycle)"><b>材料先漲 → <a href="ccl.html">CCL</a> 跟漲 → 最後才輪到 PCB。</b>PCB 廠成本先上升、售價晚一段才調得上去，中間的時間差會壓縮毛利。所以同一波 AI 板材漲價裡，CCL、載板廠先受惠，PCB 廠要等到能把價格轉嫁給客戶才跟上。</p>
+<p>投資排序上，分析師把 CCL、載板排在 PCB 前面：越靠上游、越早漲價、越不會被成本擠壓。（2026.10 PCB 產業法說觀點）</p>
+
+<h2 id="optical">利基市場：光模組 PCB</h2>
+<p>PCB 整體排在後面，但光模組這塊是例外。Switch 進入 800G、1.6T 後，光模組傳輸速率極高，一般 PCB 的線寬線距做不到，必須改用<b>類載板（mSAP）製程</b>。逐字稿寫成「M7」，但從「類載板」「iPhone 主板」「線寬線距」等描述判斷，指的應是 mSAP 製程，不是 CCL 的 M7 等級。</p>
+<div class="kpi-grid">
+<div class="kpi"><div class="v">4 家</div><div class="l">做得到的廠商</div><div class="d">欣興、臻鼎、華通、深南</div></div>
+<div class="kpi"><div class="v">2–3 倍</div><div class="l">單價 vs 手機主板</div><div class="d">設備可共用</div></div>
+<div class="kpi"><div class="v">30–35%</div><div class="l">800G 毛利率</div><div class="d">部分廠商到 35%</div></div>
+<div class="kpi"><div class="v">≈ 5 成</div><div class="l">1.6T 毛利率</div><div class="d up">價格比 800G 高 2 倍以上</div></div>
+</div>
+<p><b>份額變化：</b>800G 初期以<b>欣興</b>出貨為主，<b>深南</b>也是大供應商；<b>臻鼎、華通</b>是後進者。但欣興的資本支出主要投在 <a href="abf.html">ABF 載板</a>，對這塊投入較少。分析師認為臻鼎、華通在未來兩年設備陸續到位後，市佔有機會大幅提升。</p>
+
+<h2 id="players">廠商</h2>
+<table class="deftable">
+<tr><td><b>台灣</b></td><td><b>欣興 3037</b>（PCB + ABF 載板龍頭）、<b>臻鼎 4958</b>、<b>華通 2313</b>、<b>台郡</b>（PTFE 加工）</td></tr>
+<tr><td><b>中國</b></td><td><b>深南電路</b>（光模組 PCB、BT 載板、PTFE 加工）</td></tr>
+<tr><td><b>產業結構</b></td><td>PCB 全行業集中度不到 40%，但高端電路板前十大廠商佔 90% 以上市占；中港台合計佔全球 PCB 產能 80% 以上。</td></tr>
+</table>
+<p>PTFE 方案中，深南、台郡等 PCB 廠是向生益、台光電等取得 PTFE 原料自行加工後出貨，彼此是競爭關係。</p>
+
+<div class="links-box"><!-- 關聯節點由 assets/kb.js 依 data.js 的 links 自動產生；要新增關聯請改 data.js --></div>
+
+<h2 id="timeline">更新時間軸</h2>
+<div class="timeline">
+<div class="ev"><div class="dt">2026.10.19</div>建立此頁：從 <a href="ccl.html">CCL</a> 頁搬入「工藝門檻」與光模組 PCB；新增 AI 伺服器板子種類、漲價傳導、廠商列表。來源為「CCL 完整教學筆記」與 2026.10 PCB 產業法說逐字稿。</div>
+</div>
+
+<div class="note" style="margin-top:30px">
+<b>擴充這一頁：</b>欣興、臻鼎、華通、深南內容夠多時可建成公司節點，在 <code>assets/data.js</code> 的 <code>links</code> 加一行關聯，並把內文改成連結。
+</div>
+</article></div></div>
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+<script src="../assets/data.js"></script>
+<script src="../assets/kb.js"></script>
+</body></html>
