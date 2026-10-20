@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>半導體設備構成與關鍵部件 · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+    <span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#parts">零件</a> / 半導體設備構成與關鍵部件</span>
+    <nav class="top">
+      <a href="../index.html#cycles">週期</a>
+      <a href="../index.html#companies">公司</a>
+      <a href="../index.html#parts">零件</a>
+      <a href="../reference/glossary.html">術語表</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="layout">
+    <aside class="toc">
+      <div class="tl">本頁目錄</div>
+      <a href="#what">這是什麼</a>
+      <a href="#subsystems">五大子系統</a>
+      <a href="#cleanroom">三種製造環境的部件</a>
+      <a href="#suppliers">兩種零件供應商</a>
+      <a href="#faq">常見誤解</a>
+      <a href="#timeline">更新時間軸</a>
+    </aside>
+    <article>
+      <span class="tag-type part">零件 / 模組</span>
+      <h1>半導體設備構成與關鍵部件</h1>
+      <p class="lede">Semiconductor Equipment Subsystems · 拆開一台蝕刻 / 沉積機台，看它由哪些子系統組成，哪些零件最難做、由誰供應。</p>
+
+      <h2 id="what">這是什麼</h2>
+      <p>半導體設備（例如蝕刻機、沉積機）在真空環境裡，對晶圓進行薄膜沉積、蝕刻、清洗等製程。一台設備內部包含多個精密的機械、氣體、真空、電控與自動化系統。</p>
+      <p>這一頁以<b>蝕刻（Etch）/ 沉積（Deposition）設備</b>為例，關心的不是哪家廠商賣整台機器（那是 <b>應材</b>、<b>Lam Research</b>、<b>東京威力科創</b> 這一層），而是<b>整台機器裡的零件</b>：設備大廠向誰買零件、哪些零件門檻最高。光刻設備另見 <a href="euv.html">EUV 極紫外光刻</a> 與 <a href="../companies/asml.html">ASML</a>。</p>
+
+      <h2 id="subsystems">五大子系統</h2>
+      <table class="deftable">
+        <tr><td>① 晶圓處理區<br>Chamber</td><td>與晶圓直接接觸的核心部件，需維持高真空、超高潔淨度與精密控制。<br>Process Chamber（製程腔體）、Electrostatic Chuck（ESC 靜電吸盤）、Showerhead / Gas Distribution（氣體分佈板）</td></tr>
+        <tr><td>② 真空系統</td><td>抽真空、維持腔體真空度。<br>Vacuum Pump、Valve / Gate Valve、Vacuum Manifold</td></tr>
+        <tr><td>③ 氣體供應系統</td><td>提供製程所需的高純度氣體。<br>MFC（Mass Flow Controller 質量流量控制器）、Gas Lines / Manifold 管路</td></tr>
+        <tr><td>④ 機械結構 / 支撐件</td><td>支撐腔體、固定模組、確保精度與穩定性。<br>Frame / Bracket、Module Housing、Precision Machined Components</td></tr>
+        <tr><td>⑤ 電控與自動化系統</td><td>控制設備運作，用機械手臂傳送晶圓。<br>Robot Arm、Controller / Wiring、Sensors</td></tr>
+      </table>
+
+      <h2 id="cleanroom">三種製造環境的部件</h2>
+      <p>同樣是設備零件，<b>離晶圓越近，門檻越高</b>。可以依「是否需要在無塵室製造」把部件分成三類：</p>
+      <table class="deftable">
+        <tr><td>與晶圓直接接觸<br>（Chamber 相關）</td><td>製程腔體、靜電吸盤（ESC）、氣體分佈板（Showerhead）。<br><b>特點：</b>需極高的表面精度、耐腐蝕、低顆粒、無金屬汙染。</td></tr>
+        <tr><td>需在無塵室製作<br>（Class 1,000 或更高）</td><td>Chamber 內部零件（如內襯、環形結構）、精密支撐架 / 模組外殼、晶圓傳送相關零件（高精度機構件）。<br><b>特點：</b>需高潔淨度、低顆粒、精密加工與嚴格的品質管控。</td></tr>
+        <tr><td>不需在無塵室製作<br>（一般工廠即可）</td><td>真空泵浦、電控櫃 / 控制器、機械結構底座。<br><b>特點：</b>可在一般環境下製造，著重耐用性與機械性能。</td></tr>
+      </table>
+      <div class="note" style="border-left-color:var(--done)">判讀重點：看一家設備零件廠，先問它做的零件<b>會不會碰到晶圓、要不要進無塵室</b>。這兩個問題大致決定了它的技術門檻與客戶黏著度。</div>
+
+      <h2 id="suppliers">兩種零件供應商：骨架 vs 晶圓接觸件</h2>
+      <p>以兩家亞洲零件廠為例，可以看出設備供應鏈裡兩種完全不同的角色。兩者專業不同、互補，共同支撐設備的生產。</p>
+      <table class="deftable">
+        <tr><td></td><td><b>Sansera</b>（印度）＝ 設備的「骨架與結構」　｜　<b>UWC</b>（馬來西亞，United Wafer Corporation）＝ 設備的「晶圓接觸零件」</td></tr>
+        <tr><td>定位</td><td><b>Sansera：</b>精密金屬結構件與機械加工<br><b>UWC：</b>半導體設備精密零件（關鍵零組件）</td></tr>
+        <tr><td>主要產品</td><td><b>Sansera：</b>設備的精密加工金屬件（支撐架、模組外殼、結構件）、真空腔體相關的非關鍵零件、鋁鍛件、精密加工件、焊接組裝件<br><b>UWC：</b>晶圓承載相關部件（陶瓷環、環形結構、ESC 等）、高精度陶瓷、石英、金屬複合材料零件、直接接觸晶圓的關鍵部件</td></tr>
+        <tr><td>製程能力</td><td><b>Sansera：</b>精密鍛造、CNC 加工、表面處理、組裝<br><b>UWC：</b>陶瓷 / 石英加工、精密研磨、拋光、清洗、測試</td></tr>
+        <tr><td>與晶圓的接觸</td><td><b>Sansera：</b>不直接接觸晶圓（主要是設備結構件）<br><b>UWC：</b>有（ESC、真空環、陶瓷部件等）</td></tr>
+        <tr><td>無塵室需求</td><td><b>Sansera：</b>部分高潔淨度零件需在無塵室製造，但不需最頂級潔淨度<br><b>UWC：</b>必須（通常為 Class 1 或更高）</td></tr>
+        <tr><td>關鍵特點</td><td><b>Sansera：</b>技術門檻較高但不直接接觸晶圓；具備從鍛造到精密加工的整合能力；受益於半導體設備擴產，進入量產階段，在印度 / 全球供應鏈中具成長潛力<br><b>UWC：</b>需要極高潔淨度與材料專業；客戶多為全球主要設備商（<b>應材 AMAT</b>、<b>Lam</b>、<a href="../companies/asml.html">ASML</a> 等），與主要設備商深度合作</td></tr>
+      </table>
+      <p>兩家目前只在本頁內文提到，尚未建立公司節點。</p>
+
+      <h2 id="faq">常見誤解</h2>
+      <div class="qa">
+        <div class="q">設備零件廠都在賣同一種東西嗎？</div>
+        <div class="a">不是。同樣被歸在「設備零件」，做結構件（支撐架、外殼、底座）跟做晶圓接觸件（ESC、陶瓷環、Showerhead）的能力、材料、潔淨度要求差很多。前者偏精密機械加工，後者偏陶瓷 / 石英材料與超高潔淨製程。</div>
+      </div>
+      <div class="qa">
+        <div class="q">真空泵浦、電控櫃這些不重要嗎？</div>
+        <div class="a">一樣是設備必要的子系統，但可以在一般工廠製造，著重耐用性與機械性能，不受無塵室條件限制。判斷門檻時，「是否接觸晶圓」與「無塵室等級」比「是否重要」更有區分力。</div>
+      </div>
+
+      <div class="links-box"><!-- 關聯節點由 assets/kb.js 依 data.js 的 links 自動產生；要新增關聯請改 data.js --></div>
+
+      <h2 id="timeline">更新時間軸</h2>
+      <div class="timeline">
+        <div class="ev"><div class="dt">2026.10.20</div>由使用者提供的「半導體設備的主要構成與關鍵部件」整理圖歸檔建立此頁：五大子系統、三種製造環境部件、Sansera vs UWC 對比。</div>
+      </div>
+    </article>
+  </div>
+</div>
+
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+<script src="../assets/data.js"></script>
+<script src="../assets/kb.js"></script>
+</body>
+</html>
