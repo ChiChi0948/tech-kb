@@ -93,6 +93,8 @@ window.KB = {
       brief:"把 CCL 加工成有線路、可以焊上晶片的多層電路板", key:"材料命門在上游 CCL；MSAP、壓合、雷射鑽孔設備是資本壁壘，高端前十大佔 9 成以上" },
     { id:"abf", layer:"component",        status:"done", name:"ABF 載板",        en:"ABF Substrate",     desc:"AI 晶片封裝過渡層；味之素 ABF 膜獨佔上游",
       brief:"AI 晶片封裝時，介於晶片與電路板之間的載板", key:"ABF 膜由味之素獨佔；頂級載板產能集中在揖斐電、新光電氣" },
+    { id:"semi-equipment", layer:"equipment", status:"done", name:"半導體設備構成與關鍵部件", en:"Semiconductor Equipment Subsystems", desc:"拆開蝕刻 / 沉積機台：五大子系統、晶圓接觸件 vs 結構件，誰的門檻最高",
+      brief:"蝕刻、沉積等晶圓廠機台，由腔體、真空、氣體、機構、電控五大子系統組成", key:"與晶圓直接接觸的腔體部件（ESC、陶瓷環、Showerhead）門檻最高、須在高等級無塵室製造；結構件與泵浦、電控櫃門檻較低" },
     { id:"semi-testing", layer:"package", status:"done", name:"半導體測試", en:"Semiconductor Testing", desc:"從晶圓下線到出貨前的五個把關階段；AI 晶片單價高，測試成為良率與獲利的關鍵戰場",
       brief:"晶圓下線到出貨前，五個把關晶片品質的測試階段", key:"前段 Prober 被日廠壟斷；台廠強在後段 FT / SLT 的測試介面" },
     { id:"probe-card",   layer:"package", status:"done", name:"探針卡",     en:"Probe Card",  desc:"CP 階段接觸晶圓的「針床」；3 奈米以下需 MEMS 針，是最激烈的技術戰場",
@@ -258,6 +260,12 @@ window.KB = {
     ["probe-card","tsmc","客戶：CP 測試"],
     ["probe-card","winway","相關"],
     ["probe-card","yjc","純設計、無自有產能"],
+    ["semi-equipment","appliedmat","蝕刻 / 沉積設備龍頭"],
+    ["semi-equipment","tokyo-electron","蝕刻設備大廠"],
+    ["semi-equipment","asml","相關：光刻設備另見 EUV"],
+    ["semi-equipment","euv","相關：同屬設備層"],
+    ["semi-equipment","semi-primer-v4"],
+    ["semi-equipment","tsmc","客戶：晶圓廠"],
     ["semi-primer-v4","sk-hynix"],
     ["semi-primer-v4","tsmc"],
     ["semi-testing","test-socket"],
@@ -300,6 +308,7 @@ window.KB = {
      格式：{ node:"節點 id", src:"images/檔名.webp", caption:"一句話說明", source:"出處名稱", url:"原始網址" }
      建議檔名：節點id-編號.webp，例如 cowos-1.webp。source 與 url 請務必填寫，標明出處。 */
   figures: [
+    { node:"semi-equipment", src:"images/semi-equipment-1.webp", caption:"半導體設備的主要構成與關鍵部件（以蝕刻 / 沉積設備為例），附 Sansera 與 UWC 的角色對比", source:"使用者提供之整理圖（原始出處待補）", url:"" },
     // { node:"cowos", src:"images/cowos-1.webp", caption:"CoWoS 剖面：GPU 與 HBM 並排放在矽中介層上", source:"來源網站名稱", url:"https://..." },
   ],
 
