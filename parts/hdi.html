@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HDI 高密度互連板 · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.hdi-stack{margin:14px 0 6px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:.78rem;max-width:520px}
+.hdi-stack .row{display:flex;align-items:center;gap:10px;margin:2px 0}
+.hdi-stack .bar{flex:1;padding:4px 10px;border-radius:4px;border:1px solid var(--line)}
+.hdi-stack .bu{background:rgba(42,140,140,.10);border-color:var(--part);color:var(--part)}
+.hdi-stack .core{background:var(--paper2);padding:12px 10px;text-align:center;color:var(--ink-soft)}
+.hdi-stack .lab{width:64px;text-align:right;color:var(--faint);white-space:nowrap}
+</style>
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+<span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#parts">零件</a> / HDI 高密度互連板</span>
+<nav class="top"><a href="../index.html#cycles">週期</a><a href="../index.html#companies">公司</a><a href="../index.html#parts">零件</a><a href="../index.html#quarters">財報</a></nav>
+</div></header>
+<div class="wrap"><div class="layout">
+
+<aside class="toc"><div class="tl">本頁目錄</div>
+<a href="#what">HDI 是什麼</a>
+<a href="#order">「階」跟「層」不一樣</a>
+<a href="#demand">兩股需求</a>
+<a href="#boards">AI 資料中心：哪些板子 HDI 化</a>
+<a href="#camps">兩套能力體系正在合流</a>
+<a href="#players">廠商路線</a>
+<a href="#judge">怎麼判斷誰真的做得到</a>
+<a href="#faq">常見誤解</a>
+<a href="#timeline">更新時間軸</a>
+</aside>
+
+<article>
+<span class="tag-type part">零件 / 模組</span>
+<h1>HDI 高密度互連板</h1>
+<p class="lede">High Density Interconnect · <a href="pcb.html">PCB</a> 的高密度分支：用雷射微孔加細線路，一輪一輪往外積層，在同樣面積裡塞進更多連接。過去是手機、手錶的技術，現在 AI 計算板、交換板、1.6T 光模組也在加速 HDI 化。</p>
+
+<h2 id="what">HDI 是什麼 — 為了解決「逃線」</h2>
+<p>晶片底部的焊點越排越密。傳統高多層 PCB 靠<b>機械鑽孔</b>連接各層，孔徑大、周圍還得留焊墊與安全距離，一個孔就佔掉一大塊空間。結果是：最外圈焊點的線還拉得出來，越往晶片中心，線路越難從一圈圈焊墊之間穿出去。業界把這個「把線從晶片底下引出來」的過程叫做<b>逃線（fan-out）</b>。</p>
+<p>HDI 的解法分兩步：</p>
+<table class="deftable">
+<tr><td><b>① 孔變小、線變細</b></td><td>在高密度區域改用<b>雷射微孔</b>做層間連接，同時把線寬線距做細。孔越小、線越細，同面積能完成的連接越多。</td></tr>
+<tr><td><b>② 逐次積層</b></td><td>一層放不下，就再加一層線路，用雷射微孔接回內層；加一層、連一層，再往外疊。這跟傳統高多層板「整疊壓合完，再用機械鑽頭一次打穿」的做法不同。</td></tr>
+</table>
+<p>雷射鑽孔、壓合、MSAP 等工藝與設備門檻，見 <a href="pcb.html#process">PCB · 工藝門檻</a>。</p>
+
+<h2 id="order">「階」跟「層」不一樣</h2>
+<p><b>HDI 的「階」＝ 逐次積層加微孔互連做了幾輪。</b>做一輪是一階、再做一輪是二階，往外疊越多輪就是越高階。常聽到的「5 階」「6 階」就是這個意思。</p>
+<p>業界常用 <b>X+N+X</b> 表示結構：中間 N 層是芯板，兩側各往外積層 X 輪。下圖以 5+N+5 為例：</p>
+<div class="hdi-stack">
+<div class="row"><span class="lab">積層 ×5</span><span class="bar bu">雷射微孔 · 細線路（第 5 → 1 輪）</span></div>
+<div class="row"><span class="lab">芯板 N</span><span class="bar core">傳統多層芯板（機械鑽孔）</span></div>
+<div class="row"><span class="lab">積層 ×5</span><span class="bar bu">雷射微孔 · 細線路（第 1 → 5 輪）</span></div>
+</div>
+<p class="note" style="border-left-color:var(--stub)"><b>層數 ≠ 階數。</b>PCB 有幾層，跟 HDI 做到幾階是兩件事。一塊幾十層的高多層板，未必是高階 HDI；判斷「密度」要看階數與線寬線距，不是看層數。</p>
+
+<h2 id="demand">兩股需求同時推動</h2>
+<table class="deftable">
+<tr><td><b>AI 終端小型化</b></td><td>手機、AI 眼鏡、手錶越做越輕，裡面卻要放更多晶片、感測器、通訊模組。蘋果、三星持續把運算與健康功能塞進手機、手錶、耳機；Meta 用 AI 眼鏡押注下一代人機介面。<br>例子：<b>魚躍 Watch A1</b> 把過去要專門設備做的 24 小時動態血壓監測放進手錶——平時用 PPG 光學感測看趨勢，發現異常再用腕部氣囊做標準量測。螢幕、通訊、多種感測器加上氣囊結構，留給主板的空間更少，只能往更高密度互連走。</td></tr>
+<tr><td><b>AI 算力高密度化</b></td><td>AI 晶片底部引腳越來越多，伺服器的<b>計算板、交換板、高速光模組</b>開始加速 HDI 化（下一節）。過去「消費電子做 HDI、伺服器做高多層」的分界正在變模糊。</td></tr>
+</table>
+<p>產業背景：過去兩年沒擠進 AI 資料中心的 PCB 廠，不但沒分到紅利，還要吞原物料漲價（見 <a href="pcb.html#pricing">PCB 是漲價第三棒</a>）。HDI 化可能是改寫這個競爭格局的新變數。</p>
+
+<h2 id="boards">AI 資料中心：哪些板子 HDI 化</h2>
+<div class="kpi-grid">
+<div class="kpi"><div class="v">5+N+5</div><div class="l">GB200 / GB300 計算板</div><div class="d">約略結構</div></div>
+<div class="kpi"><div class="v">6+N+6</div><div class="l">Vera Rubin 計算板</div><div class="d up">再加一階</div></div>
+<div class="kpi"><div class="v">24 層+</div><div class="l">Rubin 交換板</div><div class="d up">轉向 HDI 板</div></div>
+<div class="kpi"><div class="v">5 階+</div><div class="l">1.6T 光模組 PCB</div><div class="d">線寬線距 25μm 級</div></div>
+<div class="kpi"><div class="v">近百層</div><div class="l">Rubin 機櫃背板</div><div class="d">仍走超高多層</div></div>
+</div>
+<p><b>重點：AI 資料中心的 PCB 並沒有全部變成 HDI。</b>不同板子要解的問題不同，路線也分岔：</p>
+<table class="deftable">
+<tr><td><b>計算板</b><br>（Compute board）</td><td>首要問題是<b>密度</b>。輝達 GB200、GB300 計算板已採約 <b>5+N+5</b> 的高階 HDI；Vera Rubin 系列往 <b>6+N+6</b> 演進。→ 越來越 HDI。</td></tr>
+<tr><td><b>交換板</b><br>（Switch tray）</td><td>過去是典型高速多層板：<b>20 多層以上、高速材料、大量背鑽</b>，重點是讓訊號跑得快又遠。到 Rubin 世代，公開產業研究顯示交換板開始轉向 <b>24 層以上的 HDI 板</b>。原因是交換晶片同時要處理更多高速通道，<b>速度變快、連接也變密</b>，線路得先能從晶片周圍逃出來。→ 高多層 ＋ HDI 出現在同一塊板。</td></tr>
+<tr><td><b>高速光模組 PCB</b></td><td>1.6T 世代訊號更快、模組空間又極小：既要低損耗高速材料，又要小孔細線。高階 HDI、細線路與 <b>mSAP</b> 因此大量進入光模組 PCB；目前公開披露的高端能力已出現 <b>5 階以上 HDI、25 微米級線寬線距</b>。→ 兩套能力的最典型交匯點。</td></tr>
+<tr><td><b>機櫃背板</b><br>（Backplane / Midplane）</td><td>首要問題是<b>長距離、高速、大尺寸互連</b>。Rubin 背板繼續把高多層做到極致：<b>M9 級低損耗材料</b>（見 <a href="ccl.html">CCL</a>）、<b>更低粗糙度銅箔</b>、<b>接近百層</b>的超高多層結構。→ 越來越高多層，不走 HDI。</td></tr>
+</table>
+<p class="note" style="border-left-color:var(--cycle)"><b>一句話記：</b>計算板越來越 HDI，背板越來越高多層；交換板與高速光模組，正在把兩套原本分開的 PCB 能力合在一起。</p>
+
+<h2 id="camps">兩套能力體系正在合流</h2>
+<p>做 AI 算力 PCB 和做消費電子 HDI 的，雖然都叫 PCB 廠，擅長的東西其實不同：</p>
+<table class="deftable">
+<tr><td><b>伺服器 / 交換器派</b><br>高速高多層</td><td>專長：高多層、高速低損耗材料、背鑽、大尺寸，以及最關鍵的<b>訊號完整性</b>——讓高速訊號穿過又大又厚又複雜的板子後仍穩定傳輸。<br><b>要補的：</b>微孔、HDI、精細線路。</td></tr>
+<tr><td><b>消費電子派</b><br>高階 HDI</td><td>專長：雷射微孔、多階積層、<b>mSAP</b>、極細線路——在極小空間裡做到極高互連密度。<br><b>要補的：</b>高層數、高速材料、訊號完整性。</td></tr>
+<tr><td><b>交匯點</b></td><td><b>1.6T 光模組 PCB</b> 最典型：同時要高階 HDI 細線路與 mSAP，又要處理資料中心等級的高速訊號。消費電子累積的高密度製造能力，正在進入 AI 資料中心。</td></tr>
+</table>
+
+<h2 id="players">廠商路線</h2>
+<p>兩派正從不同方向走向同一個交匯點：</p>
+<table class="deftable">
+<tr><td><b>路線 A</b><br>高速高多層 → 高階 HDI</td><td><b>勝宏科技</b>：原本強項是 AI 高速 PCB；已實現 <b>6 階 24 層 HDI 大規模量產</b>，同時具備 <b>100 層以上</b>高多層板製造能力。<br><b>景旺電子</b>：GPU 高階 HDI 已量產；<b>224G 交換機 PCB</b> 與 <b>800G、1.6T 光模組 PCB</b> 已進入批量生產。</td></tr>
+<tr><td><b>路線 B</b><br>消費電子 HDI → AI 算力</td><td><b>鵬鼎控股</b>（臻鼎旗下）：過去最強的是蘋果供應鏈累積的高階 HDI 與 SLP（類載板）能力；現在高階 HDI 已進入 AI 伺服器，<b>800G、1.6T 光模組類載板已量產出貨</b>。</td></tr>
+<tr><td><b>補課中</b><br>傳統高速 PCB 廠</td><td><b>滬電、深南電路、生益電子</b>：持續補強高密度互連能力。</td></tr>
+</table>
+<p>台廠在 1.6T 光模組 PCB 的布局（欣興、臻鼎、華通）見 <a href="pcb.html#optical">PCB · 光模組 PCB</a>。</p>
+
+<h2 id="judge">怎麼判斷誰真的做得到</h2>
+<p class="note" style="border-left-color:var(--stub)"><b>技術能力 ≠ 量產能力。</b>已有廠商宣稱突破<b>十階 HDI</b>，但公開資訊仍停在技術能力或工藝突破。判斷一家 PCB 廠有沒有進入下一輪競爭，不能只看公布的最高參數，要看：<b>① 是否通過客戶驗證、② 能否穩定量產</b>。這才是高階 HDI 真正的產業門檻。</p>
+<p>結論：這輪由 AI 終端與 AI 算力共同推動的 HDI 升級，大概率不會平均分給所有 PCB 廠。真正稀缺的是<b>同時能做「高速低損耗」與「小孔細線」，而且能穩定量產</b>的廠商——站在高速、高多層、高密度互連三者交匯點上的公司。</p>
+
+<h2 id="faq">常見誤解</h2>
+<div class="qa">
+<div class="q">層數越多的 PCB，就是越高階的 HDI?</div>
+<div class="a">不是。層數是總共有幾層線路，階數是逐次積層做了幾輪。背板可以近百層卻不是 HDI；手機主板層數不多，卻可能是高階 HDI。</div>
+</div>
+<div class="qa">
+<div class="q">AI 伺服器會讓所有 PCB 都改成 HDI 嗎?</div>
+<div class="a">不會。計算板走 HDI、背板走超高多層；只有交換板與高速光模組需要兩套能力同時具備。</div>
+</div>
+<div class="qa">
+<div class="q">宣布做出十階 HDI，是不是就代表領先?</div>
+<div class="a">要再看客戶驗證與量產狀態。公布的最高參數只是技術能力，穩定量產才是門檻。</div>
+</div>
+
+<div class="links-box"><!-- 關聯節點由 assets/kb.js 依 data.js 的 links 自動產生;要新增關聯請改 data.js --></div>
+
+<h2 id="timeline">更新時間軸</h2>
+<div class="timeline">
+<div class="ev"><div class="dt">2026.10.25</div>建立此頁：歸檔坤元 Research 影片〈高階 HDI 化，正在重塑 PCB 產業格局〉逐字稿。整理 HDI 原理（逃線、雷射微孔、逐次積層、階 vs 層）、AI 終端與 AI 算力兩股需求、輝達計算板 / 交換板 / 光模組 / 背板的路線分岔、兩套能力體系、勝宏 / 景旺 / 鵬鼎等廠商路線，以及「技術能力 ≠ 量產能力」的判斷標準。</div>
+</div>
+</article>
+</div></div>
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+<script src="../assets/data.js"></script>
+<script src="../assets/kb.js"></script>
+</body></html>
