@@ -294,7 +294,7 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 - 建 / 改內容頁(複製該資料夾的 `_TEMPLATE.html`,用 §5 骨架)
 - `data.js` 的 `links`:每條關係一行並填角色;**不要在頁面手寫 link-chip**
 - `data.js` 的 `watch`:有可追蹤的指標就加
-- 使用者給截圖:壓成 .webp(寬 ≤1200px、≤300KB)放進 `images/`,登記到 `figures`,**一定填 source 與 url**
+- 使用者給截圖:壓成 .webp(寬 ≤1200px、≤300KB)放進 `images/`,登記到 `figures`,**一定填 source**(url 沒有可留空)
 - `reference/updates.html` 時間軸最上方加一筆
 - 檢查:所有內部連結不斷;`links`、`watch`、`figures`、`startPath` 裡的 id 都存在於 data.js;`done` 節點都有對應頁面
 
@@ -333,7 +333,7 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 
 **關聯只登記一次。** 在 `data.js` 的 `links` 加一行,兩邊自動出現。不要在頁面裡手寫 link-chip,否則會跟自動產生的重複。
 
-**圖片一定標出處。** 網站是公開的,`figures` 每筆都要有 `source` 和 `url`。結構和實物圖用截圖;關係圖交給自動產生的地圖與角色表;AI 生圖只當概念示意。
+**圖片一定標出處。** 網站是公開的,`figures` 每筆都要有 `source`;有原始網址就填 `url`,來源是券商報告、筆記等沒有網址的文件時 `url` 可留空,但 `source` 要寫清楚是哪份文件、日期。結構和實物圖用截圖;關係圖交給自動產生的地圖與角色表;AI 生圖只當概念示意。
 
 **內容寫繁體中文。** 整個知識庫以繁體中文為主,英文只用在專有名詞、技術術語、公司代號。
 
@@ -381,4 +381,5 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 *本指引版本: 2026.10 · 由初代維護對話編寫,可自由更新擴充。*
 *2026.07 更新:§6 補上 `.qa` / `.stub-banner` / `.kpi-grid` 三個元件的用法。*
 *2026.10 更新:新增 `brief` / `key` 摘要欄位、可點擊的串連地圖、從 GitHub 讀最新版的步驟 0、PR 交付方式。*
+*2026.10.26 更新:figures 的 url 可留空(來源為無網址文件時),source 必填。*
 *2026.10 更新:關聯改由 `data.js` 的 `links` 自動產生;新增 `layer`、`watch`、`figures`、`startPath`、`assets/kb.js`、`start.html`、`images/`。*

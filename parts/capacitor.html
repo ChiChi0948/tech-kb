@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電容 · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css"></head><body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+<span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#parts">零件</a> / 電容</span>
+<nav class="top"><a href="../index.html#cycles">週期</a><a href="../index.html#companies">公司</a><a href="../index.html#parts">零件</a><a href="../reference/glossary.html">術語表</a></nav>
+</div></header>
+<div class="wrap"><div class="layout">
+<aside class="toc"><div class="tl">本頁目錄</div>
+<a href="#principle">電容原理（白話）</a>
+<a href="#material">依材料分：五種電容</a>
+<a href="#captypes">依功能分：電路上的角色</a>
+<a href="#where">在 AI 伺服器上的位置</a>
+<a href="#timeline">更新時間軸</a>
+</aside>
+<article>
+<span class="tag-type part">零件 / 模組</span>
+<h1>電容</h1>
+<p class="lede">Capacitor · 兩片金屬板夾一層絕緣體的被動元件。所有電容的差別都在「中間那層絕緣體」用什麼材料；MLCC 只是其中一支。產業面（廠商、漲價、供需）見 <a href="passive.html">被動元件 (MLCC)</a> 頁。</p>
+
+<h2 id="principle">電容原理（白話）</h2>
+<p>電容結構是兩片金屬板夾一層絕緣體。電子穿不過絕緣層，卻能展現「通交流、隔直流」：</p>
+<table class="deftable">
+<tr><td>隔直流</td><td>直流接上後電子堆在一側金屬板，充飽電流就停——像對著牆推水，水位平了就不流。</td></tr>
+<tr><td>通交流</td><td>交流不斷換向，電容反覆充放電，迴路上始終有電流——像水管中間裝彈性橡皮膜，左右推拉另一邊的水也跟著動。頻率越高通得越順。</td></tr>
+</table>
+<p class="note" style="margin-top:8px"><b>為什麼直流電路上會有交流成分？</b> GPU 每秒開關幾十億次，電流忽大忽小。這種圍繞穩定直流上下跳動的波動，本身就是交流性質——不需要電壓由正變負才算。</p>
+
+<h2 id="material">依材料分：五種電容</h2>
+<table class="deftable">
+<tr><td><b>類型</b></td><td><b>絕緣層</b></td><td><b>優勢</b></td><td><b>劣勢</b></td><td><b>AI 主板位置</b></td></tr>
+<tr><td>MLCC</td><td>陶瓷</td><td>小、快、耐溫</td><td>容值有上限</td><td>GPU 旁去耦、諧振、全板基礎</td></tr>
+<tr><td>鋁電解（液態）</td><td>鋁氧化膜＋電解液</td><td>大容值、高壓</td><td>怕高溫、會爆</td><td>PSU 大型儲能（牛角電容）</td></tr>
+<tr><td>固態電容</td><td>鋁氧化膜＋導電高分子</td><td>不爆、低 ESR、耐溫</td><td>耐壓低、較貴</td><td>CPU/GPU 供電 VRM 輸出端</td></tr>
+<tr><td>Hybrid</td><td>固態＋液態混合</td><td>兼顧耐壓與壽命</td><td>折衷方案</td><td>48V 輸入端</td></tr>
+<tr><td>鉭電容</td><td>鉭氧化膜</td><td>容值密度高、穩定</td><td>鉭稀有、貴</td><td>精密穩定度位置</td></tr>
+</table>
+
+<h2 id="captypes">依功能分：電路上的角色</h2>
+<table class="deftable">
+<tr><td>去耦電容</td><td>接電源與地線之間、放 GPU 旁。蓄水池：被直流充飽，GPU 瞬間要電流時立即放電補上；濾波：高頻雜訊被「通交流」特性導引到地線，只留乾淨直流。對直流像牆、對高頻像通路，雜訊自然走好走的路流到地線。</td></tr>
+<tr><td>隔離電容</td><td>讓兩個「講不同電壓語言」的區塊安全互傳訊號。讓訊號（交流性質）通過，擋住兩邊直流互不干擾——傳的是資訊不是能量。</td></tr>
+<tr><td>諧振電容</td><td>與電感配合創造「盪鞦韆」節奏，開關在電流歸零瞬間切換、幾乎零損耗。降壓真正原理是「開多久關多久」的時間比例（48V 開 1/48 時間＝平均 1V），後接電感（把跳動壓成波浪）與電容（把波浪抹平）輸出穩定直流。它讓降壓從「暴力硬切」變「順節奏輕鬆切」，效率從 85% 提升到 97% 以上。</td></tr>
+<tr><td>矽電容</td><td>容值小、無法取代 MLCC，但能直接做進 PCB、緊貼 IC 底部減 EMI，適用垂直供電小型電源模組。村田很早在做，技術不難但高容＋可靠度仍有挑戰。</td></tr>
+<tr><td>電解電容<br>(牛角 Snap-in)</td><td>PSU 最缺元件之一，規格 450V/1000μF 以上。供應商：Rubycon、Nichicon、TDK EPCOS、台灣金山。門檻極高（高階鋁箔＋電解液配方＋製程穩定）。風險：配比不好會爆炸起火，資料中心不可接受。台達等系統廠已全球包廠搶貨。</td></tr>
+<tr><td>Hybrid 電解電容</td><td>半固態＋半液態折衷。48V 架構主流選擇（固態做不到高壓、純電解不耐高溫），搭配 MLCC 大量並聯用於 48V 輸入端。</td></tr>
+</table>
+
+<h2 id="where">在 AI 伺服器上的位置</h2>
+<p>從電源進來到晶片旁邊，電容分成四層：PSU 機殼內的牛角電容 → 48V 輸入端的 Hybrid 電容與高壓 MLCC → 電源轉換模組的固態電容與高階 MLCC → GPU / HBM 旁的高階 MLCC 去耦。每一層對應哪些台股、誰最受惠，見被動元件頁的 <a href="passive.html#family">家族分類與台股對應</a>。</p>
+
+<div class="links-box"><!-- 關聯節點由 assets/kb.js 依 data.js 的 links 自動產生；要新增關聯請改 data.js --></div>
+
+<h2 id="timeline">更新時間軸</h2>
+<div class="timeline">
+<div class="ev"><div class="dt">2026.10.26</div>從 <a href="passive.html">被動元件 (MLCC)</a> 頁拆出建立此頁：電容原理、材料比較表、各功能電容詳解原文搬入，被動元件頁改為產業面內容。</div>
+</div>
+</article></div></div>
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+<script src="../assets/data.js"></script>
+<script src="../assets/kb.js"></script>
+</body></html>

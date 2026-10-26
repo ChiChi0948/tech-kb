@@ -26,31 +26,118 @@
       <div class="tl">本頁目錄</div>
       <a href="#what">這是什麼</a>
       <a href="#why">為什麼重要</a>
+      <a href="#structure">結構：core die、logic die、堆疊層數</a>
+      <a href="#gen">世代節奏</a>
+      <a href="#trade">Trade ratio：為什麼 HBM 吃掉 DRAM 產能</a>
+      <a href="#pricing">定價機制</a>
+      <a href="#bonding">Hybrid bonding</a>
       <a href="#who">誰做、怎麼用</a>
+      <a href="#recent">近況更新 10.26</a>
       <a href="#timeline">更新時間軸</a>
     </aside>
     <article>
       <span class="tag-type part">零件 / 模組</span>
       <h1>HBM 高頻寬記憶體</h1>
       <p class="lede">High Bandwidth Memory · 把多層 DRAM 垂直堆疊的記憶體。</p>
-      
+
+      <div style="margin-top:28px;font-size:.82rem;letter-spacing:.08em;font-weight:700;padding:6px 12px;border-left:4px solid var(--done);background:rgba(0,0,0,.03);color:var(--ink-soft)">基本知識 · 長期有效</div>
+
   <h2 id="what">這是什麼</h2>
-  <p>HBM 把多層 DRAM 晶片垂直堆疊，再用高速通道連到處理器，提供遠高於一般記憶體的頻寬。</p>
+  <p>HBM 把多層 DRAM 晶片垂直堆疊，再用高速通道連到處理器，提供遠高於一般記憶體的頻寬。它是 <a href="dram-nand.html">DRAM</a> 的一種封裝形式，和標準型 DRAM 共用晶圓產能。</p>
+
   <h2 id="why">為什麼重要</h2>
-  <p>AI 運算的瓶頸常在「資料搬運速度」而非單純算力。HBM 的高頻寬正是餵飽 GPU 的關鍵，因此成為 <a href="../cycles/ai-server.html">AI 伺服器週期</a> 的核心零件。</p>
+  <p>AI 運算的瓶頸常在「資料搬運速度」而非單純算力。HBM 的高頻寬正是餵飽 GPU 的關鍵，因此成為 <a href="../cycles/ai-server.html">AI 伺服器週期</a> 的核心零件。輝達 Rubin 與 Rubin Ultra 兩代平台的 GPU、CPU、封裝規格幾乎一樣，效能提升主要就來自 HBM4E 更高的速度與頻寬。</p>
+
+  <h2 id="structure">結構：core die、logic die、堆疊層數</h2>
+  <table class="deftable">
+    <tr><td><b>Core die</b></td><td>堆疊上去的 DRAM die，用 DRAM 製程生產。製程從 1b 轉到 1c 時，單顆容量從 24Gb 升到 32Gb（約 +30%）。</td></tr>
+    <tr><td><b>Logic die（base die）</b></td><td>最底層負責控制與介面的邏輯晶片，交給晶圓代工製程生產。<b>logic die 的速度決定 HBM4 效能勝負</b>：三星用自家晶圓代工 N4，SK 海力士用台積電 N12，這是三星 HBM4 效能明顯較好的主因。</td></tr>
+    <tr><td><b>堆疊層數</b></td><td>8H / 12H / 16H 代表疊幾層 core die。層數越多容量越大，但良率越難：12H 比 8H 難做得多。16H 只有客製化 HBM 才會使用。</td></tr>
+  </table>
+  <p class="note" style="border-left-color:var(--cycle)"><b>為什麼 logic die 變成新戰場：</b>HBM4 起 logic die 需要先進邏輯製程。自己有晶圓代工的三星佔便宜；SK 海力士、美光必須向台積電等代工廠爭取產能，而台積電先進製程本身也缺貨。</p>
+
+  <h2 id="gen">世代節奏</h2>
+  <p>HBM 大約每 1.5 年換一代：</p>
+  <table class="deftable">
+    <tr><td>HBM3E</td><td>2025 年主流；hyperscaler 自研 ASIC 在 2026 年仍用 HBM3E（從 8H 轉 12H）。</td></tr>
+    <tr><td>HBM4</td><td>2026 年主流，GPU 廠（輝達、AMD）從 HBM3E 轉 HBM4；輝達 Rubin 平台帶動 2H26 慢慢轉換。</td></tr>
+    <tr><td>HBM4E</td><td>2028 年為主；部分 ASIC 客戶考慮跳過 HBM4 直接用 HBM4E。</td></tr>
+    <tr><td>HBM5</td><td>預計 2029 年底推出。</td></tr>
+  </table>
+
+  <h2 id="trade">Trade ratio：為什麼 HBM 吃掉 DRAM 產能</h2>
+  <p>Trade ratio 指「做出同樣 bit 數的 HBM，要消耗幾倍的標準型 DRAM 晶圓產能」。HBM 的 die 較大、堆疊有良率損失，所以比值大於 1。分析師估計 <b>HBM4E 的 trade ratio 約 4:1</b>，2028 年 HBM4E 放量會吃掉大量 DRAM 產能，這是他認為 2028 年記憶體仍供不應求的主要原因。</p>
+
+  <h2 id="pricing">定價機制</h2>
+  <ul>
+    <li><b>一年一約、提前議價：</b>下一年的 HBM 價格在前一年 9 月左右談定。例如 2026 年價格是 2025 年 9 月定的，完全錯過 2025 年 10 月起的記憶體大漲。</li>
+    <li><b>通常不納入 LTA：</b>HBM 是新產品、一年一約，一般不放進與 hyperscaler 的長約；輝達是例外（見 <a href="dram-nand.html#lta">LTA 機制</a>）。</li>
+    <li><b>獲利不如標準型：</b>2026 年 HBM 營業利益率約 40–50%，標準型 DRAM 約 80%。這解釋了為什麼部分廠商不急著擴 HBM。</li>
+  </ul>
+
+  <h2 id="bonding">Hybrid bonding</h2>
+  <p>Hybrid bonding（混合鍵合）是讓上下兩層晶片直接以銅對銅接合、不用凸塊的技術，可以讓堆疊更薄、層數更高、散熱更好。設備商以 <b>BESI</b> 為代表。</p>
+  <ul>
+    <li>HBM 導入時程一再延後，分析師預期 HBM5 才採用；HBM4E 16H 原本一定需要 hybrid bonding，但輝達降規到 8H，HBM4E 可能看不到。</li>
+    <li>輝達 2028 年的 Feynman 平台是全面改版，需要 hybrid bonding 用於 SoIC 3D 封裝、CPO 與 HBM，屆時滲透率才會明顯提升。</li>
+  </ul>
+
   <h2 id="who">誰做、怎麼用</h2>
-  <p>由 <a href="../companies/sk-hynix.html">SK 海力士</a> 領先供應，透過 <a href="../parts/cowos.html">CoWoS</a> 封裝與 <a href="../companies/nvidia.html">輝達</a> 的 GPU 整合在同一基板上。</p>
- 
+  <p>由 <a href="../companies/sk-hynix.html">SK 海力士</a> 領先供應，<a href="../companies/samsung-mem.html">三星</a>、<a href="../companies/micron.html">美光</a> 追趕；透過 <a href="../parts/cowos.html">CoWoS</a> 封裝與 <a href="../companies/nvidia.html">輝達</a> 的 GPU 整合在同一基板上。需求端除了輝達、AMD GPU，Google TPU 等 ASIC 也快速成長。</p>
+
+      <div style="margin-top:36px;font-size:.82rem;letter-spacing:.08em;font-weight:700;padding:6px 12px;border-left:4px solid var(--stub);background:rgba(0,0,0,.03);color:var(--ink-soft)">近況更新 · 時效性內容</div>
+
+  <h2 id="recent">近況更新 <span style="font-size:.7em;color:var(--faint);font-weight:400">· 2026.10.26</span></h2>
+  <p class="note" style="border-left-color:var(--stub)"><b>資料來源：</b>大和（Daiwa）全球記憶體／南韓科技分析師 SK Kim 簡報摘要（2026.10，業務端整理的 sales note，非大和正式報告）。內容為單一分析師觀點與預估，數字皆來自簡報，未另行查證。</p>
+
+  <h3 style="font-size:1rem;margin-top:18px">價格：2026 持平，2027 報復性上漲</h3>
+  <table class="deftable">
+    <tr><td><b>2026 年</b></td><td>價格大致持平，同規格比較其實是下跌：HBM3E 小跌，HBM4 較高成本的組合帶來一些溢價。</td></tr>
+    <tr><td><b>2027 年</b></td><td>9 月已談定，反映目前 DRAM 短缺，大和估計 <b>+110% YoY</b>，每 Gb 從 $2.5 漲到 $4。若漲 100%，三星 2027 年 HBM 營益率約 70%，縮小與標準型的差距。</td></tr>
+    <tr><td><b>市場規模</b></td><td>2026 年 +約 60%、2027 年 +240% 以上。</td></tr>
+    <tr><td><b>位元出貨</b></td><td>2026 年 HBM 約 +55–60%（DRAM 整體約 +22–25%，受供給限制）。</td></tr>
+  </table>
+
+  <h3 style="font-size:1rem;margin-top:18px">輝達降規到 8H</h3>
+  <ul>
+    <li>2025 年底輝達提高 HBM4 速度規格，SK 海力士 12H 做不到、還有過熱問題，於是建議輝達改用 8H。輝達把更多份額分給 8H，HBM4 與 HBM4E 都包含在內。</li>
+    <li>分析師認為是雙贏：輝達降低成本並確保供貨，海力士 8H 好生產、可提升產出。</li>
+    <li>投資人擔心 12H → 8H 會讓 HBM content 減少 30–50%；分析師認為 HBM4E core die 從 24Gb 升到 32Gb（約 +30%）可抵銷。</li>
+    <li>降規後輝達反而上修展望：黃仁勳表示 2027 年出貨成長超過 100%（原 guidance 營收成長 70s%），分析師估計加上漲價，輝達 2027 年營收成長可達 100–120%。</li>
+    <li>HBM 降規不會讓產能轉去做標準型 DRAM：價格大漲後廠商供 HBM 的意願更高。</li>
+  </ul>
+
+  <h3 style="font-size:1rem;margin-top:18px">份額</h3>
+  <table class="deftable">
+    <tr><td><b>輝達供應份額（2027 預估）</b></td><td>SK 海力士 50% 以上（仍是最大供應商）、三星 30–35%、美光 15–20%。</td></tr>
+    <tr><td><b>整體 HBM 市佔（2027）</b></td><td>三星有望重回第一：摘要寫「超過 40%」，內文寫「50% 以上」。三星不爭輝達，轉向 Google 與 Broadcom；依研調與三星說法，2027 年 Google 的 HBM 需求將與輝達相當（TPU 帶動）。</td></tr>
+    <tr><td><b>1H26 營收</b></td><td>三星與美光 HBM 營收各約 $1b；2H26 美光成長放緩（沒加產能），三星持續擴產。</td></tr>
+  </table>
+
+  <h3 style="font-size:1rem;margin-top:18px">GPU / ASIC 的 HBM 需求預估</h3>
+  <table class="deftable">
+    <tr><td></td><td><b>2024 / 2025 / 2026E / 2027E</b></td></tr>
+    <tr><td>晶片出貨（千顆）</td><td>輝達 GPU 3,890 / 6,459 / 7,942 / 9,934<br>AMD GPU 1,464 / 2,079 / 2,351 / 3,477<br>ASIC 3,156 / 5,398 / 9,069 / 13,240</td></tr>
+    <tr><td>單顆 HBM 容量（GB）</td><td>輝達 226 / 260 / 284 / 299<br>AMD 198 / 262 / 304 / 322<br>ASIC 80 / 96 / 152 / 225</td></tr>
+    <tr><td>HBM 需求（百萬 Gb）</td><td>輝達 7,046 / 13,453 / 18,031 / 23,727<br>AMD 2,324 / 4,355 / 5,713 / 8,956<br>ASIC 2,020 / 4,146 / 11,020 / 23,812</td></tr>
+    <tr><td><b>合計</b></td><td><b>11,390 / 21,955 / 34,764 / 56,496</b>（YoY 268.5% / 92.8% / 58.3% / 62.5%）</td></tr>
+  </table>
+  <p class="note" style="border-left-color:var(--cycle)"><b>讀法：</b>2027 年 ASIC 的 HBM 需求（23,812）預估首度追上輝達 GPU（23,727），這是三星轉向 Google / Broadcom 的背景。</p>
+
+  <h3 style="font-size:1rem;margin-top:18px">Logic die 與 hybrid bonding 動態</h3>
+  <ul>
+    <li>SK 海力士已送 HBM4E 樣品，據研調仍採台積電 N12 logic die、core die 從 1b 轉 1c；分析師認為台積電 N3 嚴重缺貨，沒分給海力士。海力士正與 Intel 洽談用 Intel 晶圓代工做 logic die（未正式宣布）。</li>
+    <li>美光尚未送 HBM4E 樣品，7 月表示 logic die 將採台積電 mid-single nm 製程（分析師認為是 N4 或 N5）。</li>
+    <li>Hot Chips：三星發表以 hybrid bonding 連接 HBM 與 GPU 的客製化 HBM；美光強調與台積電在封裝與 logic die 上的合作；SK 海力士發表在 HBM 內做「煙囪」散熱結構的方案。</li>
+    <li>SK 海力士原本對 hybrid bonding 最保守，因散熱問題在 HBM4/4E 落後，希望 HBM5 提早導入，今年首度向 BESI 買設備。三星計畫在 P5 設 hybrid bonding 專屬產能，已與 BESI 洽談。</li>
+  </ul>
 
       <div class="links-box"><!-- 關聯節點由 assets/kb.js 依 data.js 的 links 自動產生；要新增關聯請改 data.js --></div>
 
       <h2 id="timeline">更新時間軸</h2>
       <div class="timeline">
+        <div class="ev"><div class="dt">2026.10.26</div>由「大和全球記憶體產業簡報摘要（2026.10）」大幅擴充：基本知識新增結構（core / logic die、8H/12H/16H）、世代節奏、trade ratio、定價機制、hybrid bonding；近況更新新增 2027 價格 +110%、輝達降規 8H、各廠份額、GPU/ASIC 需求表。</div>
         <div class="ev"><div class="dt">2026.05</div>建立此頁</div>
-      </div>
-
-      <div class="note" style="margin-top:30px">
-        <b>擴充這一頁：</b> 直接編輯本檔。新增段落＝再加一個 <code>&lt;h2&gt;</code> 區塊並在左側目錄補連結；新增關聯＝在 <code>assets/data.js</code> 的 <code>links</code> 加一行；有新進展＝在「更新時間軸」最上方加一筆。
       </div>
     </article>
   </div>

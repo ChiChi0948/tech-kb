@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRAM / NAND 記憶體 · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css"></head><body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+<span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#parts">零件</a> / DRAM / NAND 記憶體</span>
+<nav class="top"><a href="../index.html#cycles">週期</a><a href="../index.html#companies">公司</a><a href="../index.html#parts">零件</a><a href="../reference/glossary.html">術語表</a></nav>
+</div></header>
+<div class="wrap"><div class="layout">
+<aside class="toc"><div class="tl">本頁目錄</div>
+<a href="#what">這是什麼</a>
+<a href="#supply">供給面：DRAM 微縮、NAND 堆疊</a>
+<a href="#roadmap">DRAM 製程路線</a>
+<a href="#nand-layer">NAND 層數</a>
+<a href="#cycle">週期結構變了</a>
+<a href="#storage">AI 對儲存的需求</a>
+<a href="#lta">LTA 長約機制</a>
+<a href="#players">主要玩家</a>
+<a href="#recent">近況更新 10.26</a>
+<a href="#timeline">更新時間軸</a>
+</aside>
+<article>
+<span class="tag-type part">零件 / 模組</span>
+<h1>DRAM / NAND 記憶體</h1>
+<p class="lede">DRAM 是處理器旁邊的「工作桌」，NAND 是資料長期存放的「倉庫」。兩者同屬記憶體，但供給邏輯完全不同：DRAM 越來越難微縮，NAND 可以一直往上疊。</p>
+
+<div style="margin-top:28px;font-size:.82rem;letter-spacing:.08em;font-weight:700;padding:6px 12px;border-left:4px solid var(--done);background:rgba(0,0,0,.03);color:var(--ink-soft)">基本知識 · 長期有效</div>
+
+<h2 id="what">這是什麼</h2>
+<table class="deftable">
+<tr><td><b>DRAM</b></td><td>動態隨機存取記憶體。斷電資料就消失（揮發性），速度快，放在 CPU / GPU 旁邊當工作記憶體。依用途分成 server DRAM（DDR5）、手機用 LPDDR、顯示用 GDDR，以及堆疊封裝的 <a href="hbm.html">HBM</a>。</td></tr>
+<tr><td><b>NAND Flash</b></td><td>斷電資料仍保存（非揮發性），用來做 SSD、手機儲存。資料中心用的叫 eSSD（企業級 SSD）。依每個儲存單元存幾個 bit 分成 TLC（3 bit）、QLC（4 bit）：QLC 容量密度高、便宜，但速度與耐用度較差。</td></tr>
+<tr><td><b>HBM 跟 DRAM 的關係</b></td><td>HBM 不是另一種記憶體，而是把多顆 DRAM die 垂直堆疊、再配一顆 logic die 的封裝形式。它和標準型 DRAM 搶同一批晶圓產能，所以 HBM 做越多，標準型 DRAM 就越緊。</td></tr>
+</table>
+
+<h2 id="supply">供給面：DRAM 微縮、NAND 堆疊</h2>
+<p>兩者最關鍵的差異在<b>供給</b>：</p>
+<table class="deftable">
+<tr><td><b>DRAM</b></td><td>靠線寬微縮提升產出，但微縮已明顯放緩，每往前一個節點都更難、更依賴 <a href="euv.html">EUV</a>。美光在技術研討會也強調這點。所以 DRAM 擴產慢、供給彈性小。</td></tr>
+<tr><td><b>NAND</b></td><td>靠堆疊層數提升容量，物理上可堆到約 1,000 層。層數越多讀取時間越長、效率會下降，但產出大增。因此 NAND 廠一旦決定擴產，比 DRAM 容易得多。</td></tr>
+</table>
+<p class="note" style="border-left-color:var(--cycle)"><b>推論：</b>這也是為什麼分析師認為中國的 <b>長江存儲（YMTC，NAND）</b>潛在衝擊比 <b>長鑫存儲（CXMT，DRAM）</b>大——NAND 的擴產門檻本來就比較低。</p>
+
+<h2 id="roadmap">DRAM 製程路線</h2>
+<table class="deftable">
+<tr><td><b>節點命名</b></td><td>DRAM 節點用 1x → 1y → 1z → 1a → 1b → 1c → 1d 推進（美光叫法 1α / 1β / 1γ）。主流 1a / 1b / 1c 會用到 2028，1d 預計 2029 商用。</td></tr>
+<tr><td><b>EUV 導入</b></td><td>三星、SK 海力士從 1a 起使用 EUV；美光到 1b 都沒用，靠設計能力撐住，但拉升較慢，從 1c / 1γ 起改用 EUV。最重要的製程推進都需要 EUV。</td></tr>
+<tr><td><b>6F² + hybrid bonding</b></td><td>主要 DRAM 廠準備的路線：成本較高，但能縮小 die size。2030 年以後 DRAM 才會用到 hybrid bonding，之後再走向 3D DRAM。</td></tr>
+<tr><td><b>4F²</b></td><td>需改成垂直通道電晶體結構，難度很高，主要大廠目前不考慮；長鑫存儲在自行開發 4F² + hybrid bonding。</td></tr>
+</table>
+
+<h2 id="nand-layer">NAND 層數</h2>
+<p>各廠層數：三星 286L、SK 海力士 300L，下一代進入 400L 以上（三星跳過 300L 直接做 430L、美光新加坡新園區規劃 450L）。層數升級屬於<b>製程轉換</b>，不算新產能。</p>
+<p>400L 對設備商是新需求：<b>東京威力科創（TEL）</b>的低溫蝕刻設備是專為 400L 設計的。見 <a href="semi-equipment.html">半導體設備</a>。</p>
+
+<h2 id="cycle">週期結構變了：從消費性到資料中心</h2>
+<table class="deftable">
+<tr><td><b>舊週期</b></td><td>需求以消費性產品為主，季節性明顯：下半年新品、開學季、新 iPhone 帶動庫存回補；上半年調整。於是形成「漲一年、跌一年」的週期，投資人習慣在漲價三四季後就看空。</td></tr>
+<tr><td><b>新結構</b></td><td>需求轉向資料中心（server DRAM + HBM），資料中心需求<b>沒有季節性</b>。分析師估計資料中心佔 DRAM 需求 2026 年約 60%、2027 年 75%，消費性降到 20% 以下；NAND 的資料中心佔比也已到約 50%。</td></tr>
+<tr><td><b>判讀重點</b></td><td>市場的分歧就在這裡：多頭認為「這次不一樣」，結構已改；空頭沿用舊週期思維，認為價格漲久了就會崩。最終要靠獲利自證。</td></tr>
+</table>
+
+<h2 id="storage">AI 對儲存的需求</h2>
+<ul>
+<li><b>KV SSD：</b>輝達 Rubin 平台使用 KV SSD 存放推論中間結果，需要高效能，QLC 無法滿足，必須用 TLC，而且這類 TLC 的 die size 比一般 TLC 更大。</li>
+<li><b>DRAM 不夠就用 NAND 補：</b>客戶拿不到足夠 DRAM，會改買更多 NAND 來提升工作負載效能。</li>
+<li><b>Agentic AI：</b>分析師認為對 NAND 較有利，但 DRAM 仍不可或缺（CPU 需要）。</li>
+<li><b>下一階段：</b>目前 AI 輸入以文字為主；進入 physical AI 與 edge AI 後，輸入變成圖片與影片，需要大量記憶體儲存。HDD 與 eSSD 需求都會增加。</li>
+</ul>
+
+<h2 id="lta">LTA 長約機制</h2>
+<p>LTA（Long-Term Agreement，長期供貨協議）是記憶體廠這一輪推動的新商業模式，目的是提高需求能見度、穩定價格。</p>
+<table class="deftable">
+<tr><td><b>涵蓋範圍</b></td><td>多為 hyperscaler 的 DDR5 標準型 DRAM。HBM 通常是一年一約的新產品，<b>一般不納入</b> LTA；輝達是例外（它買的 HBM 比標準型記憶體還多）。</td></tr>
+<tr><td><b>運作方式（以三星為例）</b></td><td>每年更新合約；客戶款項存放在第三方金融機構（類似保管人），出貨前 6 個月記憶體廠從第三方取得預付款；公司成立專責 LTA 的部門（規劃、財務）。有些合約中同一客戶同時以定價與現貨價兩種方式採購。</td></tr>
+<tr><td><b>市場疑慮</b></td><td>不少投資人不相信 LTA 能保護什麼：過去經驗是苗頭一不對，LTA 就失效。</td></tr>
+</table>
+
+<h2 id="players">主要玩家</h2>
+<table class="deftable">
+<tr><td><a href="../companies/samsung-mem.html">三星電子</a></td><td>DRAM、NAND 雙龍頭；自有晶圓代工，可自己做 HBM logic die。</td></tr>
+<tr><td><a href="../companies/sk-hynix.html">SK 海力士</a></td><td>DRAM 與 HBM 要角；NAND 透過子公司 <b>Solidigm</b>（原 Intel NAND 業務）。</td></tr>
+<tr><td><a href="../companies/micron.html">美光</a></td><td>美系 DRAM / NAND 廠；設計能力強、EUV 導入較晚。</td></tr>
+<tr><td><b>鎧俠 Kioxia</b></td><td>日本 NAND 廠，BiCS 製程；SSD controller 與群聯合作（台積電代工），近期與三星晶圓代工簽約採用 N5 controller。</td></tr>
+<tr><td><b>南亞科 Nanya</b></td><td>台灣標準型 DRAM 廠。</td></tr>
+<tr><td><b>長鑫存儲 CXMT</b></td><td>中國 DRAM 廠，主攻手機與低階 server DRAM。</td></tr>
+<tr><td><b>長江存儲 YMTC</b></td><td>中國 NAND 廠。</td></tr>
+</table>
+
+<div style="margin-top:36px;font-size:.82rem;letter-spacing:.08em;font-weight:700;padding:6px 12px;border-left:4px solid var(--stub);background:rgba(0,0,0,.03);color:var(--ink-soft)">近況更新 · 時效性內容</div>
+
+<h2 id="recent">近況更新 <span style="font-size:.7em;color:var(--faint);font-weight:400">· 2026.10.26</span></h2>
+<p class="note" style="border-left-color:var(--stub)"><b>資料來源：</b>大和（Daiwa）全球記憶體／南韓科技分析師 SK Kim 簡報摘要（2026.10，業務端整理的 sales note，非大和正式報告）。內容為單一分析師觀點與預估，數字皆來自簡報，未另行查證。</p>
+
+<h3 style="font-size:1rem;margin-top:18px">市場情緒：股價修正，但基本面沒變</h3>
+<ul>
+<li><b>7 月 AI 半導體股大跌</b>，分析師歸因於非基本面：① OpenAI、Anthropic 等前緣 AI 公司仍未獲利，token 需求大增但成本沉重；② DeepSeek、Kimi 等中國開源模型市佔上升，企業開始測試便宜很多的替代方案。</li>
+<li>多數投資人對記憶體中立或保守，理由是舊週期思維：ASP 已連漲 3–4 季、上行週期滿一年，預期明年年中價格開始下滑。</li>
+<li>投資人已不爭論估值：三星電子等記憶體股本益比只有 4–5 倍，大家改看 PBR。</li>
+<li>分析師觀點：AI 基礎建設投資仍在半途（Meta 剛上修 capex），供應商庫存非常緊。</li>
+</ul>
+
+<h3 style="font-size:1rem;margin-top:18px">十年 AI 超級週期</h3>
+<p>分析師把 AI 視為十年大週期：<b>2026–2030 由資料中心帶動</b>，<b>2031–2035 由 physical AI 與 edge AI 帶動</b>。記憶體在整個週期都是核心，只是後半段的使用情境會從資料中心轉到終端。</p>
+
+<h3 style="font-size:1rem;margin-top:18px">價格與市場規模預估</h3>
+<table class="deftable">
+<tr><td><b>市場規模</b></td><td>DRAM / NAND 營收 2026 年成長 300% 以上 / 2027 年約 70%。</td></tr>
+<tr><td><b>價格</b></td><td>2026 年 DRAM / NAND 價格年增超過 300%，2027 年放緩到約 30%。漲價趨勢可延續到 2027 年底，甚至 2028 年中。4Q26 ASP 預期再漲。</td></tr>
+<tr><td><b>標準型 DRAM 合約價</b></td><td>Q3 漲超過 20% qq；Q4 原本預期約 10%，TrendForce 上看 13–15% qq。2027 年預估每季中–高個位數 % 上漲，下半年放緩到中個位數。</td></tr>
+<tr><td><b>1H27 消費性補漲</b></td><td>2026 年漲價主要由 server 帶動，造成同一產品賣給 server 與消費性客戶的價差擴大（例：輝達 CPU 用的 LPDDR5 與高階手機完全相同但價格差很多）。三星手機部門、Apple 等已同意把價格拉近 server 水準；鎧俠對 Apple 也會調價。</td></tr>
+<tr><td><b>出貨量</b></td><td>2027 年 DRAM 位元出貨約 low–mid 20s %、NAND 約 high 20s %。server DRAM：content +20%、bit shipment +40%；eSSD +40%。</td></tr>
+<tr><td><b>需求結構</b></td><td>資料中心佔 DRAM 需求：2026 年約 60%（server 50% + HBM 10%）→ 2027 年 75%（server 60% + HBM 15%）。</td></tr>
+<tr><td><b>缺貨排序</b></td><td>HBM &gt; DDR &gt; NAND（NAND 短缺但不嚴重）。</td></tr>
+</table>
+
+<h3 style="font-size:1rem;margin-top:18px">各廠位元成長預估（YoY）</h3>
+<table class="deftable">
+<tr><td><b>DRAM</b></td><td><b>2023 / 2024 / 2025 / 2026E / 2027E</b></td></tr>
+<tr><td>三星</td><td>9.8% / 12.1% / 8.3% / 28.1% / 18.6%</td></tr>
+<tr><td>SK 海力士</td><td>17.0% / 14.5% / 16.9% / 21.5% / 21.3%</td></tr>
+<tr><td>美光</td><td>-9.8% / 38.9% / 13.8% / 27.9% / 20.2%</td></tr>
+<tr><td>南亞科</td><td>-8.4% / -12.6% / 53.8% / 32.7% / -1.6%</td></tr>
+<tr><td><b>產業合計</b></td><td><b>4.6% / 20.2% / 15.4% / 24.6% / 21.6%</b></td></tr>
+<tr><td><b>NAND</b></td><td><b>2023 / 2024 / 2025 / 2026E / 2027E</b></td></tr>
+<tr><td>三星</td><td>10.9% / 19.0% / 3.5% / 15.9% / 16.0%</td></tr>
+<tr><td>鎧俠</td><td>3.5% / 8.1% / 11.6% / 14.3% / 20.7%</td></tr>
+<tr><td>美光</td><td>26.5% / 17.1% / 22.6% / 19.9% / 14.2%</td></tr>
+<tr><td>SK 海力士（含 Solidigm）</td><td>16.4% / 4.8% / 9.3% / 19.4% / 18.2%</td></tr>
+<tr><td><b>產業合計</b></td><td><b>17.4% / 12.4% / 11.1% / 5.9% / 20.9%</b></td></tr>
+</table>
+
+<h3 style="font-size:1rem;margin-top:18px">Capex 與 2028 年供給</h3>
+<ul>
+<li>大和把 2027 年記憶體產業 capex 成長預估從 30–40% 上修到 <b>60% 以上</b>（2026 年 +70% 主要是低基期）：美光 capex 倍增；三星今年 50–65 兆韓圜，2027 年增加到 100 兆韓圜（DRAM + NAND）。</li>
+<li>市場擔心 2028 年至少 20% 新產能到位，加上中國廠商，會供過於求。分析師認為<b>製程升級困難 + HBM4E 放量（trade ratio 4 倍）+ Rubin Ultra 頻寬需求</b>會抵銷新產能，2028 年仍吃緊。</li>
+<li>美光 guidance 2028 年 DRAM 供給成長 low 20s %；韓廠預期 20% 以上，差異來自 HBM4E。</li>
+</ul>
+<table class="deftable">
+<tr><td><b>SK 海力士</b></td><td>2027 年基本上沒有新產能。龍仁新廠 2H27 開始放量（+60k wpm），主要增量在 2028 年（120k wpm）。</td></tr>
+<tr><td><b>三星</b></td><td>P4 總產能 200k：二樓 100k 已全數用於 HBM4；一樓 100k 明年增加（原規劃全做標準型 DRAM，現在也擴 HBM）。P5 預計 2028 年中啟用，比海力士早約一年。</td></tr>
+<tr><td><b>美光</b></td><td>2027 年中台灣新產線啟用但規模不大，考慮再建一條約 40k 的產線；廣島新廠 2028 年啟用；新加坡 NAND 新園區 2H28 啟用、導入 450L。</td></tr>
+</table>
+
+<h3 style="font-size:1rem;margin-top:18px">NAND 動態</h3>
+<ul>
+<li>兩家客戶加速導入 400L NAND（原本預期延到 2028 年後），對 TEL 有利：三星 2027 年中開始、美光 2028 年中開始。</li>
+<li>三星還在轉 286L，決定跳過 300L 直接做 430L，進展順利；美光執行仍早期、表現不算好；SK 海力士專注 300L，並透過 Solidigm 擴充中國產能。三星西安廠與海力士大連廠加速技術轉換，年底前下單給設備商。</li>
+<li>市場傳言 CSP 下修 2027–2028 NAND 需求；分析師認為需求反而更多（agentic AI、Meta 發布新模型後大量下單；Meta 偏好 QLC，Google 需求也強）。</li>
+</ul>
+
+<h3 style="font-size:1rem;margin-top:18px">中國記憶體廠：在 DRAM / HBM 都不是威脅</h3>
+<ul>
+<li>中國市場同樣嚴重短缺，應與非中國市場分開看。主要記憶體廠對中國曝險都低於 20%；長鑫、長江受惠於中國內需，不代表在全球搶市佔，與國際大廠客戶重疊不多。長期有出口野心，但美光表示走出中國會面臨 IP 問題。</li>
+<li><b>長鑫存儲</b>：IPO 後宣布多項擴產與先進技術，分析師認為仍有好幾年差距。今年 G4（約 16nm）放量，市佔升到約 10%，並導入 HKMG。G4 無法做 HBM；做 HBM3 至少需要 G5（約 1a / 14nm 等級，長鑫自稱 12nm）。沒有 EUV 只能用四重曝光量產 1a，成功機率不高，分析師預期 2027 年長鑫會流失市佔。</li>
+</ul>
+
+<div class="links-box"><!-- 關聯節點由 assets/kb.js 依 data.js 的 links 自動產生；要新增關聯請改 data.js --></div>
+
+<h2 id="timeline">更新時間軸</h2>
+<div class="timeline">
+<div class="ev"><div class="dt">2026.10.26</div>由「大和全球記憶體產業簡報摘要（2026.10）」歸檔建立此頁：基本知識（DRAM vs NAND 供給差異、製程路線、週期結構、LTA 機制）與近況更新（價格、capex、2028 供給、NAND 400L、中國廠）分開整理。</div>
+</div>
+</article></div></div>
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+<script src="../assets/data.js"></script>
+<script src="../assets/kb.js"></script>
+</body></html>

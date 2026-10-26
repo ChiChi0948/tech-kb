@@ -28,6 +28,15 @@
 <tr><td>HDI 階數</td><td>逐次積層加微孔互連做了幾輪；寫成 X+N+X（中間 N 層芯板、兩側各積層 X 輪）。與 PCB「層數」是不同概念。</td></tr>
 <tr><td>逃線 (Fan-out)</td><td>把線路從晶片底部密集焊點之間引出來的過程；焊點越密越難，是 HDI 要解的核心問題。</td></tr>
 <tr><td>mSAP</td><td>改良型半加成法，用電鍍長出極細線路、避免蝕刻側蝕；用於類載板、光模組 PCB。</td></tr>
+<tr><td>DRAM</td><td>動態隨機存取記憶體，斷電資料消失，放在處理器旁當工作記憶體；靠製程微縮提升產出。見 <a href="../parts/dram-nand.html">DRAM / NAND 頁</a>。</td></tr>
+<tr><td>NAND Flash</td><td>斷電不消失的快閃記憶體，用來做 SSD；靠堆疊層數提升容量。TLC 每格存 3 bit、QLC 存 4 bit。</td></tr>
+<tr><td>eSSD</td><td>企業級 SSD，資料中心用的固態硬碟。</td></tr>
+<tr><td>LTA</td><td>Long-Term Agreement，長期供貨協議。記憶體廠與 hyperscaler 簽訂，常附預付款；HBM 一般不納入（輝達例外）。</td></tr>
+<tr><td>Logic die</td><td>HBM 最底層的邏輯晶片（base die），用晶圓代工製程生產；HBM4 起其製程速度決定 HBM 效能。</td></tr>
+<tr><td>8H / 12H / 16H</td><td>HBM 堆疊幾層 DRAM core die。層數越多容量越大、良率越難。</td></tr>
+<tr><td>Trade ratio</td><td>做出同樣 bit 數的 HBM 要消耗幾倍標準型 DRAM 產能；分析師估 HBM4E 約 4:1。</td></tr>
+<tr><td>Hybrid bonding</td><td>混合鍵合，上下晶片以銅對銅直接接合、不用凸塊，可讓堆疊更薄、層數更高；預期 HBM5 起導入。</td></tr>
+<tr><td>6F² / 4F²</td><td>DRAM 記憶單元面積的表示法（F 為最小線寬）。主流大廠走 6F² + hybrid bonding；4F² 需垂直通道電晶體，難度高。</td></tr>
 <tr><td>先進封裝</td><td>把多顆晶片整合在一起的技術總稱，CoWoS 是其中一種。</td></tr>
 </table></div>
 <div class="note">新增術語：直接在本檔表格加一列 <code>&lt;tr&gt;&lt;td&gt;名詞&lt;/td&gt;&lt;td&gt;解釋&lt;/td&gt;&lt;/tr&gt;</code>。</div>
