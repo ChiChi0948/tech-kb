@@ -41,6 +41,8 @@ window.KB = {
       brief:"台灣第二大 MLCC 廠，MLCC 與晶片電阻雙產品線", key:"產能全滿，推銅電極 MLCC 切入 AI 伺服器" },
     { id:"holystone", layer:"component",group:"passive", status:"done", name:"禾伸堂",   code:"Holy Stone · 3026", desc:"高壓 MLCC niche player；48V 諧振電容新需求直接受惠，最積極擴廠",
       brief:"台灣高壓 MLCC 利基廠", key:"48V 諧振電容是新需求，擴廠最積極" },
+    { id:"semco", layer:"component", group:"passive", status:"done", name:"三星電機", code:"SEMCO · 009150", desc:"ABF 載板＋MLCC 雙引擎；交期短搶下輝達 ABF 訂單，MLCC 接續太陽誘電漲價",
+      brief:"三星集團旗下零組件廠，做 ABF 載板與 MLCC", key:"ABF 交期約 6 個月 vs 揖斐電 2 年，搶進輝達；MLCC 是村田之後的第一替代順位，已率先漲價" },
     // PCB / 載板
     { id:"tuc", layer:"materials",      group:"pcb",     status:"done", name:"台光電",   code:"TUC · 2383",   desc:"台灣 CCL 龍頭、NVIDIA AI 伺服器供應鏈領導地位；M8 等級高速材料",
       brief:"台灣 CCL 龍頭，輝達 AI 伺服器供應鏈的主要 CCL 廠", key:"M8 等級高速材料，少數能與松下、羅傑斯並列的台廠" },
@@ -257,6 +259,12 @@ window.KB = {
     ["micron","tsmc","HBM4E logic die 與封裝合作"],
     ["micron","asml","EUV 產能是最大擔憂"],
     ["sk-hynix","intel","洽談 logic die 代工（未公告）"],
+    ["semco","abf","輝達、AWS、AMD 的 ABF 載板供應商"],
+    ["semco","passive","MLCC：村田之後第一替代順位"],
+    ["semco","nvidia","ABF 載板：預估成為第一大客戶"],
+    ["semco","ai-server"],
+    ["semco","yageo"],
+    ["semco","walsin"],
     ["holystone","passive","高壓 MLCC"],
     ["holystone","walsin"],
     ["holystone","yageo"],
@@ -333,6 +341,9 @@ window.KB = {
                      ["股東回饋新計畫", "庫藏股執行完畢，市場期待特別股利、季配息與新庫藏股"] ],
     "samsung-mem": [ ["三星在輝達的 HBM 份額", "分析師估 30–35%；三星要求漲價一倍以上，輝達是否讓步"],
                      ["Google TPU 的 HBM 需求", "2027 年預估與輝達相當，是三星重回 HBM 第一的關鍵"] ],
+    "semco":       [ ["村田是否跟進 MLCC 漲價", "只剩村田還沒漲；村田跟漲才確認整個 MLCC 漲價週期"],
+                     ["ABF 載板營益率", "已超過 30%，分析師預期 2027 年底到 40%；能否超過揖斐電"],
+                     ["釜山、世宗 ABF 新產能進度", "交期短是搶下輝達的關鍵，擴產延遲就失去優勢"] ],
     "micron":      [ ["HBM4E 送樣時點", "目前尚未送樣，落後兩家韓廠"],
                      ["EUV 設備取得與 1γ 轉換", "美光自稱唯一擔憂是 ASML 產能"] ],
     "euv":         [ ["ASML 季度 EUV 訂單與出貨台數", "先進製程擴產的最上游訊號"] ],
@@ -362,6 +373,11 @@ window.KB = {
      建議檔名：節點id-編號.webp，例如 cowos-1.webp。source 與 url 請務必填寫，標明出處。 */
   figures: [
     { node:"semi-equipment", src:"images/semi-equipment-1.webp", caption:"半導體設備的主要構成與關鍵部件（以蝕刻 / 沉積設備為例），附 Sansera 與 UWC 的角色對比", source:"使用者提供之整理圖（原始出處待補）", url:"" },
+    { node:"dram-nand", src:"images/dram-nand-1.webp", caption:"AI 十年大週期：2026–2030 由資料中心帶動，2031–2035 由 physical AI 與 edge AI 帶動", source:"大和全球記憶體產業簡報摘要（2026.10，sales note）", url:"" },
+    { node:"dram-nand", src:"images/dram-nand-2.webp", caption:"DRAM 與 NAND 市場營收預估（2024–2027E）", source:"大和全球記憶體產業簡報摘要（2026.10，sales note）", url:"" },
+    { node:"dram-nand", src:"images/dram-nand-3.webp", caption:"DRAM 與 NAND 位元供給預估（2024–2027E）", source:"大和全球記憶體產業簡報摘要（2026.10，sales note）", url:"" },
+    { node:"dram-nand", src:"images/dram-nand-4.webp", caption:"各廠 DRAM / NAND 位元成長預估（2023–2027E）", source:"大和全球記憶體產業簡報摘要（2026.10，sales note）", url:"" },
+    { node:"hbm", src:"images/hbm-1.webp", caption:"GPU / ASIC 出貨與 HBM 需求預估（2024–2027E）", source:"大和全球記憶體產業簡報摘要（2026.10，sales note）", url:"" },
     // { node:"cowos", src:"images/cowos-1.webp", caption:"CoWoS 剖面：GPU 與 HBM 並排放在矽中介層上", source:"來源網站名稱", url:"https://..." },
   ],
 
