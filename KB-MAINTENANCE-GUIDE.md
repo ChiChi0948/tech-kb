@@ -50,7 +50,8 @@ techkb/
 ├── assets/
 │   ├── style.css           全站共用樣式,改這裡全站生效
 │   ├── data.js             節點、關聯、層級、追蹤、圖解總表 ← 平常只改這裡
-│   └── kb.js               共用程式:自動產生關聯/角色地圖/追蹤/圖解(不用改)
+│   ├── kb.js               共用程式:自動產生關聯/角色地圖/追蹤/圖解(不用改)
+│   └── fulltext.js         首頁全文搜尋:依 data.js 節點清單讀各頁內文比對(不用改)
 ├── start.html              從這裡開始:新手閱讀路徑(順序由 data.js 的 startPath 控制)
 ├── images/                 截圖(登記在 data.js 的 figures)
 ├── cycles/                 週期頁 + _TEMPLATE.html
@@ -383,3 +384,4 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 *2026.10 更新:新增 `brief` / `key` 摘要欄位、可點擊的串連地圖、從 GitHub 讀最新版的步驟 0、PR 交付方式。*
 *2026.10.26 更新:figures 的 url 可留空(來源為無網址文件時),source 必填。*
 *2026.10 更新:關聯改由 `data.js` 的 `links` 自動產生;新增 `layer`、`watch`、`figures`、`startPath`、`assets/kb.js`、`start.html`、`images/`。*
+*2026.10.28 更新:首頁搜尋欄加上全文搜尋(`assets/fulltext.js`),會搜 `done` 節點頁、財報、報告、術語表、分析框架的內文,略過更新時間軸。新頁面登記進 `data.js` 就自動被搜到,歸檔流程不變。內頁的 h2 請保留 `id`,搜尋結果才能直接跳到那一段。*

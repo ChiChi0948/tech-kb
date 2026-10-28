@@ -33,7 +33,8 @@
     <p class="lede">以「週期 / 公司 / 零件」三種卡片互相串聯的個人研究筆記。全球科技供應鏈約八成是同一批名字，只是每個週期裡負責不同的零件或模組——這份知識庫就是用來把這些角色關係串起來、並持續長大。</p>
     <a class="start-cta" href="start.html">第一次來？從這裡開始 →</a>
     <div class="search-wrap">
-      <input id="search" placeholder="🔍 搜尋公司、零件、週期⋯ 例如：HBM、台積電、CoWoS">
+      <input id="search" placeholder="🔍 搜尋公司、零件、週期，也搜各頁內文⋯ 例如：HBM、台積電、mSAP">
+      <div class="ft" id="ft-results" hidden aria-live="polite"></div>
     </div>
   </section>
 
@@ -129,6 +130,7 @@
 
 <script src="assets/data.js"></script>
 <script src="assets/kb.js"></script>
+<script src="assets/fulltext.js"></script>
 <script>
 // 產業鏈地圖（可點擊串連）
 (function(){

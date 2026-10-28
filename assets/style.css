@@ -163,6 +163,23 @@ footer.site a{color:var(--ink-soft);text-decoration:none}
 #search:focus{outline:none;border-color:var(--accent)}
 .no-match{display:none;color:var(--faint);font-style:italic;padding:30px 0;text-align:center}
 
+/* 全文搜尋結果（assets/fulltext.js） */
+.ft{margin-top:10px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;
+  box-shadow:var(--shadow);font-family:ui-sans-serif,system-ui,sans-serif;font-size:.86rem;line-height:1.55}
+.ft[hidden]{display:none}
+.ft-head{color:var(--ink-soft);font-size:.78rem;margin-bottom:6px}
+.ft-note{color:var(--faint);font-style:italic}
+.ft-page{padding:10px 0;border-top:1px solid var(--line2)}
+.ft-page:first-of-type{border-top:none}
+.ft-title{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--ink);text-decoration:none;margin-bottom:4px}
+.ft-title .tag-type{margin:0}
+.ft-title:hover{color:var(--accent)}
+.ft-hit{display:block;text-decoration:none;color:var(--ink-soft);padding:5px 8px;border-radius:6px;margin-left:2px}
+.ft-hit:hover{background:var(--paper2)}
+.ft-sec{display:block;font-size:.72rem;color:var(--faint)}
+.ft-txt mark{background:rgba(201,154,46,.28);color:var(--ink);padding:0 1px;border-radius:2px}
+.ft-more{color:var(--faint);font-size:.76rem;padding:2px 10px}
+
 /* ---------- 財報節點 (第四種卡片) ---------- */
 :root{ --quarter:#a64d4d; }
 .item[data-t="quarter"]::before{background:var(--quarter)}
