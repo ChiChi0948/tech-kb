@@ -28,6 +28,18 @@
 <tr><td>HDI 階數</td><td>逐次積層加微孔互連做了幾輪；寫成 X+N+X（中間 N 層芯板、兩側各積層 X 輪）。與 PCB「層數」是不同概念。</td></tr>
 <tr><td>逃線 (Fan-out)</td><td>把線路從晶片底部密集焊點之間引出來的過程；焊點越密越難，是 HDI 要解的核心問題。</td></tr>
 <tr><td>mSAP</td><td>改良型半加成法，用電鍍長出極細線路、避免蝕刻側蝕；用於類載板、光模組 PCB。</td></tr>
+<tr><td>CP 晶圓針測</td><td>晶圓切割前，用探針卡逐顆量測晶粒電性，篩出 KGD。見 <a href="../parts/probe-card.html">探針卡</a>。</td></tr>
+<tr><td>KGD</td><td>Known Good Die，已知良好晶粒。多晶粒封裝裡一顆壞就整包報廢，所以進封裝前要先篩好。</td></tr>
+<tr><td>FT 成品測試</td><td>封裝後的必要測試，依序做直流、功能、交流測試，並依速度分級（binning）。見 <a href="../parts/semi-testing.html">半導體測試</a>。</td></tr>
+<tr><td>SLT 系統級測試</td><td>把晶片裝在接近真實主機板的測試板上開機跑軟體，抓 FT 抓不到的系統性與間歇性問題。</td></tr>
+<tr><td>Burn-in／WLBI</td><td>高溫高壓老化測試，逼出早夭瑕疵；WLBI 是在晶圓階段就做，HBM 最常見。</td></tr>
+<tr><td>Shifting left</td><td>把篩選往測試流程前段（晶圓測試）移，避免壞晶粒進入昂貴封裝。</td></tr>
+<tr><td>ATE</td><td>自動測試設備，俗稱測試機；送出測試訊號、比對晶片回應。Advantest、Teradyne 為主。</td></tr>
+<tr><td>Handler</td><td>分選機。FT／SLT 時把封裝好的晶片壓進測試座、依結果分盤；CP 用的是探針台（Prober）。</td></tr>
+<tr><td>ATC</td><td>Active Thermal Control，主動溫控。整合在 Handler 上，晶片跑負載時即時抽熱或加溫，維持測試溫度。</td></tr>
+<tr><td>Load Board／DIB</td><td>成品測試用的測試介面板，上面焊測試座、下面接測試機。見 <a href="../parts/load-board.html">測試介面板</a>。</td></tr>
+<tr><td>MEMS 探針</td><td>用半導體微影製程做的探針；pitch 低於約 50µm 時幾乎只能用它。</td></tr>
+<tr><td>CPO</td><td>Co-Packaged Optics，共同封裝光學：光學引擎封在交換器晶片旁。見 <a href="../parts/cpo.html">CPO</a>。</td></tr>
 <tr><td>DRAM</td><td>動態隨機存取記憶體，斷電資料消失，放在處理器旁當工作記憶體；靠製程微縮提升產出。見 <a href="../parts/dram-nand.html">DRAM / NAND 頁</a>。</td></tr>
 <tr><td>NAND Flash</td><td>斷電不消失的快閃記憶體，用來做 SSD；靠堆疊層數提升容量。TLC 每格存 3 bit、QLC 存 4 bit。</td></tr>
 <tr><td>eSSD</td><td>企業級 SSD，資料中心用的固態硬碟。</td></tr>

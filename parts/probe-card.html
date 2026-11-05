@@ -16,9 +16,12 @@
 
 <aside class="toc"><div class="tl">本頁目錄</div>
 <a href="#what">這是什麼</a>
+<a href="#structure">結構:錢花在哪一層</a>
 <a href="#tech">三種主流技術</a>
 <a href="#mems-trigger">MEMS 導入觸發點</a>
+<a href="#pins">七種探針技術</a>
 <a href="#global">全球競爭格局</a>
+<a href="#market">市場規模</a>
 <a href="#biz-model">自製 vs 外購差異</a>
 <a href="#customers">客戶對應矩陣</a>
 <a href="#timeline">更新時間軸</a>
@@ -34,6 +37,15 @@
 
 <p>它是 CP 階段最關鍵的耗材——晶圓不斷變,探針卡也不斷換,而且針會磨損。每一世代新晶片誕生前,都要先做出對應的新探針卡。</p>
 
+<h2 id="structure">結構:錢花在哪一層</h2>
+<p>一張探針卡由上到下三層(野村,2026.07):</p>
+<table class="deftable">
+<tr><td>探針頭</td><td>探針加陶瓷導板,<b>價值最高的部分,占整張卡 40–50% 以上</b>;同類針下,針數越多越貴,3–4 萬針以上的案子探針頭可超過總價一半。有些廠商針向外採購,自己只做探針頭組裝。</td></tr>
+<tr><td>轉接板／空間轉換層</td><td>通常是 MLO(多層有機)或 MLC(多層陶瓷)基板,把測試機的粗腳距轉成晶片要的細腳距。</td></tr>
+<tr><td>探針卡 PCB</td><td>最底層、直接接測試頭;常見 40–70 層,研發或極小量案子可破 100 層。細節見 <a href="load-board.html">測試介面板</a>。</td></tr>
+</table>
+<p>CP 的流程也比想像中深:先確認開路、短路、漏電,再用晶片內建的測試電路做更完整的故障覆蓋;類比與記憶體晶片還會在 CP 階段微調校準、把壞掉的記憶體單元用備援電路修掉。高階產品(HBM、功率元件最常見)還會加做晶圓級 Burn-in。最後產出晶圓圖,標出每顆晶粒是好、壞或已修復。</p>
+
 <h2 id="tech">三種主流技術</h2>
 
 <table class="deftable">
@@ -42,11 +54,28 @@
 <tr><td><b>MEMS</b></td><td>半導體製程做出的微針 · 間距 <40μm · <b>AI / HPC、3 奈米以下必用</b></td></tr>
 </table>
 
+<div class="note"><b>觀念澄清</b> · CPC、VPC 是「結構」,描述針怎麼接觸晶圓;MEMS 是「製造方法」,用半導體微影做針。所以理論上有垂直 MEMS 也有非垂直 MEMS,但量產高階晶片用的幾乎都是<b>垂直式 MEMS</b>,本頁說的 MEMS 都是指這種。另有薄膜探針卡,用在部分高階 DDIC 與高頻 RF。(野村,2026.07)</div>
+<table class="deftable">
+<tr><td>成本</td><td>CPC 最便宜</td></tr>
+<tr><td>針痕</td><td>針會在晶圓上留下痕跡;CPC 的針痕比 VPC 大、深,壓壞晶圓的風險較高</td></tr>
+<tr><td>換針</td><td>CPC 換針比 VPC 難、維護成本高;有些 MEMS 針直接電鑄或接合在基板上,不用導板但也很難換</td></tr>
+<tr><td>針數</td><td>CPC 通常 1–2 千針(少數做到 7–8 千);VPC 數千到 1 萬針以上;MEMS 可到數萬針。多顆晶粒同測時,探針卡針數會大於晶片腳數</td></tr>
+</table>
+
 <p>三種技術的商業意義完全不同:CPC 是穩定但成長低的成熟市場;Cobra 是 2020 前後成長的主力;MEMS 是 AI 時代真正的新增量。三種都會共存,但成長全在 MEMS。</p>
 
 <h2 id="mems-trigger">MEMS 導入觸發點</h2>
 
-<div class="note" style="border-left-color:var(--done)"><b>硬指標</b> · <b>3 奈米以下製程必須轉 MEMS</b>。因為 3 奈米以下測試墊太薄,Cobra 針壓力太大會壓壞晶片。這是判斷哪些晶片會用 MEMS 的唯一硬指標——不是市場偏好,是物理逼你轉。</div>
+<div class="note" style="border-left-color:var(--done)"><b>硬指標</b> · <b>3 奈米以下製程必須轉 MEMS</b>。因為 3 奈米以下測試墊太薄,Cobra 針壓力太大會壓壞晶片。這是判斷哪些晶片會用 MEMS 的唯一硬指標——不是市場偏好,是物理逼你轉。(凱基訪談;野村則以 pitch 為主要驅動,見下方)</div>
+
+<h4>另一種說法:pitch 才是最強的驅動(野村)</h4>
+<p>野村認為晶片 pad 的間距(pitch)同時決定針的技術、針數與機構複雜度,是探針卡架構最強的驅動:</p>
+<table class="deftable">
+<tr><td>60–100µm 周邊 pad</td><td><b>懸臂針</b>:彎曲金屬線像彈性樑,壓下時會刮破表面氧化層;便宜、好修,類比、功率與舊產品的標準選擇</td></tr>
+<tr><td>80–150µm area array</td><td><b>Cobra 針</b>:斜針碰不到晶片內部的覆晶凸塊,改用導板固定的直針,受壓時整根側向挫曲、接觸力均勻、刮痕小;大型邏輯晶粒 1–5 萬針、總接觸力數十公斤,要加強固板。CPU、GPU、SoC 的主力</td></tr>
+<tr><td>低於 40–50µm</td><td><b>MEMS 針</b>:用光罩定義,幾十萬根針都能維持次微米一致、幾乎不刮,保護脆弱的 low-k 介電層。HBM micro-bump(40–55µm)、先進製程只能用它</td></tr>
+</table>
+<p>細 pitch 幾乎一定要 MEMS,但 MEMS 也常在一般 pitch 被選用,因為上萬根針要一致、接觸力要精準、高功率要承載大電流。目前手機 AP 凸塊間距約 80µm、HPC/AI 晶片約 100µm,所以 VPC 仍廣泛使用,但趨勢往 MEMS 走。野村調查:輝達 AI GPU、CPU、網通產品用 MEMS,遊戲 GPU 留在 Cobra;ASIC 依客戶逐步轉 MEMS,針數從 VPC 2–2.5 萬針、MEMS 3–4 萬針,一路往 9–10 萬針以上走。也有「混針」探針卡:細 pitch 訊號用 MEMS、周邊電源或大電流用 Cobra。</p>
 
 <h4>2026 年會用 MEMS 的晶片列表</h4>
 <ul>
@@ -63,6 +92,21 @@
 <li>手機 SoC(聯發科天璣)——目前還是精測的 Cobra 為主</li>
 </ul>
 
+<h2 id="pins">七種探針技術</h2>
+<div style="overflow-x:auto;width:0;min-width:100%">
+<table class="deftable">
+<tr><td>針種</td><td><b>材料／製法</b></td><td><b>彈簧機制</b></td><td><b>典型應用</b></td><td><b>主要廠商</b></td></tr>
+<tr><td>懸臂針</td><td>鎢／錸鎢線彎折拋光,環氧樹脂固定</td><td>彎曲樑</td><td>類比、功率、分離式、舊產品</td><td>旺矽、MJC</td></tr>
+<tr><td>Cobra／挫曲樑</td><td>鎢錸合金線裝在導板中</td><td>彈性柱挫曲,接觸力曲線平</td><td>覆晶 C4 凸塊、CPU、GPU、SoC</td><td>Technoprobe、MJC</td></tr>
+<tr><td>垂直針／彈簧針</td><td>加工針管內含微彈簧</td><td>彈簧壓縮</td><td>FT、高頻／大電流邏輯</td><td>Smiths、旺矽</td></tr>
+<tr><td>Micro Spring</td><td>專利線芯加合金鍍層</td><td>3D 彈簧壓縮</td><td>高效能混訊、DRAM／Flash</td><td>FormFactor</td></tr>
+<tr><td>MEMS(含 Nano Spring)</td><td>微影＋電鍍鎳合金,銠／鈀鈷針尖</td><td>微加工彈簧／樑</td><td>HBM micro-bump、記憶體、5nm 以下邏輯</td><td>Technoprobe、FormFactor</td></tr>
+<tr><td>薄膜探針</td><td>聚醯亞胺膜蝕刻＋電鑄凸點</td><td>背面彈性體支撐</td><td>LCD／OLED 驅動 IC、RF</td><td>MJC、旺矽</td></tr>
+<tr><td>Thin Film Probe</td><td>晶圓級微影微接點</td><td>針尖微順應</td><td>3D-IC、CoWoS、先進 chiplet 堆疊</td><td>FormFactor、精測</td></tr>
+</table>
+</div>
+<p>(野村,2026.07)</p>
+
 <h2 id="global">全球競爭格局</h2>
 
 <table class="deftable">
@@ -72,6 +116,15 @@
 <tr><td><a href="../companies/mpi.html">旺矽(台)</a></td><td><b>8%</b> · 但在 AI 高階遠高於這個數字</td></tr>
 <tr><td><a href="../companies/chpt.html">精測(台)</a></td><td>聯發科手機 SoC 100%</td></tr>
 <tr><td><a href="../companies/yjc.html">雍智(台)</a></td><td>純設計、Google Humming Fish 新單</td></tr>
+</table>
+<p>上表市佔來自凱基訪談(2026.06)。野村(2026.07)引 2025 年營收:</p>
+<table class="deftable">
+<tr><td>FormFactor</td><td>6.38 億美元、<b>23%</b>,總量第一;記憶體與邏輯都強,1Q26 某記憶體大廠占營收約 30%、輝達首度超過 10%(網通);標準品多、較不願客製;已開始出 <a href="cpo.html">CPO</a> Insertion 1 測試系統</td></tr>
+<tr><td>Technoprobe</td><td>約 <b>17%</b>;扣掉記憶體就是第一。自有 MEMS 廠,市佔從 2018 年約 8% 升到 2025 年約 16.5%,2024 年拿下 MEMS 邏輯探針卡 60%(該市場 9.37 億美元);除了整卡也對外賣針</td></tr>
+<tr><td>MJC、JEM</td><td>日系記憶體探針卡利基:MJC 專攻高階記憶體／HBM,JEM 偏 NAND</td></tr>
+<tr><td><a href="../companies/mpi.html">旺矽</a></td><td>從 2023 年約 6% 升到 2025 年約 <b>10%</b>;自製 IC 探針卡全球第 4(2023 年超越 JEM)、非記憶體第 3;懸臂與垂直式市佔領先,積極擴 MEMS</td></tr>
+<tr><td><a href="../companies/winway.html">穎崴</a></td><td>非記憶體探針卡排名從 2021 年第 19 升到 2025 年第 5,主要靠遊戲顯卡</td></tr>
+<tr><td>前五大合計</td><td>73%</td></tr>
 </table>
 
 <p>整體全球市佔看起來台廠只有 10% 左右,<b>但 AI 高階探針卡市佔超過 50%</b>。這是分析看待這個產業的關鍵反差。</p>
@@ -98,6 +151,17 @@
 <div class="q">穎崴為什麼不自製 MEMS?</div>
 <div class="a">MEMS 針的自製產能建置門檻極高——需要半導體製程級的無塵室與微機電製程能力,投資金額和技術累積都不是短期能追上。穎崴選擇聚焦測試座本業(這是他真正的護城河),探針卡端接受外購的毛利率壓縮,換取更快進入 MEMS 客戶。</div>
 </div>
+
+<div class="note"><b>野村補充(2026.07)</b> · 穎崴與 Technoprobe 的合作分兩階段:第一階段(2024 年起)外購 MEMS 針,拉低整體毛利率(3Q25–1Q26 降到 42–43%,1H25 為 49%);第二階段 2025 年 12 月簽約,Technoprobe 授權穎崴使用其方案五年、不限客戶,野村預期條件較友善。穎崴探針卡 2025 年約 90% 是 Cobra,2026F 反轉為 MEMS 八成以上。另一方面,野村的台廠比較表把<b>精測</b>的 MEMS 針能力標為「自製」,與本頁「精測不做 MEMS 針」的說法不同,待確認。</div>
+
+<h2 id="market">市場規模</h2>
+<table class="deftable">
+<tr><td>凱基(2026.06)</td><td>2024–2030 CAGR 25%,2030 年約 98 億美元;MEMS 2024 年 17.11 億美元(68%),2030 年 66.3 億美元</td></tr>
+<tr><td>TechInsights(野村引)</td><td>2025 年約 28 億美元,其中 MEMS 近 20 億(約 70%);2030E 超過 45 億美元,CAGR 11.1%。Yole 與 TechInsights 都認為探針卡是測試介面中成長最快的一塊</td></tr>
+<tr><td>投資強度</td><td>FormFactor 統計:探針卡營收占半導體營收的比例 16 年來增加到 3 倍,2024 年約 0.4%</td></tr>
+<tr><td>一個 CoWoS 模組</td><td>需要 3–5 套以上不同的探針卡設計,可能分給不同供應商</td></tr>
+</table>
+<p>兩組市場數字落差很大,可能是統計口徑不同,先並列。交期方面:晶片廠要在 tape-out 前 1–2 季找探針卡廠,tape-out 後 3–4 個月交工程樣品。</p>
 
 <h2 id="customers">客戶對應矩陣</h2>
 
@@ -131,6 +195,7 @@
 
 <h2 id="timeline">更新時間軸</h2>
 <div class="timeline">
+<div class="ev"><div class="dt">2026.11</div>歸檔野村《Advanced Semi Testing》(2026.07):新增探針卡三層結構與價值分布、CP 流程、CPC/VPC 是結構 vs MEMS 是製法、pitch 驅動論、七種探針技術表、2025 年市佔與兩大廠細節、市場規模另一組數字、穎崴與 Technoprobe 兩階段合作。市佔與市場規模和凱基說法不同,並陳。</div>
 <div class="ev"><div class="dt">2026.07</div>由「半導體測試產業筆記」歸檔建立此頁;涵蓋 CPC/Cobra/MEMS 三世代、MEMS 導入觸發點、自製 vs 外購商業模式差異、客戶對應矩陣。</div>
 </div>
 

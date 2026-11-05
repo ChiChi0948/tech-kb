@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPO 共同封裝光學 · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+<span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#parts">零件</a> / CPO</span>
+<nav class="top"><a href="../index.html#cycles">週期</a><a href="../index.html#companies">公司</a><a href="../index.html#parts">零件</a><a href="../index.html#quarters">財報</a></nav>
+</div></header>
+<div class="wrap"><div class="layout">
+
+<aside class="toc"><div class="tl">本頁目錄</div>
+<a href="#what">這是什麼</a>
+<a href="#coupe">台積電 COUPE 與時程</a>
+<a href="#why-test">為什麼測試是關鍵</a>
+<a href="#insertions">四個測試站</a>
+<a href="#suppliers">各站潛在供應商</a>
+<a href="#taiwan">台廠卡位</a>
+<a href="#open">還沒定案的事</a>
+<a href="#timeline">更新時間軸</a>
+</aside>
+
+<article>
+<span class="tag-type part">零件 / 模組</span>
+<h1>CPO 共同封裝光學 <span style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:1rem;color:var(--faint);font-weight:400">Co-Packaged Optics</span></h1>
+<p class="lede">把負責光電轉換的「光學引擎」直接封在交換器晶片（未來可能是 AI ASIC）旁邊，用光取代銅線傳資料，省電又低延遲。對測試業來說，它是一條全新的流程：電訊號和光訊號要一起測，而且要拆成四個測試站。</p>
+
+<h2 id="what">這是什麼</h2>
+<p>傳統做法是交換器晶片在主機板中間，訊號用銅線走到機殼前面板，再插可插拔光模組轉成光。速度越快，銅線損耗越大、越耗電。CPO 把光電轉換搬到晶片旁邊：</p>
+<table class="deftable">
+<tr><td>EIC 電子晶片</td><td>負責驅動與接收電訊號</td></tr>
+<tr><td>PIC 光子晶片</td><td>負責調變與接收光訊號（例如微環調變器 MRM）</td></tr>
+<tr><td>光學引擎 OE</td><td>EIC 用 hybrid bonding 疊在 PIC 上，再加上光纖陣列（FAU）或接座</td></tr>
+<tr><td>CPO 模組</td><td>多顆光學引擎和交換器 ASIC 放在同一塊基板（未來是中介層）上</td></tr>
+</table>
+
+<h2 id="coupe">台積電 COUPE 與時程</h2>
+<ul>
+<li><b>COUPE</b>（Compact Universal Photonic Engine）：台積電 2021 年提出，2023 年推出以 hybrid bonding 直接接合 EIC 與 PIC 的版本。</li>
+<li><b>2026 年</b>量產全球第一顆 200G 微環調變器；目標 2030 年做到多波長 400G 與多排光纖陣列。</li>
+<li><b>效益</b>（台積電說法）：COUPE 放在基板上，比銅線省電 4 倍、延遲降 10 倍；放在中介層上可到省電 10 倍、延遲降 20 倍。</li>
+<li><b>輝達</b>：首款 CPO 交換器 Spectrum-6 在 2026 年 3 月宣布全面量產，乙太網路 scale-out CPO 交換器隨 Vera Rubin 平台 2H26 推出。報告預期 2026 年還不會大量放量。</li>
+<li>野村認為 COUPE 也會是台積電 SoIC 產能的主要用戶之一。</li>
+</ul>
+
+<h2 id="why-test">為什麼測試是關鍵</h2>
+<p>CPO 模組元件多、材料與製造成本高，任何一個光學元件沒被抓出來，整個昂貴的交換器模組就得報廢。所以測試不能等到最後組裝，必須在每個組裝步驟前插入測試，先確認「已知良好的光／電晶粒」。這跟 <a href="semi-testing.html">半導體測試</a> 頁講的 KGD、良率懸崖是同一個邏輯，只是多了光。</p>
+<p>新增的是「光電共測」：一般測試機是一組儀器板卡，但光訊號衰減大、對位難，要在標準 <b>ATE</b> 與探針台外，另外加掛高頻或光學量測儀器。</p>
+
+<h2 id="insertions">四個測試站</h2>
+<div style="overflow-x:auto;width:0;min-width:100%">
+<table class="deftable">
+<tr><td></td><td><b>在哪裡做</b></td><td><b>測什麼</b></td></tr>
+<tr><td>Insertion 1</td><td>晶圓廠</td><td>EIC 晶圓、PIC 晶圓各自做晶圓級測試，只測上表面（單面）。EIC 晶圓測早已成熟，所以常被稱作 PIC 晶圓測。兩種晶圓各要自己的探針卡與探針台。</td></tr>
+<tr><td>Insertion 2</td><td>晶圓廠</td><td>好的 EIC 晶粒用 hybrid bonding 疊上 PIC 晶圓（稱 EPIC 晶圓），加上矽載板後做光電測試。要<b>雙面</b>測：上面用探針測電、下面測光。最難、附加價值最高，很多供應商都在搶；先選定設備，才會接著設計探針卡。</td></tr>
+<tr><td>Insertion 3</td><td>封測廠</td><td>EPIC 切成光學引擎後測試。裝光纖陣列或接座前後各一段，所以也叫 3／3.5：前段像晶粒級探針測，後段像封裝後測試；通常上面測光、下面測電。</td></tr>
+<tr><td>Insertion 4</td><td>封測廠</td><td>好的光學引擎裝上基板，和 ASIC 組成 CPO 模組後，做模組級測試，確認 ASIC 與光學引擎之間溝通正常。之後是否再上大板做 SLT 還不確定。</td></tr>
+</table>
+</div>
+<p>野村認為前兩站像晶圓製程、又牽涉 EIC 與 PIC 堆疊，會由晶圓廠負責；第三站起封測廠才能參與，初期以日月光旗下矽品為主。</p>
+
+<h2 id="suppliers">各站潛在供應商</h2>
+<p>野村依產業調查列的候選名單，問號代表還不確定；最終流程與選商可能因客戶而異。</p>
+<div style="overflow-x:auto;width:0;min-width:100%">
+<table class="deftable">
+<tr><td></td><td><b>Insertion 1</b></td><td><b>Insertion 2</b></td><td><b>Insertion 3</b></td><td><b>Insertion 4</b></td></tr>
+<tr><td>測試機／儀器</td><td>Advantest、Teradyne、Ficontec、致茂？；Keysight、Viavi</td><td>Teradyne、Advantest？</td><td>Advantest、Teradyne？</td><td>Advantest？、Teradyne；Keysight</td></tr>
+<tr><td>探針台</td><td>FormFactor、TEL</td><td>Ficontec、<a href="../companies/mpi.html">旺矽</a>、FormFactor、TEL？</td><td>旺矽、TEL？（晶粒級）</td><td>—</td></tr>
+<tr><td>探針卡</td><td>FormFactor？</td><td>旺矽、FormFactor？</td><td>旺矽？（晶粒級）</td><td>—</td></tr>
+<tr><td>Handler</td><td>—</td><td>—</td><td><a href="../companies/chroma.html">致茂</a>、Ficontec？（封裝後）</td><td><a href="../companies/hongjing.html">鴻勁</a>；致茂（ELS 外部光源）</td></tr>
+<tr><td>測試座</td><td>—</td><td>—</td><td><a href="../companies/winway.html">穎崴</a>？／穎崴</td><td>穎崴</td></tr>
+</table>
+</div>
+
+<h2 id="taiwan">台廠卡位</h2>
+<table class="deftable">
+<tr><td><a href="../companies/mpi.html">旺矽</a></td><td>目標 Insertion 2 的雙面晶圓測與部分 Insertion 3 晶粒級測試，兩站探針台都在開發；野村估 2H26 已小量出 Insertion 3 設備，CPO 營收 2H27 才開始，2028F 占營收個位數百分比。</td></tr>
+<tr><td><a href="../companies/winway.html">穎崴</a></td><td>機會在 Insertion 3、4 的測試座。2026 年 5 月主辦 CPO 論壇，展出 WLCSP 探針頭、雙面探測系統、光學引擎測試座與 HyperSocket；大量出貨預期在 2027 年後，進入 scale-up（Feynman 世代）後市場更大。</td></tr>
+<tr><td><a href="../companies/hongjing.html">鴻勁</a></td><td>已出貨 Spectrum-X、Quantum-X 的純電性（E/E）測試機台；Insertion 4 的光電共測與 Teradyne 合作，2026 年底完成驗證、2027 出貨、2028 放量。</td></tr>
+<tr><td><a href="../companies/chroma.html">致茂</a></td><td>靠 LED、VCSEL、影像感測器的光測經驗，做 Insertion 3 的光學測試 Handler、Insertion 4 的外部雷射光源測試機，也在開發 Insertion 1 的 PIC 晶圓測試機。</td></tr>
+</table>
+<p>海外方面，<b>FormFactor</b> 已開始出 Insertion 1 測試系統、並上修 CPO 營收展望；它和 Advantest、東京威力科創合作的 <b>TRITON</b> 測試站，就是針對 Insertion 1 的單面晶圓測。</p>
+
+<div class="note" style="border-left-color:var(--stub)"><b>另一份來源的說法</b> · 2026.07 凱基訪談的版本：Insertion 2 旺矽 50% vs FCT 50%，輝達總需求 400 台、旺矽產能 200 台、單價 US$1–2M／台，2026 是放量元年；Insertion 3 由旺矽、FCT、致茂混戰。野村報告沒有提到 FCT、台數與單價，並認為旺矽 CPO 營收 2H27 才開始。兩份來源時點相近但口徑不同，先並陳。</div>
+
+<h2 id="open">還沒定案的事</h2>
+<p>雖然接近量產，野村的通路調查指出測試流程仍有不確定性：</p>
+<ul>
+<li>Insertion 2 的雙面晶圓測還沒有好的解法。</li>
+<li>Insertion 3 要不要晶粒級、封裝後兩段都測。</li>
+<li>Insertion 4 模組測試後要不要再做 SLT。</li>
+<li>就算流程定案，良率是多少；各站選誰的設備，也會決定用誰的測試介面。</li>
+</ul>
+<p>野村的結論是：CPO 是「痛苦但必然」的轉變，一旦技術瓶頸突破、市場成熟，會給測試供應鏈一片全新的市場。</p>
+
+<div class="links-box"><!-- 關聯節點由 assets/kb.js 依 data.js 的 links 自動產生；要新增關聯請改 data.js --></div>
+
+<h2 id="timeline">更新時間軸</h2>
+<div class="timeline">
+<div class="ev"><div class="dt">2026.11</div>由野村《Advanced Semi Testing》（2026.07，p.2、11–13、24、29、59、79、117、149–150）歸檔建立此頁；原本放在測試座頁的「CPO 四階段 Insertion」移到這裡並改寫，保留凱基訪談說法並陳。</div>
+</div>
+
+</article>
+</div></div>
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+<script src="../assets/data.js"></script>
+<script src="../assets/kb.js"></script>
+</body></html>

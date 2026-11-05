@@ -16,35 +16,75 @@
 
 <aside class="toc"><div class="tl">本頁目錄</div>
 <a href="#what">這是什麼</a>
+<a href="#structure">結構與三種座</a>
+<a href="#contact">接觸元件：彈簧針 vs 導電橡膠</a>
 <a href="#types">三種主流類型</a>
 <a href="#slt-scale">SLT 用量放大原理</a>
-<a href="#atc">ATC 溫控如何抬 ASP</a>
+<a href="#atc">ATC 溫控與 Handler</a>
 <a href="#global">競爭格局</a>
-<a href="#cpo">CPO Insertion 四階段</a>
+<a href="#market">市場規模</a>
+<a href="#cpo">CPO</a>
 <a href="#timeline">更新時間軸</a>
 </aside>
 
 <article>
 <span class="tag-type part">零件 / 模組</span>
 <h1>測試座 <span style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:1rem;color:var(--faint);font-weight:400">Test Socket</span></h1>
-<p class="lede">FT、Burn-in、SLT 階段用來夾住封裝晶片的「插座」——比探針卡穩定,能測高速訊號,是後段測試最關鍵的介面。<b>SLT 用量是 FT 的 4–5 倍</b>,這就是 <a href="../companies/winway.html">穎崴</a>、<a href="../companies/hongjing.html">鴻勁</a> 最大的成長引擎。</p>
+<p class="lede">FT、Burn-in、SLT 階段用來夾住封裝晶片的「插座」——比探針卡穩定,能測高速訊號,是後段測試最關鍵的介面。<b>SLT 測試時間長,要大量平行</b>,用量因此放大,這是 <a href="../companies/winway.html">穎崴</a>最大的成長引擎。</p>
 
 <h2 id="what">這是什麼</h2>
-<p>當晶片完成封裝、要開始 <a href="semi-testing.html">FT / SLT 測試</a>時,得用一個機械結構把晶片壓緊、讓所有腳位穩定接觸測試線路——這個結構就是測試座 (Socket)。</p>
+<p>當晶片完成封裝、要開始 <a href="semi-testing.html">FT / SLT 測試</a>時,得用一個機械結構把晶片壓緊、讓所有腳位穩定接觸測試線路——這個結構就是測試座 (Socket)。它焊在 <a href="load-board.html">Load Board</a> 上,訊號從板子進晶片再回到板子;Handler 把晶片往下壓進座子。</p>
 
 <p>它和探針卡的根本差異是<b>接觸方式</b>:探針卡是「針點觸」,雜訊多、上限 1–2 GHz;Socket 是「面接觸」,訊號乾淨、上限可達幾十 GHz。所以只要是需要測高速動態表現的階段,一定用 Socket。</p>
+
+<h2 id="structure">結構與三種座</h2>
+<p>一顆測試座把電、機構、散熱三件事塞進同一個結構:</p>
+<table class="deftable">
+<tr><td>上蓋／扣具</td><td>Burn-in 座通常需要,把晶片壓向接點、讓每根針受力平均;沒有上蓋時由 Handler 的壓頭往下壓</td></tr>
+<tr><td>本體</td><td>精密加工或射出的絕緣框架(工程塑膠);同軸測試座的本體是鋁或黃銅加工件,也有陶瓷或玻纖複材</td></tr>
+<tr><td>對位板</td><td>浮動導板,讓錫球(BGA)或焊墊(LGA)對準每根針的中心</td></tr>
+<tr><td>散熱</td><td>有時內建溫控單元,直接壓在晶片上散熱</td></tr>
+<tr><td>接觸元件</td><td>傳訊號的針或導電橡膠,見下一段</td></tr>
+</table>
+<table class="deftable">
+<tr><td>FT 座</td><td>測試時間短,追求訊號準確、高頻、耐插拔、低接觸電阻</td></tr>
+<tr><td>SLT 座</td><td>和 FT 座相近,市調常合併計算;要讓晶片跑完整功能,且因為測得久要大量平行,SLT 越普及、座子用量越多</td></tr>
+<tr><td>Burn-in 座</td><td>要撐高溫與電應力好幾小時、一次大量平行,犧牲高頻與訊號品質,所以便宜、製程簡單</td></tr>
+</table>
+
+<h2 id="contact">接觸元件:彈簧針 vs 導電橡膠</h2>
+<p>測試座的接觸元件主要只有兩類;懸臂針座主要用在舊產品或記憶體,很少見。</p>
+<table class="deftable">
+<tr><td><b>彈簧針(pogo pin)</b></td><td>目前 AI 晶片最常用。由針頭、針管、彈簧組成,壓下時彈簧收縮、提供穩定接觸力;全部鍍金。壽命長、可以單根更換,但訊號路徑較長。針頭形狀依封裝而定:皇冠／杯狀對錫球與 WLCSP,平頭或圓頭對 LGA、QFN,尖頭對大焊墊或通孔。</td></tr>
+<tr><td><b>導電橡膠(elastomer)</b></td><td>不絕緣的矽橡膠裡埋導電粒子,壓下時粒子互相接觸、形成垂直導電路徑。應力分布均勻、幾乎不傷晶片,路徑短、高頻／RF／毫米波訊號好;但壽命短、要整層更換。</td></tr>
+</table>
+<div class="note"><b>同軸是「結構」不是接觸元件</b> · 同軸測試座是把每根訊號針包在介電絕緣層裡、外面再套接地金屬,擋住串擾與雜訊並匹配阻抗。主要 AI 加速器與 CPU 現在幾乎都用同軸架構;同軸座幾乎 100% 用彈簧針(同軸導電橡膠座存在但很少)。一般導電橡膠座本來路徑就短,所以不做同軸。(野村,2026.07)</div>
 
 <h2 id="types">三種主流類型</h2>
 
 <table class="deftable">
 <tr><td><b>Pogo Pin(彈簧針)</b></td><td>傳統 FT、低頻晶片 · 便宜、耐用 · 高頻會失真</td></tr>
 <tr><td><b>Coaxial Socket</b></td><td>高速 FT、SLT 目前主流 · 同軸結構遮蔽干擾 · 2026 主力</td></tr>
-<tr><td><b>Hypersocket</b></td><td>穎崴最新技術 · <b>有散熱功能 + 換針快</b> · ASP 比 Coaxial 貴 20–30% · 2026 小量工程樣品(客戶想用但穎崴產能不夠)、<b>2027 正式放量</b>(Nvidia + AMD)</td></tr>
+<tr><td><b>HyperSocket</b></td><td>穎崴獨家:彈簧針提供行程,上面再加一層導電橡膠貼合錫球(一般彈簧針的皇冠頭只有 4–9 個接觸點)。另有雙層膜與液冷版本。</td></tr>
 </table>
+
+<h4>三種接觸元件比較(穎崴資料)</h4>
+<div style="overflow-x:auto;width:0;min-width:100%">
+<table class="deftable">
+<tr><td></td><td><b>導電橡膠</b></td><td><b>彈簧針</b></td><td><b>HyperSocket</b></td></tr>
+<tr><td>行程</td><td>0.2–0.3mm</td><td>0.6–1.0mm</td><td>0.6–1.0mm</td></tr>
+<tr><td>接觸電阻(建議行程)</td><td>&lt;50mΩ</td><td>&lt;60mΩ</td><td>低 25%</td></tr>
+<tr><td>接觸電阻(0.15mm)</td><td>&lt;50mΩ</td><td>&lt;70mΩ</td><td>低 50%</td></tr>
+<tr><td>接觸力</td><td>40–85g</td><td>10–35g</td><td>10–35g</td></tr>
+<tr><td>電流承載</td><td>2.4A</td><td>3–3.5A</td><td>5–6A</td></tr>
+</table>
+</div>
+<p>適用 pitch 0.4–1.27mm。HyperSocket 單價比同軸座高約 30%,導電橡膠層也變成要定期更換的耗材;產能瓶頸在導電橡膠。封裝超過 100×100mm 或 120×120mm、腳數超過 1 萬到 2 萬時才會普遍採用,野村點名的例子是 AMD MI455 與 2027 年後的 TPUv9。</p>
+<div class="note" style="border-left-color:var(--stub)"><b>放量時間兩種說法</b> · 凱基訪談(2026.06):HyperSocket 有散熱功能、換針快,ASP 比 Coaxial 貴 20–30%,2026 小量工程樣品、<b>2027 正式放量</b>(Nvidia + AMD)。野村(2026.07):2025 年占穎崴營收不到 1%,2026F 低個位數,<b>2027F 不到 5%,2028–29F 約 5%</b>;管理層目標 2027 年 5%。</div>
 
 <h2 id="slt-scale">SLT 用量放大原理:為什麼是 4–5 倍</h2>
 
-<p>這是理解穎崴、鴻勁成長邏輯的關鍵——不是 SLT Socket 單價高,而是<b>用量放大</b>。</p>
+<p>這是理解穎崴成長邏輯的關鍵——不是 SLT Socket 單價高,而是<b>用量放大</b>。</p>
 
 <h4>原理</h4>
 <ul>
@@ -55,18 +95,19 @@
 </ul>
 
 <h4>實例</h4>
-<div class="note" style="border-left-color:var(--done)"><b>Rubin 世代量化</b> · 如果一批 Rubin 需要 1,000 顆 <b>FT Socket</b>,同一批就需要 <b>4,000–5,000 顆 SLT Socket</b>——晶片還沒變多,Socket 用量已經放大 4–5 倍。這就是穎崴今年的成長核心。</div>
+<div class="note" style="border-left-color:var(--done)"><b>Rubin 世代量化</b> · 如果一批 Rubin 需要 1,000 顆 <b>FT Socket</b>,同一批就需要 <b>4,000–5,000 顆 SLT Socket</b>——晶片還沒變多,Socket 用量已經放大 4–5 倍。這就是穎崴今年的成長核心。(凱基訪談;野村只說 SLT 會帶動大量需求,沒有給倍數。Advantest 的對照是 FT 約 5 分鐘內、SLT 約 30–120 分鐘)</div>
+<p>其他推升用量的因素:封裝變大、封裝方式變複雜、測試站變多(例如 <a href="cpo.html">CPO</a> 新增的站);Burn-in 普及也可能讓 FT 變成 Burn-in 前後各一次。</p>
 
-<h2 id="atc">ATC 溫控:Handler 端的關鍵升級</h2>
+<h2 id="atc">ATC 溫控與 Handler</h2>
 
 <p>Socket 只是「夾住晶片」,把晶片搬進 Socket 的是 <b>Handler(分選機)</b>。AI 晶片的功耗爆增讓 Handler 也大改造:</p>
 
 <ul>
-<li>傳統 Handler:一台 NT$6M · 室溫測試</li>
-<li><b>加上 ATC(Active Temperature Control) 主動溫控:一台 NT$20M+</b>——ASP 漲 3 倍</li>
+<li>凱基:傳統 Handler 一台 NT$6M、室溫測試;<b>加上 ATC(Active Thermal Control)主動溫控一台 NT$20M+</b>,ASP 漲 3 倍</li>
+<li>野村:鴻勁一整套(Handler、ATC、冷板)均價從 2025 年約 NT$12M 升到 2028F 約 NT$20M</li>
 </ul>
 
-<div class="note" style="border-left-color:var(--stub)"><b>為什麼需要 ATC?</b> · Rubin 吃 1,800W 自己會發熱,若要測「正常運作溫度」下的表現,就要主動把熱抽走(冷板)或給暖(低溫測試)——傳統無主動溫控的 Handler 根本沒辦法。這是 <a href="../companies/hongjing.html">鴻勁</a> 的核心成長動能。</div>
+<div class="note" style="border-left-color:var(--stub)"><b>為什麼需要 ATC?</b> · Rubin 吃 1,800W 自己會發熱,若要測「正常運作溫度」下的表現,就要主動把熱抽走(冷板)或給暖(低溫測試)——傳統無主動溫控的 Handler 根本沒辦法。細節見 <a href="../companies/hongjing.html">鴻勁</a>、<a href="../companies/chroma.html">致茂</a>。</div>
 
 <h4>Handler 三種類型</h4>
 <table class="deftable">
@@ -75,47 +116,55 @@
 <tr><td>重力式</td><td>速度 5K–15K UPH · 精度 ±100μm+ · 室溫 · 傳統成熟 IC</td></tr>
 </table>
 
+<h4>封裝變大,托盤也要換</h4>
+<p>Handler 從 JEDEC 標準托盤吸取晶片。標準托盤 135.9×322.6mm,120×125mm 的封裝一盤只放兩顆;JEDEC 已新增兩種大托盤 258×537.6mm、380×387.6mm。封裝大到某個門檻,FT Handler 就得重新設計機構、封測廠要換機。</p>
+
 <h2 id="global">競爭格局</h2>
+<p>測試座沒有獨大的廠商:測試座各家只有 5–15% 市佔、Burn-in 座各家 10–20%,差距小。誰拿下關鍵 AI 案子,在出貨期(通常是晶片量產前)營收就會大跳。(野村,2026.07)</p>
 
 <h4>測試座</h4>
 <table class="deftable">
-<tr><td><a href="../companies/winway.html">穎崴(台)</a></td><td>台廠唯一測試座專營 · Nvidia AI GPU FT/SLT 接近 100%、AMD / Google 都吃</td></tr>
-<tr><td>Smith(美)</td><td>已被 Molex 收購</td></tr>
-<tr><td>LEENO(韓)</td><td>聯發科手機 SoC FT Socket 主供</td></tr>
-<tr><td>Cohu(美)</td><td>FT Socket + Handler 兼營</td></tr>
-<tr><td>Yamaichi(日)</td><td>Burn-in Socket 強項</td></tr>
+<tr><td><a href="../companies/winway.html">穎崴(台)</a></td><td>台廠唯一測試座專營 · 擅長高密度同軸座 · Yole 2025 年測試座排名全球第 2 · 凱基:Nvidia AI GPU FT/SLT 接近 100%、AMD / Google 都吃</td></tr>
+<tr><td>Smiths Interconnect(美)</td><td>DaVinci 系列同軸座、主攻高頻,是主要 GPU 與 ASIC 廠的供應商;2025 年已賣給 Molex</td></tr>
+<tr><td>LEENO(韓)</td><td>100% 自製、獲利與交期領先;記憶體與手機 AP(Apple、三星、聯發科、高通)並重;凱基:聯發科手機 SoC FT Socket 主供</td></tr>
+<tr><td>Yamaichi(日)</td><td>測試座與 Burn-in 座都強,細 pitch 彈簧針;應用分散,透過 HBM 參與 AI(主要是三星)</td></tr>
+<tr><td>Enplas(日)</td><td>偏重 Burn-in 座,正擴大 AI ASIC 與 SLT</td></tr>
+<tr><td>Yokowo(日)</td><td>精密加工,自己做座子也外賣針(穎崴是客戶);高電流 pogo pin 也賣給探針卡廠</td></tr>
+<tr><td>ISC(韓)</td><td>主推導電橡膠技術,2023 年被 SKC 收購,偏記憶體</td></tr>
+<tr><td>Cohu(美)</td><td>產品線廣(測試機、Handler、座子、Burn-in 板),但偏車用、工業、RF,座子市佔逐漸淡出</td></tr>
 </table>
+<h4>排名年年洗牌</h4>
+<p>Yamaichi 與 LEENO 輪流拿第一:2023 年消費與記憶體下行時 LEENO 撐得較好,2024–25 年 HBM 回升後 LEENO 再拿第一。Yokowo 2022 年第四、2023 年起跌出前五(手機與消費沒回來);Cohu 從 2023 年第二掉到 2025 年第五。穎崴與 Smiths 是 AI 的贏家,排名逐年上升。<b>Burn-in 座排名則非常穩定</b>:認證週期長、可靠度要求高、客戶關係久,老面孔一直在前面。</p>
 
 <h4>Handler</h4>
 <table class="deftable">
-<tr><td>FT Handler</td><td>Cohu、Advantest(海外主導)——台廠在 FT Handler 較弱</td></tr>
-<tr><td><b>SLT Handler</b></td><td><b><a href="../companies/hongjing.html">鴻勁</a>(台廠主力)</b>、致茂 · ATC 溫控是護城河</td></tr>
+<tr><td>FT Handler</td><td>凱基:Cohu、Advantest 海外主導。野村:AI 邏輯晶片以 <a href="../companies/hongjing.html">鴻勁</a> 為主,Advantest 的 Handler 只占其營收 1–2%</td></tr>
+<tr><td><b>SLT Handler</b></td><td>凱基:鴻勁台廠主力、致茂。野村:輝達 SLT 由 <a href="../companies/chroma.html">致茂</a> 主導</td></tr>
 </table>
 
 <h4>Burn-in 相關(補充)</h4>
 <table class="deftable">
 <tr><td>Burn-in Socket</td><td>Enplas、Yamaichi、BOYD 主導</td></tr>
-<tr><td>Burn-in Board</td><td>雍智、精測、京元電(自用)</td></tr>
+<tr><td>Burn-in Board</td><td>雍智、精測、京元電(自用);見 <a href="load-board.html">測試介面板</a></td></tr>
 <tr><td>Burn-in 爐子</td><td>MCC、Aehr Test、DELTA · MCC 爐子近期有良率問題</td></tr>
 </table>
 
-<h2 id="cpo">CPO 光電封裝的四階段 Insertion</h2>
-
-<p>CPO(Co-Packaged Optics)是 Nvidia 下一世代把光學元件直接封在 GPU 旁邊的新架構,測試分四階段:</p>
-
+<h2 id="market">市場規模</h2>
 <table class="deftable">
-<tr><td>Insertion 1 · PIC Wafer Test</td><td>單測光晶片 · FormFactor 主導 · <b>台廠沒有</b></td></tr>
-<tr><td>Insertion 2 · PIC+EIC 整合 Wafer Level</td><td><a href="../companies/mpi.html">旺矽</a> 50% vs FCT 50% · Nvidia 總需求 400 台,旺矽產能只做 200 台 · ASP US$1–2M/台 · 搭 Advantest tester</td></tr>
-<tr><td>Insertion 3 · Optical Engine Test</td><td>三方混戰:旺矽、FCT、致茂 · 路線未定</td></tr>
-<tr><td>Insertion 4 · CPO Module + System Level Test</td><td><b><a href="../companies/hongjing.html">鴻勁</a></b>(SLT Handler 延伸)</td></tr>
+<tr><td>凱基(2026.06)</td><td>Testing socket 2024 年 11.79 億美元 → 2030 年 41.31 億美元,CAGR 20%</td></tr>
+<tr><td>TechInsights</td><td>測試座＋Burn-in 座 2025 年約 19–20 億美元(約占測試介面 36%),2030E 24 億美元,CAGR 約 5%;測試座約七成、Burn-in 座約三成;Burn-in 座 CAGR 5% 略高於測試座 4%</td></tr>
+<tr><td>Yole</td><td>測試座 CAGR 7%、Burn-in 座 5.3%(SLT 與晶圓級 Burn-in 增加,而 Burn-in 時間相對穩定);高效能測試座 2025–30 CAGR 9%,傳統座可能持平或衰退</td></tr>
 </table>
+<p>兩組數字落差很大,可能是統計口徑不同,先並列。(後兩列引自野村,2026.07)</p>
 
-<div class="note" style="border-left-color:var(--done)"><b>CPO 的意涵</b> · 這是台廠測試設備廠的第二成長曲線——除了傳統電性測試,還多了「光電整合」的全新測試需求。旺矽、鴻勁都在裡面卡到位。</div>
+<h2 id="cpo">CPO</h2>
+<p>CPO 的四個測試站與各站供應商,已整理到獨立頁 <a href="cpo.html">CPO 共同封裝光學</a>。測試座的機會在 Insertion 3、4,主要是 <a href="../companies/winway.html">穎崴</a>。</p>
 
 <div class="links-box"><!-- 關聯節點由 assets/kb.js 依 data.js 的 links 自動產生；要新增關聯請改 data.js --></div>
 
 <h2 id="timeline">更新時間軸</h2>
 <div class="timeline">
+<div class="ev"><div class="dt">2026.11</div>歸檔野村《Advanced Semi Testing》(2026.07):新增測試座結構與三種座比較、彈簧針 vs 導電橡膠、同軸是結構、HyperSocket 量化比較與放量時程兩種說法、JEDEC 大托盤、競爭動態與排名洗牌、另一組市場數字;Handler 分工改為凱基與野村並陳;CPO 段落移到新頁 <a href="cpo.html">CPO</a>。</div>
 <div class="ev"><div class="dt">2026.07</div>由「半導體測試產業筆記」歸檔建立此頁;涵蓋 Pogo/Coaxial/Hypersocket 三類型、SLT 4-5x 用量原理、ATC 溫控 3x ASP、CPO 四階段 Insertion。</div>
 </div>
 

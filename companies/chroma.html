@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>致茂 · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+<span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#companies">公司</a> / 致茂</span>
+<nav class="top"><a href="../index.html#cycles">週期</a><a href="../index.html#companies">公司</a><a href="../index.html#parts">零件</a><a href="../index.html#quarters">財報</a></nav>
+</div></header>
+<div class="wrap"><div class="layout">
+
+<aside class="toc"><div class="tl">本頁目錄</div>
+<a href="#position">基本定位</a>
+<a href="#slt">半導體測試：SLT Handler 主力</a>
+<a href="#ats">電源測試：AI 伺服器 HVDC</a>
+<a href="#cpo">CPO 與晶圓量測</a>
+<a href="#peers">與同業差異</a>
+<a href="#risk">風險與估值</a>
+<a href="#financials">財報追蹤</a>
+<a href="#timeline">更新時間軸</a>
+</aside>
+
+<article>
+<span class="tag-type company">公司</span>
+<h1>致茂 <span style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:1rem;color:var(--faint);font-weight:400">Chroma ATE · 2360</span></h1>
+<p class="lede">台灣精密測試設備廠，有兩條 AI 成長線：一條是 <a href="../parts/semi-testing.html#slt-burnin">SLT</a> Handler 加主動溫控，輝達 AI GPU 的 SLT 主要用致茂；另一條是電源測試，AI 伺服器改走高壓直流（HVDC），電源供應器、電源櫃、備援電池都要重新測。</p>
+
+<h2 id="position">基本定位</h2>
+<p>1984 年成立，超過 95% 營收來自測試設備，另約 5% 來自子公司 MAS Automation（太陽能、鋰電池化成設備）。</p>
+<table class="deftable">
+<tr><td>2025 營收結構</td><td>測試儀器與自動測試系統（ATS）37% · 半導體／光子測試 35% · 海外子公司 22% · 服務 5% · 整線方案 3%</td></tr>
+<tr><td>2026F 結構</td><td>半導體／光子與 ATS 各約 38%；半導體／光子內部約七到八成是半導體、兩到三成是光子</td></tr>
+<tr><td>半導體測試</td><td>營收 60–70% 來自 SLT；2026F 半導體／光子營收約 70% 來自 AI/HPC</td></tr>
+<tr><td>大客戶</td><td>野村推估輝達約占總營收 20%</td></tr>
+<tr><td>2025 規模</td><td>營收 9.08 億美元，毛利率 61.5%，營益率 32.5%</td></tr>
+<tr><td>投資與併購</td><td>2019 年取得以色列量測設備商 Camtek 20.5% 股權並取得技術授權；2022 年併購 Environmental Stress Systems，補強溫控</td></tr>
+</table>
+<div class="note" style="border-left-color:var(--done)"><b>一句話定位</b> · 不跟 Advantest 拚先進製程測試機，專做「測試機以外」的利基：AI 晶片的 SLT Handler 與溫控、成熟製程 SoC 測試機、電源與光電測試。</div>
+
+<h2 id="slt">半導體測試：SLT Handler 主力</h2>
+<p>致茂在半導體測試的產品有三類：成熟製程 SoC 測試機（MCU、PMIC、RF、影像感測器）、FT Handler、SLT Handler。真正的成長引擎是 <b>SLT Handler 搭配主動溫控</b>（致茂稱 temperature forcing system）。溫控分雙溫（最高 150°C）與三溫（最低到 -70°C），Handler 可做 1、2、4、8 個以上的多站點。</p>
+
+<h4>誰的 SLT 用致茂</h4>
+<table class="deftable">
+<tr><td>輝達</td><td>AI GPU、消費 GPU、CPU、網通的 SLT 都是致茂；FT 則是 <a href="hongjing.html">鴻勁</a></td></tr>
+<tr><td>AMD</td><td>從 MI400 系列起成為 SLT 主要客戶（MI450）；過去 AMD 的 SLT 長期用鴻勁</td></tr>
+<tr><td>Google</td><td>Axion CPU：FT 由京元電用 Advantest 測試機配鴻勁 Handler，SLT 用致茂</td></tr>
+</table>
+<p>野村估計輝達加 AMD 每年吃掉約 65% 的 <a href="../parts/cowos.html">CoWoS</a> 產能，所以 CoWoS 擴產與 AI 封測廠的測試資本支出，是致茂 SLT Handler 最直接的領先指標。</p>
+
+<h4>為什麼 SLT Handler 換代比 FT 快</h4>
+<p>FT 測的是封裝好的單顆晶片，外型相對標準；SLT 測的是接近整個系統或模組，每一代平台的測試座腳數、測試板、供電、散熱都不一樣，所以 SLT Handler 幾乎每一代都要跟客戶一起重新設計，換機更頻繁、單價也更高。SLT 測試時間以 Hopper 為 1，Blackwell 約 1.5 倍、Rubin 約 2.5 倍；2028 年輝達 Feynman 預期首度 GPU 疊 GPU，散熱要求更嚴，野村認為會再推升單價。</p>
+
+<h2 id="ats">電源測試：AI 伺服器 HVDC</h2>
+<p>ATS 是致茂另一半的生意，客戶是台達電、光寶等電源廠，測試對象涵蓋電源供應器、電源架（power shelf）、電源櫃與備援電池（BBU）。野村估 ATS 營收 2025–28F 年複合成長 43%。</p>
+<ul>
+<li><b>±400VDC：</b>一家美系大型雲端業者預計 2H26 起採用，由台達電供應 power sidecar，先用在輝達 VR200。</li>
+<li><b>就算 HVDC 延後：</b>VR200 需要的電源托盤也比 GB300 多，測試量一樣增加。</li>
+<li><b>800V 與固態變壓器（SST）：</b>帶來新的測試項目，例如快速負載變化、回生式負載、電池與電弧測試、寬能隙元件的雙脈衝測試。</li>
+<li><b>差異化：</b>Keysight、Rohde &amp; Schwarz 偏射頻與通用量測；致茂一家同時有電源、電子負載、雙向回生與電池測試。</li>
+</ul>
+
+<h2 id="cpo">CPO 與晶圓量測</h2>
+<p>在 <a href="../parts/cpo.html">CPO</a> 的四個測試站裡，致茂靠過去 LED、VCSEL、影像感測器的光學測試經驗切入：</p>
+<table class="deftable">
+<tr><td>Insertion 3</td><td>光學引擎切割、裝上光纖接座後的純光學測試（O/O），致茂做 Handler；目前這一站有兩種流程並行，還沒有統一標準</td></tr>
+<tr><td>Insertion 4</td><td>CPO 模組在 SLT 前的外部雷射光源（ELS）可靠度測試，致茂出光學測試機</td></tr>
+<tr><td>Insertion 1</td><td>開發中：光子晶片（PIC）的晶圓級測試機</td></tr>
+</table>
+<p>野村只假設 2027 年開始小量出貨，沒有計入財測。另外致茂也往晶圓量測延伸：Model 7980 檢查 CP 後的針痕，Model 7981 量測 RDL 重布線層，並在開發 CoPoS 用的機台。</p>
+
+<h2 id="peers">與同業差異</h2>
+<div style="overflow-x:auto;width:0;min-width:100%">
+<table class="deftable">
+<tr><td></td><td><b>致茂</b></td><td><b><a href="hongjing.html">鴻勁</a></b></td><td><b>Advantest</b></td><td><b>Teradyne</b></td></tr>
+<tr><td>2025 營收</td><td>9.08 億美元</td><td>9.71 億美元</td><td>69 億美元</td><td>31.9 億美元</td></tr>
+<tr><td>測試機占比</td><td>10–15%</td><td>—</td><td>82%</td><td>75%</td></tr>
+<tr><td>Handler 占比</td><td>20–25%</td><td>約 80%</td><td>&lt;5%</td><td>15%</td></tr>
+<tr><td>Handler 重心</td><td>SLT 60–70%</td><td>FT 70–80%</td><td>FT、SLT，以記憶體為主</td><td>SLT</td></tr>
+</table>
+</div>
+<p><b>致茂 vs 鴻勁</b>是投資人最常問的問題。野村的看法是兩家重疊很少：致茂主攻 SLT、鴻勁主攻 FT。鴻勁正靠客製化與 ATC 打進 SLT，也已和輝達做下一代 GPU 的 SLT 工程合作，但能否撼動致茂在輝達的地位還不確定；鴻勁在 SLT 的新機會比較可能來自 ASIC 客戶。</p>
+<div class="note" style="border-left-color:var(--stub)"><b>和知識庫舊說法的差異</b> · 2026.07 歸檔的凱基訪談把鴻勁寫成「台廠唯一 SLT Handler 主力、致茂是對手」。2026.07 野村報告的說法相反：輝達 SLT 由致茂主導、鴻勁以 FT 為主。兩份來源並陳，詳見 <a href="hongjing.html#positioning">鴻勁 · 定位的兩種說法</a>。</div>
+
+<h2 id="risk">風險與估值</h2>
+<ul>
+<li>CoWoS 與後段測試擴產放緩，或 AI 晶片換代、量產延後。</li>
+<li>SLT 目前仍不是必要流程，客戶可以選擇不做或縮短。</li>
+<li>國際測試設備商競爭加劇；AI 伺服器需求轉弱；HVDC 導入延後。</li>
+</ul>
+<table class="deftable">
+<tr><td>野村評等</td><td>買進，目標價 NT$2,845（2027–28F 平均 EPS NT$74.9 × 38 倍，位於歷史 14–58 倍區間高端）</td></tr>
+<tr><td>獲利預估</td><td>EPS 2026F／27F／28F：NT$43.6／65.6／84.2；營益率從 2025 年 32.5% 升到 2028F 46.3%；2025–28F 淨利年複合成長 45%</td></tr>
+<tr><td>資料來源</td><td>野村《Advanced Semi Testing》，2026.07.24，p.130–163</td></tr>
+</table>
+
+<h2 id="financials">財報追蹤</h2>
+<div class="fin-track">
+<div class="lt">每季財報觀察 · Quarterly Reports</div>
+<ul id="fin-list"><li style="color:var(--faint);font-style:italic">載入中⋯</li></ul>
+</div>
+
+<div class="links-box"><!-- 關聯節點由 assets/kb.js 依 data.js 的 links 自動產生；要新增關聯請改 data.js --></div>
+
+<h2 id="timeline">更新時間軸</h2>
+<div class="timeline">
+<div class="ev"><div class="dt">2026.11</div>由野村《Advanced Semi Testing》（2026.07）歸檔建立此頁。</div>
+</div>
+
+</article>
+</div></div>
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+<script src="../assets/data.js"></script>
+<script>
+const COMPANY_ID="chroma";
+const reports=(KB.quarters||[]).filter(q=>q.company===COMPANY_ID&&q.scope==="company").sort((a,b)=>b.period.localeCompare(a.period));
+const list=document.getElementById("fin-list");
+list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</span><a href="../quarters/${r.id}.html">${r.desc}</a></li>`).join(""):'<li style="color:var(--faint);font-style:italic">尚無財報觀察。</li>';
+</script>
+<script src="../assets/kb.js"></script>
+</body></html>

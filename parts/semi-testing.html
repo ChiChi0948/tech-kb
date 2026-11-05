@@ -20,10 +20,11 @@
 <a href="#wat-cp-ft">WAT / CP / FT 差在哪</a>
 <a href="#slt-burnin">SLT 與 Burn-in</a>
 <a href="#setups">各階段設備組合圖</a>
-<a href="#load-board">Load Board 深入拆解</a>
+<a href="#test-cell">測試站怎麼運作</a>
 <a href="#physics">CP vs FT 的物理限制</a>
 <a href="#money-flow">Nvidia GPU 錢流分配</a>
 <a href="#taiwan">台廠競爭格局</a>
+<a href="#industry">產業整併與交期</a>
 <a href="#numbers">關鍵數字</a>
 <a href="#timeline">更新時間軸</a>
 </aside>
@@ -62,6 +63,12 @@
 <li><b>AI / HPC 晶片:20,000 – 40,000 pins,下一代甚至破 10 萬</b></li>
 </ul>
 <p>腳位越多、測試點越多、測試時間越長、設備越貴。</p>
+
+<h4>4. 測試成本占比逐代上升</h4>
+<p>野村把 FT、Burn-in、SLT 三段合計為「測試成本」，估算占輝達 GPU 製造成本：<b>Hopper 1.9% → Blackwell 2.5% → Rubin 3.3%</b>。原因是測試時間拉長（以 Hopper 為 1，FT 在 Blackwell 約 4 倍、Rubin 約 7 倍；SLT 分別約 1.5 倍、2.5 倍；Burn-in 從 Blackwell 到 Rubin 約翻倍），加上每小時機台費率更高。（野村，2026.07）</p>
+
+<h4>5. 良率懸崖：晶粒越多，良率掉越快</h4>
+<p>多晶粒模組的良率是每顆晶粒良率相乘。兩顆 90% 的晶粒，模組良率是 0.9 × 0.9；<b>十顆 90% 的晶粒，模組良率跌破 35%</b>。一顆壞晶粒就讓整個昂貴模組報廢，所以篩選被往前推到晶圓測試，業界稱為 <b>shifting left</b>：探針卡需求增加，HBM 這類產品也開始在晶圓階段就做老化（WLBI，晶圓級 Burn-in）。往前測不代表後面可以少測，晶粒之間的互連、整顆的速度與散熱仍要在封裝後驗證；品質指標 DPPM（每百萬顆不良數）在晶粒與成品兩層都要看。（野村，2026.07）</p>
 
 <div class="note" style="border-left-color:var(--done)"><b>底線</b> · 測試從「附屬環節」變成「決定良率和獲利的關鍵戰場」。晶片越貴 → 測試越不能省 → 設備 ASP 和數量同時放大 → 台廠在後段測試全面受惠。</div>
 
@@ -121,7 +128,48 @@
 <tr><td>SLT</td><td>真實 workload → SDC、長時間運作異常</td></tr>
 </table>
 
-<div class="note" style="border-left-color:var(--done)"><b>關鍵洞察</b> · <b>SLT 用量是 FT 的 4–5 倍</b>——不是單價貴,是測試時間長 + 用量大。例如 Rubin 要用 1,000 顆 FT Socket,就要 4,000–5,000 顆 SLT Socket。這是 <a href="../companies/winway.html">穎崴</a>、<a href="../companies/hongjing.html">鴻勁</a> 最大的成長動能來源。</div>
+<div class="note" style="border-left-color:var(--done)"><b>關鍵洞察</b> · <b>SLT 用量是 FT 的 4–5 倍</b>——不是單價貴,是測試時間長 + 用量大。例如 Rubin 要用 1,000 顆 FT Socket,就要 4,000–5,000 顆 SLT Socket。這是 <a href="../companies/winway.html">穎崴</a>、SLT Handler 廠最大的成長動能來源。（凱基訪談，2026.06；野村報告沒有給出倍數）</div>
+
+<h4>FT 拆成三段</h4>
+<p>FT 是必要流程，在最短時間內（通常數百到數千秒）判斷合格與否並分級，因為測試費是依機台時數計價。邏輯晶片的 FT 是一個依序過濾的流程：</p>
+<table class="deftable">
+<tr><td>1. 直流（DC）測試</td><td>最快的一段。開路／短路、漏電、功耗、輸出電壓準位，確認實體結構完好，不驗證邏輯與速度。</td></tr>
+<tr><td>2. 功能測試</td><td>灌入預先寫好的測試向量，比對輸出是否符合真值表；用保守的時脈跑，先把純邏輯錯誤和高速時序問題分開。</td></tr>
+<tr><td>3. 交流（AC）測試</td><td>加入「時間」維度：傳遞延遲、建立／保持時間、上升／下降時間、最高頻率。也是速度分級（binning）的基礎。</td></tr>
+</table>
+<p>FT 可能不只一次：輝達 AI GPU 有兩次 FT，夾在 Burn-in 前後各一次。（野村，2026.07）</p>
+
+<h4>為什麼 AI 晶片也要做 Burn-in</h4>
+<p>FT、SLT 驗的是「現在能不能動」，早夭瑕疵是「現在能動、之後才壞」，測不出還沒發生的故障，只能用高溫（通常 100°C 以上）加高電壓讓它提早發生。高階 GPU 要做數小時 Burn-in，FT 則以秒計。AI 帶動的原因有二：一個 HBM 堆疊有十幾顆晶粒、上萬個接合點，一個早夭就報廢整個 CoWoS 模組；資料中心加速器上萬顆組成叢集，一顆早期故障就打斷整個訓練任務。（野村，2026.07）</p>
+
+<h4>SLT 實際怎麼做</h4>
+<p>晶片插在晶片廠指定的系統測試板上，這塊板是商用主機板的改裝版，有記憶體與周邊元件。開機進完整作業系統（Linux 或 Android），跑大量非同步的軟體負載，量的是系統穩定度、工作吞吐、降頻門檻、高速介面誤碼率（BER），而不是結構數據。DC、功能、AC 測試是固定圖樣、單獨測試，擅長抓「硬壞」；多個 IP 同時在真實功耗、溫度、時序壓力下互動才出現的問題，只有 SLT 抓得到。</p>
+<p>SLT 不用數百萬美元的測試機，單站比 FT 便宜，但每顆要數分鐘到數小時。所以靠 SLT Handler 大量平行，業界也在發展用機器學習只把高風險晶片送去長測的 <b>adaptive SLT</b>，在品質（DPPM）與每顆測試成本之間取平衡。（野村，2026.07）</p>
+
+<h4>四種測試站一張表（Advantest）</h4>
+<div style="overflow-x:auto;width:0;min-width:100%">
+<table class="deftable">
+<tr><td></td><td><b>晶圓測試</b></td><td><b>FT</b></td><td><b>SLT</b></td><td><b>Burn-in</b></td></tr>
+<tr><td>設備</td><td>中等腳數 ATE ＋ 探針台</td><td>高腳數／高功率 ATE ＋ 三溫 Handler</td><td>整合 Handler、溫控、測試電子</td><td>非自動化烤箱、溫控、電子</td></tr>
+<tr><td>平行</td><td>1 個站點</td><td>1 個站點</td><td>約 6–132 個站點</td><td>一爐 112 個站點</td></tr>
+<tr><td>每站成本</td><td>$$$$</td><td>$$$$</td><td>$$</td><td>$</td></tr>
+<tr><td>測試時間</td><td>約 2 分鐘內</td><td>約 5 分鐘內</td><td>約 30–120 分鐘</td><td>量產 3–8 小時（HTOL 驗證 1,000 小時）</td></tr>
+</table>
+</div>
+
+<h4>什麼晶片該做哪一種（日月光決策矩陣）</h4>
+<div style="overflow-x:auto;width:0;min-width:100%">
+<table class="deftable">
+<tr><td>晶片特性</td><td><b>晶圓級 Burn-in</b></td><td><b>封裝級 Burn-in</b></td><td><b>系統級 Burn-in／SLT</b></td></tr>
+<tr><td>450W 以下單晶粒、chiplet、光學引擎、HBM</td><td>最佳</td><td>可能</td><td>不可行</td></tr>
+<tr><td>450–600W 單晶粒</td><td>不太實際</td><td>最佳</td><td>選配</td></tr>
+<tr><td>2.5D ＋ HBM</td><td>不可行</td><td>最佳</td><td>不太實際</td></tr>
+<tr><td>600–2,000W 封裝</td><td>不可行</td><td>可能</td><td>最佳</td></tr>
+<tr><td>現場用液冷</td><td>不可行</td><td>可能</td><td>最佳</td></tr>
+<tr><td>Chiplet mesh 架構</td><td>不可行</td><td>最佳</td><td>不太實際</td></tr>
+<tr><td>Hyperscaler 關鍵晶片</td><td>不可行</td><td>不太實際</td><td>最佳</td></tr>
+</table>
+</div>
 
 <h2 id="setups">各階段設備組合圖</h2>
 <p>每個測試階段用不同的設備組合。以下是四個核心階段的實務組裝方式——用純文字示意圖呈現,幫助建立空間感。</p>
@@ -235,8 +283,8 @@
     └─────────┼──────────── ┘
               │
     ┌─────────┴──────────┐
-    │  SLT Handler + ATC │  鴻勁(唯一台廠)
-    │  (主動溫控)         │  ASP NT$6M → 20M+
+    │  SLT Handler + ATC │  鴻勁(凱基)/ 致茂(野村)
+    │  (主動溫控)         │  ASP NT$6M → 20M+(凱基)
     └────────────────────┘
 
     工作方式:一顆晶片壓進 Socket,連續跑
@@ -249,28 +297,22 @@
 <li><b>CP</b>:探針卡(海外主導)+ ATE(Advantest)+ Prober(日廠壟斷)——台廠只在 ASIC 陣營(<a href="../companies/mpi.html">旺矽</a>卡 BC/MRVL)賺</li>
 <li><b>FT</b>:ATE(Advantest)+ Load Board(<a href="../companies/chpt.html">精測</a>)+ Socket(<a href="../companies/winway.html">穎崴</a>)+ Handler(Cohu 主導)——台廠開始賺</li>
 <li><b>Burn-in</b>:爐子(海外)+ Board(<a href="../companies/yjc.html">雍智</a>/精測)+ Socket(海外)——台廠貢獻中等</li>
-<li><b>SLT</b>:平台 + Load Board(精測)+ Hypersocket(穎崴)+ Handler+ATC(<a href="../companies/hongjing.html">鴻勁</a>)——<b>台廠賺最多的一站</b></li>
+<li><b>SLT</b>:平台 + Load Board(精測)+ Hypersocket(穎崴)+ Handler+ATC(凱基說是 <a href="../companies/hongjing.html">鴻勁</a>;野村認為輝達 SLT 用 <a href="../companies/chroma.html">致茂</a>)——<b>台廠賺最多的一站</b></li>
 </ul></div>
 
-<h2 id="load-board">Load Board 深入拆解</h2>
-<p>Load Board 常被忽略,但它是<b>連接 ATE 與晶片的關鍵中介</b>。ATE 有標準訊號通道(例如 Advantest V93000 上有 1,024–2,048 個),但每顆晶片腳位排列都不同——Load Board 就是把「ATE 標準通道」重新路由到「這顆晶片對應腳位」的客製化轉接板。</p>
-
-<h4>Load Board 上有什麼零件?</h4>
+<h2 id="test-cell">測試站怎麼運作</h2>
+<p>測試不是一台機器做完，而是一組緊密整合的「測試站」（test cell），由三個主角加幾個配角組成。</p>
 <table class="deftable">
-<tr><td>多層 PCB 走線</td><td>AI 晶片可達 <b>40+ 層</b>(消費 IC 只要 8–12 層)</td></tr>
-<tr><td>電源模組 DC-DC</td><td>Rubin 吃 1,800W(0.8V × 2,000A),要多顆穩壓模組</td></tr>
-<tr><td>去耦電容</td><td>數百到數千顆,像蓄水池穩定瞬間電流</td></tr>
-<tr><td>繼電器</td><td>切換不同測試路徑</td></tr>
-<tr><td>訊號調節元件</td><td>高頻放大器、等化器、匹配電路</td></tr>
-<tr><td>溫度感測器 + 通訊介面</td><td>與 ATC 溫控和 Handler 連動</td></tr>
+<tr><td>測試機 ATE</td><td>核心工作站：送出電壓、電流、高頻波形等刺激訊號，記錄晶片回應，和設計規格比對。主機櫃放電源、冷卻、控制器；測試頭放測試介面。</td></tr>
+<tr><td>探針台／Handler</td><td>機械自動化手臂。CP 用探針台，處理未切割的晶圓；FT／SLT 用 Handler，從托盤抓起封裝好的晶片、壓進測試座、依結果分盤。</td></tr>
+<tr><td>測試介面</td><td>依晶片客製的實體與電性「橋」：CP 是 <a href="probe-card.html">探針卡</a>，FT 是 <a href="load-board.html">Load Board</a> ＋ <a href="test-socket.html">測試座</a>。SLT 則把 ATE 換成裝了測試座的系統測試板。</td></tr>
+<tr><td>配角：溫控晶圓座</td><td>CP 時用真空吸住晶圓、內建加熱與冷卻通道的金屬平台；溫度劇烈變化下還要保持極度平整，否則接觸不良或被探針壓裂。</td></tr>
+<tr><td>配角：ATC 主動溫控</td><td>整合在 Handler 上。晶片跑負載時功率密度瞬間飆高，ATC 偵測溫度、即時加熱或冷卻抵消。</td></tr>
+<tr><td>配角：量測儀器</td><td>ATE 是插滿儀器板卡的機箱，需要更多覆蓋時可外掛專用儀器，類比混訊、高速數位與 <a href="cpo.html">CPO</a> 的光學測試都靠它。</td></tr>
 </table>
-
-<div class="note" style="border-left-color:var(--done)"><b>關鍵事實</b> · <b>Socket 是焊在 Load Board 上的</b>,兩者「一組」設計搭配。每顆新晶片放量,就要重新設計一組 Load Board + Socket——這就是為什麼 <a href="../companies/chpt.html">精測</a>(Load Board)、<a href="../companies/winway.html">穎崴</a>(Socket)的營收會跟著客戶新品週期跳動,且往往一起接單。</div>
-
-<div class="qa">
-<div class="q">為什麼 Load Board 越做越厚(40+ 層)?</div>
-<div class="a">AI 晶片腳位動輒兩三萬支,每支腳都要有專屬走線通到 ATE 對應通道,還要考慮訊號完整性(避免高頻串擾)、電源穩定性(1,800W 的瞬間電流)、以及訊號隔離。層數越多,走線空間越大、隔離越好——這是為什麼精測的 Load Board ASP 從 Blackwell 到 Rubin 世代大幅上漲。</div>
-</div>
+<h4>機械動作與溝通</h4>
+<p>沉重的測試頭由機械臂移動、對接到探針台或 Handler 上。<b>CP 是由下往上</b>：探針台把晶圓座一格一格往上頂，碰到固定不動的探針；<b>FT 是由上往下</b>：Handler 用機械手臂把晶片往下壓進測試座。整個過程兩邊持續同步：設備先回報「晶片就位」，測試機才跑程式；跑完回傳分級結果，探針台更新電子晶圓圖（或直接打墨點），Handler 則把晶片放進對應的出料盤。（野村，2026.07）</p>
+<p>板子這一層（探針卡 PCB、Load Board、Burn-in Board）的細節與廠商，見 <a href="load-board.html">測試介面板</a>。</p>
 
 <h2 id="physics">CP vs FT 的物理限制</h2>
 <p>為什麼 CP 測不到 FT 能測的東西?答案在物理接觸方式。</p>
@@ -302,7 +344,7 @@
 <tr><td><b>Step 3</b> CoWoS 封裝</td><td>台積電賺封裝費,一個模組 $5,000–10,000</td></tr>
 <tr><td><b>Step 4</b> FT 測試</td><td>在京元電或日月光 · ATE 給 Advantest 100%、Load Board 給 <a href="../companies/chpt.html">精測</a> <b>70%</b>(Blackwell 25% 大幅躍升)、Socket 給 <a href="../companies/winway.html">穎崴</a>接近 100%。<b>台廠開始賺錢</b>。</td></tr>
 <tr><td><b>Step 5</b> Burn-in</td><td>Rubin 世代開始導入 · 主要海外廠賺,台廠參與度較低</td></tr>
-<tr><td><b>Step 6</b> SLT 測試</td><td><b>最肥的一站</b> · SLT Socket 穎崴獨吃、SLT Handler <a href="../companies/hongjing.html">鴻勁</a>(ATC 讓 ASP 從 NT$6M → NT$20M+)、SLT Board 精測加碼</td></tr>
+<tr><td><b>Step 6</b> SLT 測試</td><td><b>最肥的一站</b> · SLT Socket 穎崴獨吃、SLT Handler <a href="../companies/hongjing.html">鴻勁</a>(ATC 讓 ASP 從 NT$6M → NT$20M+;野村說法不同,見下方)、SLT Board 精測加碼</td></tr>
 <tr><td><b>Step 7</b> 出貨給 Nvidia</td><td>Nvidia 組成 GB200 / Rubin 系統賣 CSP</td></tr>
 </table>
 
@@ -311,8 +353,32 @@
 <tr><td>CP 探針卡</td><td>Nvidia → Technoprobe + FormFactor;Broadcom → <a href="../companies/mpi.html">旺矽</a>幾乎 100%</td></tr>
 <tr><td>FT / SLT Socket</td><td>兩家都給 <a href="../companies/winway.html">穎崴</a></td></tr>
 <tr><td>Load Board</td><td>兩家都給 <a href="../companies/chpt.html">精測</a></td></tr>
-<tr><td>SLT Handler</td><td>兩家都給 <a href="../companies/hongjing.html">鴻勁</a></td></tr>
+<tr><td>SLT Handler</td><td>兩家都給 <a href="../companies/hongjing.html">鴻勁</a>（凱基說法；野村認為輝達 SLT 用 <a href="../companies/chroma.html">致茂</a>、Broadcom 網通晶片不做 SLT，見下方）</td></tr>
 </table>
+
+<div class="note" style="border-left-color:var(--stub)"><b>另一份來源：Handler 的分工</b> · 上表 Step 4、Step 6 的 Handler 分工來自凱基訪談（2026.06）。野村（2026.07）的說法不同：輝達 AI GPU 的 <b>FT Handler 是鴻勁、SLT Handler 是致茂</b>，鴻勁 Handler 營收 70–80% 來自 FT，與輝達的 SLT 還在工程合作階段。兩說並陳，見 <a href="../companies/hongjing.html#positioning">鴻勁</a>、<a href="../companies/chroma.html#slt">致茂</a>。</div>
+
+<h4>誰用誰的測試平台（野村推估）</h4>
+<div style="overflow-x:auto;width:0;min-width:100%">
+<table class="deftable">
+<tr><td>晶片</td><td><b>FT 測試機</b></td><td><b>FT 溫控／Handler</b></td><td><b>SLT 溫控／Handler</b></td></tr>
+<tr><td>輝達 AI GPU、消費 GPU、CPU</td><td>Advantest</td><td>鴻勁</td><td>致茂</td></tr>
+<tr><td>輝達網通</td><td>Teradyne</td><td>鴻勁</td><td>致茂</td></tr>
+<tr><td>AMD AI GPU</td><td>Advantest</td><td>鴻勁</td><td>鴻勁；致茂（MI400 系列）</td></tr>
+<tr><td>AMD 消費 GPU、CPU</td><td>Advantest</td><td>鴻勁</td><td>鴻勁</td></tr>
+<tr><td>Google AI ASIC</td><td>Advantest</td><td>鴻勁</td><td>Broadcom 版不做 SLT；聯發科版鴻勁</td></tr>
+<tr><td>Google CPU</td><td>Advantest</td><td>鴻勁</td><td>致茂</td></tr>
+<tr><td>AWS AI ASIC</td><td>Teradyne</td><td>鴻勁</td><td>美系廠商；鴻勁評估中？</td></tr>
+<tr><td>AWS CPU</td><td>Advantest</td><td>鴻勁</td><td>不做 SLT</td></tr>
+<tr><td>Microsoft、Meta</td><td colspan="3">AI ASIC 與 CPU 皆未定</td></tr>
+<tr><td>Broadcom 網通</td><td>Teradyne、Advantest</td><td>鴻勁</td><td>不做 SLT</td></tr>
+<tr><td>Tesla／SpaceX AI ASIC</td><td>Teradyne</td><td>鴻勁</td><td>鴻勁</td></tr>
+<tr><td>Intel CPU</td><td>Advantest、Teradyne</td><td>Cohu、鴻勁？</td><td>AEM</td></tr>
+<tr><td>Apple 手機 AP</td><td>Teradyne</td><td>鴻勁</td><td>鴻勁</td></tr>
+<tr><td>聯發科手機 AP</td><td>Advantest</td><td>鴻勁</td><td>鴻勁</td></tr>
+<tr><td>高通手機 AP</td><td>Advantest</td><td>鴻勁</td><td>Teradyne</td></tr>
+</table>
+</div>
 
 <div class="note" style="border-left-color:var(--done)"><b>重要洞察</b> · Nvidia 走 turnkey,探針卡只能拿海外廠;<b>Broadcom 自己管供應鏈</b>,探針卡 100% 給旺矽。這就是為什麼旺矽的成長故事完全建立在 Broadcom 和 Marvell 的 ASIC 放量上——他吃不到 Nvidia,但吃下了 ASIC 陣營。</div>
 
@@ -329,20 +395,49 @@
 <a class="link-chip" href="../companies/mpi.html"><span class="dot company"></span><b>旺矽</b> · 探針卡龍頭、BC/MRVL 獨家、MEMS 自製</a>
 <a class="link-chip" href="../companies/winway.html"><span class="dot company"></span><b>穎崴</b> · 測試座專營、Nvidia/AMD/Google SLT 主供</a>
 <a class="link-chip" href="../companies/chpt.html"><span class="dot company"></span><b>精測</b> · Load Board 龍頭、Nvidia GPU 板 25% → 70%</a>
-<a class="link-chip" href="../companies/hongjing.html"><span class="dot company"></span><b>鴻勁</b> · SLT Handler 唯一台廠、ATC 3x ASP</a>
+<a class="link-chip" href="../companies/hongjing.html"><span class="dot company"></span><b>鴻勁</b> · Handler ＋ ATC 主動溫控，野村認為以 FT 為主</a>
+<a class="link-chip" href="../companies/chroma.html"><span class="dot company"></span><b>致茂</b> · 輝達 AI GPU 的 SLT Handler 主力、電源測試</a>
 <a class="link-chip" href="../companies/yjc.html"><span class="dot company"></span><b>雍智</b> · 純設計、Google Humming Fish re-rating</a>
 </div>
 
 <h4>海外對手速記</h4>
 <table class="deftable">
-<tr><td>探針卡</td><td>FormFactor(美,全球 25%)、Technoprobe(義,19%)、Micronics Japan(日,13%)</td></tr>
+<tr><td>探針卡</td><td>FormFactor(美,全球 25%)、Technoprobe(義,19%)、Micronics Japan(日,13%)。野村引 2025 年數據:FormFactor 23%、Technoprobe 約 17%,前五大合計 73%</td></tr>
 <tr><td>測試座</td><td>Smith(美,已被 Molex 收購)、LEENO(韓)、Cohu(美)、Yamaichi(日)</td></tr>
 <tr><td>ATE 測試機</td><td>Advantest(日,AI GPU/HPC/Memory 主導)、Teradyne(美,遊戲 GPU)</td></tr>
 <tr><td>Prober</td><td><b>TEL、Tokyo Seimitsu (Accretech) 日廠壟斷,台廠進不去</b></td></tr>
-<tr><td>FT Handler</td><td>Cohu、Advantest,海外主導</td></tr>
+<tr><td>FT Handler</td><td>Cohu、Advantest,海外主導(凱基)。野村認為 Advantest 的 Handler 只占其營收 1–2%,在邏輯晶片沒有優勢,AI 邏輯晶片的 FT Handler 以鴻勁為主</td></tr>
 </table>
 
+<h4>台灣四家測試介面廠（野村，2025 年）</h4>
+<div style="overflow-x:auto;width:0;min-width:100%">
+<table class="deftable">
+<tr><td></td><td><b>精測</b></td><td><b>旺矽</b></td><td><b>穎崴</b></td><td><b>雍智</b></td></tr>
+<tr><td>營收（億元）</td><td>48.06</td><td>133.71</td><td>78.57</td><td>21.36</td></tr>
+<tr><td>毛利率</td><td>55.5%</td><td>55.6%</td><td>45.3%</td><td>46.1%</td></tr>
+<tr><td>營益率</td><td>24.8%</td><td>28.2%</td><td>26.3%</td><td>25.2%</td></tr>
+<tr><td>產品組合</td><td>探針卡 65%、測試板 25%</td><td>探針卡 72.2%、設備 26.1%</td><td>測試座 56%、探針卡 29%、接觸元件 11%</td><td>測試板 61.6%、探針卡 36.5%</td></tr>
+<tr><td>MEMS 針</td><td>自製</td><td>自製</td><td>外購</td><td>外購</td></tr>
+<tr><td>產能</td><td>探針卡 PCB／Load Board 1Q27 達 2025 年底 3 倍；Fab 3 2028 年量產</td><td>自建 PCB 廠 2H27 量產；VPC＋MEMS 針 2026 年底 550 萬／月</td><td>測試座產能 2026 年翻倍</td><td>無自有廠</td></tr>
+</table>
+</div>
+
 <div class="note" style="border-left-color:var(--done)"><b>為什麼台廠投資邏輯集中在「後段 FT/SLT」</b> · Prober 是日廠禁臠,幾十年精密機械累積門檻太高。前段 CP 的機會只在「非 Nvidia 客戶」——這就是旺矽卡 ASIC 陣營的原因。後段 FT/SLT 的 Handler、Socket、Load Board 才是台廠真正的戰場,穎崴、鴻勁、精測全在這裡。</div>
+
+<h2 id="industry">產業整併與交期</h2>
+<h4>測試機廠與介面廠：一邊分工、一邊結盟</h4>
+<table class="deftable">
+<tr><td>2020</td><td>FormFactor 買下 Advantest 的探針卡資產，擴大 NAND 曝險。</td></tr>
+<tr><td>2023</td><td>Teradyne 投資 Technoprobe 5.16 億美元；Technoprobe 以 8,500 萬美元買下 Teradyne 的 DIS（測試介面）部門，幾個月前也收購了測試板廠 Harbor Electronics。</td></tr>
+<tr><td>連續併購</td><td>Advantest 把 Essai（測試座）、R&amp;D Altanova（測試板）、Shin Puu（測試板 PCB）整合成 AIS；2025 年初再投資 Technoprobe 與 FormFactor，合作技術與 PCB 製造。</td></tr>
+<tr><td>2025.08</td><td><a href="../companies/winway.html">穎崴</a>與日本 Yokowo 簽策略聯盟 MOU，部分測試座 pogo pin 外購。</td></tr>
+<tr><td>2025.10</td><td><a href="../companies/chpt.html">精測</a>與 Yokowo 互相投資各 200 萬美元；精測專注 MEMS 針，大 pitch 的 RF、功率元件晶圓仍需要 pogo pin。</td></tr>
+<tr><td>2025.12</td><td>Technoprobe 與穎崴簽約，授權穎崴使用其測試方案五年，確保穎崴取得 MEMS 探針。</td></tr>
+</table>
+<p>野村的解讀是兩股力量同時發生：<b>極度分工</b>（測試機廠甩掉周邊硬體、專注系統架構與軟體；介面廠專注微機械與冶金）與<b>整併結盟</b>（為了讓測試機、板子、探針一起設計）。例子是 FormFactor、Advantest、東京威力科創合作的 TRITON 測試站。AI 測試時代，介面硬體從「耗材」升級成要「擁有或綁住」的戰略層。產能吃緊下，業者之間互相外包也很常見。（野村，2026.07）</p>
+
+<h4>交期：硬體比晶片早出貨</h4>
+<p>測試介面都是依晶片客製的：每一顆新設計都要新的探針卡、測試板或測試座，大量拉貨通常發生在晶片量產「之前」。晶片廠要在 tape-out 前 1–2 季就找探針卡廠，探針卡廠在 tape-out 後 3–4 個月交工程樣品。這也是測試介面股的營收常常「領先」晶片出貨的原因。（野村，2026.07）</p>
 
 <h2 id="numbers">關鍵數字</h2>
 
@@ -376,11 +471,22 @@
 
 <div class="note" style="border-left-color:var(--stub)"><b>資料來源</b> · 上述客戶份額與市場規模數據多來自凱基投顧分析師 Serena 的產業訪談(2026.06),為訪談當下的市場估計,實際份額可能隨新一代產品放量微調。</div>
 
+<h4>另一組市場數字（野村 2026.07 引用 TechInsights、Yole）</h4>
+<p>和上面凱基的數字落差很大，可能是市場定義與統計口徑不同（例如是否含記憶體、是否只算高階），先並列：</p>
+<ul>
+<li><b>測試硬體（設備＋耗材）：</b>2025 年略高於 150 億美元，2029E 超過 200 億美元，CAGR 10%（TechInsights）；Yole 估 2030E 230 億美元，CAGR 5% 以上。</li>
+<li><b>測試介面（探針卡、測試座、測試板）：</b>2025 年超過 55 億美元，2028E 80 億美元；探針卡占 40% 以上，測試座 2024 年 21%，DIB 約 17%。</li>
+<li><b>探針卡：</b>2025 年約 28 億美元（MEMS 近 20 億，約 70%），2030E 超過 45 億美元，CAGR 11.1%。</li>
+<li><b>測試座＋Burn-in 座：</b>2025 年約 19–20 億美元，2030E 24 億美元，CAGR 約 5%（測試座約七成）。</li>
+<li><b>高階封裝占比：</b>高效能封裝 2024 年不到全部 IC 的 2%，2028E 約 5%（Yole）。</li>
+</ul>
+
 <div class="links-box"><!-- 關聯節點由 assets/kb.js 依 data.js 的 links 自動產生；要新增關聯請改 data.js --></div>
 
 <h2 id="timeline">更新時間軸</h2>
 <div class="timeline">
-<div class="ev"><div class="dt">2026.07 (更新)</div>補上兩塊:(1) <a href="#setups">各階段設備組合圖</a>——CP / FT / Burn-in / SLT 四張純文字設備堆疊示意,幫助建立空間感;(2) <a href="#load-board">Load Board 深入拆解</a>——列出板上零件、解釋 Socket 與 Load Board 為何一組設計,補足原本忽略的中介關鍵元件。</div>
+<div class="ev"><div class="dt">2026.11</div>歸檔野村《Advanced Semi Testing》（2026.07）：新增測試成本占比與良率懸崖、FT 三段、Burn-in 與 SLT 實際做法、Advantest 四站比較表、日月光決策矩陣、<a href="#test-cell">測試站怎麼運作</a>、「誰用誰的測試平台」表、台灣四家測試介面廠比較、<a href="#industry">產業整併與交期</a>、另一組市場數字。Handler 分工與市場規模和凱基說法不同，兩說並陳。「Load Board 深入拆解」移到新頁 <a href="load-board.html">測試介面板</a>。</div>
+<div class="ev"><div class="dt">2026.07 (更新)</div>補上兩塊:(1) <a href="#setups">各階段設備組合圖</a>——CP / FT / Burn-in / SLT 四張純文字設備堆疊示意,幫助建立空間感;(2) <a href="load-board.html">Load Board 深入拆解</a>(2026.11 移至獨立頁)——列出板上零件、解釋 Socket 與 Load Board 為何一組設計,補足原本忽略的中介關鍵元件。</div>
 <div class="ev"><div class="dt">2026.07</div>由「半導體測試產業筆記」歸檔建立此頁;涵蓋五階段、物理限制、Nvidia 錢流、台廠競爭格局。同步新增 <a href="probe-card.html">探針卡</a> 與 <a href="test-socket.html">測試座</a> 兩個關聯零件節點,以及旺矽、穎崴、精測、鴻勁、雍智五家台廠公司節點與新分組「測試介面」。</div>
 </div>
 
