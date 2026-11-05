@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>測試介面板 Load Board · 科技供應鏈知識庫</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">供應鏈<span class="mk">·</span>知識庫</a>
+<span class="crumb"><a href="../index.html">首頁</a> / <a href="../index.html#parts">零件</a> / 測試介面板</span>
+<nav class="top"><a href="../index.html#cycles">週期</a><a href="../index.html#companies">公司</a><a href="../index.html#parts">零件</a><a href="../index.html#quarters">財報</a></nav>
+</div></header>
+<div class="wrap"><div class="layout">
+
+<aside class="toc"><div class="tl">本頁目錄</div>
+<a href="#what">這是什麼</a>
+<a href="#path">訊號怎麼走</a>
+<a href="#three">三種測試板比較</a>
+<a href="#why-hard">為什麼比一般 PCB 難</a>
+<a href="#parts">Load Board 上有什麼</a>
+<a href="#market">市場與商業模式</a>
+<a href="#players">兩派供應商</a>
+<a href="#timeline">更新時間軸</a>
+</aside>
+
+<article>
+<span class="tag-type part">零件 / 模組</span>
+<h1>測試介面板 <span style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:1rem;color:var(--faint);font-weight:400">Load Board · TIB</span></h1>
+<p class="lede">測試機（ATE）的接腳又粗又固定，晶片的接點又細又各不相同。測試介面板就是中間那塊「轉接板」：把測試機上千個通道，一路縮小、重新排線到晶片腳位上，還不能讓訊號失真。它常被忽略，但每一代新晶片都要重新設計一塊。</p>
+
+<h2 id="what">這是什麼</h2>
+<p>所有接觸元件（探針、測試座的針）都需要一塊板子來裝，這一類板子統稱測試介面板（Test Interface Board，TIB）。名稱很容易搞混，照 Technoprobe 的定義：</p>
+<table class="deftable">
+<tr><td>探針卡 PCB（PCIB）</td><td>晶圓測試（CP）用。<a href="probe-card.html">探針卡</a>最底層的大圓板或方板，必要時加上空間轉換層（MLC 陶瓷或 MLO 有機）後，才裝探針頭。</td></tr>
+<tr><td>PIB</td><td>可有可無的轉接板，夾在測試頭與探針卡之間，用來重新分配測試機資源或解決平台不相容；探針卡原生設計給該測試機時就不需要。現在很多人也把探針卡 PCB 叫作 PIB。</td></tr>
+<tr><td>DIB／Load Board</td><td>成品測試（FT）用，又叫 DUT board。上面焊<a href="test-socket.html">測試座</a>，下面接測試頭上千個通道；交貨時是裝好上千顆零件、電性驗證過的整組，不是一塊空板。</td></tr>
+<tr><td>Burn-in Board（BIB）</td><td>老化測試用。一塊大板子焊幾十顆 Burn-in 測試座，整塊推進烤箱，在 125°C 以上撐幾小時到幾天。</td></tr>
+</table>
+
+<h2 id="path">訊號怎麼走</h2>
+<table class="deftable">
+<tr><td>晶圓測試</td><td>測試頭（pogo tower）→ PIB（不一定有）→ 探針卡（PCB ＋ 空間轉換層 ＋ 探針頭）→ 晶圓</td></tr>
+<tr><td>成品測試</td><td>測試頭 → DIB／Load Board → 測試座 → 接觸元件 → 晶片</td></tr>
+</table>
+<p>每一層結構的工作都是「空間轉換」：把測試機毫米級的粗腳距，縮到晶片 pad 的 40–100µm 或封裝錫球 100µm 以上，同時保住訊號完整與供電。</p>
+<div class="note"><b>Socket 和 Load Board 是一組</b> · 測試座直接焊在 Load Board 上，兩者一起設計。每顆新晶片放量，就要重新設計一組 Load Board ＋ Socket——所以 <a href="../companies/chpt.html">精測</a>（Load Board）、<a href="../companies/winway.html">穎崴</a>（Socket）的營收會跟著客戶新品週期跳動，且常常一起接單。（凱基訪談，2026.06）</div>
+
+<h2 id="three">三種測試板比較</h2>
+<div style="overflow-x:auto;width:0;min-width:100%">
+<table class="deftable">
+<tr><td></td><td><b>探針卡 PCB</b></td><td><b>Load Board（DIB）</b></td><td><b>Burn-in Board（BIB）</b></td></tr>
+<tr><td>用在</td><td>晶圓測試 CP</td><td>成品測試 FT</td><td>老化篩選</td></tr>
+<tr><td>核心難題</td><td>微米級腳距轉換、平整度</td><td>訊號完整 ＋ 大電流供電</td><td>125–150°C 下撐好幾天不變形</td></tr>
+<tr><td>層數</td><td>40–70+</td><td>30–60+</td><td>約 6–20</td></tr>
+<tr><td>材料</td><td>低損耗混壓、極致平整</td><td>低損耗混壓 ＋ 背鑽</td><td>高 Tg FR4／聚醯亞胺，耐熱優先</td></tr>
+<tr><td>訊號速度</td><td>高</td><td>最高（GHz 全速）</td><td>最低（kHz）</td></tr>
+<tr><td>特殊結構</td><td>空間轉換層 MLC／MLO</td><td>大量零件組裝、pogo tower 介面</td><td>幾十顆測試座、大尺寸</td></tr>
+<tr><td>單價</td><td>高</td><td>最高（頂級的六位數美元）</td><td>最低（靠量）</td></tr>
+<tr><td>主要廠商</td><td>精測、Technoprobe／Harbor</td><td>Advantest（AIS）、精測、雍智</td><td>TSE、Daeduck、Fastprint</td></tr>
+</table>
+</div>
+<p>探針卡 PCB 的細腳距由空間轉換層吸收，所以板子本身可用一般通孔、單次壓合；難在層數與平整度（上萬根針同時下壓，表面差幾十微米就接觸不良）。Load Board 沒有中間層，測試座的針直接落在板面，逃線、GHz 阻抗控制、大電流、上千顆零件全部搶同一份層數預算，常常要盲埋孔與多次壓合，驗收標準是阻抗、損耗與通道校準。</p>
+
+<h2 id="why-hard">為什麼比一般 PCB 難</h2>
+<p><b>設計目的不同。</b>產品板是為量產設計：一個設計複製幾十萬到幾百萬片，追求低成本與良率。測試板是「量測儀器」：要把測試機的能力不失真地延伸到晶片腳位，還要撐過幾十萬次插拔或好幾天高溫，所以效能與精度優先、成本其次，同一個設計通常只做幾片。板子本身多一點損耗、阻抗偏差或熱變形，就會誤判——好晶片被打成壞的，或壞晶片被放行。</p>
+<p><b>層數多好幾倍。</b>一塊測試板要把測試機上千個通道，全部做阻抗控制、等長走線，收斂到幾公分見方的晶片範圍內；板子又縮不小（要配合測試機尺寸與機械強度），只能往厚度和層數要空間。</p>
+<table class="deftable">
+<tr><td>手機主機板</td><td>8–12 層 HDI</td></tr>
+<tr><td>PC 主機板</td><td>6–10 層</td></tr>
+<tr><td>一般伺服器</td><td>16–20 層</td></tr>
+<tr><td>AI 伺服器／交換器</td><td>20–40+ 層</td></tr>
+<tr><td><b>AI/HPC 測試板</b></td><td><b>量產案多為 50–70 層，研發案可到 80–100 層</b>；BIB 與 SLT 板相對簡單</td></tr>
+</table>
+<p><b>製程與材料。</b>一樣是減成法壓合與機械鑽孔，但鑽孔深寬比要求高得多，高階板通常要背鑽。材料上，消費電子用標準 FR4、高階伺服器用低損耗板材（M6／M7 以上），探針卡 PCB 與 Load Board 則是低損耗與 FR4 混壓、只有高速層用頂級材料；BIB 不管速度、只管耐熱。延伸閱讀：<a href="pcb.html">PCB</a>、<a href="hdi.html">HDI</a>、<a href="ccl.html">CCL</a>。</p>
+
+<h2 id="parts">Load Board 上有什麼</h2>
+<table class="deftable">
+<tr><td>多層走線</td><td>見上方層數</td></tr>
+<tr><td>電源模組 DC-DC</td><td>Rubin 吃 1,800W（0.8V × 2,000A），要多顆穩壓模組</td></tr>
+<tr><td>去耦電容</td><td>數百到數千顆，像蓄水池穩定瞬間電流（見 <a href="capacitor.html">電容</a>）</td></tr>
+<tr><td>繼電器</td><td>切換不同測試路徑</td></tr>
+<tr><td>訊號調節元件</td><td>高頻放大器、等化器、匹配電路</td></tr>
+<tr><td>溫度感測器 ＋ 通訊介面</td><td>與 ATC 溫控和 Handler 連動</td></tr>
+</table>
+<p>ATE 有標準訊號通道（例如 Advantest V93000 上有 1,024–2,048 個），但每顆晶片腳位排列都不同，Load Board 就是把標準通道重新路由到這顆晶片的對應腳位。AI 晶片腳位動輒兩三萬支，層數越多、走線與隔離空間越大，這也是精測的 Load Board 單價從 Blackwell 到 Rubin 大幅上漲的原因。（凱基訪談，2026.06）</p>
+
+<h2 id="market">市場與商業模式</h2>
+<ul>
+<li><b>規模：</b>DIB 約占測試介面市場 17%，2024–25 年約 9–10 億美元，2020 年是 5 億多美元（TechInsights）。Yole 估 2025–30 年測試介面板 CAGR 4.9%，是所有測試介面類別中最低的。</li>
+<li><b>不是賣板子，是賣工程解決方案：</b>測試板供應商從設計、製造、組裝到校準一條龍（也有人把製造外包、走類 IC 設計公司模式），毛利率常見 30–50%；一般量產 PCB 廠靠規模與良率，毛利 10–30%。</li>
+<li><b>需求跟著換代走：</b>每一代晶片、每一次封裝改變都要新設計一塊，需求不綁在單一產品的出貨量上。</li>
+<li><b>新進者難：</b>一般 PCB 廠想跨進來，除了技術門檻，還要打進各大 IC 設計公司長期合作的供應鏈，而晶片換代又快，新廠缺少實績。</li>
+</ul>
+
+<h2 id="players">兩派供應商</h2>
+<table class="deftable">
+<tr><td>自有派（測試機／探針卡大廠旗下）</td><td><b>Advantest</b> 把 R&amp;D Altanova（測試板）、Essai（測試座）、Shin Puu（測試板 PCB）整合成 AIS，綁 V93000 測試機生態系、主攻旗艦處理器 Load Board。<b>Technoprobe</b> 收購 Harbor Electronics 與 Teradyne 的 DIS 部門，自己掌握探針卡 PCB 平整度良率。優勢是與測試機、探針頭一起設計、效能調到最好；缺點是用 Teradyne 測試機的客戶，可能不想跟 Advantest 買板子。</td></tr>
+<tr><td>獨立派</td><td>不綁任何測試機品牌，依區域晶片生態聚集。台灣：<a href="../companies/chpt.html">精測</a>（供頂尖 IC 設計與晶圓代工）、<a href="../companies/yjc.html">雍智</a>（Keystone Microtech，偏設計服務、製造外包）。韓國記憶體鏈：TSE、Daeduck，跟著 HBM 週期走。中國：Fastprint 全品類。北美與東南亞：Gorilla Circuits、Esa Electronics。優勢是中立、客製化快。</td></tr>
+</table>
+<table class="deftable">
+<tr><td>精測</td><td>2025 年營收 48.06 億元，探針卡 65%、Load board／BIB／SLT 板 25%；探針卡 PCB／Load Board 產能 1Q27 是 2025 年底的 3 倍，Fab 3 預計 2028 年量產。凱基訪談：輝達 Rubin 世代 Load Board 份額從 Blackwell 的 25% 升到 70%。</td></tr>
+<tr><td>雍智</td><td>2025 年營收 21.36 億元，Load board／BIB／SLT 板 61.6%、探針卡 36.5%；無自有板廠，以研發資源整合與駐廠服務著稱。</td></tr>
+</table>
+
+<div class="links-box"><!-- 關聯節點由 assets/kb.js 依 data.js 的 links 自動產生；要新增關聯請改 data.js --></div>
+
+<h2 id="timeline">更新時間軸</h2>
+<div class="timeline">
+<div class="ev"><div class="dt">2026.11</div>由野村《Advanced Semi Testing》（2026.07，p.9、31–34、52–55）歸檔建立此頁；原本在 <a href="semi-testing.html">半導體測試</a> 頁的「Load Board 深入拆解」（凱基訪談）一併移到這裡。</div>
+</div>
+
+</article>
+</div></div>
+<footer class="site"><div class="wrap">科技供應鏈知識庫 · 個人研究用</div></footer>
+<script src="../assets/data.js"></script>
+<script src="../assets/kb.js"></script>
+</body></html>

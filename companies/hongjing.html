@@ -16,69 +16,94 @@
 
 <aside class="toc"><div class="tl">本頁目錄</div>
 <a href="#position">基本定位</a>
-<a href="#product">核心產品:SLT Handler + ATC</a>
+<a href="#positioning">FT 還是 SLT：兩種說法</a>
+<a href="#product">核心產品：Handler ＋ ATC</a>
 <a href="#growth">成長動能</a>
 <a href="#cpo">CPO Insertion 4</a>
 <a href="#competition">競爭</a>
+<a href="#valuation">估值</a>
 <a href="#financials">財報追蹤</a>
 <a href="#timeline">更新時間軸</a>
 </aside>
 
 <article>
 <span class="tag-type company">公司</span>
-<h1>鴻勁 <span style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:1rem;color:var(--faint);font-weight:400">Hongjing</span></h1>
-<p class="lede">台廠唯一 <a href="../parts/semi-testing.html#slt-burnin">SLT</a> Handler 主力供應商。<b>ATC 主動溫控讓 Handler ASP 從 NT$6M 跳到 NT$20M+(漲 3 倍)</b>——結合 SLT 用量放大 4–5 倍,是本波 AI 測試設備最具槓桿效果的成長故事。</p>
+<h1>鴻勁 <span style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:1rem;color:var(--faint);font-weight:400">Hon. Precision · 7769</span></h1>
+<p class="lede">台灣 Handler（分選機）加 <b>ATC 主動溫控</b>的專業廠，AI 晶片越熱、封裝越大，它的機台就越要換代。它到底主攻 FT 還是 <a href="../parts/semi-testing.html#slt-burnin">SLT</a>，兩份來源說法不同：凱基訪談說是 SLT Handler 主力，野村報告說營收七到八成來自 FT、輝達的 SLT 是 <a href="chroma.html">致茂</a>。</p>
 
 <h2 id="position">基本定位</h2>
 
-<p>鴻勁專注在 Handler 分選機——晶片從輸送帶進來後,機械手臂抓起、對位、施壓、分類的機台。他不是最大的 Handler 廠(海外有 Cohu、Advantest),但<b>在 SLT Handler 這個新戰場</b>、加上 <b>ATC 主動溫控</b>這個 AI 晶片專屬需求,鴻勁是台廠唯一的主力。</p>
+<p>鴻勁專注在 Handler 分選機——晶片從托盤進來後，機械手臂抓起、對位、施壓進測試座、依結果分類的機台。AI 時代 Handler 不只是機械手臂：ATC 要在晶片跑負載時即時抽熱或加溫，變成測試環境的一部分。</p>
+<table class="deftable">
+<tr><td>2025 規模</td><td>營收 9.71 億美元，毛利率 56.5%，營益率 49.7%（野村）</td></tr>
+<tr><td>訂單結構</td><td>1Q26：AI/HPC/ASIC 78%、車用 9%、手機 AP 9%、消費 3%、記憶體／MEMS 1%；2025 年 AI/HPC/ASIC 72%</td></tr>
+<tr><td>客戶地區</td><td>美國終端客戶超過 50%，中國約 20%；美國子公司在德州奧斯汀</td></tr>
+<tr><td>專利</td><td>全球超過 600 項，涵蓋溫控、高產能、光學檢測</td></tr>
+</table>
 
-<div class="note" style="border-left-color:var(--done)"><b>一句話定位</b> · SLT Handler 唯一台廠主供 + ATC 溫控讓 ASP 三倍跳 + SLT 用量放大 4-5 倍 + CPO Insertion 4 的系統級測試主玩家。雙重放大效應驚人。</div>
+<h2 id="positioning">FT 還是 SLT：兩種說法</h2>
+<div style="overflow-x:auto;width:0;min-width:100%">
+<table class="deftable">
+<tr><td></td><td><b>凱基訪談（2026.06）</b></td><td><b>野村報告（2026.07）</b></td></tr>
+<tr><td>定位</td><td>台廠唯一 SLT Handler 主力供應商；FT Handler 由 Cohu、Advantest 主導，鴻勁較弱</td><td>Handler 營收 70–80% 來自 FT、20–30% 來自 SLT；輝達 SLT「目前由致茂主導」</td></tr>
+<tr><td>輝達</td><td>AI GPU 用鴻勁的 SLT Handler</td><td>AI GPU、消費 GPU、CPU、網通的 FT 都是鴻勁，SLT 是致茂；鴻勁已和輝達做下一代 GPU 的 SLT 工程合作，未計入財測</td></tr>
+<tr><td>其他 SLT 客戶</td><td>Broadcom ASIC</td><td>AMD GPU／CPU（長期客戶，但 MI400 系列可能給致茂）、Apple、聯發科、Tesla、Google ASIC 聯發科版；Broadcom 網通晶片不做 SLT</td></tr>
+<tr><td>單價</td><td>傳統 Handler NT$6M → 含 ATC 的 SLT Handler NT$20M+，漲 3 倍</td><td>一整套（Handler 42%、ATC 33%、冷板 23%）均價從 2025 年約 NT$12M 升到 2028F 約 NT$20M，增量主要來自 ATC</td></tr>
+<tr><td>成長邏輯</td><td>SLT 用量 4–5 倍 × ATC 單價 3 倍，每顆 AI GPU 對應收入放大近 15 倍</td><td>FT 測試時間拉長（Blackwell 約 4 倍、Rubin 約 7 倍 Hopper）＋ ATC 升級 ＋ 大封裝換機</td></tr>
+</table>
+</div>
+<div class="note" style="border-left-color:var(--stub)"><b>怎麼看</b> · 兩份來源都同意 ATC 是鴻勁的核心、AI 晶片是主要成長來源；差在 SLT 的份額。野村的說法有「各家晶片誰用誰」的逐項對照（見 <a href="../parts/semi-testing.html#money-flow">半導體測試 · 誰用誰的測試平台</a>），時間也較新。後續可看鴻勁與輝達 SLT 工程合作有沒有轉成訂單。</div>
 
-<h2 id="product">核心產品:SLT Handler + ATC</h2>
+<h2 id="product">核心產品：Handler ＋ ATC</h2>
 
 <h4>什麼是 ATC</h4>
-<p><b>ATC = Active Temperature Control(主動溫控)</b>。Rubin 吃 1,800W 自己會發熱,若要測「正常運作溫度」下的表現,就要主動把熱抽走(冷板)或加溫(低溫測試)。傳統無主動溫控的 Handler 根本無法應付。</p>
+<p><b>ATC = Active Thermal Control（主動溫控）</b>。晶片跑測試負載時功率密度瞬間飆高、會自己發熱，接面溫度偏離設定值就會影響功耗、速度與測試結果。ATC 偵測溫度、即時把熱抽走（冷板）或加溫。雙溫是高溫（最高 170°C）加室溫，三溫再加低溫（最低 -70°C）。</p>
 
-<h4>ASP 三倍跳</h4>
+<h4>三條冷卻路線</h4>
 <table class="deftable">
-<tr><td>傳統 Handler</td><td>NT$ 6M / 台</td></tr>
-<tr><td><b>含 ATC 的 SLT Handler</b></td><td><b>NT$ 20M+ / 台(漲 3 倍)</b></td></tr>
+<tr><td>ATC3 液冷</td><td>最高 3,000W，AI GPU 與多數 ASIC 用這條</td></tr>
+<tr><td>ATC5 冷媒</td><td>50–4,000W、-70–175°C，部分 ASIC 與車用、太空等極端環境</td></tr>
+<tr><td>ATC6 氣冷</td><td>30–50W，Android 手機 AP</td></tr>
 </table>
 
-<h4>客戶端</h4>
-<p>Nvidia AI GPU、Broadcom ASIC 都用鴻勁的 SLT Handler。這與 <a href="winway.html">穎崴</a>、<a href="chpt.html">精測</a> 的客戶重疊,形成台廠「後段 SLT 測試」的完整套裝。</p>
+<h4>ATC 跟著晶片功耗換代</h4>
+<table class="deftable">
+<tr><td>Blackwell Ultra（B300）</td><td>TDP 1,400W，ATC3.5（最高 2,000W）可應付</td></tr>
+<tr><td>Rubin（R100）</td><td>TDP 預估 1,800W 起，ATC3.5 餘裕不足，預期升級 ATC3.6（3,000W）</td></tr>
+<tr><td>Feynman（2028E）</td><td>首度 GPU 疊 GPU（SoIC），散熱更難，預期帶動 ATC3.7</td></tr>
+<tr><td>路線圖</td><td>7,000–8,000W 機種已備妥，10kW 以上在開發中</td></tr>
+</table>
+<p>野村也提醒，只比 TDP 和 ATC 最大散熱能力不夠精準，真正關鍵是功率密度（熱通量）：熱點有多集中、熱要多快導走。治具與模組約占營收 20%，主要是冷板；2Q26 推出微通道冷板，通道間距從 500µm 縮到 150–200µm，單價高約 15%。</p>
+
+<h4>大封裝 Handler</h4>
+<p>Handler 用 JEDEC 標準托盤搬晶片，標準托盤 135.9×322.6mm，120×125mm 的封裝一盤只放得下兩顆。JEDEC 已新增兩種大托盤（258×537.6mm、380×387.6mm）。鴻勁規劃 2H26 出貨可處理 120×150mm 以上封裝的機台、2H27 推出 250×250mm 方案；台積電 CoPoS 若 2H28 上線，大封裝訂單可能 2H27 就進來。</p>
 
 <h2 id="growth">成長動能</h2>
-
-<h4>雙重放大效應</h4>
-<p>這是鴻勁投資邏輯的精髓——兩個放大同時發生:</p>
 <ul>
-<li><b>用量放大</b>:SLT Handler 用量是 FT Handler 的 4–5 倍(SLT 時間長 20–30 倍)</li>
-<li><b>ASP 放大</b>:ATC 溫控讓每台 Handler 從 NT$6M 跳到 NT$20M+</li>
+<li><b>AI 晶片功耗與尺寸：</b>每代 TDP 上升就要換更強的 ATC，封裝變大就要換機構；野村估 2025–28F 營收年複合成長 69%、EPS 70%。</li>
+<li><b>Apple：</b>A20 Pro 改用 WMCM 封裝，鴻勁預期是 FT Handler 供應商（搭 Teradyne 測試機），需要 3,000W ATC，整套單價比 InFO-PoP 高約 50%。</li>
+<li><b>新客戶與新應用：</b>Intel Foundry 的 FT Handler 在工程驗證；MCL 專用 Handler 最快 4Q26 備妥；ASIC 客戶在 FT 之外擴大採用 SLT，是鴻勁 SLT 的主要新機會。</li>
+<li><b>產能：</b>2026 年廠房面積擴 25% 以上、整套設備產能增 40% 以上；出貨後約 3–6 個月認列營收。</li>
 </ul>
-<p>兩者乘起來就是每一顆 AI GPU 對應的 Handler 收入放大近 <b>15 倍</b>——這在台灣測試設備廠裡是最具槓桿效果的一家。</p>
-
-<div class="note" style="border-left-color:var(--done)"><b>量化直覺</b> · 一顆 Rubin GPU 對應到鴻勁的收入,大概是同一顆 Hopper 時代對應到傳統 Handler 廠收入的 10–15 倍。這是「同一顆晶片」的收入放大,還沒算 Nvidia 出貨量本身的成長。</div>
+<div class="note" style="border-left-color:var(--done)"><b>凱基的量化直覺</b> · 一顆 Rubin GPU 對應到鴻勁的收入，大概是同一顆 Hopper 時代對應到傳統 Handler 廠收入的 10–15 倍（建立在鴻勁主攻 SLT 的前提上，見上方兩種說法）。</div>
 
 <h2 id="cpo">CPO Insertion 4</h2>
-
-<p>CPO(Co-Packaged Optics)測試分四階段,鴻勁在<b>最後一站 Insertion 4:CPO Module + System Level Test</b> 卡到台廠主要玩家的位置。這是 SLT Handler 的自然延伸——CPO 模組還是要用類似的機械手臂搬運、加壓、溫控,鴻勁的技術可以延伸過去。</p>
-
-<p>詳見 <a href="../parts/test-socket.html#cpo">測試座 · CPO 四階段 Insertion</a>。</p>
+<p>鴻勁已出貨輝達 Spectrum-X、Quantum-X 交換器的純電性（E/E）測試機台。<a href="../parts/cpo.html">CPO</a> 第四站（光學引擎上基板後的模組級測試）的光電共測，預計與 Teradyne 合作：2026 年底完成驗證、2027 出貨、2028 放量。野村財測尚未計入 CPO 與 MCL。</p>
 
 <h2 id="competition">競爭</h2>
-
 <table class="deftable">
-<tr><td>FT Handler</td><td>Cohu、Advantest 主導,海外強、鴻勁較弱</td></tr>
-<tr><td><b>SLT Handler</b></td><td><b>鴻勁台廠主力</b> · 對手主要是致茂</td></tr>
-<tr><td>Prober(CP 端)</td><td>TEL、Tokyo Seimitsu 日廠壟斷,鴻勁不做</td></tr>
+<tr><td>致茂</td><td>台廠最直接的對手，但重疊少：致茂半導體測試營收 60–70% 是 SLT，鴻勁以 FT 為主（野村）</td></tr>
+<tr><td>Advantest</td><td>理論上有「測試機裝機量」優勢，在記憶體 Handler 曾經很強；但 Handler 只占其營收 1–2%，邏輯晶片種類多、要深度客製，鴻勁靠工程彈性勝出。Teradyne 沒有自己的 Handler 部門</td></tr>
+<tr><td>Cohu</td><td>產品線廣但偏車用、工業等成熟應用</td></tr>
+<tr><td>中國</td><td>長川、金海通；野村指出它們的 ATC 只有冷媒與氣冷，尚無液冷</td></tr>
+<tr><td>Prober（CP 端）</td><td>TEL、Tokyo Seimitsu 日廠壟斷，鴻勁不做</td></tr>
 </table>
 
-<h4>為什麼鴻勁能在 SLT Handler 卡到位</h4>
-<p>SLT Handler 是相對新的市場,傳統 FT Handler 大廠(Cohu、Advantest)反應速度沒有台廠快,加上 ATC 是需要客製化整合的技術,鴻勁貼近台廠客戶(京元電、日月光)有優勢。</p>
-
-<div class="note" style="border-left-color:var(--stub)"><b>風險</b> · 致茂國際同樣在做 SLT Handler,是鴻勁最直接的台廠對手。海外 Cohu 若切入 SLT 市場也會分食。但短期內 ATC 這道門檻讓鴻勁維持領先。</div>
+<h2 id="valuation">估值</h2>
+<table class="deftable">
+<tr><td>野村</td><td>買進，目標價 NT$11,100（2027–28F 平均 EPS × 40 倍，位於掛牌以來 19–52 倍區間高端）；EPS 2026F／27F／28F：NT$134／219／337</td></tr>
+<tr><td>資料來源</td><td>野村《Advanced Semi Testing》，2026.07.24，p.8、32、45–48、89–128</td></tr>
+</table>
 
 <h2 id="financials">財報追蹤</h2>
 <div class="fin-track">
@@ -90,6 +115,7 @@
 
 <h2 id="timeline">更新時間軸</h2>
 <div class="timeline">
+<div class="ev"><div class="dt">2026.11</div>歸檔野村《Advanced Semi Testing》（2026.07）：新增「FT 還是 SLT：兩種說法」對照、ATC 三條冷卻路線與世代、大封裝 Handler、Apple／Intel 等新客戶、CPO 與 Teradyne 合作、競爭與估值。原本「台廠唯一 SLT Handler 主力」「ASP NT$6M → NT$20M+」等凱基說法保留在對照表中。</div>
 <div class="ev"><div class="dt">2026.07</div>由「半導體測試產業筆記」歸檔建立此頁。</div>
 </div>
 

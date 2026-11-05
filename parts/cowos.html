@@ -27,6 +27,9 @@
       <a href="#what">這是什麼</a>
       <a href="#why">為什麼重要</a>
       <a href="#who">誰做</a>
+      <a href="#roadmap">世代路線圖</a>
+      <a href="#soic">往上疊：SoIC</a>
+      <a href="#alt">替代方案與對測試的影響</a>
       <a href="#timeline">更新時間軸</a>
     </aside>
     <article>
@@ -39,13 +42,31 @@
   <h2 id="why">為什麼重要</h2>
   <p>AI 加速器需要 GPU 緊貼 HBM 才能發揮頻寬，CoWoS 是把它們組合起來的關鍵。它的產能長期吃緊，是 <a href="../cycles/ai-server.html">AI 伺服器</a> 出貨的實際瓶頸。</p>
   <h2 id="who">誰做</h2>
-  <p>以 <a href="../companies/tsmc.html">台積電</a> 為主，<a href="../companies/nvidia.html">輝達</a> 包走大量產能。</p>
+  <p>以 <a href="../companies/tsmc.html">台積電</a> 為主，<a href="../companies/nvidia.html">輝達</a> 包走大量產能。野村估輝達加 AMD（從 MI400 系列起）每年吃掉約 65% 的 CoWoS 產能，並建模 CoWoS 2026F 約 110 萬片、2027F 約 180 萬片。</p>
+
+  <h2 id="roadmap">世代路線圖</h2>
+  <p>邏輯晶粒已經接近單一光罩的物理上限，所以輝達等 AI 晶片廠把效能提升放在「系統層」：在中介層上放更多邏輯晶粒、更多 HBM。中介層一代比一代大（以單一光罩面積為 1 倍）：</p>
+  <table class="deftable">
+  <tr><td>Ampere／Hopper</td><td>約 2 倍光罩中介層</td></tr>
+  <tr><td>Blackwell（2024）</td><td>3.3 倍：兩顆光罩大小的運算晶粒 ＋ 8 顆 HBM</td></tr>
+  <tr><td>Rubin（2026E）</td><td>5 倍：兩顆運算晶粒、兩顆 I/O 晶粒 ＋ 8 顆 HBM</td></tr>
+  <tr><td>Feynman（2028E）</td><td>約 6 倍，並首度 GPU 疊 GPU；野村暫估基板 80×115mm</td></tr>
+  </table>
+  <p>台積電 2026 年技術論壇的路線：5.5 倍光罩 CoWoS 2026 年量產、良率 98% 以上；9.5 倍（12 顆 HBM，搭 SoIC）2027 年；<b>14 倍（20 顆 HBM）2028 年；14 倍以上（24 顆 HBM）2029 年</b>。中介層變大，底下的 IC 載板也跟著變大。（野村，2026.07）</p>
+
+  <h2 id="soic">往上疊：SoIC</h2>
+  <p>CoWoS 是「往旁邊擺」，SoIC 是用 hybrid bonding「往上疊」，不增加面積就能塞更多電晶體。台積電 N7-on-N7（9µm 接合間距）2023 年起量產、6µm 2025 年起量產，目標 N2-on-N2（6µm）2028 年、A14-on-A14（4.5µm）2029 年。AMD 從 MI300 起帶頭採用（MI450 在兩顆光罩大小的主動中介層上疊四顆運算晶粒）；Apple M5 Pro／Max 用 SoIC-MH 把 CPU、GPU 小晶片面對面接合到被動中介層上。野村假設台積電 SoIC 產能從 2025 年底約 5k 片／月，到 2028 年底超過 40k 片／月；<a href="cpo.html">CPO</a> 的 COUPE 也會是 SoIC 的主要用戶。</p>
+
+  <h2 id="alt">替代方案與對測試的影響</h2>
+  <p>部分 AI ASIC 客戶擔心台積電產能不足，開始評估 Intel EMIB-T（帶 TSV 的嵌入式橋接）：Intel 目標 2026 年在約 120×120mm 基板上整合 8 倍光罩以上的晶片面積，2028 年 12 倍以上、基板超過 120×180mm。Google 下一代 TPU v9（與聯發科合作）可能採用，是 Intel 先進封裝的試金石。</p>
+  <p>對測試業來說，封裝越大、晶粒越多：一顆壞晶粒就報廢整個模組，篩選要往前移到晶圓測試（見 <a href="semi-testing.html#why">半導體測試 · 良率懸崖</a>）；疊晶把晶粒間的互連埋在矽裡、探針碰不到，只能在接合前把關；封裝放大也逼 Handler 換機構、換大托盤（見 <a href="../companies/hongjing.html">鴻勁</a>）。（野村，2026.07）</p>
  
 
       <div class="links-box"><!-- 關聯節點由 assets/kb.js 依 data.js 的 links 自動產生；要新增關聯請改 data.js --></div>
 
       <h2 id="timeline">更新時間軸</h2>
       <div class="timeline">
+        <div class="ev"><div class="dt">2026.11</div>歸檔野村《Advanced Semi Testing》（2026.07）：新增世代路線圖（中介層 2 倍到 14 倍以上光罩）、SoIC 垂直堆疊、Intel EMIB-T 替代方案與對測試的影響。</div>
         <div class="ev"><div class="dt">2026.05</div>建立此頁</div>
       </div>
 
