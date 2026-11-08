@@ -51,10 +51,12 @@ techkb/
 │   ├── style.css           全站共用樣式,改這裡全站生效
 │   ├── data.js             節點、關聯、層級、追蹤、圖解總表 ← 平常只改這裡
 │   ├── kb.js               共用程式:自動產生關聯/角色地圖/追蹤/圖解(不用改)
+│   ├── rack3d.js           3D 拆解引擎(Three.js,通用,不用改)
+│   ├── models/             3D 模型規格,一個模型一個檔(例:ai-server-rack.js)
 │   └── fulltext.js         首頁全文搜尋:依 data.js 節點清單讀各頁內文比對(不用改)
 ├── start.html              從這裡開始:新手閱讀路徑(順序由 data.js 的 startPath 控制)
 ├── images/                 截圖(登記在 data.js 的 figures)
-├── cycles/                 週期頁 + _TEMPLATE.html
+├── cycles/                 週期頁 + _TEMPLATE.html(含 3D 子頁,例:ai-server-3d.html)
 ├── companies/              公司頁 + _TEMPLATE.html
 ├── parts/                  零件頁 + _TEMPLATE.html
 ├── quarters/               財報頁(無 template,複製現成的當範本)
@@ -268,6 +270,22 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 
 **不要自己引入新的 CSS 框架**(Tailwind、Bootstrap 等)。也不要用 `<style>` 寫破壞全站視覺的自訂樣式。如果某個元件不存在但你需要,就用 `<style>` 加在那一頁內、命名以該頁專屬前綴(例如 `pkg3d-` 是 CoWoS 3D 的命名空間),避免污染全站。
 
+### 6.8 3D 拆解頁(`assets/rack3d.js` + `assets/models/*.js`)
+
+「零件在哪裡、怎麼組成、誰在做」用 3D 呈現時,走這一套,**不要**再寫新的 CSS 3D 或自己引 Three.js。
+
+**結構:**
+- `assets/rack3d.js` — 通用引擎(Three.js,ES module,透過 importmap 從 jsDelivr 載入)。負責旋轉、拆解滑桿、點選、標籤、逐層鑽入、相機自動對位。一般不用改。
+- `assets/models/<模型>.js` — 模型規格。一個模型檔描述幾個「層級」(例:整櫃 → 運算托盤 → GPU 封裝),每層有幾個「零件」,每個零件有說明文字、`nodes`(對應 `data.js` 的節點 id,面板自動變成可點 chip)、`others`(尚未建節點的公司,純文字)、`drill`(再點一次鑽進哪一層)、以及一組 `instances`(方塊或圓柱的位置 / 尺寸 / 拆解位移)。規格格式寫在 `rack3d.js` 檔頭註解,完整範例見 `ai-server-rack.js`。
+- `cycles/ai-server-3d.html` — 頁面本身。把 importmap、模型檔路徑、面板與對照表邏輯組起來;頁底會自動從模型規格產生「零件與節點對照表」,沒有 WebGL 的瀏覽器也能看。
+
+**維護規則:**
+- 要新增零件、改對應公司、調整位置:**只改模型檔**,不動引擎與頁面。
+- 零件說明只寫**定性關係**(誰做、為什麼是瓶頸),不放數字;數字留在節點頁。
+- `nodes` 裡的 id 一定要存在於 `data.js`,否則 chip 會顯示成找不到。
+- 別的週期要做 3D:複製 `ai-server-rack.js` 改成新模型,複製 `ai-server-3d.html` 改模型路徑與文字,然後在該週期頁用 `.note` 加一個入口連結。
+- 符合 §9「3D 不通用化」:3D 拆解頁是週期的**子頁**,不是節點;不要登記進 `data.js`,也不要每個節點都做。
+
 ---
 
 ## 7. 歸檔工作流(這是核心)
@@ -385,3 +403,5 @@ list.innerHTML=reports.length?reports.map(r=>`<li><span class="pd">${r.period}</
 *2026.10.26 更新:figures 的 url 可留空(來源為無網址文件時),source 必填。*
 *2026.10 更新:關聯改由 `data.js` 的 `links` 自動產生;新增 `layer`、`watch`、`figures`、`startPath`、`assets/kb.js`、`start.html`、`images/`。*
 *2026.10.28 更新:首頁搜尋欄加上全文搜尋(`assets/fulltext.js`),會搜 `done` 節點頁、財報、報告、術語表、分析框架的內文,略過更新時間軸。新頁面登記進 `data.js` 就自動被搜到,歸檔流程不變。內頁的 h2 請保留 `id`,搜尋結果才能直接跳到那一段。*
+
+*2026.11 更新:§6.8 新增 3D 拆解頁(`assets/rack3d.js` 引擎 + `assets/models/` 模型規格);檔案地圖同步更新。*

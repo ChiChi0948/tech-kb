@@ -80,6 +80,7 @@
 <div class="wrap"><div class="layout">
 <aside class="toc">
   <div class="tl">本頁目錄</div>
+  <a href="#rack3d">3D 整櫃拆解</a>
   <a href="#overview">週期概述</a>
   <a href="#capex">大廠 CapEx 帳本</a>
   <a href="#breakdown">硬體九大賽道</a>
@@ -110,6 +111,10 @@
   <div class="aiviz-hint">點擊 <span class="key">拆解</span> 看三大類佔比 · 滑鼠移上暫停旋轉</div>
 </div>
 
+<h2 id="rack3d">3D 整櫃拆解</h2>
+<div class="note" style="border-left-color:var(--cycle)">
+<b><a href="ai-server-3d.html">打開 3D 整櫃拆解 →</a></b>　把一座 AI 伺服器機櫃拆開看：零件在哪裡、怎麼疊在一起、是誰在做。可以旋轉、拆層、點零件，並一路往下鑽：<b>整櫃 → 運算托盤 → GPU 封裝（載板 / CoWoS / HBM）</b>。每個零件都接到知識庫的節點。
+</div>
 <h2 id="overview">週期概述</h2>
 <p>AI 伺服器週期的核心需求是「算力」:訓練大型語言模型需要大量 GPU,而 GPU 要發揮效能,得搭配<a href="../parts/hbm.html">高頻寬記憶體 HBM</a>與<a href="../parts/cowos.html">先進封裝 CoWoS</a>把它們緊密整合。這個週期由 <a href="../companies/nvidia.html">輝達</a> 幾乎定義了規格——GPU 淨利率約 55%,一個 Oracle 的 400 億美元訂單就能貢獻超過 200 億美元純利潤。</p>
 <p>但把眼光只放在 GPU 上會錯過整條產業鏈。真正決定產業結構的是<b>圍繞 GPU 展開的九大硬體賽道</b>——GPU 只是最大宗、最貴的一塊,不是唯一的一塊。</p>
@@ -218,6 +223,7 @@ Google、Amazon、Meta:自研 ASIC<br>
 
 <h2 id="timeline">更新時間軸</h2>
 <div class="timeline">
+<div class="ev"><div class="dt">2026.11</div>新增 <a href="ai-server-3d.html">3D 整櫃拆解</a> 子頁：Three.js 可旋轉、拆解、點選、三層鑽入的機櫃模型，零件接到知識庫節點。</div>
 <div class="ev"><div class="dt">2026.06</div>大幅重寫:整合「AI 算力中心九大賽道」深度分析,新增大廠 CapEx 帳本、九大賽道成本佔比、電氣散熱鏈、賣鏟人投資邏輯、3D 成本拆解視覺化。</div>
 <div class="ev"><div class="dt">2026.05</div>建立此頁,先鋪 AI 伺服器週期主結構</div>
 </div>
